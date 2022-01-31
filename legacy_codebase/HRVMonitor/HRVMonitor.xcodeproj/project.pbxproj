@@ -1,0 +1,915 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		34884DC9271776CF00F49816 /* HRVMonitor WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 34884DC8271776CF00F49816 /* HRVMonitor WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		34884DCE271776D100F49816 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34884DCD271776D100F49816 /* Assets.xcassets */; };
+		34884DD4271776D100F49816 /* HRVMonitor WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 34884DD3271776D100F49816 /* HRVMonitor WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		34884DD9271776D100F49816 /* HRVMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34884DD8271776D100F49816 /* HRVMonitorApp.swift */; };
+		34884DDB271776D100F49816 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34884DDA271776D100F49816 /* ContentView.swift */; };
+		34884DDD271776D100F49816 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34884DDC271776D100F49816 /* NotificationController.swift */; };
+		34884DDF271776D100F49816 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34884DDE271776D100F49816 /* NotificationView.swift */; };
+		34884DE1271776D100F49816 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34884DE0271776D100F49816 /* ComplicationController.swift */; };
+		34884DE3271776D200F49816 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34884DE2271776D200F49816 /* Assets.xcassets */; };
+		34884DE6271776D200F49816 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34884DE5271776D200F49816 /* Preview Assets.xcassets */; };
+		34884DF2271776D200F49816 /* HRVMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34884DF1271776D200F49816 /* HRVMonitorTests.swift */; };
+		34884DFC271776D200F49816 /* HRVMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34884DFB271776D200F49816 /* HRVMonitorUITests.swift */; };
+		34884DFE271776D200F49816 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34884DFD271776D200F49816 /* HRVMonitorUITestsLaunchTests.swift */; };
+		6693586227431AD70041A095 /* mock_data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6693586127431AD70041A095 /* mock_data.txt */; };
+		66FDA424274C60D800CC4F68 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 66FDA423274C60D800CC4F68 /* SwiftUICharts */; };
+		A70F09BC271796880038D6CF /* HRVEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F09BB271796880038D6CF /* HRVEntry.swift */; };
+		A70F09BE271797C70038D6CF /* HRVProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F09BD271797C70038D6CF /* HRVProcessor.swift */; };
+		A70F09C127179CD70038D6CF /* HRVChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F09C027179CD70038D6CF /* HRVChain.swift */; };
+		A70F09C327179D2F0038D6CF /* HRVChainNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F09C227179D2F0038D6CF /* HRVChainNode.swift */; };
+		A75E56E72718CDD8005552B2 /* HRVParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75E56E62718CDD8005552B2 /* HRVParser.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		34884DCA271776CF00F49816 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34884DBE271776CF00F49816 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34884DC7271776CF00F49816;
+			remoteInfo = "HRVMonitor WatchKit App";
+		};
+		34884DD5271776D100F49816 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34884DBE271776CF00F49816 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34884DD2271776D100F49816;
+			remoteInfo = "HRVMonitor WatchKit Extension";
+		};
+		34884DEE271776D200F49816 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34884DBE271776CF00F49816 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34884DD2271776D100F49816;
+			remoteInfo = "HRVMonitor WatchKit Extension";
+		};
+		34884DF8271776D200F49816 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34884DBE271776CF00F49816 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34884DC7271776CF00F49816;
+			remoteInfo = "HRVMonitor WatchKit App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		34884E04271776D200F49816 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				34884DD4271776D100F49816 /* HRVMonitor WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884E08271776D200F49816 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				34884DC9271776CF00F49816 /* HRVMonitor WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		34884DC4271776CF00F49816 /* HRVMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HRVMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34884DC8271776CF00F49816 /* HRVMonitor WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRVMonitor WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34884DCD271776D100F49816 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		34884DD3271776D100F49816 /* HRVMonitor WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HRVMonitor WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		34884DD8271776D100F49816 /* HRVMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorApp.swift; sourceTree = "<group>"; };
+		34884DDA271776D100F49816 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		34884DDC271776D100F49816 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		34884DDE271776D100F49816 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		34884DE0271776D100F49816 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		34884DE2271776D200F49816 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		34884DE5271776D200F49816 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		34884DE7271776D200F49816 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34884DE8271776D200F49816 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		34884DED271776D200F49816 /* HRVMonitorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HRVMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		34884DF1271776D200F49816 /* HRVMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorTests.swift; sourceTree = "<group>"; };
+		34884DF7271776D200F49816 /* HRVMonitorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HRVMonitorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		34884DFB271776D200F49816 /* HRVMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITests.swift; sourceTree = "<group>"; };
+		34884DFD271776D200F49816 /* HRVMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6693586127431AD70041A095 /* mock_data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mock_data.txt; sourceTree = "<group>"; };
+		66FDA41D274C5F9000CC4F68 /* ChartView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ChartView; sourceTree = "<group>"; };
+		A70F09BB271796880038D6CF /* HRVEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVEntry.swift; sourceTree = "<group>"; };
+		A70F09BD271797C70038D6CF /* HRVProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVProcessor.swift; sourceTree = "<group>"; };
+		A70F09C027179CD70038D6CF /* HRVChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVChain.swift; sourceTree = "<group>"; };
+		A70F09C227179D2F0038D6CF /* HRVChainNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVChainNode.swift; sourceTree = "<group>"; };
+		A75E56E62718CDD8005552B2 /* HRVParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVParser.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		34884DD0271776D100F49816 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66FDA424274C60D800CC4F68 /* SwiftUICharts in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884DEA271776D200F49816 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884DF4271776D200F49816 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		34884DBD271776CF00F49816 = {
+			isa = PBXGroup;
+			children = (
+				66FDA41C274C5F9000CC4F68 /* Packages */,
+				A75E56E52718CD91005552B2 /* HRVMonitor Util */,
+				A70F09BF27179AC40038D6CF /* HRVMonitor Data Structures */,
+				34884DCC271776CF00F49816 /* HRVMonitor WatchKit App */,
+				34884DD7271776D100F49816 /* HRVMonitor WatchKit Extension */,
+				34884DF0271776D200F49816 /* HRVMonitorTests */,
+				34884DFA271776D200F49816 /* HRVMonitorUITests */,
+				34884DC5271776CF00F49816 /* Products */,
+				66FDA422274C60D800CC4F68 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		34884DC5271776CF00F49816 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				34884DC4271776CF00F49816 /* HRVMonitor.app */,
+				34884DC8271776CF00F49816 /* HRVMonitor WatchKit App.app */,
+				34884DD3271776D100F49816 /* HRVMonitor WatchKit Extension.appex */,
+				34884DED271776D200F49816 /* HRVMonitorTests.xctest */,
+				34884DF7271776D200F49816 /* HRVMonitorUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		34884DCC271776CF00F49816 /* HRVMonitor WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				34884DCD271776D100F49816 /* Assets.xcassets */,
+			);
+			path = "HRVMonitor WatchKit App";
+			sourceTree = "<group>";
+		};
+		34884DD7271776D100F49816 /* HRVMonitor WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				34884DD8271776D100F49816 /* HRVMonitorApp.swift */,
+				34884DDA271776D100F49816 /* ContentView.swift */,
+				34884DDC271776D100F49816 /* NotificationController.swift */,
+				34884DDE271776D100F49816 /* NotificationView.swift */,
+				34884DE0271776D100F49816 /* ComplicationController.swift */,
+				34884DE2271776D200F49816 /* Assets.xcassets */,
+				34884DE7271776D200F49816 /* Info.plist */,
+				34884DE8271776D200F49816 /* PushNotificationPayload.apns */,
+				34884DE4271776D200F49816 /* Preview Content */,
+			);
+			path = "HRVMonitor WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		34884DE4271776D200F49816 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				34884DE5271776D200F49816 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		34884DF0271776D200F49816 /* HRVMonitorTests */ = {
+			isa = PBXGroup;
+			children = (
+				34884DF1271776D200F49816 /* HRVMonitorTests.swift */,
+			);
+			path = HRVMonitorTests;
+			sourceTree = "<group>";
+		};
+		34884DFA271776D200F49816 /* HRVMonitorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				34884DFB271776D200F49816 /* HRVMonitorUITests.swift */,
+				34884DFD271776D200F49816 /* HRVMonitorUITestsLaunchTests.swift */,
+			);
+			path = HRVMonitorUITests;
+			sourceTree = "<group>";
+		};
+		66FDA41C274C5F9000CC4F68 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				66FDA41D274C5F9000CC4F68 /* ChartView */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		66FDA422274C60D800CC4F68 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A70F09BF27179AC40038D6CF /* HRVMonitor Data Structures */ = {
+			isa = PBXGroup;
+			children = (
+				A70F09BB271796880038D6CF /* HRVEntry.swift */,
+				A70F09C027179CD70038D6CF /* HRVChain.swift */,
+				A70F09C227179D2F0038D6CF /* HRVChainNode.swift */,
+			);
+			path = "HRVMonitor Data Structures";
+			sourceTree = "<group>";
+		};
+		A75E56E52718CD91005552B2 /* HRVMonitor Util */ = {
+			isa = PBXGroup;
+			children = (
+				6693586127431AD70041A095 /* mock_data.txt */,
+				A70F09BD271797C70038D6CF /* HRVProcessor.swift */,
+				A75E56E62718CDD8005552B2 /* HRVParser.swift */,
+			);
+			path = "HRVMonitor Util";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		34884DC3271776CF00F49816 /* HRVMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34884E09271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitor" */;
+			buildPhases = (
+				34884DC2271776CF00F49816 /* Resources */,
+				34884E08271776D200F49816 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34884DCB271776CF00F49816 /* PBXTargetDependency */,
+			);
+			name = HRVMonitor;
+			packageProductDependencies = (
+			);
+			productName = HRVMonitor;
+			productReference = 34884DC4271776CF00F49816 /* HRVMonitor.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		34884DC7271776CF00F49816 /* HRVMonitor WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34884E05271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitor WatchKit App" */;
+			buildPhases = (
+				34884DC6271776CF00F49816 /* Resources */,
+				34884E04271776D200F49816 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34884DD6271776D100F49816 /* PBXTargetDependency */,
+			);
+			name = "HRVMonitor WatchKit App";
+			productName = "HRVMonitor WatchKit App";
+			productReference = 34884DC8271776CF00F49816 /* HRVMonitor WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		34884DD2271776D100F49816 /* HRVMonitor WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34884E01271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitor WatchKit Extension" */;
+			buildPhases = (
+				34884DCF271776D100F49816 /* Sources */,
+				34884DD0271776D100F49816 /* Frameworks */,
+				34884DD1271776D100F49816 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HRVMonitor WatchKit Extension";
+			packageProductDependencies = (
+				66FDA423274C60D800CC4F68 /* SwiftUICharts */,
+			);
+			productName = "HRVMonitor WatchKit Extension";
+			productReference = 34884DD3271776D100F49816 /* HRVMonitor WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+		34884DEC271776D200F49816 /* HRVMonitorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34884E0C271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitorTests" */;
+			buildPhases = (
+				34884DE9271776D200F49816 /* Sources */,
+				34884DEA271776D200F49816 /* Frameworks */,
+				34884DEB271776D200F49816 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34884DEF271776D200F49816 /* PBXTargetDependency */,
+			);
+			name = HRVMonitorTests;
+			productName = HRVMonitorTests;
+			productReference = 34884DED271776D200F49816 /* HRVMonitorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		34884DF6271776D200F49816 /* HRVMonitorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34884E0F271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitorUITests" */;
+			buildPhases = (
+				34884DF3271776D200F49816 /* Sources */,
+				34884DF4271776D200F49816 /* Frameworks */,
+				34884DF5271776D200F49816 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				34884DF9271776D200F49816 /* PBXTargetDependency */,
+			);
+			name = HRVMonitorUITests;
+			productName = HRVMonitorUITests;
+			productReference = 34884DF7271776D200F49816 /* HRVMonitorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		34884DBE271776CF00F49816 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					34884DC3271776CF00F49816 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					34884DC7271776CF00F49816 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					34884DD2271776D100F49816 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					34884DEC271776D200F49816 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 34884DD2271776D100F49816;
+					};
+					34884DF6271776D200F49816 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 34884DC7271776CF00F49816;
+					};
+				};
+			};
+			buildConfigurationList = 34884DC1271776CF00F49816 /* Build configuration list for PBXProject "HRVMonitor" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 34884DBD271776CF00F49816;
+			packageReferences = (
+			);
+			productRefGroup = 34884DC5271776CF00F49816 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				34884DC3271776CF00F49816 /* HRVMonitor */,
+				34884DC7271776CF00F49816 /* HRVMonitor WatchKit App */,
+				34884DD2271776D100F49816 /* HRVMonitor WatchKit Extension */,
+				34884DEC271776D200F49816 /* HRVMonitorTests */,
+				34884DF6271776D200F49816 /* HRVMonitorUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		34884DC2271776CF00F49816 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884DC6271776CF00F49816 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34884DCE271776D100F49816 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884DD1271776D100F49816 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34884DE6271776D200F49816 /* Preview Assets.xcassets in Resources */,
+				6693586227431AD70041A095 /* mock_data.txt in Resources */,
+				34884DE3271776D200F49816 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884DEB271776D200F49816 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884DF5271776D200F49816 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		34884DCF271776D100F49816 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34884DDD271776D100F49816 /* NotificationController.swift in Sources */,
+				34884DDB271776D100F49816 /* ContentView.swift in Sources */,
+				34884DE1271776D100F49816 /* ComplicationController.swift in Sources */,
+				A70F09C127179CD70038D6CF /* HRVChain.swift in Sources */,
+				34884DD9271776D100F49816 /* HRVMonitorApp.swift in Sources */,
+				34884DDF271776D100F49816 /* NotificationView.swift in Sources */,
+				A70F09BC271796880038D6CF /* HRVEntry.swift in Sources */,
+				A75E56E72718CDD8005552B2 /* HRVParser.swift in Sources */,
+				A70F09C327179D2F0038D6CF /* HRVChainNode.swift in Sources */,
+				A70F09BE271797C70038D6CF /* HRVProcessor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884DE9271776D200F49816 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34884DF2271776D200F49816 /* HRVMonitorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34884DF3271776D200F49816 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34884DFE271776D200F49816 /* HRVMonitorUITestsLaunchTests.swift in Sources */,
+				34884DFC271776D200F49816 /* HRVMonitorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		34884DCB271776CF00F49816 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34884DC7271776CF00F49816 /* HRVMonitor WatchKit App */;
+			targetProxy = 34884DCA271776CF00F49816 /* PBXContainerItemProxy */;
+		};
+		34884DD6271776D100F49816 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34884DD2271776D100F49816 /* HRVMonitor WatchKit Extension */;
+			targetProxy = 34884DD5271776D100F49816 /* PBXContainerItemProxy */;
+		};
+		34884DEF271776D200F49816 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34884DD2271776D100F49816 /* HRVMonitor WatchKit Extension */;
+			targetProxy = 34884DEE271776D200F49816 /* PBXContainerItemProxy */;
+		};
+		34884DF9271776D200F49816 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34884DC7271776CF00F49816 /* HRVMonitor WatchKit App */;
+			targetProxy = 34884DF8271776D200F49816 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		34884DFF271776D200F49816 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		34884E00271776D200F49816 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		34884E02271776D200F49816 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"HRVMonitor WatchKit Extension/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "HRVMonitor WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitor.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		34884E03271776D200F49816 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"HRVMonitor WatchKit Extension/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "HRVMonitor WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitor.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
+		34884E06271776D200F49816 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = HRVMonitor_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit App";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitor.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		34884E07271776D200F49816 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = HRVMonitor_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit App";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitor.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
+		34884E0A271776D200F49816 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		34884E0B271776D200F49816 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		34884E0D271776D200F49816 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HRVMonitor WatchKit Extension.appex/HRVMonitor WatchKit Extension";
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		34884E0E271776D200F49816 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HRVMonitor WatchKit Extension.appex/HRVMonitor WatchKit Extension";
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
+		34884E10271776D200F49816 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "HRVMonitor WatchKit App";
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		34884E11271776D200F49816 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.group56.capstone.HRVMonitorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "HRVMonitor WatchKit App";
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		34884DC1271776CF00F49816 /* Build configuration list for PBXProject "HRVMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34884DFF271776D200F49816 /* Debug */,
+				34884E00271776D200F49816 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34884E01271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitor WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34884E02271776D200F49816 /* Debug */,
+				34884E03271776D200F49816 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34884E05271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitor WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34884E06271776D200F49816 /* Debug */,
+				34884E07271776D200F49816 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34884E09271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34884E0A271776D200F49816 /* Debug */,
+				34884E0B271776D200F49816 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34884E0C271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34884E0D271776D200F49816 /* Debug */,
+				34884E0E271776D200F49816 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34884E0F271776D200F49816 /* Build configuration list for PBXNativeTarget "HRVMonitorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34884E10271776D200F49816 /* Debug */,
+				34884E11271776D200F49816 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		66FDA423274C60D800CC4F68 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 34884DBE271776CF00F49816 /* Project object */;
+}
