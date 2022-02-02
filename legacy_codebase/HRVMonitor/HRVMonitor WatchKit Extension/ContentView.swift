@@ -17,7 +17,7 @@ struct ContentView: View {
     
     @State private var showUnusualHRVWarning : Bool = false
     @State private var dontshowHRVWarningUntilNormal : Bool = false
-    @State private var initializedTimer : Bool = false
+    @State private var initializedTimer : Bool = false	
     
     var body: some View {
         VStack {

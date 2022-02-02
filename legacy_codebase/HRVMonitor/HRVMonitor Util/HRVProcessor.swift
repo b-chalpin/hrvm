@@ -9,7 +9,7 @@ import Foundation
 
 class HRVProcessor
 {
-    let ENTRY_CAPACITY = 15
+    let ENTRY_CAPACITY = 15 // NOTES: magic number here. move to config. sets the max length of LinkedList HRVChain
     
     var entries: HRVChain
     var outlierData : Bool = false
