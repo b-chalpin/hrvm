@@ -62,6 +62,7 @@
       "subtype" : "44mm"
     },
     {
+      "filename" : "image.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
