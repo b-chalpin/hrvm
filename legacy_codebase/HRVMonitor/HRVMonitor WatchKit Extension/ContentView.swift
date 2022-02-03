@@ -45,7 +45,7 @@ struct ContentView: View {
                 }
             }
             
-//            Text(text + "ms")       // Weirdly this isn't showing up in the actual UI. Must be out of view...
+            Text(text + "ms")       // Weirdly this isn't showing up in the actual UI. Must be out of view...
         }
         .alert(isPresented: $showUnusualHRVWarning)
         {
