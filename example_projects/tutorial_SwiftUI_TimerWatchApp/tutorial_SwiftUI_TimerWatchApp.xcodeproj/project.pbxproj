@@ -147,7 +147,6 @@
 			children = (
 				9910853727AB1DF2008B3A15 /* models */,
 				9910853627AB1DE9008B3A15 /* controllers */,
-				9948277E27AB062A00620BCF /* views */,
 				9934D6FA27A9B10500590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit App */,
 				9934D70527A9B10700590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit Extension */,
 				9934D71E27A9B10800590498 /* tutorial_SwiftUI_TimerWatchAppTests */,
@@ -179,6 +178,7 @@
 		9934D70527A9B10700590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9948277E27AB062A00620BCF /* views */,
 				9934D70627A9B10700590498 /* tutorial_SwiftUI_TimerWatchAppApp.swift */,
 				9934D70A27A9B10700590498 /* NotificationController.swift */,
 				9934D70C27A9B10700590498 /* NotificationView.swift */,
@@ -220,8 +220,8 @@
 			isa = PBXGroup;
 			children = (
 				9934D70827A9B10700590498 /* main.view.swift */,
-				9948277F27AB064C00620BCF /* countdown.view.swift */,
 				99CECC8727AB6E15004BCBA7 /* hrv-monitor.view.swift */,
+				9948277F27AB064C00620BCF /* countdown.view.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";

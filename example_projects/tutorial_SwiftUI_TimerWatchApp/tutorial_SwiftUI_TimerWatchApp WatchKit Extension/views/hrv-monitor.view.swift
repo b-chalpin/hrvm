@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import AVFoundation
+import WatchKit
 
 struct HrvMonitorConstants {
     static let INIT_HRV_VALUE: Double = 156.44
@@ -19,9 +21,22 @@ struct HrvMonitorView: View {
     @State var showDangerousHrvAlert: Bool = false
     @State var countdownActive: Bool = false
     
+    
     func resetHrvValue() {
         self.hrvValue = HrvMonitorConstants.INIT_HRV_VALUE
     }
+    
+    func playSound(named name: String) {
+        var audioPlayer: AVAudioPlayer?
+        guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else {
+            fatalError("Unable to find sound file \(name).mp3")
+        }
+        
+        try? audioPlayer = AVAudioPlayer(contentsOf:url)
+        audioPlayer?.play()
+    }
+    
+    func hapticFeedback(hapticType: WKHapticType, repeatHandler: ((UnsafeMutablePointer<WKHapticType>) -> TimeInterval)? = nil) {}
     
     var body: some View {
         VStack {
@@ -40,6 +55,9 @@ struct HrvMonitorView: View {
                     self.hrvValue -= HrvMonitorConstants.HRV_STEP_SIZE
                     
                     if self.hrvValue <= 0 {
+                        WKInterfaceDevice.current().play(.failure)
+                        self.hapticFeedback(hapticType: WKHapticType.failure)
+                        //self.playSound(named: "notificationSound")
                         self.showDangerousHrvAlert = true
                     }
                 })
@@ -53,7 +71,7 @@ struct HrvMonitorView: View {
                   action: {
                     self.showDangerousHrvAlert = false
                     self.resetHrvValue()
-                  }))
+            }))
         }
     }
 }

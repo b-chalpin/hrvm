@@ -9,8 +9,8 @@ import WatchKit
 import SwiftUI
 import UserNotifications
 
-class NotificationController: WKUserNotificationHostingController<NotificationView> {
-
+class NotificationController: WKUserNotificationHostingController<NotificationView>{
+    
     override var body: NotificationView {
         return NotificationView()
     }
