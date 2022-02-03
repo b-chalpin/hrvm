@@ -21,9 +21,15 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            // Line Chart
-            LineChartView(data: hrvOverTime, title: "HRV", style: ChartStyle(backgroundColor: .white, accentColor: .white, gradientColor: .init(start: .blue, end: .red), textColor: .white, legendTextColor: .gray, dropShadowColor: .black), form: ChartForm.extraLarge, rateValue: 0)
-                // .frame(width: 180, height: 500, alignment: .center)
+            Button(action: {
+                self.showUnusualHRVWarning = true
+            }) {
+                Text("Button")
+            }
+            
+//            // Line Chart
+//            LineChartView(data: hrvOverTime, title: "HRV", style: ChartStyle(backgroundColor: .white, accentColor: .white, gradientColor: .init(start: .blue, end: .red), textColor: .white, legendTextColor: .gray, dropShadowColor: .black), form: ChartForm.extraLarge, rateValue: 0)
+//                // .frame(width: 180, height: 500, alignment: .center)
             .onAppear
             {
                 if !initializedTimer {          // NOTE: every time the alert is dismissed (line 43), this onAppear event runs again, so you need this lock here. Or if there's an init() function you could use or something!!! I'm just following the tutorials, and we didn't get too much of a chance to look at the tutorials :(
@@ -39,15 +45,14 @@ struct ContentView: View {
                 }
             }
             
-            Text(text + "ms")       // Weirdly this isn't showing up in the actual UI. Must be out of view...
-            .alert(isPresented: $showUnusualHRVWarning)
-            {
-                Alert(title: Text("Check your heart rate"), message: Text("We noticed unusual activity in your heart rate."), dismissButton: .default(Text("Dismiss"), action: {
-                    dontshowHRVWarningUntilNormal = true
-                    print("\t\tJOJO")
-                }))
-            }
-            
+//            Text(text + "ms")       // Weirdly this isn't showing up in the actual UI. Must be out of view...
+        }
+        .alert(isPresented: $showUnusualHRVWarning)
+        {
+            Alert(title: Text("Check your heart rate"), message: Text("We noticed unusual activity in your heart rate."), dismissButton: .default(Text("Dismiss"), action: {
+                dontshowHRVWarningUntilNormal = true
+                print("\t\tJOJO")
+            }))
         }
     }
     
