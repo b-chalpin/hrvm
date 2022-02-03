@@ -40,14 +40,13 @@ struct ContentView: View {
             }
             
             Text(text + "ms")       // Weirdly this isn't showing up in the actual UI. Must be out of view...
-            .alert(isPresented: $showUnusualHRVWarning)
-            {
-                Alert(title: Text("Check your heart rate"), message: Text("We noticed unusual activity in your heart rate."), dismissButton: .default(Text("Dismiss"), action: {
-                    dontshowHRVWarningUntilNormal = true
-                    print("\t\tJOJO")
-                }))
-            }
-            
+        }
+        .alert(isPresented: $showUnusualHRVWarning)
+        {
+            Alert(title: Text("Check your heart rate"), message: Text("We noticed unusual activity in your heart rate."), dismissButton: .default(Text("Dismiss"), action: {
+                dontshowHRVWarningUntilNormal = true
+                print("\t\tJOJO")
+            }))
         }
     }
     
