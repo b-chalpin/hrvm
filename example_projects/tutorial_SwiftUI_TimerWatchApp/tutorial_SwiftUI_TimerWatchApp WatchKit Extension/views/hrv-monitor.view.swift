@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import AVFoundation
 import WatchKit
+import UserNotifications
 
 struct HrvMonitorConstants {
     static let INIT_HRV_VALUE: Double = 156.44
@@ -26,16 +26,6 @@ struct HrvMonitorView: View {
         self.hrvValue = HrvMonitorConstants.INIT_HRV_VALUE
     }
     
-    func playSound(named name: String) {
-        var audioPlayer: AVAudioPlayer?
-        guard let url = Bundle.main.url(forResource: name, withExtension: "mp3") else {
-            fatalError("Unable to find sound file \(name).mp3")
-        }
-        
-        try? audioPlayer = AVAudioPlayer(contentsOf:url)
-        audioPlayer?.play()
-    }
-    
     func hapticFeedback(hapticType: WKHapticType, repeatHandler: ((UnsafeMutablePointer<WKHapticType>) -> TimeInterval)? = nil) {}
     
     var body: some View {
@@ -47,6 +37,9 @@ struct HrvMonitorView: View {
             Text("\(String(format: "%.2f", self.hrvValue))")
         }
         .onAppear {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.sound, .badge, .alert]){granted, error in}
+            
             if !self.countdownActive {
                 self.countdownActive = true
                 
@@ -56,8 +49,21 @@ struct HrvMonitorView: View {
                     
                     if self.hrvValue <= 0 {
                         WKInterfaceDevice.current().play(.failure)
+                        
+                        let content = UNMutableNotificationContent()
+                        content.title = "HRV Alert"
+                        content.body = "We noticed unusual activity in your Heart Rate Variability."
+                        
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+                        let request = UNNotificationRequest(identifier: "HRVAlert", content: content, trigger: trigger)
+                        
+                        center.add(request) {(error: Error?) in
+                            if let theError = error {
+                                print(theError.localizedDescription)
+                            }
+                        }
+                        
                         self.hapticFeedback(hapticType: WKHapticType.failure)
-                        //self.playSound(named: "notificationSound")
                         self.showDangerousHrvAlert = true
                     }
                 })

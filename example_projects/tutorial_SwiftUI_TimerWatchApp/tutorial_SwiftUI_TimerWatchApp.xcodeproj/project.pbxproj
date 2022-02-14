@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B4DCBB427B2E96A0075B364 /* notificationSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5B4DCBB327B2E9690075B364 /* notificationSound.wav */; };
 		9934D6F727A9B10500590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9934D6F627A9B10500590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9934D6FC27A9B10700590498 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9934D6FB27A9B10700590498 /* Assets.xcassets */; };
 		9934D70227A9B10700590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9934D70127A9B10700590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -81,6 +82,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B4DCBB327B2E9690075B364 /* notificationSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = notificationSound.wav; sourceTree = "<group>"; };
 		9934D6F227A9B10500590498 /* tutorial_SwiftUI_TimerWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tutorial_SwiftUI_TimerWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9934D6F627A9B10500590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tutorial_SwiftUI_TimerWatchApp WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9934D6FB27A9B10700590498 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +130,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B4DCBB227B2E69C0075B364 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				5B4DCBB327B2E9690075B364 /* notificationSound.wav */,
+			);
+			name = audio;
+			path = ../../../../../../.Trash/audio;
+			sourceTree = "<group>";
+		};
 		9910853627AB1DE9008B3A15 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +189,7 @@
 		9934D70527A9B10700590498 /* tutorial_SwiftUI_TimerWatchApp WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				5B4DCBB227B2E69C0075B364 /* audio */,
 				9948277E27AB062A00620BCF /* views */,
 				9934D70627A9B10700590498 /* tutorial_SwiftUI_TimerWatchAppApp.swift */,
 				9934D70A27A9B10700590498 /* NotificationController.swift */,
@@ -389,6 +401,7 @@
 			files = (
 				9934D71427A9B10800590498 /* Preview Assets.xcassets in Resources */,
 				9934D71127A9B10800590498 /* Assets.xcassets in Resources */,
+				5B4DCBB427B2E96A0075B364 /* notificationSound.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
