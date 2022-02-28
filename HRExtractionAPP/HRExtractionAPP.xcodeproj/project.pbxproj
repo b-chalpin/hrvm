@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66F2859927CD46D600CD73A5 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F488C827C9566700303B87 /* HealthKit.framework */; };
 		66F4887E27C9564900303B87 /* HRExtractionAPP WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 66F4887D27C9564900303B87 /* HRExtractionAPP WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		66F4888327C9564A00303B87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66F4888227C9564A00303B87 /* Assets.xcassets */; };
 		66F4888927C9564A00303B87 /* HRExtractionAPP WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 66F4888827C9564A00303B87 /* HRExtractionAPP WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -20,7 +21,6 @@
 		66F488A727C9564B00303B87 /* HRExtractionAPPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F488A627C9564B00303B87 /* HRExtractionAPPTests.swift */; };
 		66F488B127C9564B00303B87 /* HRExtractionAPPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F488B027C9564B00303B87 /* HRExtractionAPPUITests.swift */; };
 		66F488B327C9564B00303B87 /* HRExtractionAPPUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F488B227C9564B00303B87 /* HRExtractionAPPUITestsLaunchTests.swift */; };
-		66F488CA27C9571100303B87 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F488C827C9566700303B87 /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +80,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		668B14BA27C965FB009D2FEB /* HRExtractionAPP WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HRExtractionAPP WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		66F4887927C9564800303B87 /* HRExtractionAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HRExtractionAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66F4887D27C9564900303B87 /* HRExtractionAPP WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRExtractionAPP WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66F4888227C9564A00303B87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -107,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66F488CA27C9571100303B87 /* HealthKit.framework in Frameworks */,
+				66F2859927CD46D600CD73A5 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +162,6 @@
 		66F4888C27C9564A00303B87 /* HRExtractionAPP WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				668B14BA27C965FB009D2FEB /* HRExtractionAPP WatchKit Extension.entitlements */,
 				66F4888D27C9564A00303B87 /* HRExtractionAPPApp.swift */,
 				66F4888F27C9564A00303B87 /* ContentView.swift */,
 				66F4889127C9564A00303B87 /* NotificationController.swift */,
@@ -644,6 +642,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = HRExtractionAPP_WatchKit_Extension;
 				INFOPLIST_KEY_CFBundleDisplayName = "HRExtractionAPP WatchKit App";
@@ -668,6 +667,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = HRExtractionAPP_WatchKit_Extension;
 				INFOPLIST_KEY_CFBundleDisplayName = "HRExtractionAPP WatchKit App";
