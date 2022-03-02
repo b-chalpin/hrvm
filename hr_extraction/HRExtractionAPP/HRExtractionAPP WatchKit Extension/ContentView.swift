@@ -32,7 +32,7 @@ struct ContentView: View {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "MM/dd/YYYY"
 
-                    let query = HKSampleQuery(sampleType:heartRateType, predicate:nil, limit:600, sortDescriptors:[sortByTime], resultsHandler:{(query, results, error) in
+                    let query = HKSampleQuery(sampleType:heartRateType, predicate:nil, limit:1000, sortDescriptors:[sortByTime], resultsHandler:{(query, results, error) in
                         guard let results = results else { return }
 
                         for quantitySample in results {
@@ -42,6 +42,8 @@ struct ContentView: View {
             //                  csvString.extend("\(quantity.doubleValueForUnit(heartRateUnit)),\(timeFormatter.stringFromDate(quantitySample.startDate)),\(dateFormatter.stringFromDate(quantitySample.startDate))\n")
 
             //                        println("\(quantity.doubleValueForUnit(heartRateUnit)),\(timeFormatter.stringFromDate(quantitySample.startDate)),\(dateFormatter.stringFromDate(quantitySample.startDate))")
+                            
+                            let unixTimestamp: Double = quantitySample.startDate.timeIntervalSince1970
 
                             csvString += "\(timeFormatter.string(from:quantitySample.startDate)),\(dateFormatter.string(from:quantitySample.startDate)),\(quantity.doubleValue(for:heartRateUnit))\n"
                             print("\(timeFormatter.string(from:quantitySample.startDate)),\(dateFormatter.string(from:quantitySample.startDate)),\(quantity.doubleValue(for:heartRateUnit))")
