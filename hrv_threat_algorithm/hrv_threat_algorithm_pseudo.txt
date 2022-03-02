@@ -1,0 +1,53 @@
+class ThreatAnalyzer {
+
+    HR_WINDOW_SIZE = Int
+    HRV_STORE_SIZE = Int
+
+    hrStore = [] // optional
+    hrvStore = []
+
+    threatScore = Double
+
+    @State currentHRV = Double
+    @State alertUserOfThreat = Bool
+
+    func executeHRVThreatAnalysis() {
+        // get our heart rate samples
+        hrSamples = pollHeartRate()
+
+        // update UI
+        currentHRV = calculateHRV(hrSamples)
+
+        // perform threat analysis of newly calculated hrv
+        threatScore = analyzeHRVStoreTrend()
+    }
+
+    func pollHeartRate() {
+        // create HealthStore query
+
+        // execute query 
+
+        // validate timestamps
+    }
+
+    func calculateHRV(hrSamples) {
+        hrAvg = sum(hrSamples) / HR_WINDOW_SIZE
+        hrv = sqrt(sum (hrSamples - avg)^2 / HR_WINDOW_SIZE)
+
+        storeHRV(hrv)
+
+        return hrv
+    }
+
+    func storeHRV(hrv) {
+        if self.hrvStore.length == HRV_STORE_SIZE {
+            hrvStore.removeFirst()
+        }
+
+        hrvStore.append(hrv)
+    }
+
+    func analyzeHRVStoreTrend() {
+        // wtf is here
+    }
+}
