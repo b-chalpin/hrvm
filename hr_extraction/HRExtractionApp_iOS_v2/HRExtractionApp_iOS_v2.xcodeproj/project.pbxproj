@@ -1,0 +1,661 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		66B5897E27CD4CC4006611D0 /* HRExtractionApp_iOS_v2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B5897D27CD4CC4006611D0 /* HRExtractionApp_iOS_v2App.swift */; };
+		66B5898027CD4CC4006611D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B5897F27CD4CC4006611D0 /* ContentView.swift */; };
+		66B5898227CD4CC4006611D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66B5898127CD4CC4006611D0 /* Assets.xcassets */; };
+		66B5898527CD4CC4006611D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66B5898427CD4CC4006611D0 /* Preview Assets.xcassets */; };
+		66B5898727CD4CC4006611D0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B5898627CD4CC4006611D0 /* Persistence.swift */; };
+		66B5898A27CD4CC4006611D0 /* HRExtractionApp_iOS_v2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66B5898827CD4CC4006611D0 /* HRExtractionApp_iOS_v2.xcdatamodeld */; };
+		66B5899427CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B5899327CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests.swift */; };
+		66B5899E27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B5899D27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests.swift */; };
+		66B589A027CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B5899F27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITestsLaunchTests.swift */; };
+		66B589AE27CD4CE5006611D0 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66B589AD27CD4CE5006611D0 /* HealthKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		66B5899027CD4CC5006611D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66B5897227CD4CC3006611D0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 66B5897927CD4CC4006611D0;
+			remoteInfo = HRExtractionApp_iOS_v2;
+		};
+		66B5899A27CD4CC5006611D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 66B5897227CD4CC3006611D0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 66B5897927CD4CC4006611D0;
+			remoteInfo = HRExtractionApp_iOS_v2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		66B5897A27CD4CC4006611D0 /* HRExtractionApp_iOS_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HRExtractionApp_iOS_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		66B5897D27CD4CC4006611D0 /* HRExtractionApp_iOS_v2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRExtractionApp_iOS_v2App.swift; sourceTree = "<group>"; };
+		66B5897F27CD4CC4006611D0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		66B5898127CD4CC4006611D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		66B5898427CD4CC4006611D0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		66B5898627CD4CC4006611D0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		66B5898927CD4CC4006611D0 /* HRExtractionApp_iOS_v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HRExtractionApp_iOS_v2.xcdatamodel; sourceTree = "<group>"; };
+		66B5898F27CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HRExtractionApp_iOS_v2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66B5899327CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRExtractionApp_iOS_v2Tests.swift; sourceTree = "<group>"; };
+		66B5899927CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HRExtractionApp_iOS_v2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66B5899D27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRExtractionApp_iOS_v2UITests.swift; sourceTree = "<group>"; };
+		66B5899F27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRExtractionApp_iOS_v2UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		66B589AD27CD4CE5006611D0 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		66B589AF27CD4D05006611D0 /* HRExtractionApp_iOS_v2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HRExtractionApp_iOS_v2.entitlements; sourceTree = "<group>"; };
+		66B589B027CD4D62006611D0 /* HRExtractionApp-iOS-v2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HRExtractionApp-iOS-v2-Info.plist"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		66B5897727CD4CC4006611D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66B589AE27CD4CE5006611D0 /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66B5898C27CD4CC5006611D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66B5899627CD4CC5006611D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		66B5897127CD4CC3006611D0 = {
+			isa = PBXGroup;
+			children = (
+				66B5897C27CD4CC4006611D0 /* HRExtractionApp_iOS_v2 */,
+				66B5899227CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests */,
+				66B5899C27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests */,
+				66B5897B27CD4CC4006611D0 /* Products */,
+				66B589AC27CD4CE4006611D0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		66B5897B27CD4CC4006611D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				66B5897A27CD4CC4006611D0 /* HRExtractionApp_iOS_v2.app */,
+				66B5898F27CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests.xctest */,
+				66B5899927CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		66B5897C27CD4CC4006611D0 /* HRExtractionApp_iOS_v2 */ = {
+			isa = PBXGroup;
+			children = (
+				66B589B027CD4D62006611D0 /* HRExtractionApp-iOS-v2-Info.plist */,
+				66B589AF27CD4D05006611D0 /* HRExtractionApp_iOS_v2.entitlements */,
+				66B5897D27CD4CC4006611D0 /* HRExtractionApp_iOS_v2App.swift */,
+				66B5897F27CD4CC4006611D0 /* ContentView.swift */,
+				66B5898127CD4CC4006611D0 /* Assets.xcassets */,
+				66B5898627CD4CC4006611D0 /* Persistence.swift */,
+				66B5898827CD4CC4006611D0 /* HRExtractionApp_iOS_v2.xcdatamodeld */,
+				66B5898327CD4CC4006611D0 /* Preview Content */,
+			);
+			path = HRExtractionApp_iOS_v2;
+			sourceTree = "<group>";
+		};
+		66B5898327CD4CC4006611D0 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				66B5898427CD4CC4006611D0 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		66B5899227CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests */ = {
+			isa = PBXGroup;
+			children = (
+				66B5899327CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests.swift */,
+			);
+			path = HRExtractionApp_iOS_v2Tests;
+			sourceTree = "<group>";
+		};
+		66B5899C27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests */ = {
+			isa = PBXGroup;
+			children = (
+				66B5899D27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests.swift */,
+				66B5899F27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITestsLaunchTests.swift */,
+			);
+			path = HRExtractionApp_iOS_v2UITests;
+			sourceTree = "<group>";
+		};
+		66B589AC27CD4CE4006611D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				66B589AD27CD4CE5006611D0 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		66B5897927CD4CC4006611D0 /* HRExtractionApp_iOS_v2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66B589A327CD4CC5006611D0 /* Build configuration list for PBXNativeTarget "HRExtractionApp_iOS_v2" */;
+			buildPhases = (
+				66B5897627CD4CC4006611D0 /* Sources */,
+				66B5897727CD4CC4006611D0 /* Frameworks */,
+				66B5897827CD4CC4006611D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HRExtractionApp_iOS_v2;
+			productName = HRExtractionApp_iOS_v2;
+			productReference = 66B5897A27CD4CC4006611D0 /* HRExtractionApp_iOS_v2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		66B5898E27CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66B589A627CD4CC5006611D0 /* Build configuration list for PBXNativeTarget "HRExtractionApp_iOS_v2Tests" */;
+			buildPhases = (
+				66B5898B27CD4CC5006611D0 /* Sources */,
+				66B5898C27CD4CC5006611D0 /* Frameworks */,
+				66B5898D27CD4CC5006611D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				66B5899127CD4CC5006611D0 /* PBXTargetDependency */,
+			);
+			name = HRExtractionApp_iOS_v2Tests;
+			productName = HRExtractionApp_iOS_v2Tests;
+			productReference = 66B5898F27CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		66B5899827CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66B589A927CD4CC5006611D0 /* Build configuration list for PBXNativeTarget "HRExtractionApp_iOS_v2UITests" */;
+			buildPhases = (
+				66B5899527CD4CC5006611D0 /* Sources */,
+				66B5899627CD4CC5006611D0 /* Frameworks */,
+				66B5899727CD4CC5006611D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				66B5899B27CD4CC5006611D0 /* PBXTargetDependency */,
+			);
+			name = HRExtractionApp_iOS_v2UITests;
+			productName = HRExtractionApp_iOS_v2UITests;
+			productReference = 66B5899927CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		66B5897227CD4CC3006611D0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
+				TargetAttributes = {
+					66B5897927CD4CC4006611D0 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					66B5898E27CD4CC5006611D0 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 66B5897927CD4CC4006611D0;
+					};
+					66B5899827CD4CC5006611D0 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 66B5897927CD4CC4006611D0;
+					};
+				};
+			};
+			buildConfigurationList = 66B5897527CD4CC3006611D0 /* Build configuration list for PBXProject "HRExtractionApp_iOS_v2" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 66B5897127CD4CC3006611D0;
+			productRefGroup = 66B5897B27CD4CC4006611D0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				66B5897927CD4CC4006611D0 /* HRExtractionApp_iOS_v2 */,
+				66B5898E27CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests */,
+				66B5899827CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		66B5897827CD4CC4006611D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66B5898527CD4CC4006611D0 /* Preview Assets.xcassets in Resources */,
+				66B5898227CD4CC4006611D0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66B5898D27CD4CC5006611D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66B5899727CD4CC5006611D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		66B5897627CD4CC4006611D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66B5898A27CD4CC4006611D0 /* HRExtractionApp_iOS_v2.xcdatamodeld in Sources */,
+				66B5898727CD4CC4006611D0 /* Persistence.swift in Sources */,
+				66B5898027CD4CC4006611D0 /* ContentView.swift in Sources */,
+				66B5897E27CD4CC4006611D0 /* HRExtractionApp_iOS_v2App.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66B5898B27CD4CC5006611D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66B5899427CD4CC5006611D0 /* HRExtractionApp_iOS_v2Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66B5899527CD4CC5006611D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66B5899E27CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITests.swift in Sources */,
+				66B589A027CD4CC5006611D0 /* HRExtractionApp_iOS_v2UITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		66B5899127CD4CC5006611D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 66B5897927CD4CC4006611D0 /* HRExtractionApp_iOS_v2 */;
+			targetProxy = 66B5899027CD4CC5006611D0 /* PBXContainerItemProxy */;
+		};
+		66B5899B27CD4CC5006611D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 66B5897927CD4CC4006611D0 /* HRExtractionApp_iOS_v2 */;
+			targetProxy = 66B5899A27CD4CC5006611D0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		66B589A127CD4CC5006611D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		66B589A227CD4CC5006611D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		66B589A427CD4CC5006611D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HRExtractionApp_iOS_v2/HRExtractionApp_iOS_v2.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"HRExtractionApp_iOS_v2/Preview Content\"";
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "HRExtractionApp-iOS-v2-Info.plist";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Blake is using your data nom nom";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Blake might share your data ";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Blake is updating your data nom";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "EWU.HRExtractionApp-iOS-v2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		66B589A527CD4CC5006611D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HRExtractionApp_iOS_v2/HRExtractionApp_iOS_v2.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"HRExtractionApp_iOS_v2/Preview Content\"";
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "HRExtractionApp-iOS-v2-Info.plist";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "Blake is using your data nom nom";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Blake might share your data ";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Blake is updating your data nom";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "EWU.HRExtractionApp-iOS-v2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		66B589A727CD4CC5006611D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "EWU.HRExtractionApp-iOS-v2Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HRExtractionApp_iOS_v2.app/HRExtractionApp_iOS_v2";
+			};
+			name = Debug;
+		};
+		66B589A827CD4CC5006611D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "EWU.HRExtractionApp-iOS-v2Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HRExtractionApp_iOS_v2.app/HRExtractionApp_iOS_v2";
+			};
+			name = Release;
+		};
+		66B589AA27CD4CC5006611D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "EWU.HRExtractionApp-iOS-v2UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HRExtractionApp_iOS_v2;
+			};
+			name = Debug;
+		};
+		66B589AB27CD4CC5006611D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "EWU.HRExtractionApp-iOS-v2UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = HRExtractionApp_iOS_v2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		66B5897527CD4CC3006611D0 /* Build configuration list for PBXProject "HRExtractionApp_iOS_v2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66B589A127CD4CC5006611D0 /* Debug */,
+				66B589A227CD4CC5006611D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66B589A327CD4CC5006611D0 /* Build configuration list for PBXNativeTarget "HRExtractionApp_iOS_v2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66B589A427CD4CC5006611D0 /* Debug */,
+				66B589A527CD4CC5006611D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66B589A627CD4CC5006611D0 /* Build configuration list for PBXNativeTarget "HRExtractionApp_iOS_v2Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66B589A727CD4CC5006611D0 /* Debug */,
+				66B589A827CD4CC5006611D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66B589A927CD4CC5006611D0 /* Build configuration list for PBXNativeTarget "HRExtractionApp_iOS_v2UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66B589AA27CD4CC5006611D0 /* Debug */,
+				66B589AB27CD4CC5006611D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		66B5898827CD4CC4006611D0 /* HRExtractionApp_iOS_v2.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				66B5898927CD4CC4006611D0 /* HRExtractionApp_iOS_v2.xcdatamodel */,
+			);
+			currentVersion = 66B5898927CD4CC4006611D0 /* HRExtractionApp_iOS_v2.xcdatamodel */;
+			path = HRExtractionApp_iOS_v2.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 66B5897227CD4CC3006611D0 /* Project object */;
+}
