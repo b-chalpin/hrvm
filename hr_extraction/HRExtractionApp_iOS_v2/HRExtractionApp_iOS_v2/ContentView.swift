@@ -59,7 +59,6 @@ struct ContentView: View {
                     })
                     self.healthStore.execute(query)
                 })
-
             }
         }
     }
