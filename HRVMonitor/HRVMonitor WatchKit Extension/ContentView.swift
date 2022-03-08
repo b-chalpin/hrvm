@@ -26,8 +26,9 @@ struct ContentView : View {
     
     // getting the current instance of the UNUserNotificationCenter object
     let center = UNUserNotificationCenter.current()
-    // creating a healthStore object
-    let healthStore = HKHealthStore()
+
+    // live polling module
+    let hrPoller = HeartRatePoller()
     
     // countdownActive for demo purposes
     @State var countdownActive: Bool = false
@@ -54,13 +55,11 @@ struct ContentView : View {
             center.requestAuthorization(options: [.sound, .badge, .alert]){granted, error in}
             let notificationRequest = constructUserNotification()
             
-            // this function request authorization to access the healthStore which we will need to implement but the whole function
-            // is just for demo purposes and should be removed from the final app
-            getHeartRateCSV()
-            
             if !countdownActive {
                 countdownActive = true
                 Timer.scheduledTimer(withTimeInterval: RANDOM_HRV_TIME_INTERVAL, repeats: true, block: {_ in
+                    let fixMeLater = hrPoller.getHeartRateWindow()
+                    
                     currentHrv = Double.random(in: 1...100)
                     
                     // This if statment is part of the demo and should be evaluated differently in the future or removed
@@ -116,49 +115,6 @@ struct ContentView : View {
             return Color.red
         }
     }
-    // this function is for demo purposes only and will be removed from final app
-    func getHeartRateCSV(){
-        let heartRateType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
-        if (HKHealthStore.isHealthDataAvailable()){
-            var csvString = "Time,Date,UnixTime,Heartrate(BPM)\n"
-
-            self.healthStore.requestAuthorization(toShare: nil, read:[heartRateType], completion:{(success, error)in
-                let sortByTime = NSSortDescriptor(key:HKSampleSortIdentifierEndDate, ascending:false)
-                let timeFormatter = DateFormatter()
-                timeFormatter.dateFormat = "hh:mm:ss"
-
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM/dd/YYYY"
-
-                let query = HKSampleQuery(sampleType:heartRateType, predicate:nil, limit:1000, sortDescriptors:[sortByTime], resultsHandler:{(query, results, error) in
-                    guard let results = results else { return }
-
-                    for quantitySample in results {
-                        let quantity = (quantitySample as! HKQuantitySample).quantity
-                        let heartRateUnit = HKUnit(from: "count/min")
-                                    
-                        let hrString = "\(timeFormatter.string(from:quantitySample.startDate)),\(dateFormatter.string(from:quantitySample.startDate)),\(quantitySample.startDate.timeIntervalSince1970),\(quantity.doubleValue(for:heartRateUnit))"
-
-                        csvString += "\(hrString)\n"
-                        print(hrString)
-                    }
-                    do
-                    {
-                        let documentsDir = try FileManager.default.url(for: .documentDirectory, in:.userDomainMask, appropriateFor:nil, create:true)
-                        print(documentsDir)
-                        try csvString.write(to: NSURL(string:"HRData.csv", relativeTo:documentsDir)! as URL, atomically:true, encoding:String.Encoding.ascii)
-
-                    }
-                    catch
-                    {
-                        print("Error occured")
-                    }
-                })
-                self.healthStore.execute(query)
-            })
-        }
-    }
-    
 }
 
 struct ContentView_Preview : PreviewProvider {
