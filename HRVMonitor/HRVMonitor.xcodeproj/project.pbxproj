@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6618D90B27D6D38700EABF5D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618D90A27D6D38700EABF5D /* HealthKit.framework */; };
+		6618D90D27D6D39000EABF5D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618D90C27D6D39000EABF5D /* WatchConnectivity.framework */; };
+		6618D91027D6E58F00EABF5D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618D90F27D6E58F00EABF5D /* CloudKit.framework */; };
 		9932C3F827CD983B001736F7 /* HRVMonitor WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9932C3F727CD983B001736F7 /* HRVMonitor WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9932C3FD27CD983C001736F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9932C3FC27CD983C001736F7 /* Assets.xcassets */; };
 		9932C40327CD983C001736F7 /* HRVMonitor WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9932C40227CD983C001736F7 /* HRVMonitor WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -79,6 +82,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6618D90A27D6D38700EABF5D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.3.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		6618D90C27D6D39000EABF5D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.3.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		6618D90E27D6DD5F00EABF5D /* HRVMonitor WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HRVMonitor WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		6618D90F27D6E58F00EABF5D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.3.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		9932C3F327CD983B001736F7 /* HRVMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HRVMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C3F727CD983B001736F7 /* HRVMonitor WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRVMonitor WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C3FC27CD983C001736F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,6 +111,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6618D91027D6E58F00EABF5D /* CloudKit.framework in Frameworks */,
+				6618D90B27D6D38700EABF5D /* HealthKit.framework in Frameworks */,
+				6618D90D27D6D39000EABF5D /* WatchConnectivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +134,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6618D90927D6D38700EABF5D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6618D90F27D6E58F00EABF5D /* CloudKit.framework */,
+				6618D90C27D6D39000EABF5D /* WatchConnectivity.framework */,
+				6618D90A27D6D38700EABF5D /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9932C3EC27CD983A001736F7 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +152,7 @@
 				9932C41F27CD983D001736F7 /* HRVMonitorTests */,
 				9932C42927CD983D001736F7 /* HRVMonitorUITests */,
 				9932C3F427CD983B001736F7 /* Products */,
+				6618D90927D6D38700EABF5D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,6 +179,7 @@
 		9932C40627CD983C001736F7 /* HRVMonitor WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				6618D90E27D6DD5F00EABF5D /* HRVMonitor WatchKit Extension.entitlements */,
 				9932C40727CD983C001736F7 /* HRVMonitorApp.swift */,
 				9932C40927CD983C001736F7 /* ContentView.swift */,
 				9932C40B27CD983C001736F7 /* NotificationController.swift */,
@@ -552,6 +574,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "HRVMonitor WatchKit Extension/HRVMonitor WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HRVMonitor WatchKit Extension/Preview Content\"";
@@ -560,8 +583,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HRVMonitor WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = HRVMonitor_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "HRVMonitor App would like to use your heart rate records to monitor your HRV";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "HRVMonitor App will not share your heart rate data";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "HRVMonitor App would like to use your heart rate data to update your personal model and provide more accurate HRV analysis";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -584,6 +612,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "HRVMonitor WatchKit Extension/HRVMonitor WatchKit Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HRVMonitor WatchKit Extension/Preview Content\"";
@@ -592,8 +621,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HRVMonitor WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = "$(PRODUCT_MODULE_NAME).ComplicationController";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = HRVMonitor_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "HRVMonitor App would like to use your heart rate records to monitor your HRV";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "HRVMonitor App will not share your heart rate data";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "HRVMonitor App would like to use your heart rate data to update your personal model and provide more accurate HRV analysis";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
