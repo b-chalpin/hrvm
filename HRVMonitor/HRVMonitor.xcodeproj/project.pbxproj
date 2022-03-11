@@ -26,6 +26,7 @@
 		9932C42B27CD983D001736F7 /* HRVMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */; };
 		9932C42D27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */; };
 		997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */; };
+		997EB00027DC141E004B257C /* HRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFFF27DC141E004B257C /* HRItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITests.swift; sourceTree = "<group>"; };
 		9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatePoller.swift; sourceTree = "<group>"; };
+		997EAFFF27DC141E004B257C /* HRItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
 				663419BF27DAD79D00F3823B /* NotificationFactory.swift */,
 				6659324527DBF50F002D1717 /* Workout_mode.swift */,
+				997EAFFF27DC141E004B257C /* HRItem.swift */,
 			);
 			path = "HRVMonitor WatchKit Extension";
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				9932C40827CD983C001736F7 /* HRVMonitorApp.swift in Sources */,
 				663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */,
 				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,
+				997EB00027DC141E004B257C /* HRItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
