@@ -18,9 +18,13 @@ let DANGER_HRV_THRESHOLD: Double = 20.0
 let INIT_CURRENT_HRV = 100.0
 
 // constant for demo purposes only
-let RANDOM_HRV_TIME_INTERVAL = 1.5
+let RANDOM_HRV_TIME_INTERVAL = 5.0
 
 struct ContentView : View {
+    // variable to indicate the state of workout mode and heart rate polling
+    @State var monitorActive: Bool = true
+    @State var monitorTimer : Timer?
+    
     @State var currentHrv: Double = INIT_CURRENT_HRV
     @State var showDangerousHrvAlert: Bool = false
     
@@ -30,50 +34,32 @@ struct ContentView : View {
     // live polling module
     let hrPoller = HeartRatePoller()
     
-    // countdownActive for demo purposes
-    @State var countdownActive: Bool = false
-    
     var body: some View {
         let HRVText = String(format: "%.1f", currentHrv)
-
-        VStack{
-            Text("HRV").fontWeight(.semibold)
-                .font(.largeTitle)
-                .foregroundColor(calculateColor())
-                .multilineTextAlignment(.center)
-            Text(HRVText).fontWeight(.semibold)
-                .font(.body)
-                .foregroundColor(calculateColor())
-                .multilineTextAlignment(.center)
+        Form {
+            Section {
+                VStack{
+                    Text("HRV").fontWeight(.semibold)
+                        .font(.largeTitle)
+                        .foregroundColor(calculateColor())
+                        .multilineTextAlignment(.center)
+                    Text(HRVText).fontWeight(.semibold)
+                        .font(.body)
+                        .foregroundColor(calculateColor())
+                        .multilineTextAlignment(.center)
+                        .padding()
+                }
                 .padding()
-        }
-        .padding()
-        // for demo purposes only - will randomly set the currentHrv to a value in [0, 100]
-        .onAppear {
-            
-            // requesting authorization to notify user
-            center.requestAuthorization(options: [.sound, .badge, .alert]){granted, error in}
-            let notificationRequest = constructUserNotification()
-            
-            if !countdownActive {
-                countdownActive = true
-                Timer.scheduledTimer(withTimeInterval: RANDOM_HRV_TIME_INTERVAL, repeats: true, block: {_ in
-                    let fixMeLater = hrPoller.getHeartRateWindow()
-                    
-                    currentHrv = Double.random(in: 1...100)
-                    
-                    // This if statment is part of the demo and should be evaluated differently in the future or removed
-                    if(currentHrv < 30){
-                        // plays failure sound and should also activate haptic feedback needs to be deployed and tested
-                        WKInterfaceDevice.current().play(.failure)
-                        //
-                        
-                        deliverUserNotification(request: notificationRequest)
-                        
-                        showDangerousHrvAlert = true
-                    }
-                })
             }
+            Section {
+                displayPauseResumeButton()
+            }
+        }
+        .onAppear {
+            // requesting authorization to notify user
+            center.requestAuthorization(options: [.sound, .badge, .alert]){ granted, error in }
+            
+            startMonitorTimer()
         }
         .alert(isPresented: self.$showDangerousHrvAlert) {
             Alert(title: Text("Check your heart rate"),
@@ -83,6 +69,61 @@ struct ContentView : View {
                     showDangerousHrvAlert = false
             }))
         }
+    }
+    
+    func displayPauseResumeButton() -> some View {
+        if monitorActive {
+            return Button(action: { pauseMonitor() }) {
+                Text("Pause")
+            }
+        }
+        else {
+            return Button(action: { resumeMonitor() }) {
+                Text("Resume")
+            }
+        }
+    }
+    
+    func pauseMonitor() {
+        print("Pausing")
+        monitorActive = false
+        stopMonitorTimer()
+    }
+    
+    func resumeMonitor() {
+        print("Resuming")
+        monitorActive = true
+        startMonitorTimer()
+    }
+    
+    func startMonitorTimer() {
+        // if monitor is active and the timer is not nil, return
+        guard (monitorTimer == nil && monitorActive) else { return }
+        
+        if (monitorActive) {
+            monitorTimer = Timer.scheduledTimer(withTimeInterval: RANDOM_HRV_TIME_INTERVAL, repeats: true, block: {_ in
+//                print("Monitor running")
+                hrPoller.pollHeartRate()
+                
+                currentHrv = hrPoller.getLatestHrvValue()
+
+                // this if statment is part of the demo and should be evaluated differently in the future or removed
+//                if(currentHrv < 30){
+//                    // plays failure sound and should also activate haptic feedback needs to be deployed and tested
+//                    WKInterfaceDevice.current().play(.failure)
+//
+//                    let notificationRequest = constructUserNotification()
+//                    deliverUserNotification(request: notificationRequest)
+//
+//                    showDangerousHrvAlert = true
+//                }
+            })
+        }
+    }
+    
+    func stopMonitorTimer() {
+        monitorTimer?.invalidate()
+        monitorTimer = nil
     }
     
     func constructUserNotification() -> UNNotificationRequest{

@@ -24,6 +24,7 @@
 		9932C42B27CD983D001736F7 /* HRVMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */; };
 		9932C42D27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */; };
 		997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */; };
+		997EAFFC27DAD6AD004B257C /* HRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFFB27DAD6AD004B257C /* HRItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITests.swift; sourceTree = "<group>"; };
 		9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatePoller.swift; sourceTree = "<group>"; };
+		997EAFFB27DAD6AD004B257C /* HRItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +194,7 @@
 				9932C41727CD983D001736F7 /* PushNotificationPayload.apns */,
 				9932C41327CD983D001736F7 /* Preview Content */,
 				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
+				997EAFFB27DAD6AD004B257C /* HRItem.swift */,
 			);
 			path = "HRVMonitor WatchKit Extension";
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				9932C40C27CD983C001736F7 /* NotificationController.swift in Sources */,
 				9932C40A27CD983C001736F7 /* ContentView.swift in Sources */,
 				997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */,
+				997EAFFC27DAD6AD004B257C /* HRItem.swift in Sources */,
 				9932C41027CD983C001736F7 /* ComplicationController.swift in Sources */,
 				9932C40827CD983C001736F7 /* HRVMonitorApp.swift in Sources */,
 				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,

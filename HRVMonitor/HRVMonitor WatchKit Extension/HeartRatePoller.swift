@@ -9,23 +9,49 @@ import Foundation
 import HealthKit
 
 let HR_WINDOW_SIZE = 15
+let HR_STORE_SIZE = 60
+let HRV_STORE_SIZE = 15
 
 public class HeartRatePoller {
     private let healthStore: HKHealthStore
-    private var hrStore: [Double]
+    private var hrStore: [HRItem]
+    private var hrvStore: [HRItem]
     
     public init() {
         self.healthStore = HKHealthStore()
-        // if unsuccesful in polling heart rate, hrStore will be nil
         self.hrStore = []
+        self.hrvStore = []
     }
     
-    public func getHeartRateWindow() -> [Double] {
-        self.queryHeartRateSampleWindow()
+    public func getLatestHrValue() -> Double {
+        if self.hrStore.count == 0 {
+            print("HRStore is empty")
+            return 100.0
+        }
+        
+        return self.hrStore.last!.value
+    }
+    
+    public func getLatestHrvValue() -> Double {
+        if self.hrvStore.count == 0 {
+            print("HRVStore is empty")
+            return 100.0
+        }
+        
+        return self.hrvStore.last!.value
+    }
+    
+    
+    public func getHrStore() -> [HRItem] {
         return self.hrStore
     }
     
-    private func queryHeartRateSampleWindow() {
+    public func getHrvStore() -> [HRItem] {
+        return self.hrvStore
+    }
+    
+    public func pollHeartRate() {
+        print("hit")
         if (HKHealthStore.isHealthDataAvailable()) {
             let heartRateType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
             
@@ -42,20 +68,73 @@ public class HeartRatePoller {
                         return
                     }
                     
+                    if results.count == 0 {
+                        print("No records returned for heart rate")
+                        return
+                    }
+                    
                     // we will store the new heart rate samples in self.hrStore
-                    self.hrStore = results.map { (sample) -> Double in
+                    let newHRSamples = results.map { (sample) -> HRItem in
                         let quantity = (sample as! HKQuantitySample).quantity
                         let heartRateUnit = HKUnit(from: "count/min")
-                        return quantity.doubleValue(for: heartRateUnit)
+                        
+                        let heartRateBpm = quantity.doubleValue(for: heartRateUnit)
+                        let heartRateTimestamp = sample.endDate
+                        
+                        return HRItem(value:heartRateBpm, timestamp: heartRateTimestamp)
                     }
+                    
+                    print("Samples received\n\(newHRSamples)")
+                    
+                    let newHrv = self.calculateHrv(hrSamples:newHRSamples)
+                    
+                    // add new samples to hrStore
+                    // for now just reassign the hrStore
+                    self.hrStore = newHRSamples
+                    
+                    // add new Hrv to store
+                    self.addHrvToHrvStore(newHrv: newHrv)
                 })
                 self.healthStore.execute(query)
                 
-                print("Executed heart rate query. Resutls:\n\(self.hrStore)")
+                print("Executed heart rate query. Results:\n\(self.hrStore)")
             })
         }
         else {
             print("ERROR - Health data is not available")
         }
+    }
+    
+    private func calculateHrv(hrSamples: [HRItem]) -> HRItem {
+        let hrSamplesInMS = hrSamples.map { (sample) -> Double in
+            // convert bpm -> ms
+            return 60_000 / sample.value
+        }
+        
+        let hrvInMS = self.calculateStdDev(samples: hrSamplesInMS)
+        print("Samples \(hrSamplesInMS) -- std dev: \(hrvInMS)")
+        let hrvTimestamp = hrSamples.last!.timestamp
+        
+        return HRItem(value:hrvInMS, timestamp: hrvTimestamp)
+    }
+    
+    private func calculateStdDev(samples: [Double]) -> Double {
+        let length = Double(samples.count)
+        let avg = samples.reduce(0, {$0 + $1}) / length
+        let sumOfSquaredAvgDiff = samples.map { pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+        return sqrt(sumOfSquaredAvgDiff / length)
+    }
+    
+    private func addSamplesToHrStore(newHRSamples: [HRItem]) {
+        // add new samples and remove duplicates
+        // diff = calculate new size - HR_STORE_SIZE
+        // remove the first <diff> items in store
+    }
+    
+    private func addHrvToHrvStore(newHrv: HRItem) {
+        if self.hrvStore.count == HRV_STORE_SIZE {
+            self.hrvStore.removeFirst()
+        }
+        self.hrvStore.append(newHrv)
     }
 }
