@@ -2,14 +2,34 @@
 //  NotificationView.swift
 //  HRVMonitor WatchKit Extension
 //
-//  Created by bchalpin on 2/28/22.
+//  Created by Madison R Reese on 2/27/22.
 //
 
 import SwiftUI
 
 struct NotificationView: View {
     var body: some View {
-        Text("Hello, World!")
+        VStack{
+            //HRV Label
+            Text("Are you Stressed?").fontWeight(.semibold)
+                .font(.body)
+                .foregroundColor(Color.white)
+                .multilineTextAlignment(.center)
+                .padding()
+    
+            Button(action: {
+                //Add action here - another view/input data
+            }) {
+                    Text("Yes")
+            }
+            
+            Button(action: {
+                //Add action here - another view/input data
+                ContentView()
+            }) {
+                    Text("No")
+            }
+        }
     }
 }
 
