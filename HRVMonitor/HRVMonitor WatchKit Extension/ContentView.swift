@@ -23,15 +23,14 @@ let RANDOM_HRV_TIME_INTERVAL = 1.5
 struct ContentView : View {
     @State var currentHrv: Double = INIT_CURRENT_HRV
     @State var showDangerousHrvAlert: Bool = false
-    
-    // getting the current instance of the UNUserNotificationCenter object
-    let center = UNUserNotificationCenter.current()
+    // countdownActive for demo purposes
+    @State var countdownActive: Bool = false
 
     // live polling module
     let hrPoller = HeartRatePoller()
+    // notification module
+    let notificationFactory = NotificationFactory()
     
-    // countdownActive for demo purposes
-    @State var countdownActive: Bool = false
     
     var body: some View {
         let HRVText = String(format: "%.1f", currentHrv)
@@ -50,11 +49,6 @@ struct ContentView : View {
         .padding()
         // for demo purposes only - will randomly set the currentHrv to a value in [0, 100]
         .onAppear {
-            
-            // requesting authorization to notify user
-            center.requestAuthorization(options: [.sound, .badge, .alert]){granted, error in}
-            let notificationRequest = constructUserNotification()
-            
             if !countdownActive {
                 countdownActive = true
                 Timer.scheduledTimer(withTimeInterval: RANDOM_HRV_TIME_INTERVAL, repeats: true, block: {_ in
@@ -67,9 +61,7 @@ struct ContentView : View {
                         // plays failure sound and should also activate haptic feedback needs to be deployed and tested
                         WKInterfaceDevice.current().play(.failure)
                         //
-                        
-                        deliverUserNotification(request: notificationRequest)
-                        
+                        notificationFactory.pushNotification()
                         showDangerousHrvAlert = true
                     }
                 })
@@ -82,25 +74,6 @@ struct ContentView : View {
                   action: {
                     showDangerousHrvAlert = false
             }))
-        }
-    }
-    
-    func constructUserNotification() -> UNNotificationRequest{
-        let content = UNMutableNotificationContent()
-        content.title = "HRV Alert"
-        content.body = "We noticed unusual activity in your Heart Rate Variability."
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let request = UNNotificationRequest(identifier: "HRVAlert", content: content, trigger: trigger)
-        
-        return request
-    }
-    
-    func deliverUserNotification(request: UNNotificationRequest){
-        center.add(request) {(error: Error?) in
-            if let theError = error {
-                print(theError.localizedDescription)
-            }
         }
     }
     
