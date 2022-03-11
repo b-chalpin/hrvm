@@ -7,6 +7,7 @@
 
 import Foundation
 import UserNotifications
+import DeveloperToolsSupport
 
 public class NotificationFactory {
     
@@ -33,6 +34,7 @@ public class NotificationFactory {
     private func constructUserNotification() -> UNNotificationRequest{
         //constructing the body of the notification... Need to change this to use our custom notification view
         let content = UNMutableNotificationContent()
+        content.categoryIdentifier = "myCategory"
         content.title = "HRV Alert"
         content.body = "We noticed unusual activity in your Heart Rate Variability."
         
