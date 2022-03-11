@@ -25,29 +25,27 @@ struct ContentView : View {
     @State var monitorActive: Bool = true
     @State var monitorTimer : Timer?
     
-    @State var currentHrv: Double = INIT_CURRENT_HRV
+    // hr poller module
+    @ObservedObject var hrPoller = HeartRatePoller()
+    
     @State var showDangerousHrvAlert: Bool = false
     
     // getting the current instance of the UNUserNotificationCenter object
     let center = UNUserNotificationCenter.current()
-
-    // live polling module
-    let hrPoller = HeartRatePoller()
     
     var body: some View {
-        let HRVText = String(format: "%.1f", currentHrv)
         Form {
             Section {
                 VStack{
-                    Text("HRV").fontWeight(.semibold)
+                    Text("HRV")
+                        .fontWeight(.semibold)
                         .font(.largeTitle)
                         .foregroundColor(calculateColor())
                         .multilineTextAlignment(.center)
-                    Text(HRVText).fontWeight(.semibold)
-                        .font(.body)
+                    Text(getHrvValueString())
+                        .fontWeight(.semibold)
                         .foregroundColor(calculateColor())
                         .multilineTextAlignment(.center)
-                        .padding()
                 }
                 .padding()
             }
@@ -68,6 +66,18 @@ struct ContentView : View {
                   action: {
                     showDangerousHrvAlert = false
             }))
+        }
+    }
+    
+    func getHrvValueString() -> String {
+        if !self.monitorActive {
+            return "Paused"
+        }
+        else if self.hrPoller.latestHrv == nil {
+            return "Starting"
+        }
+        else {
+            return String(format: "%.1f", self.hrPoller.latestHrv!.value)
         }
     }
     
@@ -102,21 +112,18 @@ struct ContentView : View {
         
         if (monitorActive) {
             monitorTimer = Timer.scheduledTimer(withTimeInterval: RANDOM_HRV_TIME_INTERVAL, repeats: true, block: {_ in
-//                print("Monitor running")
-                hrPoller.pollHeartRate()
-                
-                currentHrv = hrPoller.getLatestHrvValue()
+                self.hrPoller.pollHeartRate()
 
                 // this if statment is part of the demo and should be evaluated differently in the future or removed
-//                if(currentHrv < 30){
-//                    // plays failure sound and should also activate haptic feedback needs to be deployed and tested
-//                    WKInterfaceDevice.current().play(.failure)
-//
-//                    let notificationRequest = constructUserNotification()
-//                    deliverUserNotification(request: notificationRequest)
-//
-//                    showDangerousHrvAlert = true
-//                }
+                if(self.hrPoller.latestHrv != nil && self.hrPoller.latestHrv!.value < 25){
+                    // plays failure sound and should also activate haptic feedback needs to be deployed and tested
+                    WKInterfaceDevice.current().play(.failure)
+
+                    let notificationRequest = constructUserNotification()
+                    deliverUserNotification(request: notificationRequest)
+
+                    showDangerousHrvAlert = true
+                }
             })
         }
     }
@@ -124,6 +131,8 @@ struct ContentView : View {
     func stopMonitorTimer() {
         monitorTimer?.invalidate()
         monitorTimer = nil
+        
+        hrPoller.stopPolling()
     }
     
     func constructUserNotification() -> UNNotificationRequest{
@@ -146,10 +155,16 @@ struct ContentView : View {
     }
     
     func calculateColor() -> Color {
-        if currentHrv >= SAFE_HRV_THRESHOLD {
+        if (self.hrPoller.latestHrv == nil) {
+            return Color.gray
+        }
+
+        let hrv = self.hrPoller.latestHrv!.value
+        
+        if hrv >= SAFE_HRV_THRESHOLD {
             return Color.green
         }
-        else if currentHrv >= WARNING_HRV_THRESHOLD {
+        else if hrv >= WARNING_HRV_THRESHOLD {
             return Color.yellow
         }
         else {
