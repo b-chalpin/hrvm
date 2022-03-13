@@ -10,28 +10,21 @@ import WatchKit
 import HealthKit
 import UserNotifications
 
-
 let SAFE_HRV_THRESHOLD: Double = 50.00
 let WARNING_HRV_THRESHOLD: Double = 30.00
 let DANGER_HRV_THRESHOLD: Double = 20.0
-
 let INIT_CURRENT_HRV = 100.0
-
 // constant for demo purposes only
 let RANDOM_HRV_TIME_INTERVAL = 5.0
+let notificationFactory = NotificationFactory()
 
 struct ContentView : View {
     // variable to indicate the state of workout mode and heart rate polling
     @State var monitorActive: Bool = true
     @State var monitorTimer : Timer?
-    
+    @State var showDangerousHrvAlert: Bool = false
     // hr poller module
     @ObservedObject var hrPoller = HeartRatePoller()
-    
-    @State var showDangerousHrvAlert: Bool = false
-    
-    // getting the current instance of the UNUserNotificationCenter object
-    let center = UNUserNotificationCenter.current()
     
     var body: some View {
         Form {
@@ -54,18 +47,20 @@ struct ContentView : View {
             }
         }
         .onAppear {
-            // requesting authorization to notify user
-            center.requestAuthorization(options: [.sound, .badge, .alert]){ granted, error in }
-            
             startMonitorTimer()
         }
         .alert(isPresented: self.$showDangerousHrvAlert) {
-            Alert(title: Text("Check your heart rate"),
-                  message: Text("We noticed unusual activity in your Heart Rate Variability."),
-                  dismissButton: .default(Text("Dismiss"),
-                  action: {
-                    showDangerousHrvAlert = false
-            }))
+            Alert(
+                title: Text("Are you stressed?"),
+                primaryButton: .default(
+                    Text("No"),
+                    action: {}
+                ),
+                secondaryButton: .default(
+                    Text("Yes"),
+                    action: {}
+                  )
+            )
         }
     }
     
@@ -118,10 +113,7 @@ struct ContentView : View {
                 if(self.hrPoller.latestHrv != nil && self.hrPoller.latestHrv!.value < DANGER_HRV_THRESHOLD){
                     // plays failure sound and should also activate haptic feedback needs to be deployed and tested
                     WKInterfaceDevice.current().play(.failure)
-
-                    let notificationRequest = constructUserNotification()
-                    deliverUserNotification(request: notificationRequest)
-
+                    notificationFactory.pushNotification()
                     showDangerousHrvAlert = true
                 }
             })
@@ -133,25 +125,6 @@ struct ContentView : View {
         monitorTimer = nil
         
         hrPoller.stopPolling()
-    }
-    
-    func constructUserNotification() -> UNNotificationRequest{
-        let content = UNMutableNotificationContent()
-        content.title = "HRV Alert"
-        content.body = "We noticed unusual activity in your Heart Rate Variability."
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let request = UNNotificationRequest(identifier: "HRVAlert", content: content, trigger: trigger)
-        
-        return request
-    }
-    
-    func deliverUserNotification(request: UNNotificationRequest){
-        center.add(request) {(error: Error?) in
-            if let theError = error {
-                print(theError.localizedDescription)
-            }
-        }
     }
     
     func calculateColor() -> Color {

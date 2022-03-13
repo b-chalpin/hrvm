@@ -13,11 +13,13 @@ public class NotificationFactory {
     
     let center: UNUserNotificationCenter
     var authorized: Bool
+    var notificationDelay: Double
     
     public init(){
         // getting the current instance of the UNUserNotificationCenter object
         self.center = UNUserNotificationCenter.current()
         self.authorized = false
+        self.notificationDelay = 5
     }
     
     private func getAuthorization(){
@@ -35,10 +37,8 @@ public class NotificationFactory {
         //constructing the body of the notification... Need to change this to use our custom notification view
         let content = UNMutableNotificationContent()
         content.categoryIdentifier = "myCategory"
-        content.title = "HRV Alert"
-        content.body = "We noticed unusual activity in your Heart Rate Variability."
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: notificationDelay, repeats: false)
         let request = UNNotificationRequest(identifier: "HRVAlert", content: content, trigger: trigger)
         
         return request
