@@ -10,7 +10,6 @@ import HealthKit
 
 
 class WorkoutManager: NSObject {
-
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
 
@@ -28,12 +27,10 @@ class WorkoutManager: NSObject {
             return
         }
 
-
         // Start the workout session and begin data collection.
         let startDate = Date()
         session?.startActivity(with: startDate)
     }
-
 
     func pause() {
         session?.pause()
@@ -46,6 +43,4 @@ class WorkoutManager: NSObject {
     func endWorkout() {
         session?.end()
     }
-
 }
-

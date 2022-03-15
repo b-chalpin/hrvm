@@ -9,17 +9,19 @@ import Foundation
 import UserNotifications
 import DeveloperToolsSupport
 
+let NOTIFICATION_DELAY_SEC = 2.0
+
 public class NotificationFactory {
     
     let center: UNUserNotificationCenter
     var authorized: Bool
     var notificationDelay: Double
     
-    public init(){
+    public init() {
         // getting the current instance of the UNUserNotificationCenter object
         self.center = UNUserNotificationCenter.current()
         self.authorized = false
-        self.notificationDelay = 5
+        self.notificationDelay = NOTIFICATION_DELAY_SEC
     }
     
     private func getAuthorization(){

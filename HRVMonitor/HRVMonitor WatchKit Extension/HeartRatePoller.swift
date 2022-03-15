@@ -65,7 +65,7 @@ public class HeartRatePoller : ObservableObject {
         }
     }
     
-    public func pollHeartRate() {
+    public func poll() {
         if (HKHealthStore.isHealthDataAvailable()) {
             let sortByTimeDescending = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
             let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit:HR_WINDOW_SIZE, sortDescriptors: [sortByTimeDescending], resultsHandler: { (query, results, error) in
@@ -115,6 +115,11 @@ public class HeartRatePoller : ObservableObject {
         else {
             fatalError("Unable to query Health Store. Health data is not available")
         }
+    }
+    
+    // demo function to assign latestHrv to random value
+    public func demo() {
+        self.latestHrv = HRItem(value: Double.random(in: 1...60), timestamp: Date())
     }
     
     public func stopPolling() {

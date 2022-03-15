@@ -14,17 +14,23 @@ let SAFE_HRV_THRESHOLD: Double = 50.00
 let WARNING_HRV_THRESHOLD: Double = 30.00
 let DANGER_HRV_THRESHOLD: Double = 20.0
 let INIT_CURRENT_HRV = 100.0
-// constant for demo purposes only
-let RANDOM_HRV_TIME_INTERVAL = 5.0
-let notificationFactory = NotificationFactory()
+
+let HRV_MONITOR_INTERVAL_SEC = 5.0
 
 struct ContentView : View {
     // variable to indicate the state of workout mode and heart rate polling
     @State var monitorActive: Bool = true
-    @State var monitorTimer : Timer?
+    @State var monitorTimer: Timer?
     @State var showDangerousHrvAlert: Bool = false
+    
     // hr poller module
     @ObservedObject var hrPoller = HeartRatePoller()
+    
+    // notification factory
+    let notificationFactory = NotificationFactory()
+    
+    // workout manager
+    let workoutManager = WorkoutManager()
     
     var body: some View {
         Form {
@@ -43,11 +49,11 @@ struct ContentView : View {
                 .padding()
             }
             Section {
-                displayPauseResumeButton()
+                displayStopStartButton()
             }
         }
         .onAppear {
-            startMonitorTimer()
+            startMonitor()
         }
         .alert(isPresented: self.$showDangerousHrvAlert) {
             Alert(
@@ -66,7 +72,7 @@ struct ContentView : View {
     
     func getHrvValueString() -> String {
         if !self.monitorActive {
-            return "Paused"
+            return "Stopped"
         }
         else if self.hrPoller.latestHrv == nil {
             return "Starting"
@@ -76,29 +82,32 @@ struct ContentView : View {
         }
     }
     
-    func displayPauseResumeButton() -> some View {
+    func displayStopStartButton() -> some View {
         if monitorActive {
-            return Button(action: { pauseMonitor() }) {
-                Text("Pause")
+            return Button(action: { stopMonitor() }) {
+                Text("Stop")
             }
         }
         else {
-            return Button(action: { resumeMonitor() }) {
-                Text("Resume")
+            return Button(action: { startMonitor() }) {
+                Text("Start")
             }
         }
     }
     
-    func pauseMonitor() {
-        print("Pausing")
+    func stopMonitor() {
+        print("Stopping")
         monitorActive = false
+        self.workoutManager.endWorkout()
         stopMonitorTimer()
     }
     
-    func resumeMonitor() {
-        print("Resuming")
+    func startMonitor() {
+        print("Starting")
         monitorActive = true
+        self.workoutManager.startWorkout()
         startMonitorTimer()
+        
     }
     
     func startMonitorTimer() {
@@ -106,8 +115,11 @@ struct ContentView : View {
         guard (monitorTimer == nil && monitorActive) else { return }
         
         if (monitorActive) {
-            monitorTimer = Timer.scheduledTimer(withTimeInterval: RANDOM_HRV_TIME_INTERVAL, repeats: true, block: {_ in
-                self.hrPoller.pollHeartRate()
+            monitorTimer = Timer.scheduledTimer(withTimeInterval: HRV_MONITOR_INTERVAL_SEC, repeats: true, block: {_ in
+                self.hrPoller.poll()
+                
+                // demo only
+                // self.hrPoller.demo()
 
                 // this if statment is part of the demo and should be evaluated differently in the future or removed
                 if(self.hrPoller.latestHrv != nil && self.hrPoller.latestHrv!.value < DANGER_HRV_THRESHOLD){
