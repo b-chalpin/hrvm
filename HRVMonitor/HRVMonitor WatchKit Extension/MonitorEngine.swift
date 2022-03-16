@@ -43,9 +43,9 @@ class MonitorEngine : ObservableObject {
             print("ERROR - Timer already started")
             return
         }
-        
+
         self.monitorTimer = Timer.scheduledTimer(withTimeInterval: HRV_MONITOR_INTERVAL_SEC, repeats: true, block: {_ in
-             self.hrPoller.poll()
+            self.hrPoller.poll()
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
                 self.status = .active // update monitor engine status

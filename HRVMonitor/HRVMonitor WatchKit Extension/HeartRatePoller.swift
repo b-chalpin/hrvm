@@ -22,6 +22,7 @@ public class HeartRatePoller : ObservableObject {
     // constants
     private let heartRateQuantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     private let healthStore: HKHealthStore = HKHealthStore()
+    private var query: HKQuery?
     
     // variables
     private var hrStore: [HRItem]
@@ -80,9 +81,6 @@ public class HeartRatePoller : ObservableObject {
             let sortByTimeDescending = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
             let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit: HR_WINDOW_SIZE, sortDescriptors: [sortByTimeDescending], resultsHandler: { (query, results, error) in
                 // there is a chance that we have stopped the polling, check this first before continuing
-                if self.status == HeartRatePollerStatus.stopped {
-                    return;
-                }
                 
                 if let error = error {
                     print("ERROR - Unexpected error occurred - \(error)")
@@ -126,6 +124,7 @@ public class HeartRatePoller : ObservableObject {
                 // add new Hrv to store
                 self.addHrvToHrvStore(newHrv: newHrv)
             })
+            self.query = query
             self.healthStore.execute(query)
         }
         else {
@@ -149,6 +148,7 @@ public class HeartRatePoller : ObservableObject {
     
     public func stopPolling() {
         // for now all we do is set latestHrv to nil
+        self.healthStore.stop(self.query!)
         self.latestHrv = nil
         self.updateStatus(status: .stopped)
     }
