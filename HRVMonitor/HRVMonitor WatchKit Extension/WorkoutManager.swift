@@ -8,44 +8,37 @@
 import Foundation
 import HealthKit
 
+class WorkoutManager {
+    private let healthStore = HKHealthStore()
+    private var session: HKWorkoutSession?
 
-class WorkoutManager: NSObject {
-
-    let healthStore = HKHealthStore()
-    var session: HKWorkoutSession?
-
-    // Start the workout.
-    func startWorkout() {
+    public func startWorkout() {
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = .running
         configuration.locationType = .indoor
 
-        // Create the session and obtain the workout builder.
+        // create the session and obtain the workout builder
         do {
             session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
         } catch {
-            print("Error: failed to create workout session")
+            print("ERROR - failed to create workout session")
             return
         }
 
-
-        // Start the workout session and begin data collection.
+        // start the workout session and begin data collection
         let startDate = Date()
         session?.startActivity(with: startDate)
     }
 
-
-    func pause() {
+    public func pause() {
         session?.pause()
     }
 
-    func resume() {
+    public func resume() {
         session?.resume()
     }
 
-    func endWorkout() {
+    public func endWorkout() {
         session?.end()
     }
-
 }
-
