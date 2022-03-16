@@ -24,6 +24,9 @@ public class HeartRatePoller : ObservableObject {
     private let healthStore: HKHealthStore = HKHealthStore()
     private var query: HKQuery?
     
+    // variable to indicate whether we have notified the poller to stop
+    private var hasBeenStopped: Bool = true
+    
     // variables
     private var hrStore: [HRItem]
     private var hrvStore: [HRItem]
@@ -81,6 +84,10 @@ public class HeartRatePoller : ObservableObject {
             let sortByTimeDescending = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
             let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit: HR_WINDOW_SIZE, sortDescriptors: [sortByTimeDescending], resultsHandler: { (query, results, error) in
                 // there is a chance that we have stopped the polling, check this first before continuing
+                if self.hasBeenStopped {
+                    print("Heart Rate Poller has been told to stop. Aborting query")
+                    return
+                }
                 
                 if let error = error {
                     print("ERROR - Unexpected error occurred - \(error)")
@@ -93,7 +100,7 @@ public class HeartRatePoller : ObservableObject {
                 
                 if results.count == 0 {
                     print("No records returned for heart rate")
-//                    return // TODO: is this a breaking case?
+                    return
                 }
                 
                 // list of new samples
@@ -134,7 +141,7 @@ public class HeartRatePoller : ObservableObject {
     
     // demo function to assign latestHrv to random value
     public func demo() {
-        if self.status == .stopped {
+        if self.hasBeenStopped {
             print("HRPoller has been stopped. Cancelling random HRV polling")
             return
         }
@@ -147,10 +154,13 @@ public class HeartRatePoller : ObservableObject {
     }
     
     public func stopPolling() {
-        // for now all we do is set latestHrv to nil
-        self.healthStore.stop(self.query!)
+        self.hasBeenStopped = true
         self.latestHrv = nil
         self.updateStatus(status: .stopped)
+    }
+    
+    public func resetStoppedFlag() {
+        self.hasBeenStopped = false
     }
     
     private func calculateHrv(hrSamples: [HRItem]) -> HRItem {
