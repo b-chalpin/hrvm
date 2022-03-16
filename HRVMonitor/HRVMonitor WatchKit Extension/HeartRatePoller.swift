@@ -12,6 +12,12 @@ let HR_WINDOW_SIZE = 15
 let HR_STORE_SIZE = 60
 let HRV_STORE_SIZE = 15
 
+enum HeartRatePollerStatus {
+    case stopped
+    case starting
+    case active
+}
+
 public class HeartRatePoller : ObservableObject {
     // constants
     private let heartRateQuantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
@@ -24,8 +30,8 @@ public class HeartRatePoller : ObservableObject {
     // UI will be subscribed to this
     @Published var latestHrv: HRItem?
     
-    // boolean flag to determine if still gathering initial HRV samples
-    @Published var initializingHrvMonitor: Bool = true
+    // status of poller. stopped on initialization
+    @Published var status: HeartRatePollerStatus = .stopped
     
     // auth status
     @Published var authStatus: HKAuthorizationStatus = .notDetermined
@@ -46,7 +52,7 @@ public class HeartRatePoller : ObservableObject {
     }
     
     private func updateAuthStatus() {
-        authStatus = healthStore.authorizationStatus(for: self.heartRateQuantityType)
+        self.authStatus = healthStore.authorizationStatus(for: self.heartRateQuantityType)
     }
     
     private func requestAuthorization() {
@@ -65,12 +71,21 @@ public class HeartRatePoller : ObservableObject {
         }
     }
     
+    public func isActive() -> Bool {
+        return self.status == HeartRatePollerStatus.active
+    }
+    
     public func poll() {
         if (HKHealthStore.isHealthDataAvailable()) {
             let sortByTimeDescending = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-            let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit:HR_WINDOW_SIZE, sortDescriptors: [sortByTimeDescending], resultsHandler: { (query, results, error) in
-                if error != nil {
-                    print(error!)
+            let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit: HR_WINDOW_SIZE, sortDescriptors: [sortByTimeDescending], resultsHandler: { (query, results, error) in
+                // there is a chance that we have stopped the polling, check this first before continuing
+                if self.status == HeartRatePollerStatus.stopped {
+                    return;
+                }
+                
+                if let error = error {
+                    print("ERROR - Unexpected error occurred - \(error)")
                 }
                 
                 guard let results = results else {
@@ -80,7 +95,7 @@ public class HeartRatePoller : ObservableObject {
                 
                 if results.count == 0 {
                     print("No records returned for heart rate")
-                    return
+//                    return // TODO: is this a breaking case?
                 }
                 
                 // list of new samples
@@ -97,8 +112,9 @@ public class HeartRatePoller : ObservableObject {
                 let newHrv = self.calculateHrv(hrSamples: newHRSamples)
                 
                 DispatchQueue.main.async {
-                    // update subscribed views with new hrv
+                    // update subscribed views with new hrv and active status
                     self.latestHrv = newHrv
+                    self.updateStatus(status: .active)
 
                     print("HRV UPDATED: \(self.latestHrv!.value)")
                 }
@@ -119,12 +135,22 @@ public class HeartRatePoller : ObservableObject {
     
     // demo function to assign latestHrv to random value
     public func demo() {
-        self.latestHrv = HRItem(value: Double.random(in: 1...60), timestamp: Date())
+        if self.status == .stopped {
+            print("HRPoller has been stopped. Cancelling random HRV polling")
+            return
+        }
+        
+        let randHrvValue = Double.random(in: 1...100)
+        self.latestHrv = HRItem(value: randHrvValue, timestamp: Date())
+        self.status = .active
+        
+        print("Random HRV value: \(randHrvValue)")
     }
     
     public func stopPolling() {
         // for now all we do is set latestHrv to nil
         self.latestHrv = nil
+        self.updateStatus(status: .stopped)
     }
     
     private func calculateHrv(hrSamples: [HRItem]) -> HRItem {
@@ -157,5 +183,9 @@ public class HeartRatePoller : ObservableObject {
             self.hrvStore.removeFirst()
         }
         self.hrvStore.append(newHrv)
+    }
+      
+    private func updateStatus(status: HeartRatePollerStatus) {
+        self.status = status
     }
 }

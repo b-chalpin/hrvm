@@ -7,30 +7,15 @@
 
 import SwiftUI
 import WatchKit
-import HealthKit
-import UserNotifications
 
+// TODO: move these to config
 let SAFE_HRV_THRESHOLD: Double = 50.00
 let WARNING_HRV_THRESHOLD: Double = 30.00
 let DANGER_HRV_THRESHOLD: Double = 20.0
-let INIT_CURRENT_HRV = 100.0
-
-let HRV_MONITOR_INTERVAL_SEC = 5.0
+let HRV_MONITOR_INTERVAL_SEC = 2.0
 
 struct ContentView : View {
-    // variable to indicate the state of workout mode and heart rate polling
-    @State var monitorActive: Bool = true
-    @State var monitorTimer: Timer?
-    @State var showDangerousHrvAlert: Bool = false
-    
-    // hr poller module
-    @ObservedObject var hrPoller = HeartRatePoller()
-    
-    // notification factory
-    let notificationFactory = NotificationFactory()
-    
-    // workout manager
-    let workoutManager = WorkoutManager()
+    @ObservedObject var monitorEngine = MonitorEngine()
     
     var body: some View {
         Form {
@@ -52,43 +37,43 @@ struct ContentView : View {
                 displayStopStartButton()
             }
         }
-        .onAppear {
-            startMonitor()
-        }
-        .alert(isPresented: self.$showDangerousHrvAlert) {
+        .alert(isPresented: self.$monitorEngine.threatDetector.threatDetected) {
             Alert(
                 title: Text("Are you stressed?"),
                 primaryButton: .default(
                     Text("No"),
-                    action: {}
+                    action: {
+                        self.monitorEngine.threatDetector.acknowledgeThreat()
+                    }
                 ),
                 secondaryButton: .default(
                     Text("Yes"),
-                    action: {}
+                    action: {
+                        self.monitorEngine.threatDetector.acknowledgeThreat()
+                    }
                   )
             )
         }
     }
     
     func getHrvValueString() -> String {
-        if !self.monitorActive {
+        switch self.monitorEngine.status {
+        case MonitorEngineStatus.stopped:
             return "Stopped"
-        }
-        else if self.hrPoller.latestHrv == nil {
+        case MonitorEngineStatus.starting:
             return "Starting"
-        }
-        else {
-            return String(format: "%.1f", self.hrPoller.latestHrv!.value)
+        case MonitorEngineStatus.active:
+            return String(format: "%.1f", self.monitorEngine.hrPoller.latestHrv!.value)
         }
     }
     
     func displayStopStartButton() -> some View {
-        if monitorActive {
+        switch self.monitorEngine.status {
+        case MonitorEngineStatus.starting, MonitorEngineStatus.active:
             return Button(action: { stopMonitor() }) {
                 Text("Stop")
             }
-        }
-        else {
+        case MonitorEngineStatus.stopped:
             return Button(action: { startMonitor() }) {
                 Text("Start")
             }
@@ -96,64 +81,28 @@ struct ContentView : View {
     }
     
     func stopMonitor() {
-        print("Stopping")
-        monitorActive = false
-        self.workoutManager.endWorkout()
-        stopMonitorTimer()
+        self.monitorEngine.stopMonitoring()
     }
     
     func startMonitor() {
-        print("Starting")
-        monitorActive = true
-        self.workoutManager.startWorkout()
-        startMonitorTimer()
-        
-    }
-    
-    func startMonitorTimer() {
-        // if monitor is active and the timer is not nil, return
-        guard (monitorTimer == nil && monitorActive) else { return }
-        
-        if (monitorActive) {
-            monitorTimer = Timer.scheduledTimer(withTimeInterval: HRV_MONITOR_INTERVAL_SEC, repeats: true, block: {_ in
-                self.hrPoller.poll()
-                
-                // demo only
-                // self.hrPoller.demo()
-
-                // this if statment is part of the demo and should be evaluated differently in the future or removed
-                if(self.hrPoller.latestHrv != nil && self.hrPoller.latestHrv!.value < DANGER_HRV_THRESHOLD){
-                    // plays failure sound and should also activate haptic feedback needs to be deployed and tested
-                    WKInterfaceDevice.current().play(.failure)
-                    notificationFactory.pushNotification()
-                    showDangerousHrvAlert = true
-                }
-            })
-        }
-    }
-    
-    func stopMonitorTimer() {
-        monitorTimer?.invalidate()
-        monitorTimer = nil
-        
-        hrPoller.stopPolling()
+        self.monitorEngine.startMonitoring()
     }
     
     func calculateColor() -> Color {
-        if (self.hrPoller.latestHrv == nil) {
-            return Color.gray
-        }
-
-        let hrv = self.hrPoller.latestHrv!.value
-        
-        if hrv >= SAFE_HRV_THRESHOLD {
-            return Color.green
-        }
-        else if hrv >= WARNING_HRV_THRESHOLD {
-            return Color.yellow
+        if let hrv = self.monitorEngine.hrPoller.latestHrv?.value {
+            if hrv <= DANGER_HRV_THRESHOLD {
+                return Color.red
+            }
+            else if hrv <= WARNING_HRV_THRESHOLD {
+                return Color.yellow
+            }
+            // above warning threshold
+            else {
+                return Color.green
+            }
         }
         else {
-            return Color.red
+            return Color.gray
         }
     }
 }

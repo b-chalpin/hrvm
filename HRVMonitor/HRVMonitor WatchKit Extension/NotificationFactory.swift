@@ -9,25 +9,26 @@ import Foundation
 import UserNotifications
 import DeveloperToolsSupport
 
+// TODO: move to config
 let NOTIFICATION_DELAY_SEC = 2.0
 
 public class NotificationFactory {
-    
-    let center: UNUserNotificationCenter
-    var authorized: Bool
-    var notificationDelay: Double
+    private let center: UNUserNotificationCenter
+    public var authorized: Bool
+    private var notificationDelay: Double
     
     public init() {
         // getting the current instance of the UNUserNotificationCenter object
         self.center = UNUserNotificationCenter.current()
         self.authorized = false
         self.notificationDelay = NOTIFICATION_DELAY_SEC
+        self.getAuthorization()
     }
     
     private func getAuthorization(){
         // requesting authorization to notify user unless they already accepted
         if self.authorized == false {
-            center.requestAuthorization(options: [.sound, .badge, .alert]){granted, error in
+            center.requestAuthorization(options: [.sound, .badge, .alert]){ granted, error in
                 if granted {
                     self.authorized = true
                 }
@@ -40,7 +41,7 @@ public class NotificationFactory {
         let content = UNMutableNotificationContent()
         content.categoryIdentifier = "myCategory"
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: notificationDelay, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: self.notificationDelay, repeats: false)
         let request = UNNotificationRequest(identifier: "HRVAlert", content: content, trigger: trigger)
         
         return request
@@ -50,11 +51,11 @@ public class NotificationFactory {
         //Public facing method which requests authorization unless the user has already accepted. Then it constructs the notification and finally delivers it.
         self.getAuthorization()
         let request = self.constructUserNotification()
-        center.add(request) {(error: Error?) in
+
+        self.center.add(request) {(error: Error?) in
             if let theError = error {
                 print(theError.localizedDescription)
             }
         }
     }
-    
 }
