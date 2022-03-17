@@ -8,10 +8,12 @@
 import Foundation
 import HealthKit
 
+// TODO: move to config
 let HR_WINDOW_SIZE = 15
 let HR_STORE_SIZE = 60
 let HRV_STORE_SIZE = 15
 
+// it is assumed that when status is .active, hrv will be defined
 enum HeartRatePollerStatus {
     case stopped
     case starting
@@ -22,17 +24,16 @@ public class HeartRatePoller : ObservableObject {
     // constants
     private let heartRateQuantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     private let healthStore: HKHealthStore = HKHealthStore()
-    private var query: HKQuery?
     
     // variable to indicate whether we have notified the poller to stop
     private var hasBeenStopped: Bool = true
     
     // variables
     private var hrStore: [HRItem]
-    private var hrvStore: [HRItem]
+    private var hrvStore: [HRVItem]
     
     // UI will be subscribed to this
-    @Published var latestHrv: HRItem?
+    @Published var latestHrv: HRVItem?
     
     // status of poller. stopped on initialization
     @Published var status: HeartRatePollerStatus = .stopped
@@ -51,7 +52,7 @@ public class HeartRatePoller : ObservableObject {
         return self.hrStore
     }
     
-    public func getHrvStore() -> [HRItem] {
+    public func getHrvStore() -> [HRVItem] {
         return self.hrvStore
     }
     
@@ -121,7 +122,7 @@ public class HeartRatePoller : ObservableObject {
                     self.latestHrv = newHrv
                     self.updateStatus(status: .active)
 
-                    print("HRV UPDATED: \(self.latestHrv!.value)")
+                    print("HRV UPDATED: \(self.latestHrv!)")
                 }
                 
                 // add new samples to hrStore
@@ -131,7 +132,6 @@ public class HeartRatePoller : ObservableObject {
                 // add new Hrv to store
                 self.addHrvToHrvStore(newHrv: newHrv)
             })
-            self.query = query
             self.healthStore.execute(query)
         }
         else {
@@ -147,10 +147,18 @@ public class HeartRatePoller : ObservableObject {
         }
         
         let randHrvValue = Double.random(in: 1...100)
-        self.latestHrv = HRItem(value: randHrvValue, timestamp: Date())
+        
+        // create dummy HRVItem
+        self.latestHrv = HRVItem(value: randHrvValue,
+                                 timestamp: Date(),
+                                 deltaHrvValue: 0.0,
+                                 deltaUnixTimestamp: 0.0,
+                                 avgHeartRateMS: 0.0,
+                                 numHeartRateSamples: 0)
+        
         self.status = .active
         
-        print("Random HRV value: \(randHrvValue)")
+        print("Random HRV value: \(self.latestHrv!)")
     }
     
     public func stopPolling() {
@@ -163,23 +171,63 @@ public class HeartRatePoller : ObservableObject {
         self.hasBeenStopped = false
     }
     
-    private func calculateHrv(hrSamples: [HRItem]) -> HRItem {
+    private func calculateHrv(hrSamples: [HRItem]) -> HRVItem {
         let hrSamplesInMS = hrSamples.map { (sample) -> Double in
             // convert bpm -> ms
             return 60_000 / sample.value
         }
         
+        // calculate HRV
         let hrvInMS = self.calculateStdDev(samples: hrSamplesInMS)
-        let hrvTimestamp = hrSamples.last!.timestamp
         
-        return HRItem(value: hrvInMS, timestamp: hrvTimestamp)
+        // calculate metadata for HRV
+        let hrvTimestamp = hrSamples.last!.timestamp
+        let avgHeartRateMS = self.calculateMean(samples: hrSamplesInMS)
+        let deltaHrvValue = self.calculateDeltaHrvValue(newHrvValue: hrvInMS)
+        let deltaUnixTimestamp = self.calculateDeltaUnixTimestamp(newHrvTimestamp: hrvTimestamp)
+        let numHeartRateSamples = HR_WINDOW_SIZE
+        
+        // finally create a new HRV sample
+        return HRVItem(value: hrvInMS,
+                       timestamp: hrvTimestamp,
+                       deltaHrvValue: deltaHrvValue,
+                       deltaUnixTimestamp: deltaUnixTimestamp,
+                       avgHeartRateMS: avgHeartRateMS,
+                       numHeartRateSamples: numHeartRateSamples)
     }
     
     private func calculateStdDev(samples: [Double]) -> Double {
         let length = Double(samples.count)
-        let avg = samples.reduce(0, {$0 + $1}) / length
+        let avg = self.calculateMean(samples: samples)
         let sumOfSquaredAvgDiff = samples.map { pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
         return sqrt(sumOfSquaredAvgDiff / length)
+    }
+    
+    private func calculateMean(samples: [Double]) -> Double {
+        if samples.count == 0 {
+            fatalError("Cannot calculate the mean of 0 samples. Will result in a divide by 0")
+        }
+        
+        let length = Double(samples.count)
+        return samples.reduce(0, {$0 + $1}) / length
+    }
+    
+    private func calculateDeltaHrvValue(newHrvValue: Double) -> Double {
+        if let latestHrvValue = self.latestHrv?.value {
+            return newHrvValue - latestHrvValue
+        }
+        else {
+            return 0.0
+        }
+    }
+    
+    private func calculateDeltaUnixTimestamp(newHrvTimestamp: Date) -> Double {
+        if let latestHrvTiemstamp = self.latestHrv?.timestamp {
+            return newHrvTimestamp.timeIntervalSince1970 - latestHrvTiemstamp.timeIntervalSince1970
+        }
+        else {
+            return 0.0
+        }
     }
     
     private func addSamplesToHrStore(newHRSamples: [HRItem]) {
@@ -188,7 +236,7 @@ public class HeartRatePoller : ObservableObject {
         // remove the first <diff> items in store
     }
     
-    private func addHrvToHrvStore(newHrv: HRItem) {
+    private func addHrvToHrvStore(newHrv: HRVItem) {
         if self.hrvStore.count == HRV_STORE_SIZE {
             self.hrvStore.removeFirst()
         }

@@ -14,6 +14,8 @@
 		6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* WorkoutManager.swift */; };
 		9917685127E00BF800AC764C /* MonitorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685027E00BF800AC764C /* MonitorEngine.swift */; };
 		9917685327E176E100AC764C /* ThreatDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685227E176E100AC764C /* ThreatDetector.swift */; };
+		9917685527E3E88600AC764C /* HRVItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685427E3E88600AC764C /* HRVItem.swift */; };
+		9917685727E3EB7A00AC764C /* HRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685627E3EB7A00AC764C /* HRItem.swift */; };
 		9932C3F827CD983B001736F7 /* HRVMonitor WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9932C3F727CD983B001736F7 /* HRVMonitor WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9932C3FD27CD983C001736F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9932C3FC27CD983C001736F7 /* Assets.xcassets */; };
 		9932C40327CD983C001736F7 /* HRVMonitor WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9932C40227CD983C001736F7 /* HRVMonitor WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -28,7 +30,7 @@
 		9932C42B27CD983D001736F7 /* HRVMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */; };
 		9932C42D27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */; };
 		997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */; };
-		997EB00027DC141E004B257C /* HRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFFF27DC141E004B257C /* HRItem.swift */; };
+		997EB00027DC141E004B257C /* MonitorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFFF27DC141E004B257C /* MonitorItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +98,8 @@
 		6659324527DBF50F002D1717 /* WorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		9917685027E00BF800AC764C /* MonitorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorEngine.swift; sourceTree = "<group>"; };
 		9917685227E176E100AC764C /* ThreatDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatDetector.swift; sourceTree = "<group>"; };
+		9917685427E3E88600AC764C /* HRVItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVItem.swift; sourceTree = "<group>"; };
+		9917685627E3EB7A00AC764C /* HRItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRItem.swift; sourceTree = "<group>"; };
 		9932C3F327CD983B001736F7 /* HRVMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HRVMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C3F727CD983B001736F7 /* HRVMonitor WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRVMonitor WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C3FC27CD983C001736F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,7 +119,7 @@
 		9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITests.swift; sourceTree = "<group>"; };
 		9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatePoller.swift; sourceTree = "<group>"; };
-		997EAFFF27DC141E004B257C /* HRItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRItem.swift; sourceTree = "<group>"; };
+		997EAFFF27DC141E004B257C /* MonitorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,9 +208,11 @@
 				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
 				663419BF27DAD79D00F3823B /* NotificationFactory.swift */,
 				6659324527DBF50F002D1717 /* WorkoutManager.swift */,
-				997EAFFF27DC141E004B257C /* HRItem.swift */,
+				997EAFFF27DC141E004B257C /* MonitorItem.swift */,
 				9917685027E00BF800AC764C /* MonitorEngine.swift */,
 				9917685227E176E100AC764C /* ThreatDetector.swift */,
+				9917685427E3E88600AC764C /* HRVItem.swift */,
+				9917685627E3EB7A00AC764C /* HRItem.swift */,
 			);
 			path = "HRVMonitor WatchKit Extension";
 			sourceTree = "<group>";
@@ -427,13 +433,15 @@
 				9917685327E176E100AC764C /* ThreatDetector.swift in Sources */,
 				9932C40A27CD983C001736F7 /* ContentView.swift in Sources */,
 				997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */,
+				9917685727E3EB7A00AC764C /* HRItem.swift in Sources */,
 				9932C41027CD983C001736F7 /* ComplicationController.swift in Sources */,
 				6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */,
 				9932C40827CD983C001736F7 /* HRVMonitorApp.swift in Sources */,
+				9917685527E3E88600AC764C /* HRVItem.swift in Sources */,
 				9917685127E00BF800AC764C /* MonitorEngine.swift in Sources */,
 				663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */,
 				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,
-				997EB00027DC141E004B257C /* HRItem.swift in Sources */,
+				997EB00027DC141E004B257C /* MonitorItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
