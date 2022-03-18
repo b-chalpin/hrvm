@@ -39,5 +39,17 @@
 	<true/>
 	<key>WARNING_HRV_THRESHOLD</key>
 	<string>$(WARNING_HRV_THRESHOLD)</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>WKBackgroundModes</key>
+	<array>
+		<string>workout-processing</string>
+	</array>
 </dict>
 </plist>
