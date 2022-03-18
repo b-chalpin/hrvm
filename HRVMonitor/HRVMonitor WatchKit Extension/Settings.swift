@@ -1,7 +1,3 @@
-//
-//  Settings.swift
-//  HRVMonitor WatchKit Extension
-//
 //  Created by Timoster the Gr9 on 3/18/22.
 //
 

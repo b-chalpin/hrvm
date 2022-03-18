@@ -2,17 +2,12 @@
 //  HRItem.swift
 //  HRVMonitor WatchKit Extension
 //
-//  Created by bchalpin on 3/11/22.
+//  Created by bchalpin on 3/17/22.
 //
 
 import Foundation
 
-public class HRItem {
-    public var value: Double
-    public var timestamp: Date
-    
-    public init(value: Double, timestamp: Date) {
-        self.value = value
-        self.timestamp = timestamp
-    }
+// class reposible for storing a single heart rate sample's data
+public class HRItem : MonitorItem<Double> {
+    // TODO: add additional features we want to extract for Heart Rate
 }

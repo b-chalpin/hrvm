@@ -12,7 +12,7 @@ import WatchKit
 let SAFE_HRV_THRESHOLD: Double = 50.00
 let WARNING_HRV_THRESHOLD: Double = 30.00
 let DANGER_HRV_THRESHOLD: Double = 20.0
-let HRV_MONITOR_INTERVAL_SEC = 2.0
+let HRV_MONITOR_INTERVAL_SEC = 3.0
 
 struct ContentView : View {
     @ObservedObject var monitorEngine = MonitorEngine()
@@ -89,16 +89,22 @@ struct ContentView : View {
     }
     
     func calculateColor() -> Color {
-        if let hrv = self.monitorEngine.hrPoller.latestHrv?.value {
-            if hrv <= DANGER_HRV_THRESHOLD {
-                return Color.red
+        if self.monitorEngine.hrPoller.isActive() {
+            // check for the unexpected case where
+            if let hrv = self.monitorEngine.hrPoller.latestHrv?.value {
+                if hrv <= DANGER_HRV_THRESHOLD {
+                    return Color.red
+                }
+                else if hrv <= WARNING_HRV_THRESHOLD {
+                    return Color.yellow
+                }
+                // above warning threshold
+                else {
+                    return Color.green
+                }
             }
-            else if hrv <= WARNING_HRV_THRESHOLD {
-                return Color.yellow
-            }
-            // above warning threshold
             else {
-                return Color.green
+                fatalError("ERROR - Heart Rate Poller was active but latestHrv was nil")
             }
         }
         else {
