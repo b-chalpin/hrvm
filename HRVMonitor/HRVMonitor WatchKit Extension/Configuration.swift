@@ -11,7 +11,7 @@ enum Configuration {
         case missingKey, invalidValue
     }
 
-    static func value<T>(for key: String) throws -> T where T: LosslessStringConvertible {
+    static func value<T>(key: String) throws -> T where T: LosslessStringConvertible {
         guard let object = Bundle.main.object(forInfoDictionaryKey:key) else {
             throw Error.missingKey
         }
@@ -30,6 +30,6 @@ enum Configuration {
 
 enum API {
     static var baseURL: URL {
-        return try! URL(string: "https://" + Configuration.value(for: "BASE_URL"))!
+        return try! URL(string: "https://" + Configuration.value(key: "BASE_URL"))!
     }
 }

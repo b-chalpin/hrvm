@@ -13,6 +13,7 @@
 		663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663419BF27DAD79D00F3823B /* NotificationFactory.swift */; };
 		663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663EE4E627E15B8E00AECB35 /* Configuration.swift */; };
 		6659324627DBF50F002D1717 /* Workout_mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* Workout_mode.swift */; };
+		66F2F6F627E533D600561E15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2F6F527E533D600561E15 /* Settings.swift */; };
 		9932C3F827CD983B001736F7 /* HRVMonitor WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9932C3F727CD983B001736F7 /* HRVMonitor WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9932C3FD27CD983C001736F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9932C3FC27CD983C001736F7 /* Assets.xcassets */; };
 		9932C40327CD983C001736F7 /* HRVMonitor WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9932C40227CD983C001736F7 /* HRVMonitor WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -96,6 +97,7 @@
 		663EE4E527E1593900AECB35 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		663EE4E627E15B8E00AECB35 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		6659324527DBF50F002D1717 /* Workout_mode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout_mode.swift; sourceTree = "<group>"; };
+		66F2F6F527E533D600561E15 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		9932C3F327CD983B001736F7 /* HRVMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HRVMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C3F727CD983B001736F7 /* HRVMonitor WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRVMonitor WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C3FC27CD983C001736F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				9932C41727CD983D001736F7 /* PushNotificationPayload.apns */,
 				9932C41327CD983D001736F7 /* Preview Content */,
 				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
+				66F2F6F527E533D600561E15 /* Settings.swift */,
 				663EE4E627E15B8E00AECB35 /* Configuration.swift */,
 				663419BF27DAD79D00F3823B /* NotificationFactory.swift */,
 				6659324527DBF50F002D1717 /* Workout_mode.swift */,
@@ -433,6 +436,7 @@
 				663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */,
 				663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */,
 				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,
+				66F2F6F627E533D600561E15 /* Settings.swift in Sources */,
 				997EB00027DC141E004B257C /* HRItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -610,6 +614,7 @@
 				INFOPLIST_FILE = "HRVMonitor WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit Extension";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = HRVMonitor_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "HRVMonitor App would like to use your heart rate records to monitor your HRV";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "HRVMonitor App will not share your heart rate data";
@@ -648,6 +653,7 @@
 				INFOPLIST_FILE = "HRVMonitor WatchKit Extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit Extension";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = HRVMonitor_WatchKit_Extension.ComplicationController;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "HRVMonitor App would like to use your heart rate records to monitor your HRV";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "HRVMonitor App will not share your heart rate data";

@@ -13,6 +13,16 @@
 			<string>Owner</string>
 		</dict>
 	</array>
+	<key>DANGER_HRV_THRESHOLD</key>
+	<string>$(DANGER_HRV_THRESHOLD)</string>
+	<key>HRV_MONITOR_INTERVAL_SEC</key>
+	<string>$(HRV_MONITOR_INTERVAL_SEC)</string>
+	<key>HRV_STORE_SIZE</key>
+	<string>$(HRV_STORE_SIZE)</string>
+	<key>HR_STORE_SIZE</key>
+	<string>$(HR_STORE_SIZE)</string>
+	<key>HR_WINDOW_SIZE</key>
+	<string>$(HR_WINDOW_SIZE)</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
@@ -23,7 +33,11 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
+	<key>SAFE_HRV_THRESHOLD</key>
+	<string>$(SAFE_HRV_THRESHOLD)</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
+	<key>WARNING_HRV_THRESHOLD</key>
+	<string>$(WARNING_HRV_THRESHOLD)</string>
 </dict>
 </plist>
