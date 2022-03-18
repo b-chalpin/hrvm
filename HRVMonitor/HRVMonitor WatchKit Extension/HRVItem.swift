@@ -14,13 +14,15 @@ public class HRVItem : MonitorItem<Double> {
     public var avgHeartRateBPM: Double // average heart rate for the samples used to calculate this HRV in BPM
     public var avgHeartRateMS: Double // average heart rate for the samples used to calculate this HRV in Milliseconds
     public var numHeartRateSamples: Int // number of heart rate samples used to calculate this HRV
+    public var hrSamples: [HRItem] // store the HR samples used to calculate HRV
     
-    init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int) {
+    init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HRItem]) {
         self.deltaHrvValue = deltaHrvValue
         self.deltaUnixTimestamp = deltaUnixTimestamp
         self.avgHeartRateBPM = 60_000 / avgHeartRateMS
         self.avgHeartRateMS = avgHeartRateMS
         self.numHeartRateSamples = numHeartRateSamples
+        self.hrSamples = hrSamples
         
         super.init(value: value, timestamp: timestamp)
     }

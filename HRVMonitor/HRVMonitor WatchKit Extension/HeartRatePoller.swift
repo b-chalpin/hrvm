@@ -29,7 +29,6 @@ public class HeartRatePoller : ObservableObject {
     private var hasBeenStopped: Bool = true
     
     // variables
-    private var hrStore: [HRItem]
     private var hrvStore: [HRVItem]
     
     // UI will be subscribed to this
@@ -42,14 +41,9 @@ public class HeartRatePoller : ObservableObject {
     @Published var authStatus: HKAuthorizationStatus = .notDetermined
     
     public init() {
-        self.hrStore = []
         self.hrvStore = []
         
         self.requestAuthorization()
-    }
-    
-    public func getHrStore() -> [HRItem] {
-        return self.hrStore
     }
     
     public func getHrvStore() -> [HRVItem] {
@@ -104,33 +98,30 @@ public class HeartRatePoller : ObservableObject {
                     return
                 }
                 
-                // list of new samples
-                let newHRSamples = results.map { (sample) -> HRItem in
-                    let quantity = (sample as! HKQuantitySample).quantity
-                    let heartRateUnit = HKUnit(from: "count/min")
-                    
-                    let heartRateBpm = quantity.doubleValue(for: heartRateUnit)
-                    let heartRateTimestamp = sample.endDate
-                    
-                    return HRItem(value: heartRateBpm, timestamp: heartRateTimestamp)
-                }
-                
-                let newHrv = self.calculateHrv(hrSamples: newHRSamples)
-                
                 DispatchQueue.main.async {
-                    // update subscribed views with new hrv and active status
-                    self.latestHrv = newHrv
-                    self.updateStatus(status: .active)
+                    // list of new samples
+                    let newHRSamples = results.map { (sample) -> HRItem in
+                        let quantity = (sample as! HKQuantitySample).quantity
+                        let heartRateUnit = HKUnit(from: "count/min")
+                        
+                        let heartRateBpm = quantity.doubleValue(for: heartRateUnit)
+                        let heartRateTimestamp = sample.endDate
+                        
+                        return HRItem(value: heartRateBpm, timestamp: heartRateTimestamp)
+                    }
+                    
+                    let newHrv = self.calculateHrv(hrSamples: newHRSamples)
 
-                    print("HRV UPDATED: \(self.latestHrv!)")
+                        // update subscribed views with new hrv and active status
+                        self.latestHrv = newHrv
+                        self.updateStatus(status: .active)
+
+                        print("HRV UPDATED: \(self.latestHrv!)")
+
+                    
+                    // add new Hrv to store
+                    self.addHrvToHrvStore(newHrv: newHrv)
                 }
-                
-                // add new samples to hrStore
-                // for now just reassign the hrStore
-                self.hrStore = newHRSamples
-                
-                // add new Hrv to store
-                self.addHrvToHrvStore(newHrv: newHrv)
             })
             self.healthStore.execute(query)
         }
@@ -154,7 +145,8 @@ public class HeartRatePoller : ObservableObject {
                                  deltaHrvValue: 0.0,
                                  deltaUnixTimestamp: 0.0,
                                  avgHeartRateMS: 0.0,
-                                 numHeartRateSamples: 0)
+                                 numHeartRateSamples: 0,
+                                 hrSamples: [])
         
         self.status = .active
         
@@ -193,7 +185,8 @@ public class HeartRatePoller : ObservableObject {
                        deltaHrvValue: deltaHrvValue,
                        deltaUnixTimestamp: deltaUnixTimestamp,
                        avgHeartRateMS: avgHeartRateMS,
-                       numHeartRateSamples: numHeartRateSamples)
+                       numHeartRateSamples: numHeartRateSamples,
+                       hrSamples: hrSamples)
     }
     
     private func calculateStdDev(samples: [Double]) -> Double {
@@ -228,12 +221,6 @@ public class HeartRatePoller : ObservableObject {
         else {
             return 0.0
         }
-    }
-    
-    private func addSamplesToHrStore(newHRSamples: [HRItem]) {
-        // add new samples and remove duplicates
-        // diff = calculate new size - HR_STORE_SIZE
-        // remove the first <diff> items in store
     }
     
     private func addHrvToHrvStore(newHrv: HRVItem) {

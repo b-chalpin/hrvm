@@ -12,7 +12,7 @@ import WatchKit
 let SAFE_HRV_THRESHOLD: Double = 50.00
 let WARNING_HRV_THRESHOLD: Double = 30.00
 let DANGER_HRV_THRESHOLD: Double = 20.0
-let HRV_MONITOR_INTERVAL_SEC = 5.0
+let HRV_MONITOR_INTERVAL_SEC = 3.0
 
 struct ContentView : View {
     @ObservedObject var monitorEngine = MonitorEngine()
