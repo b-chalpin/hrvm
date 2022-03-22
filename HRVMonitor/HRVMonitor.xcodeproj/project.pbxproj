@@ -12,13 +12,12 @@
 		6618D91027D6E58F00EABF5D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618D90F27D6E58F00EABF5D /* CloudKit.framework */; };
 		663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663419BF27DAD79D00F3823B /* NotificationFactory.swift */; };
 		663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663EE4E627E15B8E00AECB35 /* Configuration.swift */; };
-		6659324627DBF50F002D1717 /* Workout_mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* Workout_mode.swift */; };
-		66F2F6F627E533D600561E15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2F6F527E533D600561E15 /* Settings.swift */; };
 		6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* WorkoutManager.swift */; };
+		66F2F6F627E533D600561E15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2F6F527E533D600561E15 /* Settings.swift */; };
 		9917685127E00BF800AC764C /* MonitorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685027E00BF800AC764C /* MonitorEngine.swift */; };
 		9917685327E176E100AC764C /* ThreatDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685227E176E100AC764C /* ThreatDetector.swift */; };
-		9917685527E3E88600AC764C /* HRVItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685427E3E88600AC764C /* HRVItem.swift */; };
-		9917685727E3EB7A00AC764C /* HRItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685627E3EB7A00AC764C /* HRItem.swift */; };
+		9917685527E3E88600AC764C /* HrvItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685427E3E88600AC764C /* HrvItem.swift */; };
+		9917685727E3EB7A00AC764C /* HrItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685627E3EB7A00AC764C /* HrItem.swift */; };
 		9932C3F827CD983B001736F7 /* HRVMonitor WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 9932C3F727CD983B001736F7 /* HRVMonitor WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9932C3FD27CD983C001736F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9932C3FC27CD983C001736F7 /* Assets.xcassets */; };
 		9932C40327CD983C001736F7 /* HRVMonitor WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9932C40227CD983C001736F7 /* HRVMonitor WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -101,13 +100,12 @@
 		663EE4E427E1592E00AECB35 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		663EE4E527E1593900AECB35 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		663EE4E627E15B8E00AECB35 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		6659324527DBF50F002D1717 /* Workout_mode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout_mode.swift; sourceTree = "<group>"; };
-		66F2F6F527E533D600561E15 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		6659324527DBF50F002D1717 /* WorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		66F2F6F527E533D600561E15 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		9917685027E00BF800AC764C /* MonitorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorEngine.swift; sourceTree = "<group>"; };
 		9917685227E176E100AC764C /* ThreatDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatDetector.swift; sourceTree = "<group>"; };
-		9917685427E3E88600AC764C /* HRVItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVItem.swift; sourceTree = "<group>"; };
-		9917685627E3EB7A00AC764C /* HRItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRItem.swift; sourceTree = "<group>"; };
+		9917685427E3E88600AC764C /* HrvItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HrvItem.swift; sourceTree = "<group>"; };
+		9917685627E3EB7A00AC764C /* HrItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HrItem.swift; sourceTree = "<group>"; };
 		9932C3F327CD983B001736F7 /* HRVMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HRVMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C3F727CD983B001736F7 /* HRVMonitor WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRVMonitor WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C3FC27CD983C001736F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -223,8 +221,8 @@
 				997EAFFF27DC141E004B257C /* MonitorItem.swift */,
 				9917685027E00BF800AC764C /* MonitorEngine.swift */,
 				9917685227E176E100AC764C /* ThreatDetector.swift */,
-				9917685427E3E88600AC764C /* HRVItem.swift */,
-				9917685627E3EB7A00AC764C /* HRItem.swift */,
+				9917685427E3E88600AC764C /* HrvItem.swift */,
+				9917685627E3EB7A00AC764C /* HrItem.swift */,
 			);
 			path = "HRVMonitor WatchKit Extension";
 			sourceTree = "<group>";
@@ -445,11 +443,11 @@
 				9917685327E176E100AC764C /* ThreatDetector.swift in Sources */,
 				9932C40A27CD983C001736F7 /* ContentView.swift in Sources */,
 				997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */,
-				9917685727E3EB7A00AC764C /* HRItem.swift in Sources */,
+				9917685727E3EB7A00AC764C /* HrItem.swift in Sources */,
 				9932C41027CD983C001736F7 /* ComplicationController.swift in Sources */,
 				6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */,
 				9932C40827CD983C001736F7 /* HRVMonitorApp.swift in Sources */,
-				9917685527E3E88600AC764C /* HRVItem.swift in Sources */,
+				9917685527E3E88600AC764C /* HrvItem.swift in Sources */,
 				9917685127E00BF800AC764C /* MonitorEngine.swift in Sources */,
 				663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */,
 				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,
@@ -459,7 +457,7 @@
 				663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */,
 				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,
 				66F2F6F627E533D600561E15 /* Settings.swift in Sources */,
-				997EB00027DC141E004B257C /* HRItem.swift in Sources */,
+				997EB00027DC141E004B257C /* MonitorItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

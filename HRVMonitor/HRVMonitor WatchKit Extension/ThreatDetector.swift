@@ -13,7 +13,7 @@ class ThreatDetector : ObservableObject {
     
     private let notificationFactory = NotificationFactory()
     
-    public func checkHrvForThreat(hrv: HRVItem) {
+    public func checkHrvForThreat(hrv: HrvItem) {
         if self.predict(hrv: hrv.value) {
             threatDetected = true
             

@@ -15,13 +15,22 @@ enum MonitorEngineStatus {
 }
 
 class MonitorEngine : ObservableObject {
-    @Published var hrPoller = HeartRatePoller()
-    @Published var threatDetector = ThreatDetector()
+    // dependency injected modules
+    private var hrPoller: HeartRatePoller
+    private var threatDetector: ThreatDetector
+    
     private var workoutManager = WorkoutManager()
     private var monitorTimer: Timer?
     
     // UI will be subscribed to this status
-    @Published var status: MonitorEngineStatus = .stopped
+    @Published var status: MonitorEngineStatus
+    
+    init(hrPoller: HeartRatePoller, threatDetector: ThreatDetector) {
+        self.status = .stopped
+        self.hrPoller = hrPoller
+        self.threatDetector = threatDetector
+    }
+    
     
     public func stopMonitoring() {
         self.status = .stopped
@@ -51,12 +60,16 @@ class MonitorEngine : ObservableObject {
             return
         }
 
-        self.monitorTimer = Timer.scheduledTimer(withTimeInterval: HRV_MONITOR_INTERVAL_SEC, repeats: true, block: {_ in
-//            self.hrPoller.poll()
-            self.hrPoller.demo()
+        self.monitorTimer = Timer.scheduledTimer(withTimeInterval: Settings.HRVMonitorIntervalSec, repeats: true, block: {_ in
+            if Settings.DemoMode {
+                self.hrPoller.demo()
+            }
+            else {
+                self.hrPoller.poll()
+            }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
-                self.status = .active // update monitor engine status
+//                self.status = .active // update monitor engine status
                 self.threatDetector.checkHrvForThreat(hrv: self.hrPoller.latestHrv!)
             }
         })
@@ -65,6 +78,6 @@ class MonitorEngine : ObservableObject {
     private func stopMonitorTimer() {
         self.monitorTimer?.invalidate()
         self.monitorTimer = nil
-        print("Monitor timer invalidated")
+        print("LOG - Monitor timer stopped")
     }
 }
