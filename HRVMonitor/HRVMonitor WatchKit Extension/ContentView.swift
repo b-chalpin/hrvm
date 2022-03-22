@@ -75,12 +75,12 @@ struct ContentView : View {
     }
     
     func displayStopStartButton() -> some View {
-        switch self.monitorEngine.status {
-        case MonitorEngineStatus.starting, MonitorEngineStatus.active:
+        switch self.hrPoller.status {
+        case HeartRatePollerStatus.starting, HeartRatePollerStatus.active:
             return Button(action: { stopMonitor() }) {
                 Text("Stop")
             }
-        case MonitorEngineStatus.stopped:
+        case HeartRatePollerStatus.stopped:
             return Button(action: { startMonitor() }) {
                 Text("Start")
             }

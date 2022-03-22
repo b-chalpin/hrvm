@@ -50,8 +50,8 @@ class MonitorEngine : ObservableObject {
         self.workoutManager.startWorkout()
         
         // hr poller
-        self.hrPoller.resetStoppedFlag()
-        self.initMonitorTimer() // this handles starting polling
+        self.hrPoller.initPolling() // get hrPoller ready for polling
+        self.initMonitorTimer() // this handles synchronous polling
     }
     
     private func initMonitorTimer() {

@@ -31,6 +31,6 @@ class ThreatDetector : ObservableObject {
     
     // returns true for danger; false otherwise
     public func predict(hrv: Double) -> Bool {
-        return hrv <= DANGER_HRV_THRESHOLD
+        return hrv <= Settings.DangerHRVThreshold
     }
 }

@@ -141,6 +141,11 @@ public class HeartRatePoller : ObservableObject {
         print("LOG - Random HRV value: \(self.latestHrv!)")
     }
     
+    public func initPolling() {
+        self.resetStoppedFlag()
+        self.status = .starting
+    }
+    
     public func stopPolling() {
         self.hasBeenStopped = true
         self.latestHrv = nil
