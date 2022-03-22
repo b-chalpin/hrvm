@@ -69,7 +69,7 @@ class MonitorEngine : ObservableObject {
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
-//                self.status = .active // update monitor engine status
+                self.status = .active // update monitor engine status
                 self.threatDetector.checkHrvForThreat(hrv: self.hrPoller.latestHrv!)
             }
         })
