@@ -64,6 +64,20 @@
 			remoteGlobalIDString = 9932C3F627CD983B001736F7;
 			remoteInfo = "HRVMonitor WatchKit App";
 		};
+		FEE253E727EB3BBF006E20F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		FEE253E927EB3BBF006E20F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -111,7 +125,7 @@
 		9932C3FC27CD983C001736F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9932C40227CD983C001736F7 /* HRVMonitor WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HRVMonitor WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C40727CD983C001736F7 /* HRVMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorApp.swift; sourceTree = "<group>"; };
-		9932C40927CD983C001736F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9932C40927CD983C001736F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "HRVMonitor WatchKit Extension/ContentView.swift"; sourceTree = SOURCE_ROOT; };
 		9932C40B27CD983C001736F7 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		9932C40D27CD983C001736F7 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		9932C40F27CD983C001736F7 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -126,6 +140,7 @@
 		9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatePoller.swift; sourceTree = "<group>"; };
 		997EAFFF27DC141E004B257C /* MonitorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorItem.swift; sourceTree = "<group>"; };
+		FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Charts.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +184,7 @@
 		9932C3EC27CD983A001736F7 = {
 			isa = PBXGroup;
 			children = (
+				FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */,
 				9932C3FB27CD983B001736F7 /* HRVMonitor WatchKit App */,
 				9932C40627CD983C001736F7 /* HRVMonitor WatchKit Extension */,
 				9932C41F27CD983D001736F7 /* HRVMonitorTests */,
@@ -250,6 +266,15 @@
 				9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */,
 			);
 			path = HRVMonitorUITests;
+			sourceTree = "<group>";
+		};
+		FEE253E327EB3BBE006E20F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FEE253E827EB3BBF006E20F2 /* Charts.framework */,
+				FEE253EA27EB3BBF006E20F2 /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,7 +375,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					9932C3F227CD983B001736F7 = {
 						CreatedOnToolsVersion = 13.1;
@@ -382,6 +407,12 @@
 			mainGroup = 9932C3EC27CD983A001736F7;
 			productRefGroup = 9932C3F427CD983B001736F7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FEE253E327EB3BBE006E20F2 /* Products */;
+					ProjectRef = FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9932C3F227CD983B001736F7 /* HRVMonitor */,
@@ -392,6 +423,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		FEE253E827EB3BBF006E20F2 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = FEE253E727EB3BBF006E20F2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FEE253EA27EB3BBF006E20F2 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = FEE253E927EB3BBF006E20F2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9932C3F127CD983B001736F7 /* Resources */ = {
@@ -453,9 +501,6 @@
 				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,
 				997EB00027DC141E004B257C /* MonitorItem.swift in Sources */,
 				663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */,
-				9917685127E00BF800AC764C /* MonitorEngine.swift in Sources */,
-				663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */,
-				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,
 				66F2F6F627E533D600561E15 /* Settings.swift in Sources */,
 				997EB00027DC141E004B257C /* MonitorItem.swift in Sources */,
 			);
