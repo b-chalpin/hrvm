@@ -126,15 +126,19 @@ public class HeartRatePoller : ObservableObject {
         }
         
         let randHrvValue = Double.random(in: 1...100)
+        let newHrv = HrvItem(value: randHrvValue,
+                             timestamp: Date(),
+                             deltaHrvValue: 0.0,
+                             deltaUnixTimestamp: 0.0,
+                             avgHeartRateMS: 0.0,
+                             numHeartRateSamples: 0,
+                             hrSamples: [])
         
         // create dummy HRVItem
-        self.latestHrv = HrvItem(value: randHrvValue,
-                                 timestamp: Date(),
-                                 deltaHrvValue: 0.0,
-                                 deltaUnixTimestamp: 0.0,
-                                 avgHeartRateMS: 0.0,
-                                 numHeartRateSamples: 0,
-                                 hrSamples: [])
+        self.latestHrv = newHrv
+        
+        // for the demo graph
+        self.addHrvToHrvStore(newHrv: newHrv)
         
         self.status = .active
         
