@@ -8,17 +8,21 @@
 import SwiftUI
 import WatchKit
 
-// TODO: IMPLIMENT GRAPH & GET RID OF LARGE BUTTON BACKGROUND
-
-// TODO: move these to config
-let SAFE_HRV_THRESHOLD: Double = 50.00
-let WARNING_HRV_THRESHOLD: Double = 30.00
-let DANGER_HRV_THRESHOLD: Double = 20.0
-let HRV_MONITOR_INTERVAL_SEC = 3.0
-
 struct ContentView : View {
-    @State private var isLoading = false
-    @ObservedObject var monitorEngine = MonitorEngine()
+    @ObservedObject var hrPoller: HeartRatePoller
+    @ObservedObject var threatDetector: ThreatDetector
+    @ObservedObject var monitorEngine: MonitorEngine
+    
+    init () {
+        let hrPollerService = HeartRatePoller()
+        let threatDetectorService = ThreatDetector()
+        
+        self.hrPoller = hrPollerService
+        self.threatDetector = threatDetectorService
+        
+        // dependency inject our services into the engine
+        self.monitorEngine = MonitorEngine(hrPoller: hrPollerService, threatDetector: threatDetectorService)
+    }
     
     var body: some View {
         Section {
@@ -92,20 +96,19 @@ struct ContentView : View {
                 }
             }
         }
-        
-        .alert(isPresented: self.$monitorEngine.threatDetector.threatDetected) {
+        .alert(isPresented: self.$threatDetector.threatDetected) {
             Alert(
                 title: Text("Are you stressed?"),
                 primaryButton: .default(
                     Text("No"),
                     action: {
-                        self.monitorEngine.threatDetector.acknowledgeThreat()
+                        self.threatDetector.acknowledgeThreat()
                     }
                 ),
                 secondaryButton: .default(
                     Text("Yes"),
                     action: {
-                        self.monitorEngine.threatDetector.acknowledgeThreat()
+                        self.threatDetector.acknowledgeThreat()
                     }
                   )
             )
@@ -113,13 +116,13 @@ struct ContentView : View {
     }
     
     func getHrvValueString() -> String {
-        switch self.monitorEngine.status {
-        case MonitorEngineStatus.stopped:
-            return "0.0"
-        case MonitorEngineStatus.starting:
-            return "0.0"
-        case MonitorEngineStatus.active:
-            return String(format: "%.1f", self.monitorEngine.hrPoller.latestHrv!.value)
+        switch self.hrPoller.status {
+        case HeartRatePollerStatus.stopped:
+            return "Stopped"
+        case HeartRatePollerStatus.starting:
+            return "Starting"
+        case HeartRatePollerStatus.active:
+            return String(format: "%.1f", self.hrPoller.latestHrv!.value)
         }
     }
     
@@ -164,13 +167,13 @@ struct ContentView : View {
     }
     
     func calculateColor() -> Color {
-        if self.monitorEngine.hrPoller.isActive() {
+        if self.hrPoller.isActive() {
             // check for the unexpected case where
-            if let hrv = self.monitorEngine.hrPoller.latestHrv?.value {
-                if hrv <= DANGER_HRV_THRESHOLD {
+            if let hrv = self.hrPoller.latestHrv?.value {
+                if hrv <= Settings.DangerHRVThreshold {
                     return Color.red
                 }
-                else if hrv <= WARNING_HRV_THRESHOLD {
+                else if hrv <= Settings.WarningHRVThreshold {
                     return Color.yellow
                 }
                 // above warning threshold
