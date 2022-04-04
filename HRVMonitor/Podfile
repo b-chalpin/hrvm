@@ -1,0 +1,36 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'HRVMonitor' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+pod 'YOChartImageKit', '~> 1.1'
+
+  # Pods for HRVMonitor
+
+  target 'HRVMonitorTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'HRVMonitorUITests' do
+    # Pods for testing
+  end
+
+end
+
+target 'HRVMonitor WatchKit App' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for HRVMonitor WatchKit App
+
+end
+
+target 'HRVMonitor WatchKit Extension' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for HRVMonitor WatchKit Extension
+
+end

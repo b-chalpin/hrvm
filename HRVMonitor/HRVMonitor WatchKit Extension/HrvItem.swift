@@ -8,15 +8,15 @@
 import Foundation
 
 // class reposible for storing a single HRV sample's data
-public class HrvItem : MonitorItem<Double> {
+public class HRVItem : MonitorItem<Double> {
     public var deltaHrvValue: Double // difference in HRV from the previous HRVItem
     public var deltaUnixTimestamp: Double // difference in time since the previous HRVItem
     public var avgHeartRateBPM: Double // average heart rate for the samples used to calculate this HRV in BPM
     public var avgHeartRateMS: Double // average heart rate for the samples used to calculate this HRV in Milliseconds
     public var numHeartRateSamples: Int // number of heart rate samples used to calculate this HRV
-    public var hrSamples: [HrItem] // store the HR samples used to calculate HRV
+    public var hrSamples: [HRItem] // store the HR samples used to calculate HRV
     
-    init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HrItem]) {
+    init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HRItem]) {
         self.deltaHrvValue = deltaHrvValue
         self.deltaUnixTimestamp = deltaUnixTimestamp
         self.avgHeartRateBPM = 60_000 / avgHeartRateMS

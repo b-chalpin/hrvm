@@ -8,6 +8,11 @@
 import Foundation
 import HealthKit
 
+// TODO: move to config
+let HR_WINDOW_SIZE = 15
+let HR_STORE_SIZE = 60
+let HRV_STORE_SIZE = 15
+
 // it is assumed that when status is .active, hrv will be defined
 enum HeartRatePollerStatus {
     case stopped
@@ -16,26 +21,32 @@ enum HeartRatePollerStatus {
 }
 
 public class HeartRatePoller : ObservableObject {
-    // variable to indicate whether we have notified the poller to stop
-    private var hasBeenStopped: Bool = true
-
-    @Published var latestHrv: HrvItem? // our current HRV
-    @Published var hrvStore: [HrvItem] // store our hrv values that are being calculated
-    @Published var status: HeartRatePollerStatus
-    @Published var authStatus: HKAuthorizationStatus = .notDetermined
-    
     // constants
     private let heartRateQuantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     private let healthStore: HKHealthStore = HKHealthStore()
     
+    // variable to indicate whether we have notified the poller to stop
+    private var hasBeenStopped: Bool = true
+    
+    // variables
+    private var hrvStore: [HRVItem]
+    
+    // UI will be subscribed to this
+    @Published var latestHrv: HRVItem?
+    
+    // status of poller. stopped on initialization
+    @Published var status: HeartRatePollerStatus = .stopped
+    
+    // auth status
+    @Published var authStatus: HKAuthorizationStatus = .notDetermined
+    
     public init() {
-        self.status = .stopped
-        self.latestHrv = nil
         self.hrvStore = []
+        
         self.requestAuthorization()
     }
     
-    public func getHrvStore() -> [HrvItem] {
+    public func getHrvStore() -> [HRVItem] {
         return self.hrvStore
     }
     
@@ -52,24 +63,24 @@ public class HeartRatePoller : ObservableObject {
                     self?.updateAuthStatus()
                 }
             } else if let error = error {
-                print("ERROR - Auth failed: \(error.localizedDescription)")
+                print("Auth failed: \(error.localizedDescription)")
             } else {
-                fatalError("ERROR - Fatal error occurred when requesting Health Store authorization")
+                fatalError("Fatal error occurred when requesting Health Store authorization")
             }
         }
     }
     
     public func isActive() -> Bool {
-        return self.status == .active
+        return self.status == HeartRatePollerStatus.active
     }
     
     public func poll() {
         if (HKHealthStore.isHealthDataAvailable()) {
             let sortByTimeDescending = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-            let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit: Settings.HRWindowSize, sortDescriptors: [sortByTimeDescending], resultsHandler: { (query, results, error) in
+            let query = HKSampleQuery(sampleType: self.heartRateQuantityType, predicate: nil, limit: HR_WINDOW_SIZE, sortDescriptors: [sortByTimeDescending], resultsHandler: { (query, results, error) in
                 // there is a chance that we have stopped the polling, check this first before continuing
                 if self.hasBeenStopped {
-                    print("LOG - Heart Rate Poller has been told to stop. Aborting query")
+                    print("Heart Rate Poller has been told to stop. Aborting query")
                     return
                 }
                 
@@ -88,24 +99,25 @@ public class HeartRatePoller : ObservableObject {
                 }
                 
                 DispatchQueue.main.async {
-                    // map health store query result to HRItem array
-                    let newHRSamples = results.map { (sample) -> HrItem in
+                    // list of new samples
+                    let newHRSamples = results.map { (sample) -> HRItem in
                         let quantity = (sample as! HKQuantitySample).quantity
                         let heartRateUnit = HKUnit(from: "count/min")
                         
                         let heartRateBpm = quantity.doubleValue(for: heartRateUnit)
                         let heartRateTimestamp = sample.endDate
                         
-                        return HrItem(value: heartRateBpm, timestamp: heartRateTimestamp)
+                        return HRItem(value: heartRateBpm, timestamp: heartRateTimestamp)
                     }
                     
                     let newHrv = self.calculateHrv(hrSamples: newHRSamples)
 
-                    // update subscribed views with new hrv and active status
-                    self.latestHrv = newHrv
-                    self.updateStatus(status: .active)
+                        // update subscribed views with new hrv and active status
+                        self.latestHrv = newHrv
+                        self.updateStatus(status: .active)
 
-                    print("LOG - HRV UPDATED: \(self.latestHrv!)")
+                        print("HRV UPDATED: \(self.latestHrv!)")
+
                     
                     // add new Hrv to store
                     self.addHrvToHrvStore(newHrv: newHrv)
@@ -114,21 +126,21 @@ public class HeartRatePoller : ObservableObject {
             self.healthStore.execute(query)
         }
         else {
-            fatalError("ERROR - Unable to query Health Store. Health data is not available")
+            fatalError("Unable to query Health Store. Health data is not available")
         }
     }
     
     // demo function to assign latestHrv to random value
     public func demo() {
         if self.hasBeenStopped {
-            print("LOG - HRPoller has been stopped. Cancelling random HRV polling")
+            print("HRPoller has been stopped. Cancelling random HRV polling")
             return
         }
         
         let randHrvValue = Double.random(in: 1...100)
         
         // create dummy HRVItem
-        self.latestHrv = HrvItem(value: randHrvValue,
+        self.latestHrv = HRVItem(value: randHrvValue,
                                  timestamp: Date(),
                                  deltaHrvValue: 0.0,
                                  deltaUnixTimestamp: 0.0,
@@ -138,12 +150,7 @@ public class HeartRatePoller : ObservableObject {
         
         self.status = .active
         
-        print("LOG - Random HRV value: \(self.latestHrv!)")
-    }
-    
-    public func initPolling() {
-        self.resetStoppedFlag()
-        self.status = .starting
+        print("Random HRV value: \(self.latestHrv!)")
     }
     
     public func stopPolling() {
@@ -156,7 +163,7 @@ public class HeartRatePoller : ObservableObject {
         self.hasBeenStopped = false
     }
     
-    private func calculateHrv(hrSamples: [HrItem]) -> HrvItem {
+    private func calculateHrv(hrSamples: [HRItem]) -> HRVItem {
         let hrSamplesInMS = hrSamples.map { (sample) -> Double in
             // convert bpm -> ms
             return 60_000 / sample.value
@@ -170,10 +177,10 @@ public class HeartRatePoller : ObservableObject {
         let avgHeartRateMS = self.calculateMean(samples: hrSamplesInMS)
         let deltaHrvValue = self.calculateDeltaHrvValue(newHrvValue: hrvInMS)
         let deltaUnixTimestamp = self.calculateDeltaUnixTimestamp(newHrvTimestamp: hrvTimestamp)
-        let numHeartRateSamples = Settings.HRWindowSize
+        let numHeartRateSamples = HR_WINDOW_SIZE
         
         // finally create a new HRV sample
-        return HrvItem(value: hrvInMS,
+        return HRVItem(value: hrvInMS,
                        timestamp: hrvTimestamp,
                        deltaHrvValue: deltaHrvValue,
                        deltaUnixTimestamp: deltaUnixTimestamp,
@@ -191,7 +198,7 @@ public class HeartRatePoller : ObservableObject {
     
     private func calculateMean(samples: [Double]) -> Double {
         if samples.count == 0 {
-            fatalError("ERROR - Cannot calculate the mean of 0 samples. Will result in a divide by 0")
+            fatalError("Cannot calculate the mean of 0 samples. Will result in a divide by 0")
         }
         
         let length = Double(samples.count)
@@ -216,8 +223,8 @@ public class HeartRatePoller : ObservableObject {
         }
     }
     
-    private func addHrvToHrvStore(newHrv: HrvItem) {
-        if self.hrvStore.count == Settings.HRVStoreSize {
+    private func addHrvToHrvStore(newHrv: HRVItem) {
+        if self.hrvStore.count == HRV_STORE_SIZE {
             self.hrvStore.removeFirst()
         }
         self.hrvStore.append(newHrv)

@@ -8,6 +8,6 @@
 import Foundation
 
 // class reposible for storing a single heart rate sample's data
-public class HrItem : MonitorItem<Double> {
+public class HRItem : MonitorItem<Double> {
     // TODO: add additional features we want to extract for Heart Rate
 }

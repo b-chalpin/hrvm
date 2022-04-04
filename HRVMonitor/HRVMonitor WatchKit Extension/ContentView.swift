@@ -7,30 +7,38 @@
 
 import SwiftUI
 import WatchKit
+import Charts
+
+// TODO: IMPLIMENT GRAPH & GET RID OF LARGE BUTTON BACKGROUND
+
+// TODO: move these to config
+let SAFE_HRV_THRESHOLD: Double = 50.00
+let WARNING_HRV_THRESHOLD: Double = 30.00
+let DANGER_HRV_THRESHOLD: Double = 20.0
+let HRV_MONITOR_INTERVAL_SEC = 3.0
 
 struct ContentView : View {
-    @ObservedObject var hrPoller: HeartRatePoller
-    @ObservedObject var threatDetector: ThreatDetector
-    @ObservedObject var monitorEngine: MonitorEngine
-    
-    init () {
-        let hrPollerService = HeartRatePoller()
-        let threatDetectorService = ThreatDetector()
-        
-        self.hrPoller = hrPollerService
-        self.threatDetector = threatDetectorService
-        
-        // dependency inject our services into the engine
-        self.monitorEngine = MonitorEngine(hrPoller: hrPollerService, threatDetector: threatDetectorService)
-    }
+    @State private var isLoading = false
+    @ObservedObject var monitorEngine = MonitorEngine()
     
     var body: some View {
         Section {
             TabView{
                 //Page 1
                 ZStack{
+                    
+                    Chart(data: [0.9,0.9,0.6,0.7,0.4,0.5,0.1])
+                        .chartStyle(
+                            AreaChartStyle(.quadCurve, fill:
+                                            LinearGradient(gradient: .init(colors: [calculateColor().opacity(0.5), calculateColor().opacity(0.05)]), startPoint: .top, endPoint: .bottom)
+                                        .offset(x: 0, y: -52)
+                            )
+                        )
+            
+                    
                     calculateHeart()
                         .resizable()
+                        .opacity(0.5)
                         .frame(width: 25,
                                height: 22,
                             alignment: .topTrailing)
@@ -39,22 +47,19 @@ struct ContentView : View {
                         Text(getHrvValueString())
                             .fontWeight(.semibold)
                             .font(.system(size: 50))
-                            .foregroundColor(calculateColor())
+                            .foregroundColor(calculateColor().opacity(0.5))
                             .multilineTextAlignment(.center)
                             .padding(.top, 30.0)
                             .padding(.bottom, 0.0)
                         Text("HRV")
                             .fontWeight(.semibold)
-                            .foregroundColor(calculateColor())
+                            .foregroundColor(calculateColor().opacity(0.5))
                             .multilineTextAlignment(.center)
-                            .padding(.bottom, 10.0)
-                       
+                            .padding(.bottom, 5.0)
                         
                         displayStopStartButton()
-                           .padding(.bottom, 5.0)
                 
                     }
-                    .padding()
                 }
                 //Page2
                 VStack {
@@ -72,7 +77,7 @@ struct ContentView : View {
                             .frame(maxWidth: .infinity,
                                    maxHeight: .infinity,
                                    alignment: .topLeading)
-                            .padding(.top, 18.0)
+                            .padding(.top, 10.0)
                     }
                     //enter graph here
                     Text("minimum" + "\nmaximum" + "\naverage")
@@ -96,19 +101,20 @@ struct ContentView : View {
                 }
             }
         }
-        .alert(isPresented: self.$threatDetector.threatDetected) {
+        
+        .alert(isPresented: self.$monitorEngine.threatDetector.threatDetected) {
             Alert(
                 title: Text("Are you stressed?"),
                 primaryButton: .default(
                     Text("No"),
                     action: {
-                        self.threatDetector.acknowledgeThreat()
+                        self.monitorEngine.threatDetector.acknowledgeThreat()
                     }
                 ),
                 secondaryButton: .default(
                     Text("Yes"),
                     action: {
-                        self.threatDetector.acknowledgeThreat()
+                        self.monitorEngine.threatDetector.acknowledgeThreat()
                     }
                   )
             )
@@ -116,13 +122,13 @@ struct ContentView : View {
     }
     
     func getHrvValueString() -> String {
-        switch self.hrPoller.status {
-        case HeartRatePollerStatus.stopped:
-            return "Stopped"
-        case HeartRatePollerStatus.starting:
-            return "Starting"
-        case HeartRatePollerStatus.active:
-            return String(format: "%.1f", self.hrPoller.latestHrv!.value)
+        switch self.monitorEngine.status {
+        case MonitorEngineStatus.stopped:
+            return "0.0"
+        case MonitorEngineStatus.starting:
+            return "0.0"
+        case MonitorEngineStatus.active:
+            return String(format: "%.1f", self.monitorEngine.hrPoller.latestHrv!.value)
         }
     }
     
@@ -133,27 +139,36 @@ struct ContentView : View {
                 Button(action: { stopMonitor() }) {
                     Circle()
                         .trim(from: 0, to: 0.6)
-                        .stroke(Color.blue, lineWidth: 4)
+                        .stroke(Color.blue.opacity(0.5), lineWidth: 4)
                         .frame(width: 20, height:20)
                         .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
                         .animation(Animation.default.repeatForever(autoreverses:false))
                         .onAppear() {
                             self.isLoading = true
                         }
-                })
+                }
+                    .padding(.horizontal, 40.0)
+                    .buttonStyle(BorderedButtonStyle(tint:Color.gray.opacity(0.0)))
+            )
         case MonitorEngineStatus.active:
             return AnyView(Button(action: { stopMonitor() }) {
                 Text("STOP")
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.blue)
-            })
+                    .foregroundColor(calculateColor().opacity(0.5))
+            }
+                .padding(.horizontal, 40.0)
+                .buttonStyle(BorderedButtonStyle(tint:Color.gray.opacity(0.4)))
+            )
         case MonitorEngineStatus.stopped:
             return AnyView(Button(action: { startMonitor() })
                 {
                 Text("START")
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.blue)
-            }.background(Color.black))
+                    .foregroundColor(Color.blue.opacity(0.5))
+            }
+                .padding(.horizontal, 40.0)
+                .buttonStyle(BorderedButtonStyle(tint:Color.gray.opacity(0.4)))
+               )
         }
     }
 
@@ -167,13 +182,13 @@ struct ContentView : View {
     }
     
     func calculateColor() -> Color {
-        if self.hrPoller.isActive() {
+        if self.monitorEngine.hrPoller.isActive() {
             // check for the unexpected case where
-            if let hrv = self.hrPoller.latestHrv?.value {
-                if hrv <= Settings.DangerHRVThreshold {
+            if let hrv = self.monitorEngine.hrPoller.latestHrv?.value {
+                if hrv <= DANGER_HRV_THRESHOLD {
                     return Color.red
                 }
-                else if hrv <= Settings.WarningHRVThreshold {
+                else if hrv <= WARNING_HRV_THRESHOLD {
                     return Color.yellow
                 }
                 // above warning threshold
