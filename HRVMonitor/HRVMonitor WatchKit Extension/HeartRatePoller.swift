@@ -24,6 +24,11 @@ public class HeartRatePoller : ObservableObject {
     @Published var status: HeartRatePollerStatus
     @Published var authStatus: HKAuthorizationStatus = .notDetermined
     
+    // HRV stats for the UI
+    @Published var minHrvValue: Double = 0.0
+    @Published var maxHrvValue: Double = 0.0
+    @Published var avgHrvValue: Double = 0.0
+    
     // constants
     private let heartRateQuantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     private let healthStore: HKHealthStore = HKHealthStore()
@@ -153,6 +158,7 @@ public class HeartRatePoller : ObservableObject {
     public func stopPolling() {
         self.hasBeenStopped = true
         self.latestHrv = nil
+        self.resetHrvStats()
         self.updateStatus(status: .stopped)
     }
     
@@ -225,6 +231,27 @@ public class HeartRatePoller : ObservableObject {
             self.hrvStore.removeFirst()
         }
         self.hrvStore.append(newHrv)
+        
+        self.updateHrvStats()
+    }
+    
+    private func updateHrvStats() {
+        if self.hrvStore.count == 0 {
+            self.resetHrvStats()
+        }
+        else {
+            let hrvStoreValues = self.hrvStore.map { $0.value }
+            
+            self.minHrvValue = hrvStoreValues.min()!
+            self.maxHrvValue = hrvStoreValues.max()!
+            self.avgHrvValue = self.calculateMean(samples: hrvStoreValues)
+        }
+    }
+    
+    private func resetHrvStats() {
+        self.minHrvValue = 0.0
+        self.maxHrvValue = 0.0
+        self.avgHrvValue = 0.0
     }
       
     private func updateStatus(status: HeartRatePollerStatus) {

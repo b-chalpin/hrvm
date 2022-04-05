@@ -38,43 +38,55 @@ struct ContentView : View {
     var body: some View {
         Section {
             TabView{
-                //Page 1
+                // Page 1
+                // dynamic HRV graph
                 ZStack{
-                    Chart(data: getHrvStoreForChart())
-                        .chartStyle(
-                            AreaChartStyle(.quadCurve, fill:
-                                            LinearGradient(gradient: .init(colors: [calculateColor().opacity(0.5), calculateColor().opacity(0.05)]), startPoint: .top, endPoint: .bottom)
+                    VStack {
+                        Chart(data: getHrvStoreForChart())
+                            .chartStyle(
+                                AreaChartStyle(.quadCurve, fill:
+                                                LinearGradient(gradient: .init(colors: [calculateMoodColor().opacity(0.5), calculateMoodColor().opacity(0.05)]), startPoint: .top, endPoint: .bottom)
                                                 .frame(maxHeight: 100)
+                                )
                             )
-                        )
-                        .padding(.bottom, 15.0)
+                            .padding(.top, 5.0)
+                        Spacer()
+                    }
                     
-                    calculateHeart()
-                        .resizable()
-                        .opacity(0.75)
-                        .frame(width: 25,
-                               height: 22,
-                            alignment: .topTrailing)
-                        .offset(x: 75, y: -70)
+                    // heart icon
+                    VStack {
+                        HStack {
+                            Spacer()
+                            calculateMoodHeart()
+                                .resizable()
+                                .opacity(0.8)
+                                .frame(width: 25,
+                                       height: 22,
+                                       alignment: .topTrailing)
+                                .padding([.top ,.trailing], 10.0)
+                        }
+                        Spacer()
+                    }
+                    
                     VStack(spacing: 10){
+                        Spacer()
                         Text(getHrvValueString())
                             .fontWeight(.semibold)
                             .font(.system(size: 50))
-                            .foregroundColor(calculateColor())
+                            .foregroundColor(calculateMoodColor())
                             .multilineTextAlignment(.center)
-                            .padding(.top, 30.0)
-                            .padding(.bottom, 0.0)
                         Text("HRV")
                             .fontWeight(.semibold)
-                            .foregroundColor(calculateColor())
+                            .foregroundColor(calculateMoodColor())
                             .multilineTextAlignment(.center)
                             .padding(.bottom, 5.0)
                         
-                        displayStopStartButton()
-                
+                        calculateStopStartButton()
+                            .padding(.horizontal, 40.0)
+                            .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
                     }
                 }
-                //Page2
+                // Page2
                 VStack {
                     HStack{
                         Text(getHrvValueString())
@@ -92,8 +104,8 @@ struct ContentView : View {
                                    alignment: .topLeading)
                             .padding(.top, 10.0)
                     }
-                    //enter graph here
-                    Text("minimum" + "\nmaximum" + "\naverage")
+                    // enter graph here
+                    Text("minimum \(self.hrPoller.minHrvValue)\nmaximum \(self.hrPoller.maxHrvValue)\naverage \(self.hrPoller.avgHrvValue)")
                         .fontWeight(.semibold)
                         .font(.system(size: 16))
                         .foregroundColor(Color("Color"))
@@ -102,7 +114,7 @@ struct ContentView : View {
                                alignment: .bottomLeading)
                     
                 }
-                //Page 3
+                // Page 3
                 HStack{
                     Text("Settings")
                         .fontWeight(.semibold)
@@ -140,69 +152,64 @@ struct ContentView : View {
             return [0.0, 0.0]
         }
         
-        let hrvStoreDouble = self.hrPoller.hrvStore.map { (hrvItem) -> Double in
-            return hrvItem.value
-        }
+        let hrvStoreValues = self.hrPoller.hrvStore.map { $0.value }
        
-        let min = hrvStoreDouble.min()
-        let max = hrvStoreDouble.max()
+        let min = 0.0 // lowest HRV we can have is 0.0, subtract 10.0 more for padding
+        let max = hrvStoreValues.max()! + 10.0 // pad our upper bound for normalization
 
-        let chartData = hrvStoreDouble.map { ($0 - min!) / (max! - min!) }
-
-        return chartData
+        return hrvStoreValues.map { ($0 - min) / (max - min) }
     }
     
     func getHrvValueString() -> String {
-        switch self.monitorEngine.status {
-        case MonitorEngineStatus.stopped:
+        switch self.hrPoller.status {
+        case HeartRatePollerStatus.stopped, HeartRatePollerStatus.starting:
             return "0.0"
-        case MonitorEngineStatus.starting:
-            return "0.0"
-        case MonitorEngineStatus.active:
+        case HeartRatePollerStatus.active:
             return String(format: "%.1f", self.hrPoller.latestHrv!.value)
         }
     }
     
-    func displayStopStartButton() -> some View {
-            switch self.hrPoller.status {
+    func calculateStopStartButton() -> some View {
+        // common style between buttons
+        let buttonColor = Color.blue.opacity(0.8)
+        
+        switch self.hrPoller.status {
             case HeartRatePollerStatus.starting:
                 return AnyView(
                     Button(action: { stopMonitor() }) {
                         Circle()
                             .trim(from: 0, to: 0.6)
-                            .stroke(Color.blue.opacity(0.5), lineWidth: 4)
-                            .frame(width: 20, height:20)
+                            .stroke(buttonColor, lineWidth: 4)
+                            .frame(width: 20, height: 20)
                             .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
                             .animation(Animation.default.repeatForever(autoreverses:false))
                             .onAppear() {
                                 self.isLoading = true
                             }
                     }
-                        .padding(.horizontal, 40.0)
-                        .buttonStyle(BorderedButtonStyle(tint:Color.gray.opacity(0.2)))
                 )
             case HeartRatePollerStatus.active:
                 return AnyView(Button(action: { stopMonitor() }) {
                     Text("STOP")
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.blue.opacity(0.75))
+                        .foregroundColor(buttonColor)
+                        .onAppear() {
+                            self.isLoading = false // reset the isLoading flag
+                        }
                 }
-                    .padding(.horizontal, 40.0)
-                    .buttonStyle(BorderedButtonStyle(tint:Color.gray.opacity(0.2)))
                 )
             case HeartRatePollerStatus.stopped:
-                return AnyView(Button(action: { startMonitor() })
-                    {
+                return AnyView(Button(action: { startMonitor() }) {
                     Text("START")
                         .fontWeight(.semibold)
-                        .foregroundColor(Color.blue.opacity(0.75))
+                        .foregroundColor(buttonColor)
+                        .onAppear() {
+                            self.isLoading = false // reset the isLoading flag
+                        }
                 }
-                    .padding(.horizontal, 40.0)
-                    .buttonStyle(BorderedButtonStyle(tint:Color.gray.opacity(0.2)))
-                   )
-            }
+                )
         }
-
+    }
     
     func stopMonitor() {
         self.monitorEngine.stopMonitoring()
@@ -212,7 +219,7 @@ struct ContentView : View {
         self.monitorEngine.startMonitoring()
     }
     
-    func calculateColor() -> Color {
+    func calculateMoodColor() -> Color {
         if self.hrPoller.isActive() {
             // check for the unexpected case where
             if let hrv = self.hrPoller.latestHrv?.value {
@@ -236,7 +243,7 @@ struct ContentView : View {
         }
     }
     
-    func calculateHeart() -> Image {
+    func calculateMoodHeart() -> Image {
         if self.hrPoller.isActive() {
             // check for the unexpected case where
             if let hrv = self.hrPoller.latestHrv?.value {
@@ -260,8 +267,6 @@ struct ContentView : View {
         }
     }
 }
-
-
 
 struct ContentView_Preview : PreviewProvider {
     static var previews: some View {
