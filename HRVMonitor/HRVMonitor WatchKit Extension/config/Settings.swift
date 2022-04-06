@@ -75,4 +75,13 @@ enum Settings {
             return false
         }
     }
+    
+    public static var NotificationDelaySec: Double {
+        do {
+            return try Configuration.value(key: "NOTIFICATION_DELAY_SEC")
+        }
+        catch {
+            return 5.0
+        }
+    }
 }

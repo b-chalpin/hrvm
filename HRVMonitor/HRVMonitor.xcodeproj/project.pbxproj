@@ -112,7 +112,7 @@
 		9932C3FC27CD983C001736F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9932C40227CD983C001736F7 /* HRVMonitor WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HRVMonitor WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C40727CD983C001736F7 /* HRVMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorApp.swift; sourceTree = "<group>"; };
-		9932C40927CD983C001736F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "HRVMonitor WatchKit Extension/ContentView.swift"; sourceTree = SOURCE_ROOT; };
+		9932C40927CD983C001736F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "HRVMonitor WatchKit Extension/views/ContentView.swift"; sourceTree = SOURCE_ROOT; };
 		9932C40B27CD983C001736F7 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		9932C40D27CD983C001736F7 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		9932C40F27CD983C001736F7 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -168,6 +168,55 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9916D36627FE1BA700822E76 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				66F2F6F527E533D600561E15 /* Settings.swift */,
+				663EE4E627E15B8E00AECB35 /* Configuration.swift */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		9916D36727FE1BC600822E76 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				9932C40927CD983C001736F7 /* ContentView.swift */,
+				9932C40D27CD983C001736F7 /* NotificationView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		9916D36827FE1BD400822E76 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				997EAFFF27DC141E004B257C /* MonitorItem.swift */,
+				9917685427E3E88600AC764C /* HrvItem.swift */,
+				9917685627E3EB7A00AC764C /* HrItem.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		9916D36927FE1C0B00822E76 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9932C40B27CD983C001736F7 /* NotificationController.swift */,
+				9932C40F27CD983C001736F7 /* ComplicationController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		9916D36B27FE1C2400822E76 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
+				663419BF27DAD79D00F3823B /* NotificationFactory.swift */,
+				6659324527DBF50F002D1717 /* WorkoutManager.swift */,
+				9917685027E00BF800AC764C /* MonitorEngine.swift */,
+				9917685227E176E100AC764C /* ThreatDetector.swift */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
 		9932C3EC27CD983A001736F7 = {
 			isa = PBXGroup;
 			children = (
@@ -203,28 +252,19 @@
 		9932C40627CD983C001736F7 /* HRVMonitor WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9916D36B27FE1C2400822E76 /* services */,
+				9916D36927FE1C0B00822E76 /* controllers */,
+				9916D36827FE1BD400822E76 /* models */,
+				9916D36727FE1BC600822E76 /* views */,
+				9916D36627FE1BA700822E76 /* config */,
 				6618D90E27D6DD5F00EABF5D /* HRVMonitor WatchKit Extension.entitlements */,
 				9932C40727CD983C001736F7 /* HRVMonitorApp.swift */,
-				9932C40927CD983C001736F7 /* ContentView.swift */,
-				9932C40B27CD983C001736F7 /* NotificationController.swift */,
-				9932C40D27CD983C001736F7 /* NotificationView.swift */,
-				9932C40F27CD983C001736F7 /* ComplicationController.swift */,
 				9932C41127CD983D001736F7 /* Assets.xcassets */,
 				9932C41627CD983D001736F7 /* Info.plist */,
 				663EE4E427E1592E00AECB35 /* Production.xcconfig */,
 				663EE4E527E1593900AECB35 /* Development.xcconfig */,
 				9932C41727CD983D001736F7 /* PushNotificationPayload.apns */,
 				9932C41327CD983D001736F7 /* Preview Content */,
-				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
-				66F2F6F527E533D600561E15 /* Settings.swift */,
-				663EE4E627E15B8E00AECB35 /* Configuration.swift */,
-				663419BF27DAD79D00F3823B /* NotificationFactory.swift */,
-				6659324527DBF50F002D1717 /* WorkoutManager.swift */,
-				997EAFFF27DC141E004B257C /* MonitorItem.swift */,
-				9917685027E00BF800AC764C /* MonitorEngine.swift */,
-				9917685227E176E100AC764C /* ThreatDetector.swift */,
-				9917685427E3E88600AC764C /* HrvItem.swift */,
-				9917685627E3EB7A00AC764C /* HrItem.swift */,
 			);
 			path = "HRVMonitor WatchKit Extension";
 			sourceTree = "<group>";

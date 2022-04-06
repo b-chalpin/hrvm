@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NOTIFICATION_DELAY_SEC</key>
+	<string>$(NOTIFICATION_DELAY_SEC)</string>
 	<key>DEMO_MODE</key>
 	<string>$(DEMO_MODE)</string>
 	<key>BASE_URL</key>

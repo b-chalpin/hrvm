@@ -9,14 +9,6 @@ import SwiftUI
 import WatchKit
 import Charts
 
-// TODO: IMPLIMENT GRAPH & GET RID OF LARGE BUTTON BACKGROUND
-
-// TODO: move these to config
-let SAFE_HRV_THRESHOLD: Double = 50.00
-let WARNING_HRV_THRESHOLD: Double = 30.00
-let DANGER_HRV_THRESHOLD: Double = 20.0
-let HRV_MONITOR_INTERVAL_SEC = 3.0
-
 struct ContentView : View {
     @State private var isLoading = false
     
@@ -92,7 +84,6 @@ struct ContentView : View {
                         Text(getHrvValueString())
                             .fontWeight(.semibold)
                             .font(.system(size: 40))
-                            .foregroundColor(Color("Color"))
                             .frame(maxHeight: .infinity,
                                    alignment: .topLeading)
                         Text("HRV")
@@ -102,31 +93,37 @@ struct ContentView : View {
                             .frame(maxWidth: .infinity,
                                    maxHeight: .infinity,
                                    alignment: .topLeading)
-                            .padding(.top, 10.0)
+                            .padding([.top, .bottom], 5.0)
                     }
-                    // enter graph here
-                    Text("minimum \(self.hrPoller.minHrvValue)\nmaximum \(self.hrPoller.maxHrvValue)\naverage \(self.hrPoller.avgHrvValue)")
-                        .fontWeight(.semibold)
-                        .font(.system(size: 16))
-                        .foregroundColor(Color("Color"))
-                        .frame(maxWidth: .infinity,
-                               maxHeight: .infinity,
-                               alignment: .bottomLeading)
-                    
+                    HStack {
+                        // enter graph here
+                        Text("min\nmax\navg")
+                            .fontWeight(.semibold)
+                            .font(.system(size: 16))
+                            .foregroundColor(Color("Color"))
+                        Text("\(formatDoubleToString(input: self.hrPoller.minHrvValue))\n" +
+                             "\(formatDoubleToString(input: self.hrPoller.maxHrvValue))\n" +
+                             "\(formatDoubleToString(input: self.hrPoller.avgHrvValue))")
+                            .fontWeight(.semibold)
+                            .font(.system(size: 16))
+                            .foregroundColor(Color.white)
+                    }
+                    .frame(maxWidth: .infinity,
+                           alignment: .bottomLeading)
                 }
                 // Page 3
                 HStack{
                     Text("Settings")
                         .fontWeight(.semibold)
                         .font(.system(size: 16))
-                        .foregroundColor(Color("Color"))
+                        .foregroundColor(Color.white)
+                        .frame(alignment: .topLeading)
                         .frame(maxWidth: .infinity,
-                               maxHeight: .infinity,
-                               alignment: .topLeading)
+                                maxHeight: .infinity,
+                                alignment: .topLeading)
                 }
             }
         }
-        
         .alert(isPresented: self.$threatDetector.threatDetected) {
             Alert(
                 title: Text("Are you stressed?"),
@@ -160,12 +157,16 @@ struct ContentView : View {
         return hrvStoreValues.map { ($0 - min) / (max - min) }
     }
     
+    func formatDoubleToString(input: Double) -> String {
+        return String(format: "%.1f", input)
+    }
+    
     func getHrvValueString() -> String {
         switch self.hrPoller.status {
         case HeartRatePollerStatus.stopped, HeartRatePollerStatus.starting:
             return "0.0"
         case HeartRatePollerStatus.active:
-            return String(format: "%.1f", self.hrPoller.latestHrv!.value)
+            return formatDoubleToString(input: self.hrPoller.latestHrv!.value)
         }
     }
     
@@ -182,7 +183,7 @@ struct ContentView : View {
                             .stroke(buttonColor, lineWidth: 4)
                             .frame(width: 20, height: 20)
                             .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
-                            .animation(Animation.default.repeatForever(autoreverses:false))
+                            .animation(Animation.default.repeatForever(autoreverses: false))
                             .onAppear() {
                                 self.isLoading = true
                             }
@@ -223,10 +224,10 @@ struct ContentView : View {
         if self.hrPoller.isActive() {
             // check for the unexpected case where
             if let hrv = self.hrPoller.latestHrv?.value {
-                if hrv <= DANGER_HRV_THRESHOLD {
+                if hrv <= Settings.DangerHRVThreshold {
                     return Color.red
                 }
-                else if hrv <= WARNING_HRV_THRESHOLD {
+                else if hrv <= Settings.WarningHRVThreshold {
                     return Color.yellow
                 }
                 // above warning threshold

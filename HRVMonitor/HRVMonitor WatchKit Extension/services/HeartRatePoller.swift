@@ -134,8 +134,8 @@ public class HeartRatePoller : ObservableObject {
         let newHrv = HrvItem(value: randHrvValue,
                              timestamp: Date(),
                              deltaHrvValue: 0.0,
-                             deltaUnixTimestamp: 0.0,
-                             avgHeartRateMS: 0.0,
+                             deltaUnixTimestamp: 1.0,
+                             avgHeartRateMS: 900.0,
                              numHeartRateSamples: 0,
                              hrSamples: [])
         
