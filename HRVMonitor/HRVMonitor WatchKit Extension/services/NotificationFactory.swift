@@ -9,9 +9,6 @@ import Foundation
 import UserNotifications
 import DeveloperToolsSupport
 
-// TODO: move to config
-let NOTIFICATION_DELAY_SEC = 2.0
-
 public class NotificationFactory {
     private let center: UNUserNotificationCenter
     public var authorized: Bool
@@ -21,7 +18,7 @@ public class NotificationFactory {
         // getting the current instance of the UNUserNotificationCenter object
         self.center = UNUserNotificationCenter.current()
         self.authorized = false
-        self.notificationDelay = NOTIFICATION_DELAY_SEC
+        self.notificationDelay = Settings.NotificationDelaySec
         self.getAuthorization()
     }
     

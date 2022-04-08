@@ -33,6 +33,7 @@
 		9932C42D27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */; };
 		997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */; };
 		997EB00027DC141E004B257C /* MonitorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFFF27DC141E004B257C /* MonitorItem.swift */; };
+		99CCDBD127FBAA6500600DD1 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 99CCDBD027FBAA6500600DD1 /* Charts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,20 +64,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9932C3F627CD983B001736F7;
 			remoteInfo = "HRVMonitor WatchKit App";
-		};
-		FEE253E727EB3BBF006E20F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
-			remoteInfo = Charts;
-		};
-		FEE253E927EB3BBF006E20F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
-			remoteInfo = ChartsTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -125,7 +112,7 @@
 		9932C3FC27CD983C001736F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9932C40227CD983C001736F7 /* HRVMonitor WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HRVMonitor WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C40727CD983C001736F7 /* HRVMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorApp.swift; sourceTree = "<group>"; };
-		9932C40927CD983C001736F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "HRVMonitor WatchKit Extension/ContentView.swift"; sourceTree = SOURCE_ROOT; };
+		9932C40927CD983C001736F7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = "HRVMonitor WatchKit Extension/views/ContentView.swift"; sourceTree = SOURCE_ROOT; };
 		9932C40B27CD983C001736F7 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		9932C40D27CD983C001736F7 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		9932C40F27CD983C001736F7 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -140,7 +127,6 @@
 		9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatePoller.swift; sourceTree = "<group>"; };
 		997EAFFF27DC141E004B257C /* MonitorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorItem.swift; sourceTree = "<group>"; };
-		FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Charts.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +137,7 @@
 				6618D91027D6E58F00EABF5D /* CloudKit.framework in Frameworks */,
 				6618D90B27D6D38700EABF5D /* HealthKit.framework in Frameworks */,
 				6618D90D27D6D39000EABF5D /* WatchConnectivity.framework in Frameworks */,
+				99CCDBD127FBAA6500600DD1 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,10 +168,58 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9916D36627FE1BA700822E76 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				66F2F6F527E533D600561E15 /* Settings.swift */,
+				663EE4E627E15B8E00AECB35 /* Configuration.swift */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		9916D36727FE1BC600822E76 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				9932C40927CD983C001736F7 /* ContentView.swift */,
+				9932C40D27CD983C001736F7 /* NotificationView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		9916D36827FE1BD400822E76 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				997EAFFF27DC141E004B257C /* MonitorItem.swift */,
+				9917685427E3E88600AC764C /* HrvItem.swift */,
+				9917685627E3EB7A00AC764C /* HrItem.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		9916D36927FE1C0B00822E76 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9932C40B27CD983C001736F7 /* NotificationController.swift */,
+				9932C40F27CD983C001736F7 /* ComplicationController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		9916D36B27FE1C2400822E76 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
+				663419BF27DAD79D00F3823B /* NotificationFactory.swift */,
+				6659324527DBF50F002D1717 /* WorkoutManager.swift */,
+				9917685027E00BF800AC764C /* MonitorEngine.swift */,
+				9917685227E176E100AC764C /* ThreatDetector.swift */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
 		9932C3EC27CD983A001736F7 = {
 			isa = PBXGroup;
 			children = (
-				FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */,
 				9932C3FB27CD983B001736F7 /* HRVMonitor WatchKit App */,
 				9932C40627CD983C001736F7 /* HRVMonitor WatchKit Extension */,
 				9932C41F27CD983D001736F7 /* HRVMonitorTests */,
@@ -217,28 +252,19 @@
 		9932C40627CD983C001736F7 /* HRVMonitor WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9916D36B27FE1C2400822E76 /* services */,
+				9916D36927FE1C0B00822E76 /* controllers */,
+				9916D36827FE1BD400822E76 /* models */,
+				9916D36727FE1BC600822E76 /* views */,
+				9916D36627FE1BA700822E76 /* config */,
 				6618D90E27D6DD5F00EABF5D /* HRVMonitor WatchKit Extension.entitlements */,
 				9932C40727CD983C001736F7 /* HRVMonitorApp.swift */,
-				9932C40927CD983C001736F7 /* ContentView.swift */,
-				9932C40B27CD983C001736F7 /* NotificationController.swift */,
-				9932C40D27CD983C001736F7 /* NotificationView.swift */,
-				9932C40F27CD983C001736F7 /* ComplicationController.swift */,
 				9932C41127CD983D001736F7 /* Assets.xcassets */,
 				9932C41627CD983D001736F7 /* Info.plist */,
 				663EE4E427E1592E00AECB35 /* Production.xcconfig */,
 				663EE4E527E1593900AECB35 /* Development.xcconfig */,
 				9932C41727CD983D001736F7 /* PushNotificationPayload.apns */,
 				9932C41327CD983D001736F7 /* Preview Content */,
-				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
-				66F2F6F527E533D600561E15 /* Settings.swift */,
-				663EE4E627E15B8E00AECB35 /* Configuration.swift */,
-				663419BF27DAD79D00F3823B /* NotificationFactory.swift */,
-				6659324527DBF50F002D1717 /* WorkoutManager.swift */,
-				997EAFFF27DC141E004B257C /* MonitorItem.swift */,
-				9917685027E00BF800AC764C /* MonitorEngine.swift */,
-				9917685227E176E100AC764C /* ThreatDetector.swift */,
-				9917685427E3E88600AC764C /* HrvItem.swift */,
-				9917685627E3EB7A00AC764C /* HrItem.swift */,
 			);
 			path = "HRVMonitor WatchKit Extension";
 			sourceTree = "<group>";
@@ -268,15 +294,6 @@
 			path = HRVMonitorUITests;
 			sourceTree = "<group>";
 		};
-		FEE253E327EB3BBE006E20F2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FEE253E827EB3BBF006E20F2 /* Charts.framework */,
-				FEE253EA27EB3BBF006E20F2 /* ChartsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -293,6 +310,9 @@
 				9932C3FA27CD983B001736F7 /* PBXTargetDependency */,
 			);
 			name = HRVMonitor;
+			packageProductDependencies = (
+				99CCDBCF27FBAA5A00600DD1 /* Charts */,
+			);
 			productName = HRVMonitor;
 			productReference = 9932C3F327CD983B001736F7 /* HRVMonitor.app */;
 			productType = "com.apple.product-type.application.watchapp2-container";
@@ -327,6 +347,9 @@
 			dependencies = (
 			);
 			name = "HRVMonitor WatchKit Extension";
+			packageProductDependencies = (
+				99CCDBD027FBAA6500600DD1 /* Charts */,
+			);
 			productName = "HRVMonitor WatchKit Extension";
 			productReference = 9932C40227CD983C001736F7 /* HRVMonitor WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
@@ -405,14 +428,11 @@
 				Base,
 			);
 			mainGroup = 9932C3EC27CD983A001736F7;
+			packageReferences = (
+				99CCDBCE27FBAA5A00600DD1 /* XCRemoteSwiftPackageReference "swiftui-charts" */,
+			);
 			productRefGroup = 9932C3F427CD983B001736F7 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FEE253E327EB3BBE006E20F2 /* Products */;
-					ProjectRef = FEE253E227EB3BBE006E20F2 /* Charts.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				9932C3F227CD983B001736F7 /* HRVMonitor */,
@@ -423,23 +443,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		FEE253E827EB3BBF006E20F2 /* Charts.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Charts.framework;
-			remoteRef = FEE253E727EB3BBF006E20F2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FEE253EA27EB3BBF006E20F2 /* ChartsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ChartsTests.xctest;
-			remoteRef = FEE253E927EB3BBF006E20F2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9932C3F127CD983B001736F7 /* Resources */ = {
@@ -977,6 +980,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		99CCDBCE27FBAA5A00600DD1 /* XCRemoteSwiftPackageReference "swiftui-charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spacenation/swiftui-charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		99CCDBCF27FBAA5A00600DD1 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99CCDBCE27FBAA5A00600DD1 /* XCRemoteSwiftPackageReference "swiftui-charts" */;
+			productName = Charts;
+		};
+		99CCDBD027FBAA6500600DD1 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99CCDBCE27FBAA5A00600DD1 /* XCRemoteSwiftPackageReference "swiftui-charts" */;
+			productName = Charts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9932C3ED27CD983A001736F7 /* Project object */;
 }

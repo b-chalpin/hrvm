@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// @deprecated
 enum MonitorEngineStatus {
     case stopped
     case starting
@@ -22,17 +23,21 @@ class MonitorEngine : ObservableObject {
     private var workoutManager = WorkoutManager()
     private var monitorTimer: Timer?
     
+    // @deprecated
     // UI will be subscribed to this status
     @Published var status: MonitorEngineStatus
     
     init(hrPoller: HeartRatePoller, threatDetector: ThreatDetector) {
+        // @deprecated
         self.status = .stopped
+        
         self.hrPoller = hrPoller
         self.threatDetector = threatDetector
     }
     
     
     public func stopMonitoring() {
+        // @deprecated
         self.status = .stopped
         
         // end workout
@@ -44,6 +49,7 @@ class MonitorEngine : ObservableObject {
     }
     
     public func startMonitoring() {
+        // @deprecated
         self.status = .starting
         
         // start workout
@@ -69,7 +75,7 @@ class MonitorEngine : ObservableObject {
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
-                self.status = .active // update monitor engine status
+                self.status = .active // update monitor engine status @deprecated
                 self.threatDetector.checkHrvForThreat(hrv: self.hrPoller.latestHrv!)
             }
         })
