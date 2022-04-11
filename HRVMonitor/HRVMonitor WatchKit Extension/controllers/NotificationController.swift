@@ -26,7 +26,6 @@ class NotificationController: WKUserNotificationHostingController<NotificationVi
     }
 
     override func didReceive(_ notification: UNNotification) {
-        print("did recveive notification")
         // This method is called when a notification needs to be presented.
         // Implement it if you use a dynamic notification interface.
         // Populate your dynamic notification interface as quickly as possible.

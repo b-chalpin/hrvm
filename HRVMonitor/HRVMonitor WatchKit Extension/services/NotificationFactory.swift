@@ -37,7 +37,7 @@ public class NotificationFactory {
         //constructing the body of the notification... Need to change this to use our custom notification view
         let content = UNMutableNotificationContent()
         content.title = "HRVAlert"
-        content.categoryIdentifier = "myCategory"
+        content.categoryIdentifier = "HRVNotification"
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: self.notificationDelay, repeats: false)
         let request = UNNotificationRequest(identifier: "HRVAlert", content: content, trigger: trigger)
@@ -51,7 +51,6 @@ public class NotificationFactory {
         let request = self.constructUserNotification()
         
         self.center.add(request) {(error: Error?) in
-            print("in .add")
             if let theError = error {
                 print(theError.localizedDescription)
             }
