@@ -36,6 +36,7 @@ public class NotificationFactory {
     private func constructUserNotification() -> UNNotificationRequest{
         //constructing the body of the notification... Need to change this to use our custom notification view
         let content = UNMutableNotificationContent()
+        content.title = "HRVAlert"
         content.categoryIdentifier = "myCategory"
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: self.notificationDelay, repeats: false)
@@ -48,11 +49,20 @@ public class NotificationFactory {
         //Public facing method which requests authorization unless the user has already accepted. Then it constructs the notification and finally delivers it.
         self.getAuthorization()
         let request = self.constructUserNotification()
-
+        
         self.center.add(request) {(error: Error?) in
+            print("in .add")
             if let theError = error {
                 print(theError.localizedDescription)
             }
         }
+        
+        // Uncomment this block if you want to get a read out of all pending notification requests
+//        self.center.getPendingNotificationRequests(completionHandler: { requests in
+//            for request in requests {
+//                print(request)
+//            }
+//        })
+        
     }
 }

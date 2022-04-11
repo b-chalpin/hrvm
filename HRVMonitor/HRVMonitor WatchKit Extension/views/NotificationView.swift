@@ -25,7 +25,7 @@ struct NotificationView: View {
             
             Button(action: {
                 //Add action here - another view/input data
-                ContentView()
+                //ContentView()
             }) {
                     Text("No")
             }

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6618D90B27D6D38700EABF5D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618D90A27D6D38700EABF5D /* HealthKit.framework */; };
 		6618D90D27D6D39000EABF5D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618D90C27D6D39000EABF5D /* WatchConnectivity.framework */; };
-		6618D91027D6E58F00EABF5D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618D90F27D6E58F00EABF5D /* CloudKit.framework */; };
 		663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663419BF27DAD79D00F3823B /* NotificationFactory.swift */; };
 		663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663EE4E627E15B8E00AECB35 /* Configuration.swift */; };
 		6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* WorkoutManager.swift */; };
@@ -102,6 +101,7 @@
 		663EE4E527E1593900AECB35 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		663EE4E627E15B8E00AECB35 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		6659324527DBF50F002D1717 /* WorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		66A22CF22804A99D0016B27B /* HRVMonitor WatchKit ExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HRVMonitor WatchKit ExtensionDebug.entitlements"; sourceTree = "<group>"; };
 		66F2F6F527E533D600561E15 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		9917685027E00BF800AC764C /* MonitorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorEngine.swift; sourceTree = "<group>"; };
 		9917685227E176E100AC764C /* ThreatDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatDetector.swift; sourceTree = "<group>"; };
@@ -134,7 +134,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6618D91027D6E58F00EABF5D /* CloudKit.framework in Frameworks */,
 				6618D90B27D6D38700EABF5D /* HealthKit.framework in Frameworks */,
 				6618D90D27D6D39000EABF5D /* WatchConnectivity.framework in Frameworks */,
 				99CCDBD127FBAA6500600DD1 /* Charts in Frameworks */,
@@ -252,6 +251,7 @@
 		9932C40627CD983C001736F7 /* HRVMonitor WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				66A22CF22804A99D0016B27B /* HRVMonitor WatchKit ExtensionDebug.entitlements */,
 				9916D36B27FE1C2400822E76 /* services */,
 				9916D36927FE1C0B00822E76 /* controllers */,
 				9916D36827FE1BD400822E76 /* models */,
@@ -672,7 +672,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_ENTITLEMENTS = "HRVMonitor WatchKit Extension/HRVMonitor WatchKit Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "HRVMonitor WatchKit Extension/HRVMonitor WatchKit ExtensionDebug.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HRVMonitor WatchKit Extension/Preview Content\"";
