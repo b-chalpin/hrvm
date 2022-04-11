@@ -19,7 +19,9 @@ class ThreatDetector : ObservableObject {
             
             // notify user
             WKInterfaceDevice.current().play(.failure)
+            
             self.notificationFactory.pushNotification()
+            
         }
     }
     
