@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct NotificationView: View {
+    @ObservedObject var threatDetector: ThreatDetector
+    
+    init () {
+        self.threatDetector = ThreatDetector()
+    }
+    
     var body: some View {
         VStack{
             //HRV Label
@@ -19,13 +25,14 @@ struct NotificationView: View {
     
             Button(action: {
                 //Add action here - another view/input data
+                self.threatDetector.acknowledgeThreat()
             }) {
                     Text("Yes")
             }
             
             Button(action: {
                 //Add action here - another view/input data
-                //ContentView()
+                self.threatDetector.acknowledgeThreat()
             }) {
                     Text("No")
             }
