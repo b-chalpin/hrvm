@@ -9,8 +9,20 @@ import SwiftUI
 import WatchKit
 import Charts
 
+struct Event: Identifiable {
+    var id: Double
+    //var hrv: Double
+    var timeStamp: String
+    //var feedback: String
+    var hrv: Double
+    var feedback: String
+}
+
+//var before
+
 struct ContentView : View {
     @State private var isLoading = false
+    @State private var isActive : Bool = false
     
     @ObservedObject var hrPoller: HeartRatePoller
     @ObservedObject var threatDetector: ThreatDetector
@@ -25,13 +37,24 @@ struct ContentView : View {
         
         // dependency inject our services into the engine
         self.monitorEngine = MonitorEngine(hrPoller: hrPollerService, threatDetector: threatDetectorService)
+        
     }
+    let events = [
+        //self.hrPoller.hrvTimestamp
+        Event(id: 5, timeStamp: "12:20:10 APR 2, 2022", hrv: 12.9, feedback: "False"),
+        Event(id: 4, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
+        Event(id: 3, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
+        Event(id: 2, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
+        Event(id: 1, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False")
+    ]
     
     var body: some View {
         Section {
             TabView{
                 // Page 1
                 // dynamic HRV graph
+                //List(events, children: \.subDetails) { item in
+                NavigationView{
                 ZStack{
                     VStack {
                         Chart(data: getHrvStoreForChart())
@@ -48,16 +71,29 @@ struct ContentView : View {
                     // heart icon
                     VStack {
                         HStack {
-                            Spacer()
+                            NavigationLink(destination: SettingsView()) {
+                                Image("settingsIcon").resizable()
+                                    .opacity(0.6)
+                                    .frame(width: 25, height: 25,alignment: .topLeading)
+                            }.buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.0))).frame(maxWidth: .infinity)
+                        
+                            //using this as an aligner to make the link smaller? Not sure a better method
+                            Image("settingsIcon").resizable()
+                            .opacity(0.0)
+                            .frame(width: .infinity,
+                                   height: 2,
+                                   alignment: .top)
+                            
                             calculateMoodHeart()
                                 .resizable()
                                 .opacity(0.8)
                                 .frame(width: 25,
                                        height: 22,
                                        alignment: .topTrailing)
-                                .padding([.top ,.trailing], 10.0)
+                                .padding(.trailing, 10.0)
                         }
                         Spacer()
+                        
                     }
                     
                     VStack(spacing: 10){
@@ -77,6 +113,7 @@ struct ContentView : View {
                             .padding(.horizontal, 40.0)
                             .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
                     }
+                }
                 }
                 // Page2
                 VStack {
@@ -112,15 +149,15 @@ struct ContentView : View {
                            alignment: .bottomLeading)
                 }
                 // Page 3
-                HStack{
-                    Text("Settings")
-                        .fontWeight(.semibold)
-                        .font(.system(size: 16))
-                        .foregroundColor(Color.white)
-                        .frame(alignment: .topLeading)
-                        .frame(maxWidth: .infinity,
-                                maxHeight: .infinity,
-                                alignment: .topLeading)
+                NavigationView{
+                    //List(events) {
+                    List {
+                        ForEach(self.events) { event in
+                            NavigationLink(String(event.timeStamp),
+                                destination: Text(event.timeStamp + "\nHRV: " + String(event.hrv)))
+                                            
+                        }.font(.caption2)
+                    }
                 }
             }
         }
@@ -140,6 +177,46 @@ struct ContentView : View {
                     }
                   )
             )
+        }
+    }
+    
+    struct SettingsView : View {
+        var sex = ["Female", "Male"]
+        @State private var selectedSex = 1
+        @State private var selectedAge = 1
+        
+        var body : some View{
+            
+            VStack{
+                Text("Settings")
+                    .fontWeight(.semibold)
+                    .font(.system(size: 16))
+                    .foregroundColor(Color.white)
+                    .frame(maxWidth: .infinity,
+                           alignment: .topLeading)
+                HStack{
+                    Text("Sex:").fontWeight(.semibold)
+                        .font(.system(size: 16))
+                        .foregroundColor(Color.white)
+                    Picker("",selection: $selectedSex){
+                        Text("Male").tag(1)
+                        Text("Female").tag(2)
+                    }.frame(maxWidth: 100)
+                }
+                
+                HStack{
+                    Text("Age:").fontWeight(.semibold)
+                        .font(.system(size: 16))
+                        .foregroundColor(Color.white)
+                    Picker("",selection: $selectedAge){
+                        ForEach(1..<100) {
+                            Text("\($0)").tag("\($0)")
+                        }
+                    }.frame(maxWidth: 100)
+                }
+                
+                //Text("Other Settings...").frame(alignment: .topLeading).font(.system(size: 12))
+            }.frame(alignment: .top)
         }
     }
     
