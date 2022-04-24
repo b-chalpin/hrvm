@@ -80,9 +80,22 @@ public class LogisticRegression
         
     }
     
-    public func predict(X:[Double])
+    public func predict(X:[[Double]]) -> [Double]
     {
+        var X_bias = X
         
+        if(X[0].count == self.columnCount - 1)
+        {
+            X_bias = self.addBiasColumn(X: X)
+        }
+        
+        let weights = self.weights.flatMap{$0}
+        let samples = X_bias.flatMap{$0}
+        var results = Array(repeating: 0.0, count: self.rowCount)
+        
+        vDSP_mmulD(samples, 1, weights, 1, &results, 1, vDSP_Length(self.rowCount), vDSP_Length(1), vDSP_Length(self.columnCount))
+        
+        return self.v_sigmoid(signal: results)
     }
     
     public func error(X:[Double], y:[Double])
