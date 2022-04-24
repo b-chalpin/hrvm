@@ -22,21 +22,36 @@ public class LogisticRegression
     public init()
     {
         //Initializing weights to zero and to be length of HRV store plus one to account for bias.
-        self.columnCount = Settings.HRVStoreSize + 1
+        self.columnCount = 10 + 1
         self.rowCount = 0
-        self.epochs = 200
-        self.eta = 0.01
+        self.epochs = 100
+        self.eta = 0.001
         self.lam = 0.1
-        self.weights = [Double](repeating: 0.0, count: self.columnCount)
+        self.weights = [Double](repeating: 1.0, count: self.columnCount)
     }
+    
     public func test(X:[[Double]], y:[[Double]])
     {
+        var epochs = self.epochs
         self.rowCount = X.count
         let X_bias = self.addBiasColumn(X: X)
         self.initWeights()
-        print(self.weights)
-        let s = self.calculateSignal(X_bias: X_bias, y: y)
-        let test = self.v_sigmoid(s: s)
+        print(" ")
+        print("Init Weights: ", self.weights)
+        
+        while(epochs > 0)
+        {
+            let signal = self.calculateSignal(X_bias: X_bias, y: y)
+            self.updateWeights(X: X_bias, y: y, signal: signal)
+            
+            if(epochs % 10 == 0)
+            {
+                print("Update: ", self.weights)
+            }
+            
+            epochs -= 1
+        }
+        
     }
     
     public func fit(X:[[Double]], y:[[Double]], lam:Double?, eta:Double?, epochs:Int?)
@@ -44,15 +59,23 @@ public class LogisticRegression
         if(epochs != nil){self.epochs = epochs!}
         if(eta != nil){self.eta = eta!}
         if(lam != nil){self.lam = lam!}
-            
+        
+        var epochs = self.epochs
         self.rowCount = X.count
         let X_bias = self.addBiasColumn(X: X)
         self.initWeights()
         
-        while(self.epochs > 0)
+        while(epochs > 0)
         {
-            let s = self.calculateSignal(X_bias: X_bias, y: y)
-            self.epochs -= 1
+            let signal = self.calculateSignal(X_bias: X_bias, y: y)
+            self.updateWeights(X: X_bias, y: y, signal: signal)
+            
+            if(epochs % 10 == 0)
+            {
+                print("Update: ", self.weights)
+            }
+            
+            epochs -= 1
         }
         
     }
@@ -67,9 +90,24 @@ public class LogisticRegression
         
     }
     
-    private func updateWeights()
+    private func updateWeights(X:[[Double]], y:[[Double]], signal:[Double])
     {
+        let order = CblasRowMajor
+        let transpose = CblasNoTrans
+        let noTranspose = CblasTrans
         
+        let samples = X.flatMap{$0}
+        let labels = y.flatMap{$0}
+        var weights = Array(repeating: 0.0, count: self.columnCount)
+        
+        let m1 = vDSP.multiply(labels, self.v_sigmoid(signal: signal))
+        let m2 = vDSP.multiply( 1 - 2 * self.eta * self.lam / Double(self.rowCount), self.weights)
+        
+        cblas_dgemm(order, transpose, noTranspose, Int32(self.rowCount), Int32(self.columnCount), Int32(1), 1.0, m1, Int32(1), samples, Int32(self.columnCount), 1.0, &weights, Int32(self.columnCount))
+        weights = vDSP.multiply((self.eta/Double(self.rowCount)), weights)
+        weights = vDSP.add(weights, m2)
+        
+        self.weights = weights
     }
     
     private func calculateSignal(X_bias:[[Double]], y:[[Double]]) -> [Double]
@@ -87,14 +125,17 @@ public class LogisticRegression
     
     private func initWeights()
     {
-        let randomNums = (0..<self.columnCount).map{ _ in Double.random(in: 1.0 ... 1000.0)}
+        let randomNums = (0..<self.columnCount).map{ _ in Double.random(in: 0.0 ... 1.0)}
         let lower = -(1 / Double(self.columnCount).squareRoot())
         let upper = 1 / Double(self.columnCount).squareRoot()
-        var results:[Double]
+        var weights:[Double]
         
-        results = vDSP.add(lower, randomNums)
-        results = vDSP.multiply((upper - lower), results)
-        self.weights = results
+        weights = vDSP.add(lower, randomNums)
+        weights = vDSP.multiply((upper - lower), weights)
+        
+        weights[0] = 1.0
+        
+        self.weights = weights
     }
     
     private func addBiasColumn(X:[[Double]]) -> [[Double]]
@@ -110,16 +151,16 @@ public class LogisticRegression
         return X_bias
     }
     
-    private func v_sigmoid(s:[Double]) -> [Double]
+    private func v_sigmoid(signal:[Double]) -> [Double]
     {
-        let negSignal = vDSP.multiply(-1.0, s)
+        let negSignal = vDSP.multiply(-1.0, signal)
         let ones = Array(repeating: 1.0, count: self.rowCount)
-        var results = Array(repeating: 0.0, count: self.rowCount)
+        var sigmoid = Array(repeating: 0.0, count: self.rowCount)
         
-        vvexp(&results, negSignal, [Int32(2)])
-        results = vDSP.add(1.0, results)
-        results = vDSP.divide(ones, results)
+        vvexp(&sigmoid, negSignal, [Int32(self.rowCount)])
+        sigmoid = vDSP.add(1.0, sigmoid)
+        sigmoid = vDSP.divide(ones, sigmoid)
         
-        return results
+        return sigmoid
     }
 }
