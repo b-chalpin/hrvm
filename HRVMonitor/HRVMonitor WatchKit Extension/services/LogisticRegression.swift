@@ -34,6 +34,7 @@ public class LogisticRegression
         self.rowCount = X.count
         let X_bias = self.addBiasColumn(X: X)
         self.initWeights()
+        print(self.weights)
         let s = self.calculateSignal(X_bias: X_bias, y: y)
         let test = self.v_sigmoid(s: s)
     }
@@ -86,11 +87,13 @@ public class LogisticRegression
     
     private func initWeights()
     {
-        let randomNums = (0..<self.columnCount).map{ _ in Double.random(in: 1.0 ... Double(self.rowCount)) }
-        let scalar = (1 / Double(self.rowCount)).squareRoot()
+        let randomNums = (0..<self.columnCount).map{ _ in Double.random(in: 1.0 ... 1000.0)}
+        let lower = -(1 / Double(self.columnCount).squareRoot())
+        let upper = 1 / Double(self.columnCount).squareRoot()
         var results:[Double]
         
-        results = vDSP.multiply(scalar, randomNums)
+        results = vDSP.add(lower, randomNums)
+        results = vDSP.multiply((upper - lower), results)
         self.weights = results
     }
     
