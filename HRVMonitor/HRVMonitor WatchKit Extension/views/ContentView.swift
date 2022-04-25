@@ -50,6 +50,11 @@ struct ContentView : View {
         Event(id: 3, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False"),
         Event(id: 2, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False"),
         Event(id: 1, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False")
+        Event(id: 5, timeStamp: "12:20:10 APR 2, 2022", hrv: 12.9, feedback: "False"),
+        Event(id: 4, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
+        Event(id: 3, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
+        Event(id: 2, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
+        Event(id: 1, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False")
     ]
     
     var body: some View {
@@ -93,9 +98,9 @@ struct ContentView : View {
                                        height: 22,
                                        alignment: .topTrailing)
                                 .padding(.trailing, 10.0)
-
                         }
                         Spacer()
+                        
                     }
                     
                     VStack(spacing: 10){
@@ -188,6 +193,14 @@ struct ContentView : View {
                 }
             }
         }
+//        .onAppear()
+//        {
+//            let X = [[70.1, 71.2, 73.1, 72.6, 74.3, 73.5, 75.1, 74.2, 72.2, 73.1], [80.2, 81.6, 85.4, 87.8, 89.1, 88.9, 89.0, 88.5, 87.0, 88.7], [21.2, 22.5, 23.1, 21.5, 22.7, 23.5, 23.7, 24.0, 22.8, 23.6]]
+//            let y = [[0.0], [0.0], [1.0]]
+//            let lr = LogisticRegression()
+//            lr.test(X: X, y: y)
+//            print(lr.predict(X: X))
+//        }
         .alert(isPresented: self.$threatDetector.threatDetected) {
             Alert(
                 title: Text("Are you stressed?"),
@@ -244,6 +257,7 @@ struct ContentView : View {
                 }
                 
                 /*
+
                 HStack{
                     Text("Age:").fontWeight(.semibold)
                         .font(.system(size: 16))
@@ -253,11 +267,8 @@ struct ContentView : View {
                             Text("\($0)").tag("\($0)")
                         }
                     }.frame(maxWidth: 100)
-                 
-                }
-                
-                //Text("Other Settings...").frame(alignment: .topLeading).font(.system(size: 12))
-            }.frame(alignment: .top)
+
+
                  */
             }
         }
