@@ -15,6 +15,7 @@ struct Event: Identifiable {
     var timeStamp: String
     //var feedback: String
     var hrv: Double
+    var averageHR: Double
     var feedback: String
 }
 
@@ -23,6 +24,9 @@ struct Event: Identifiable {
 struct ContentView : View {
     @State private var isLoading = false
     @State private var isActive : Bool = false
+    @State private var selectedSex = 1
+    @State private var selectedAge = 25.0
+    @State private var isEditing = false
     
     @ObservedObject var hrPoller: HeartRatePoller
     @ObservedObject var threatDetector: ThreatDetector
@@ -41,14 +45,15 @@ struct ContentView : View {
     }
     let events = [
         //self.hrPoller.hrvTimestamp
-        Event(id: 5, timeStamp: "12:20:10 APR 2, 2022", hrv: 12.9, feedback: "False"),
-        Event(id: 4, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
-        Event(id: 3, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
-        Event(id: 2, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False"),
-        Event(id: 1, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, feedback: "False")
+        Event(id: 5, timeStamp: "12:20:10 APR 2, 2022", hrv: 12.9, averageHR: 15.0, feedback: "False"),
+        Event(id: 4, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False"),
+        Event(id: 3, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False"),
+        Event(id: 2, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False"),
+        Event(id: 1, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False")
     ]
     
     var body: some View {
+    
         Section {
             TabView{
                 // Page 1
@@ -75,15 +80,12 @@ struct ContentView : View {
                                 Image("settingsIcon").resizable()
                                     .opacity(0.6)
                                     .frame(width: 25, height: 25,alignment: .topLeading)
-                            }.buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.0))).frame(maxWidth: .infinity)
-                        
-                            //using this as an aligner to make the link smaller? Not sure a better method
+                            }.buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.0))).frame(maxWidth: 50, alignment: .topLeading)
                             Image("settingsIcon").resizable()
                             .opacity(0.0)
                             .frame(width: .infinity,
                                    height: 2,
                                    alignment: .top)
-                            
                             calculateMoodHeart()
                                 .resizable()
                                 .opacity(0.8)
@@ -91,9 +93,9 @@ struct ContentView : View {
                                        height: 22,
                                        alignment: .topTrailing)
                                 .padding(.trailing, 10.0)
+
                         }
                         Spacer()
-                        
                     }
                     
                     VStack(spacing: 10){
@@ -132,6 +134,13 @@ struct ContentView : View {
                                    alignment: .topLeading)
                             .padding([.top, .bottom], 5.0)
                     }
+                    Chart(data: getHrvStoreForChart())
+                        .chartStyle(
+                            AreaChartStyle(.quadCurve, fill:
+                                            LinearGradient(gradient: .init(colors: [calculateMoodColor().opacity(0.5), calculateMoodColor().opacity(0.05)]), startPoint: .top, endPoint: .bottom)
+                                            .frame(maxHeight: 25, alignment: .top)
+                            )
+                        )
                     HStack {
                         // enter graph here
                         Text("min\nmax\navg")
@@ -149,15 +158,33 @@ struct ContentView : View {
                            alignment: .bottomLeading)
                 }
                 // Page 3
+                VStack{
+                    Text("EVENT LOG")
+                        .fontWeight(.semibold)
+                        .font(.system(size: 20))
+                        .foregroundColor(Color.white)
+                        .frame(maxWidth: .infinity,
+                               alignment: .topLeading)
+                    Text("High Stress Detected")
+                        .fontWeight(.semibold)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.white)
+                        .frame(maxWidth: .infinity,
+                               alignment: .topLeading)
                 NavigationView{
-                    //List(events) {
-                    List {
+                    Form {
                         ForEach(self.events) { event in
                             NavigationLink(String(event.timeStamp),
-                                destination: Text(event.timeStamp + "\nHRV: " + String(event.hrv)))
-                                            
-                        }.font(.caption2)
-                    }
+                                destination:
+                            VStack{
+                                Text(event.timeStamp).fontWeight(.bold)
+                                Text("HRV: " + String(event.hrv))
+                                Text("Average HRV: " + String(event.averageHR))
+                                Text("Feedback: " + event.feedback)
+                            })
+                            }.font(.caption2)
+                        }
+                    }.frame( alignment: .top)
                 }
             }
         }
@@ -183,10 +210,10 @@ struct ContentView : View {
     struct SettingsView : View {
         var sex = ["Female", "Male"]
         @State private var selectedSex = 1
-        @State private var selectedAge = 1
+        @State private var selectedAge = 25.0
+        @State private var isEditing = false
         
         var body : some View{
-            
             VStack{
                 Text("Settings")
                     .fontWeight(.semibold)
@@ -194,16 +221,29 @@ struct ContentView : View {
                     .foregroundColor(Color.white)
                     .frame(maxWidth: .infinity,
                            alignment: .topLeading)
+            Form{
                 HStack{
                     Text("Sex:").fontWeight(.semibold)
-                        .font(.system(size: 16))
+                        //.font(.system(size: 16))
                         .foregroundColor(Color.white)
                     Picker("",selection: $selectedSex){
                         Text("Male").tag(1)
                         Text("Female").tag(2)
-                    }.frame(maxWidth: 100)
+                    }.font(.system(size: 16))
+                        .foregroundColor(Color.white)
+                }
+                HStack{
+                    Text("Age: \(selectedAge, specifier: "%g")")
+                    VStack{
+                        Slider(value: $selectedAge,
+                           in: 0...100, step: 1,
+                           onEditingChanged: {
+                        editing in isEditing = editing
+                        })
+                    }
                 }
                 
+                /*
                 HStack{
                     Text("Age:").fontWeight(.semibold)
                         .font(.system(size: 16))
@@ -213,10 +253,14 @@ struct ContentView : View {
                             Text("\($0)").tag("\($0)")
                         }
                     }.frame(maxWidth: 100)
+                 
                 }
                 
                 //Text("Other Settings...").frame(alignment: .topLeading).font(.system(size: 12))
             }.frame(alignment: .top)
+                 */
+            }
+        }
         }
     }
     
