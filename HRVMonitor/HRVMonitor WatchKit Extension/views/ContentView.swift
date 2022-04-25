@@ -130,6 +130,7 @@ struct ContentView : View {
             var y = [[0.0], [0.0], [1.0]]
             var lr = LogisticRegression()
             lr.test(X: X, y: y)
+            print(lr.predict(X: X))
         }
         .alert(isPresented: self.$threatDetector.threatDetected) {
             Alert(

@@ -24,9 +24,9 @@ public class LogisticRegression
         //Initializing weights to zero and to be length of HRV store plus one to account for bias.
         self.columnCount = 10 + 1
         self.rowCount = 0
-        self.epochs = 100
-        self.eta = 0.001
-        self.lam = 0.1
+        self.epochs = 200
+        self.eta = 0.01
+        self.lam = 1
         self.weights = [Double](repeating: 1.0, count: self.columnCount)
     }
     
