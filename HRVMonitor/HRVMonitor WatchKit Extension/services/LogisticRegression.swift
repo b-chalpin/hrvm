@@ -2,7 +2,7 @@
 //  LogisticRegression.swift
 //  HRVMonitor WatchKit Extension
 //
-//  Created by Timoster the Gr9 on 4/18/22.
+//  Created by Nick Adams on 4/18/22.
 //
 
 import Foundation
