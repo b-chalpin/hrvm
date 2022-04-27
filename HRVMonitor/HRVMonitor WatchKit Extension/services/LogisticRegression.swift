@@ -24,10 +24,17 @@ public class LogisticRegression
         //Initializing weights to zero and to be length of HRV store plus one to account for bias.
         self.columnCount = 10 + 1
         self.rowCount = 0
+<<<<<<< Updated upstream
         self.epochs = 100
         self.eta = 0.001
         self.lam = 0.1
         self.weights = [Double](repeating: 1.0, count: self.columnCount)
+=======
+        self.epochs = 1000
+        self.eta = 0.01
+        self.lam = 1.0
+        self.weights = [Double](repeating: 0.0, count: self.columnCount)
+>>>>>>> Stashed changes
     }
     
     public func test(X:[[Double]], y:[[Double]])
@@ -69,12 +76,15 @@ public class LogisticRegression
         {
             let signal = self.calculateSignal(X_bias: X_bias, y: y)
             self.updateWeights(X: X_bias, y: y, signal: signal)
+<<<<<<< Updated upstream
             
             if(epochs % 10 == 0)
             {
                 print("Update: ", self.weights)
             }
             
+=======
+>>>>>>> Stashed changes
             epochs -= 1
         }
         
@@ -95,7 +105,9 @@ public class LogisticRegression
         
         vDSP_mmulD(samples, 1, weights, 1, &results, 1, vDSP_Length(self.rowCount), vDSP_Length(1), vDSP_Length(self.columnCount))
         
-        return self.v_sigmoid(signal: results)
+        let predictions = self.v_sigmoid(signal: results)
+        
+        return predictions
     }
     
     public func error(X:[Double], y:[Double])
@@ -111,16 +123,19 @@ public class LogisticRegression
         
         let samples = X.flatMap{$0}
         let labels = y.flatMap{$0}
+        let sigmoid = self.v_sigmoid(signal: signal)
+        let scalar = self.eta/Double(self.rowCount)
+        let scalar2 = 1 - (2 * self.eta * self.lam / Double(self.rowCount))
         var weights = Array(repeating: 0.0, count: self.columnCount)
         
-        let m1 = vDSP.multiply(labels, self.v_sigmoid(signal: signal))
-        let m2 = vDSP.multiply( 1 - 2 * self.eta * self.lam / Double(self.rowCount), self.weights)
+        let m1 = vDSP.multiply(labels, sigmoid)
+        let m2 = vDSP.multiply(scalar2, self.weights)
         
-        cblas_dgemm(order, transpose, noTranspose, Int32(self.rowCount), Int32(self.columnCount), Int32(1), 1.0, m1, Int32(1), samples, Int32(self.columnCount), 1.0, &weights, Int32(self.columnCount))
-        weights = vDSP.multiply((self.eta/Double(self.rowCount)), weights)
-        weights = vDSP.add(weights, m2)
+        cblas_dgemm(order, transpose, noTranspose, Int32(self.rowCount), Int32(self.columnCount), Int32(1), 1.0, m1, Int32(1), samples, Int32(self.rowCount), 1.0, &weights, Int32(self.columnCount))
+        let m3 = vDSP.multiply(scalar, weights)
+        let m4 = vDSP.add(m3, m2)
         
-        self.weights = weights
+        self.weights = m4
     }
     
     private func calculateSignal(X_bias:[[Double]], y:[[Double]]) -> [Double]
@@ -166,14 +181,14 @@ public class LogisticRegression
     
     private func v_sigmoid(signal:[Double]) -> [Double]
     {
-        let negSignal = vDSP.multiply(-1.0, signal)
+        let negSignal = vDSP.multiply(-1, signal)
         let ones = Array(repeating: 1.0, count: self.rowCount)
         var sigmoid = Array(repeating: 0.0, count: self.rowCount)
         
         vvexp(&sigmoid, negSignal, [Int32(self.rowCount)])
-        sigmoid = vDSP.add(1.0, sigmoid)
-        sigmoid = vDSP.divide(ones, sigmoid)
+        let m1 = vDSP.add(1, sigmoid)
+        let m2 = vDSP.divide(ones, m1)
         
-        return sigmoid
+        return m2
     }
 }
