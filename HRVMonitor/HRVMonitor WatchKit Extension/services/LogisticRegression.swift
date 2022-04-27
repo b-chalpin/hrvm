@@ -24,17 +24,10 @@ public class LogisticRegression
         //Initializing weights to zero and to be length of HRV store plus one to account for bias.
         self.columnCount = 10 + 1
         self.rowCount = 0
-<<<<<<< Updated upstream
-        self.epochs = 100
-        self.eta = 0.001
-        self.lam = 0.1
-        self.weights = [Double](repeating: 1.0, count: self.columnCount)
-=======
         self.epochs = 1000
         self.eta = 0.01
         self.lam = 1.0
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
->>>>>>> Stashed changes
     }
     
     public func test(X:[[Double]], y:[[Double]])
@@ -76,15 +69,11 @@ public class LogisticRegression
         {
             let signal = self.calculateSignal(X_bias: X_bias, y: y)
             self.updateWeights(X: X_bias, y: y, signal: signal)
-<<<<<<< Updated upstream
             
             if(epochs % 10 == 0)
             {
                 print("Update: ", self.weights)
             }
-            
-=======
->>>>>>> Stashed changes
             epochs -= 1
         }
         
