@@ -17,6 +17,7 @@ struct Event: Identifiable {
     var hrv: Double
     var averageHR: Double
     var feedback: String
+    var data: [Double]
 }
 
 //var before
@@ -45,11 +46,11 @@ struct ContentView : View {
     }
     let events = [
         //self.hrPoller.hrvTimestamp
-        Event(id: 5, timeStamp: "12:20:10 APR 2, 2022", hrv: 12.9, averageHR: 15.0, feedback: "False"),
-        Event(id: 4, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False"),
-        Event(id: 3, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False"),
-        Event(id: 2, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False"),
-        Event(id: 1, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False")
+        Event(id: 5, timeStamp: "12:20:10 APR 2, 2022", hrv: 12.9, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3]),
+        Event(id: 4, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3]),
+        Event(id: 3, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3]),
+        Event(id: 2, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3]),
+        Event(id: 1, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3])
     ]
     
     var body: some View {
@@ -78,8 +79,8 @@ struct ContentView : View {
                         HStack {
                             NavigationLink(destination: SettingsView()) {
                                 Image("settingsIcon").resizable()
-                                    .opacity(0.6)
                                     .frame(width: 25, height: 25,alignment: .topLeading)
+                                    .opacity(0.9)
                             }.buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.0))).frame(maxWidth: 50, alignment: .topLeading)
                             Image("settingsIcon").resizable()
                             .opacity(0.0)
@@ -88,7 +89,6 @@ struct ContentView : View {
                                    alignment: .top)
                             calculateMoodHeart()
                                 .resizable()
-                                .opacity(0.8)
                                 .frame(width: 25,
                                        height: 22,
                                        alignment: .topTrailing)
@@ -158,6 +158,7 @@ struct ContentView : View {
                            alignment: .bottomLeading)
                 }
                 // Page 3
+                NavigationView{
                 VStack{
                     Text("EVENT LOG")
                         .fontWeight(.semibold)
@@ -171,20 +172,15 @@ struct ContentView : View {
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity,
                                alignment: .topLeading)
-                NavigationView{
+
                     Form {
                         ForEach(self.events) { event in
                             NavigationLink(String(event.timeStamp),
-                                destination:
-                            VStack{
-                                Text(event.timeStamp).fontWeight(.bold)
-                                Text("HRV: " + String(event.hrv))
-                                Text("Average HRV: " + String(event.averageHR))
-                                Text("Feedback: " + event.feedback)
-                            })
+                                           destination: EventsView(event: event)
+                            )
                             }.font(.caption2)
                         }
-                    }.frame( alignment: .top)
+                    }
                 }
             }
         }
@@ -207,6 +203,27 @@ struct ContentView : View {
         }
     }
     
+    struct EventsView : View {
+        var event: Event
+        var body : some View{
+                
+            VStack{
+                Text(event.timeStamp).fontWeight(.bold)
+                Text("HRV: " + String(event.hrv))
+                Text("Average HRV: " + String(event.averageHR))
+                Text("Feedback: " + event.feedback)
+                
+                Chart(data: event.data)
+                    .chartStyle(
+                        AreaChartStyle(.quadCurve, fill:
+                                        LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.05)]), startPoint: .top, endPoint: .bottom)
+                                        .frame(maxHeight: 100)
+                                      )
+                    )
+            }
+        }
+    }
+    
     struct SettingsView : View {
         var sex = ["Female", "Male"]
         @State private var selectedSex = 1
@@ -221,7 +238,7 @@ struct ContentView : View {
                     .foregroundColor(Color.white)
                     .frame(maxWidth: .infinity,
                            alignment: .topLeading)
-            Form{
+            VStack{
                 HStack{
                     Text("Sex:").fontWeight(.semibold)
                         //.font(.system(size: 16))
@@ -230,8 +247,9 @@ struct ContentView : View {
                         Text("Male").tag(1)
                         Text("Female").tag(2)
                     }.font(.system(size: 16))
-                        .foregroundColor(Color.white)
+                        .foregroundColor(Color.white).frame(maxWidth: 100)
                 }
+                /*
                 HStack{
                     Text("Age: \(selectedAge, specifier: "%g")")
                     VStack{
@@ -242,8 +260,8 @@ struct ContentView : View {
                         })
                     }
                 }
+                 */
                 
-                /*
                 HStack{
                     Text("Age:").fontWeight(.semibold)
                         .font(.system(size: 16))
@@ -258,16 +276,14 @@ struct ContentView : View {
                 
                 //Text("Other Settings...").frame(alignment: .topLeading).font(.system(size: 12))
             }.frame(alignment: .top)
-                 */
             }
-        }
         }
     }
     
     func getHrvStoreForChart() -> [Double] {
         // return empty graph array for a hrvstore that is empty or a single item
         if self.hrPoller.hrvStore.count <= 1 {
-            return [0.0, 0.0]
+            return [0.0,0.99,0.95,0.79,0.75,0.59,0.55,0.39,0.35,0.0]
         }
         
         let hrvStoreValues = self.hrPoller.hrvStore.map { $0.value }
