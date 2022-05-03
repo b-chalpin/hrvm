@@ -2,7 +2,7 @@
 //  Configuration.swift
 //  HRVMonitor WatchKit Extension
 //
-//  Created by Timoster the Gr9 on 3/15/22.
+//  Created by Nick Adams on 3/15/22.
 //
 import Foundation
 
