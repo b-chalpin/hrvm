@@ -124,14 +124,6 @@ struct ContentView : View {
                 }
             }
         }
-        .onAppear()
-        {
-            let X = [[70.1, 71.2, 73.1, 72.6, 74.3, 73.5, 75.1, 74.2, 72.2, 73.1], [80.2, 81.6, 85.4, 87.8, 89.1, 88.9, 89.0, 88.5, 87.0, 88.7], [21.2, 22.5, 23.1, 21.5, 22.7, 23.5, 23.7, 24.0, 22.8, 23.6], [70.1, 71.2, 73.1, 72.6, 74.3, 73.5, 75.1, 74.2, 72.2, 73.1],[21.2, 22.5, 23.1, 21.5, 22.7, 23.5, 23.7, 24.0, 22.8, 23.6]]
-            let y = [[1.0], [1.0], [0.0], [1.0], [0.0]]
-            let lr = LogisticRegression()
-            lr.test(X: X, y: y)
-            print(lr.predict(X: X))
-        }
         .alert(isPresented: self.$threatDetector.threatDetected) {
             Alert(
                 title: Text("Are you stressed?"),
