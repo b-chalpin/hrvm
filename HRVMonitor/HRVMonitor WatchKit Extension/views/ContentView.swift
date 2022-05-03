@@ -93,9 +93,9 @@ struct ContentView : View {
                                        height: 22,
                                        alignment: .topTrailing)
                                 .padding(.trailing, 10.0)
-
                         }
                         Spacer()
+                        
                     }
                     
                     VStack(spacing: 10){
@@ -172,7 +172,6 @@ struct ContentView : View {
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity,
                                alignment: .topLeading)
-
                     Form {
                         ForEach(self.events) { event in
                             NavigationLink(String(event.timeStamp),
@@ -202,7 +201,6 @@ struct ContentView : View {
             )
         }
     }
-    
     struct EventsView : View {
         var event: Event
         var body : some View{
@@ -223,7 +221,6 @@ struct ContentView : View {
             }
         }
     }
-    
     struct SettingsView : View {
         var sex = ["Female", "Male"]
         @State private var selectedSex = 1
@@ -271,7 +268,6 @@ struct ContentView : View {
                             Text("\($0)").tag("\($0)")
                         }
                     }.frame(maxWidth: 100)
-                 
                 }
                 
                 //Text("Other Settings...").frame(alignment: .topLeading).font(.system(size: 12))
