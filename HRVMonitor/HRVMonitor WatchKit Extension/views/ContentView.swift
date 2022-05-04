@@ -13,7 +13,7 @@ import Charts
 // common style between buttons
 let BUTTON_COLOR = Color.blue.opacity(0.8)
 
-struct ContentView : View {
+struct ContentView: View {
     @State private var isLoading = false // used for scroll wheel animation
     
     @ObservedObject var hrPoller: HeartRatePoller
@@ -34,9 +34,11 @@ struct ContentView : View {
     
     var body: some View {
         Section {
-            TabView {
+            TabView
+            {
                 // page 1 - HRV monitor
-                NavigationView {
+                NavigationView
+                {
                     ZStack {
                         VStack {
                             Chart(data: getHrvStoreForChart())
@@ -47,30 +49,31 @@ struct ContentView : View {
                                                                    endPoint: .bottom)
                                                         .frame(maxHeight: 100)))
                                 .padding(.top, 5.0)
-                            
-                            Spacer()
+                                
+                                Spacer()
                         }
                         VStack {
                             HStack {
                                 // settings icon which links -> SettingsView
                                 NavigationLink(destination: SettingsView()) {
-                                    Image("settingsIcon").resizable()
+                                    Image("settingsIcon")
+                                        .resizable()
                                         .opacity(0.9)
                                         .frame(width: 25,
-                                               height: 25,
-                                               alignment: .topLeading)
+                                                height: 25,
+                                                alignment: .topLeading)
                                 }
                                 .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.0)))
                                 .frame(maxWidth: 50, alignment: .topLeading)
-                                
+                                    
                                 Spacer()
-                                
+                                    
                                 // heart icon
                                 Image(calculateMoodHeartImageName())
                                     .resizable()
                                     .frame(width: 25,
-                                           height: 22,
-                                           alignment: .topTrailing)
+                                            height: 22,
+                                            alignment: .topTrailing)
                                     .padding(.trailing, 10.0)
                             }
                             Spacer()
@@ -87,54 +90,54 @@ struct ContentView : View {
                                 .foregroundColor(calculateMoodColor())
                                 .multilineTextAlignment(.center)
                                 .padding(.bottom, 5.0)
-                            
+                                
                             calculateStopStartButton()
                                 .padding(.horizontal, 40.0)
                                 .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
+                            }
                         }
                     }
-                }
                 
-                // page 2 - real-time stats
-                VStack {
-                    HStack {
-                        Text(getHrvValueString())
-                            .fontWeight(.semibold)
-                            .font(.system(size: 40))
-                            .frame(maxHeight: .infinity,
-                                   alignment: .topLeading)
-                        Text("HRV")
-                            .fontWeight(.semibold)
-                            .font(.system(size: 20))
-                            .foregroundColor(Color("Color"))
-                            .frame(maxWidth: .infinity,
-                                   maxHeight: .infinity,
-                                   alignment: .topLeading)
-                            .padding([.top, .bottom], 5.0)
-                    }
-                    Chart(data: getHrvStoreForChart())
-                        .chartStyle(
-                            AreaChartStyle(.quadCurve, fill:
-                                            LinearGradient(gradient: .init(colors: [calculateMoodColor().opacity(0.5), calculateMoodColor().opacity(0.05)]), startPoint: .top, endPoint: .bottom)
-                                            .frame(maxHeight: 25, alignment: .top)
+                    // page 2 - real-time stats
+                    VStack {
+                        HStack {
+                            Text(getHrvValueString())
+                                .fontWeight(.semibold)
+                                .font(.system(size: 40))
+                                .frame(maxHeight: .infinity,
+                                       alignment: .topLeading)
+                            Text("HRV")
+                                .fontWeight(.semibold)
+                                .font(.system(size: 20))
+                                .foregroundColor(Color("Color"))
+                                .frame(maxWidth: .infinity,
+                                       maxHeight: .infinity,
+                                       alignment: .topLeading)
+                                .padding([.top, .bottom], 5.0)
+                        }
+                        Chart(data: getHrvStoreForChart())
+                            .chartStyle(
+                                AreaChartStyle(.quadCurve, fill:
+                                                LinearGradient(gradient: .init(colors: [calculateMoodColor().opacity(0.5), calculateMoodColor().opacity(0.05)]), startPoint: .top, endPoint: .bottom)
+                                                .frame(maxHeight: 25, alignment: .top)
+                                )
                             )
-                        )
-                    HStack {
-                        // enter graph here
-                        Text("min\nmax\navg")
-                            .fontWeight(.semibold)
-                            .font(.system(size: 16))
-                            .foregroundColor(Color("Color"))
-                        Text("\(formatDoubleToString(input: self.hrPoller.minHrvValue))\n" +
-                             "\(formatDoubleToString(input: self.hrPoller.maxHrvValue))\n" +
-                             "\(formatDoubleToString(input: self.hrPoller.avgHrvValue))")
-                            .fontWeight(.semibold)
-                            .font(.system(size: 16))
-                            .foregroundColor(Color.white)
+                        HStack {
+                            // enter graph here
+                            Text("min\nmax\navg")
+                                .fontWeight(.semibold)
+                                .font(.system(size: 16))
+                                .foregroundColor(Color("Color"))
+                            Text("\(formatDoubleToString(input: self.hrPoller.minHrvValue))\n" +
+                                 "\(formatDoubleToString(input: self.hrPoller.maxHrvValue))\n" +
+                                 "\(formatDoubleToString(input: self.hrPoller.avgHrvValue))")
+                                .fontWeight(.semibold)
+                                .font(.system(size: 16))
+                                .foregroundColor(Color.white)
+                        }
+                        .frame(maxWidth: .infinity,
+                               alignment: .bottomLeading)
                     }
-                    .frame(maxWidth: .infinity,
-                           alignment: .bottomLeading)
-                }
                 
                 // page 3 - event log
                 EventLogView()
@@ -190,7 +193,8 @@ struct ContentView : View {
         switch self.hrPoller.status {
             case HeartRatePollerStatus.starting:
                 return AnyView(
-                    Button(action: { stopMonitor() }) {
+                    Button(action: { stopMonitor() })
+                    {
                         Circle()
                             .trim(from: 0, to: 0.6)
                             .stroke(BUTTON_COLOR, lineWidth: 4)
@@ -285,3 +289,4 @@ struct ContentView_Preview : PreviewProvider {
         ContentView()
     }
 }
+
