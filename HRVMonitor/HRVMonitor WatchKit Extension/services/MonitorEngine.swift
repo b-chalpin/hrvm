@@ -17,24 +17,20 @@ enum MonitorEngineStatus {
 
 class MonitorEngine : ObservableObject {
     // dependency injected modules
-    private var hrPoller: HeartRatePoller
-    private var threatDetector: ThreatDetector
+    private var hrPoller: HeartRatePoller? = nil
+    private var threatDetector: ThreatDetector? = nil
     
     private var workoutManager = WorkoutManager()
     private var monitorTimer: Timer?
     
     // @deprecated
     // UI will be subscribed to this status
-    @Published var status: MonitorEngineStatus
+    @Published var status: MonitorEngineStatus = .stopped
     
-    init(hrPoller: HeartRatePoller, threatDetector: ThreatDetector) {
-        // @deprecated
-        self.status = .stopped
-        
+    public func bind(hrPoller: HeartRatePoller, threatDetector: ThreatDetector) {
         self.hrPoller = hrPoller
         self.threatDetector = threatDetector
     }
-    
     
     public func stopMonitoring() {
         // @deprecated
@@ -45,7 +41,7 @@ class MonitorEngine : ObservableObject {
         
         // stop hr poller
         self.stopMonitorTimer()
-        self.hrPoller.stopPolling()
+        self.hrPoller!.stopPolling()
     }
     
     public func startMonitoring() {
@@ -56,7 +52,7 @@ class MonitorEngine : ObservableObject {
         self.workoutManager.startWorkout()
         
         // hr poller
-        self.hrPoller.initPolling() // get hrPoller ready for polling
+        self.hrPoller!.initPolling() // get hrPoller ready for polling
         self.initMonitorTimer() // this handles synchronous polling
     }
     
@@ -68,15 +64,15 @@ class MonitorEngine : ObservableObject {
 
         self.monitorTimer = Timer.scheduledTimer(withTimeInterval: Settings.HRVMonitorIntervalSec, repeats: true, block: {_ in
             if Settings.DemoMode {
-                self.hrPoller.demo()
+                self.hrPoller!.demo()
             }
             else {
-                self.hrPoller.poll()
+                self.hrPoller!.poll()
             }
             
-            if self.hrPoller.isActive() { // if true then latestHrv is defined
+            if self.hrPoller!.isActive() { // if true then latestHrv is defined
                 self.status = .active // update monitor engine status @deprecated
-                self.threatDetector.checkHrvForThreat(hrv: self.hrPoller.latestHrv!)
+                self.threatDetector!.checkHrvForThreat(hrv: self.hrPoller!.latestHrv!)
             }
         })
     }
