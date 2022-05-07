@@ -76,7 +76,7 @@ Give credit here.
 
 ### Contributors
 
-- Nick Adams ([NicholasAdams](https://github.com/NicholasAdams))
+- Nick Adams ([Nick-P-Adams](https://github.com/Nick-P-Adams))
 - Jared Adams ([AndroidDucky](https://github.com/AndroidDucky))
 - Blake Chalpin ([b-chalpin](https://github.com/b-chalpin))
 - Madison Reese ([MadisonReese](https://github.com/MadisonReese))
