@@ -11,6 +11,9 @@ import Charts
 struct MonitorView: View {
     @EnvironmentObject var hrPoller: HeartRatePoller
     @EnvironmentObject var threatDetector: ThreatDetector
+    @EnvironmentObject var alertNotificationHandler: AlertNotificationHandler
+    @Environment(\.scenePhase) private var scenePhase
+    
     @State private var isLoading = false // used for scroll wheel animation
     
     private var monitorEngine: MonitorEngine = MonitorEngine()
@@ -72,6 +75,29 @@ struct MonitorView: View {
                         .padding(.horizontal, 40.0)
                         .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
                 }
+            }
+        }
+        .onChange(of: scenePhase)
+        { phase in
+            switch phase
+            {
+            case .active:
+            // The app has become active.
+            print(phase)
+            self.alertNotificationHandler.appState = .foreground
+            break
+
+            case .inactive:
+            break
+
+            case .background:
+            // The app has moved to the background.
+            print(phase)
+            self.alertNotificationHandler.appState = .background
+            break
+
+            @unknown default:
+            fatalError("The app has entered an unknown state.")
             }
         }
     }
@@ -139,14 +165,14 @@ struct MonitorView: View {
     
     func stopMonitor() {
         // fix for better solution
-        self.monitorEngine.bind(hrPoller: self.hrPoller, threatDetector: self.threatDetector)
+        self.monitorEngine.bind(hrPoller: self.hrPoller, threatDetector: self.threatDetector, alertNotificationHandler: self.alertNotificationHandler)
         
         self.monitorEngine.stopMonitoring()
     }
     
     func startMonitor() {
         // fix for better solution
-        self.monitorEngine.bind(hrPoller: self.hrPoller, threatDetector: self.threatDetector)
+        self.monitorEngine.bind(hrPoller: self.hrPoller, threatDetector: self.threatDetector, alertNotificationHandler: self.alertNotificationHandler)
         
         self.monitorEngine.startMonitoring()
     }

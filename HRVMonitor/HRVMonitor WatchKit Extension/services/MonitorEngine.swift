@@ -19,6 +19,7 @@ class MonitorEngine : ObservableObject {
     // dependency injected modules
     private var hrPoller: HeartRatePoller? = nil
     private var threatDetector: ThreatDetector? = nil
+    private var alertNotificationHandler: AlertNotificationHandler? = nil
     
     private var workoutManager = WorkoutManager()
     private var monitorTimer: Timer?
@@ -27,9 +28,10 @@ class MonitorEngine : ObservableObject {
     // UI will be subscribed to this status
     @Published var status: MonitorEngineStatus = .stopped
     
-    public func bind(hrPoller: HeartRatePoller, threatDetector: ThreatDetector) {
+    public func bind(hrPoller: HeartRatePoller, threatDetector: ThreatDetector, alertNotificationHandler: AlertNotificationHandler) {
         self.hrPoller = hrPoller
         self.threatDetector = threatDetector
+        self.alertNotificationHandler = alertNotificationHandler
     }
     
     public func stopMonitoring() {
@@ -73,6 +75,18 @@ class MonitorEngine : ObservableObject {
             if self.hrPoller!.isActive() { // if true then latestHrv is defined
                 self.status = .active // update monitor engine status @deprecated
                 self.threatDetector!.checkHrvForThreat(hrv: self.hrPoller!.latestHrv!)
+                
+                if(self.threatDetector!.threatDetected && self.alertNotificationHandler!.appState == .foreground)
+                {
+                    self.threatDetector!.threatDetected = false
+                    self.alertNotificationHandler!.alert = true
+                }
+                else if(self.threatDetector!.threatDetected && self.alertNotificationHandler!.appState == .background)
+                {
+                    self.threatDetector!.threatDetected = false
+                    self.alertNotificationHandler!.alert = false
+                    self.alertNotificationHandler!.notify()
+                }
             }
         })
     }
