@@ -11,6 +11,7 @@ import SwiftUI
 struct HRVMonitorApp: App {
     @StateObject var hrPoller: HeartRatePoller = HeartRatePoller()
     @StateObject var threatDetector: ThreatDetector = ThreatDetector()
+    @StateObject var alertNotificationHandler: AlertNotificationHandler = AlertNotificationHandler()
     
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -18,6 +19,7 @@ struct HRVMonitorApp: App {
                 ContentView()
                     .environmentObject(self.hrPoller)
                     .environmentObject(self.threatDetector)
+                    .environmentObject(self.alertNotificationHandler)
             }
         }
 

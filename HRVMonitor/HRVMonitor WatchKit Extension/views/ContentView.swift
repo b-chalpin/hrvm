@@ -11,6 +11,7 @@ import Charts
 
 struct ContentView: View {
     @EnvironmentObject var threatDetector: ThreatDetector
+    @EnvironmentObject var alertNotificationHandler: AlertNotificationHandler
     
     var body: some View {
         Section {
@@ -25,7 +26,7 @@ struct ContentView: View {
                 EventLogView()
             }
         }
-        .alert(isPresented: self.$threatDetector.threatDetected) {
+        .alert(isPresented: self.$alertNotificationHandler.alert) {
             Alert(
                 title: Text("Are you stressed?"),
                 primaryButton: .default(

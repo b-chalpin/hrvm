@@ -10,24 +10,21 @@ import WatchKit
 
 class ThreatDetector : ObservableObject {
     @Published var threatDetected: Bool = false
+    @Published var threatAcknowledged: Bool = false
     
     private let notificationFactory = NotificationFactory()
     
     public func checkHrvForThreat(hrv: HrvItem) {
         if self.predict(hrv: hrv.value) {
             threatDetected = true
-            
-            // notify user
             WKInterfaceDevice.current().play(.failure)
-            self.notificationFactory.pushNotification()
-            
         }
     }
     
-    // method to reset threatDetected var
+    // this method changed to detect if the threat was actaully acknowledged or not
     public func acknowledgeThreat() {
         print("Threat acked")
-        self.threatDetected = false
+        self.threatAcknowledged = true
     }
     
     // returns true for danger; false otherwise

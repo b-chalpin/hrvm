@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		661656EC280E22C300BEA888 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661656EB280E22C300BEA888 /* HealthKit.framework */; };
 		661656EE280E313100BEA888 /* LogisticRegression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661656ED280E313100BEA888 /* LogisticRegression.swift */; };
+		6632DF222829BB2E0014E2CE /* AlertNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6632DF212829BB2E0014E2CE /* AlertNotificationHandler.swift */; };
 		663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663419BF27DAD79D00F3823B /* NotificationFactory.swift */; };
 		663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663EE4E627E15B8E00AECB35 /* Configuration.swift */; };
 		6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* WorkoutManager.swift */; };
@@ -104,6 +105,7 @@
 		661656EB280E22C300BEA888 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		661656ED280E313100BEA888 /* LogisticRegression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogisticRegression.swift; sourceTree = "<group>"; };
 		6618D90E27D6DD5F00EABF5D /* HRVMonitor WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HRVMonitor WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		6632DF212829BB2E0014E2CE /* AlertNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNotificationHandler.swift; sourceTree = "<group>"; };
 		663419BF27DAD79D00F3823B /* NotificationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFactory.swift; sourceTree = "<group>"; };
 		663EE4E427E1592E00AECB35 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		663EE4E527E1593900AECB35 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				6659324527DBF50F002D1717 /* WorkoutManager.swift */,
 				9917685027E00BF800AC764C /* MonitorEngine.swift */,
 				9917685227E176E100AC764C /* ThreatDetector.swift */,
+				6632DF212829BB2E0014E2CE /* AlertNotificationHandler.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */,
 				66F2F6F627E533D600561E15 /* Settings.swift in Sources */,
 				997139A52825F7660029D831 /* StringFormatUtils.swift in Sources */,
+				6632DF222829BB2E0014E2CE /* AlertNotificationHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
