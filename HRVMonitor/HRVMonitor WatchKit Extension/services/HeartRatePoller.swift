@@ -16,6 +16,9 @@ enum HeartRatePollerStatus {
 }
 
 public class HeartRatePoller : ObservableObject {
+    // singleton
+    public static let shared: HeartRatePoller = HeartRatePoller()
+    
     // variable to indicate whether we have notified the poller to stop
     private var hasBeenStopped: Bool = true
 
@@ -33,7 +36,7 @@ public class HeartRatePoller : ObservableObject {
     private let heartRateQuantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     private let healthStore: HKHealthStore = HKHealthStore()
     
-    public init() {
+    public init() {        
         self.status = .stopped
         self.latestHrv = nil
         self.hrvStore = []

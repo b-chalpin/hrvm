@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct NotificationView: View {
-    @ObservedObject var threatDetector: ThreatDetector
-    
-    init () {
-        self.threatDetector = ThreatDetector()
-    }
+    private var monitorEngine = MonitorEngine.shared
     
     var body: some View {
         VStack{
@@ -25,14 +21,14 @@ struct NotificationView: View {
     
             Button(action: {
                 //Add action here - another view/input data
-                self.threatDetector.acknowledgeThreat()
+                self.monitorEngine.acknowledgeThreat(feedback: true)
             }) {
                     Text("Yes")
             }
             
             Button(action: {
                 //Add action here - another view/input data
-                self.threatDetector.acknowledgeThreat()
+                self.monitorEngine.acknowledgeThreat(feedback: false)
             }) {
                     Text("No")
             }

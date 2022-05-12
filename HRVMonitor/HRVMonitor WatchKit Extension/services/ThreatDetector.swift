@@ -9,6 +9,9 @@ import Foundation
 import WatchKit
 
 class ThreatDetector : ObservableObject {
+    // singleton
+    public static let shared: ThreatDetector = ThreatDetector()
+    
     @Published var threatDetected: Bool = false
     @Published var threatAcknowledged: Bool = false
     
@@ -22,8 +25,8 @@ class ThreatDetector : ObservableObject {
     }
     
     // this method changed to detect if the threat was actaully acknowledged or not
-    public func acknowledgeThreat() {
-        print("Threat acked")
+    public func acknowledgeThreat(feedback: Bool) {
+        print("FEEDBACK: \(feedback) - Threat acked")
         self.threatAcknowledged = true
     }
     

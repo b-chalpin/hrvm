@@ -14,6 +14,9 @@ enum AppState {
 }
 
 class AlertNotificationHandler: ObservableObject {
+    // singleton
+    public static let shared: AlertNotificationHandler = AlertNotificationHandler()
+    
     @Published var alert: Bool = false
     @Published var appState: AppState = .foreground
     
