@@ -10,7 +10,7 @@ import WatchKit
 import Charts
 
 struct ContentView: View {
-    @EnvironmentObject var threatDetector: ThreatDetector
+    @EnvironmentObject var monitorEngine: MonitorEngine
     @EnvironmentObject var alertNotificationHandler: AlertNotificationHandler
     
     var body: some View {
@@ -32,13 +32,13 @@ struct ContentView: View {
                 primaryButton: .default(
                     Text("No"),
                     action: {
-                        self.threatDetector.acknowledgeThreat()
+                        self.monitorEngine.acknowledgeThreat(feedback: false)
                     }
                 ),
                 secondaryButton: .default(
                     Text("Yes"),
                     action: {
-                        self.threatDetector.acknowledgeThreat()
+                        self.monitorEngine.acknowledgeThreat(feedback: true)
                     }
                   )
             )

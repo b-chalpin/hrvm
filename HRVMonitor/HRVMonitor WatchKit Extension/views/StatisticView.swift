@@ -10,7 +10,6 @@ import Charts
 
 struct StatisticView: View {
     @EnvironmentObject var hrPoller: HeartRatePoller
-    @EnvironmentObject var monitorEngine: MonitorEngine
     
     var body: some View {
         VStack {

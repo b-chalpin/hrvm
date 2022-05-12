@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct HRVMonitorApp: App {
-    @StateObject var hrPoller: HeartRatePoller = HeartRatePoller()
-    @StateObject var threatDetector: ThreatDetector = ThreatDetector()
-    @StateObject var alertNotificationHandler: AlertNotificationHandler = AlertNotificationHandler()
+    @StateObject var hrPoller = HeartRatePoller.shared
+    @StateObject var threatDetector = ThreatDetector.shared
+    @StateObject var alertNotificationHandler = AlertNotificationHandler.shared
+    @StateObject var monitorEngine = MonitorEngine.shared
     
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -20,6 +21,7 @@ struct HRVMonitorApp: App {
                     .environmentObject(self.hrPoller)
                     .environmentObject(self.threatDetector)
                     .environmentObject(self.alertNotificationHandler)
+                    .environmentObject(self.monitorEngine)
             }
         }
 
