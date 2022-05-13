@@ -66,26 +66,15 @@ class MonitorEngine : ObservableObject {
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
                 self.threatDetector.checkHrvForThreat(hrv: self.hrPoller.latestHrv!)
-                
-                if (self.threatDetector.threatDetected) {
-                    // save current HRV stuff
-                    self.saveHrvSnapshotsForEvent()
-                    
-                    self.threatDetector.threatDetected = false
-                    
-                    if(self.alertNotificationHandler.appState == .foreground)
-                    {
-                        self.alertNotificationHandler.alert = true
-                    }
-                    else if(self.alertNotificationHandler.appState == .background)
-                    {
-                        self.alertNotificationHandler.alert = false
-                        self.alertNotificationHandler.notify()
-                    }
-                }
-                
+                self.getFeedback()
             }
         })
+    }
+    
+    private func stopMonitorTimer() {
+        self.monitorTimer?.invalidate()
+        self.monitorTimer = nil
+        print("LOG - Monitor timer stopped")
     }
     
     private func saveHrvSnapshotsForEvent() {
@@ -93,10 +82,23 @@ class MonitorEngine : ObservableObject {
         self.hrvStoreSnapshotForEvent = self.hrPoller.hrvStore
     }
     
-    private func stopMonitorTimer() {
-        self.monitorTimer?.invalidate()
-        self.monitorTimer = nil
-        print("LOG - Monitor timer stopped")
+    private func getFeedback() {
+        if (self.threatDetector.threatDetected) {
+            // save current HRV stuff
+            self.saveHrvSnapshotsForEvent()
+            self.threatDetector.threatDetected = false
+            WKInterfaceDevice.current().play(.failure)
+            
+            if(self.alertNotificationHandler.appState == .foreground)
+            {
+                self.alertNotificationHandler.alert = true
+            }
+            else if(self.alertNotificationHandler.appState == .background)
+            {
+                self.alertNotificationHandler.alert = false
+                self.alertNotificationHandler.notify()
+            }
+        }
     }
     
     public func acknowledgeThreat(feedback: Bool) {
