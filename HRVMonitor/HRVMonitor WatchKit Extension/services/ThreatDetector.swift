@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import WatchKit
 
 class ThreatDetector : ObservableObject {
     // singleton
@@ -15,12 +14,9 @@ class ThreatDetector : ObservableObject {
     @Published var threatDetected: Bool = false
     @Published var threatAcknowledged: Bool = false
     
-    private let notificationFactory = NotificationFactory()
-    
     public func checkHrvForThreat(hrv: HrvItem) {
         if self.predict(hrv: hrv.value) {
             threatDetected = true
-            WKInterfaceDevice.current().play(.failure)
         }
     }
     
