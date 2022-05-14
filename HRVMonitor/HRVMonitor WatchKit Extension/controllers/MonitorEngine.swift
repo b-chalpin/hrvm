@@ -84,8 +84,8 @@ class MonitorEngine : ObservableObject {
     
     private func getFeedback() {
         if (self.threatDetector.threatDetected) {
-            // save current HRV stuff
-            self.saveHrvSnapshotsForEvent()
+            self.saveHrvSnapshotsForEvent() // save current HRV and HRV Store
+            
             self.threatDetector.threatDetected = false
             WKInterfaceDevice.current().play(.failure)
             

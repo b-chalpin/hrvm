@@ -42,6 +42,8 @@ struct Add: View {
             }
         })
     }
+    
+    
     func AddToData(){
         //Checking if the Core has Data
         let model = modelItem == nil ? Items(context: context) : modelItem!

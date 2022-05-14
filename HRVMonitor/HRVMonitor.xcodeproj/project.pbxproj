@@ -32,6 +32,10 @@
 		9932C42127CD983D001736F7 /* HRVMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42027CD983D001736F7 /* HRVMonitorTests.swift */; };
 		9932C42B27CD983D001736F7 /* HRVMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */; };
 		9932C42D27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */; };
+		99502B42282F25ED00A7A2EE /* PersistenceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99502B41282F25ED00A7A2EE /* PersistenceContainer.swift */; };
+		99502B44282F2CE000A7A2EE /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99502B43282F2CE000A7A2EE /* StorageService.swift */; };
+		99502B46282F2F1500A7A2EE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99502B45282F2F1500A7A2EE /* CloudKit.framework */; };
+		99502B48282F2F4300A7A2EE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99502B47282F2F4300A7A2EE /* CoreData.framework */; };
 		995221E32822105B00AFAF67 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995221E22822105B00AFAF67 /* Event.swift */; };
 		995221E52822108B00AFAF67 /* EventLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995221E42822108B00AFAF67 /* EventLogView.swift */; };
 		995221E82822112600AFAF67 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995221E72822112600AFAF67 /* EventView.swift */; };
@@ -137,6 +141,11 @@
 		9932C42627CD983D001736F7 /* HRVMonitorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HRVMonitorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITests.swift; sourceTree = "<group>"; };
 		9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		99502B3F282F258300A7A2EE /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		99502B41282F25ED00A7A2EE /* PersistenceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceContainer.swift; sourceTree = "<group>"; };
+		99502B43282F2CE000A7A2EE /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		99502B45282F2F1500A7A2EE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		99502B47282F2F4300A7A2EE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		995221E22822105B00AFAF67 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		995221E42822108B00AFAF67 /* EventLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogView.swift; sourceTree = "<group>"; };
 		995221E72822112600AFAF67 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
@@ -154,6 +163,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99502B46282F2F1500A7A2EE /* CloudKit.framework in Frameworks */,
+				99502B48282F2F4300A7A2EE /* CoreData.framework in Frameworks */,
 				99CCDBD127FBAA6500600DD1 /* Charts in Frameworks */,
 				661656EC280E22C300BEA888 /* HealthKit.framework in Frameworks */,
 			);
@@ -179,6 +190,8 @@
 		6618D90927D6D38700EABF5D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				99502B47282F2F4300A7A2EE /* CoreData.framework */,
+				99502B45282F2F1500A7A2EE /* CloudKit.framework */,
 				661656EB280E22C300BEA888 /* HealthKit.framework */,
 				661656EA280E228500BEA888 /* CoreML.framework */,
 			);
@@ -246,6 +259,7 @@
 		9932C3EC27CD983A001736F7 = {
 			isa = PBXGroup;
 			children = (
+				99502B3D282F255F00A7A2EE /* StorageModule */,
 				9932C3FB27CD983B001736F7 /* HRVMonitor WatchKit App */,
 				9932C40627CD983C001736F7 /* HRVMonitor WatchKit Extension */,
 				9932C41F27CD983D001736F7 /* HRVMonitorTests */,
@@ -321,6 +335,16 @@
 				9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */,
 			);
 			path = HRVMonitorUITests;
+			sourceTree = "<group>";
+		};
+		99502B3D282F255F00A7A2EE /* StorageModule */ = {
+			isa = PBXGroup;
+			children = (
+				99502B3E282F258300A7A2EE /* AppModel.xcdatamodeld */,
+				99502B41282F25ED00A7A2EE /* PersistenceContainer.swift */,
+				99502B43282F2CE000A7A2EE /* StorageService.swift */,
+			);
+			path = StorageModule;
 			sourceTree = "<group>";
 		};
 		997139A02825F5090029D831 /* utils */ = {
@@ -543,10 +567,12 @@
 				9906ED84282D88E700EA9F83 /* EventItem.swift in Sources */,
 				995221E82822112600AFAF67 /* EventView.swift in Sources */,
 				995221EA282212D800AFAF67 /* SettingsView.swift in Sources */,
+				99502B42282F25ED00A7A2EE /* PersistenceContainer.swift in Sources */,
 				997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */,
 				9917685727E3EB7A00AC764C /* HrItem.swift in Sources */,
 				997139A82825F7C30029D831 /* ButtonConstants.swift in Sources */,
 				9971399D2825E5030029D831 /* StatisticView.swift in Sources */,
+				99502B44282F2CE000A7A2EE /* StorageService.swift in Sources */,
 				9932C41027CD983C001736F7 /* ComplicationController.swift in Sources */,
 				6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */,
 				995221E32822105B00AFAF67 /* Event.swift in Sources */,
@@ -1069,6 +1095,19 @@
 			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		99502B3E282F258300A7A2EE /* AppModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				99502B3F282F258300A7A2EE /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 99502B3F282F258300A7A2EE /* DataModel.xcdatamodel */;
+			path = AppModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9932C3ED27CD983A001736F7 /* Project object */;
 }
