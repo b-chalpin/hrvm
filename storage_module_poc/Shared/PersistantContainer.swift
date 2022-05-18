@@ -11,10 +11,9 @@ import CoreData
 struct PersistenceController {
     static let shared = PersistenceController()
 
-    let container: NSPersistentContainer
+    let container = NSPersistentCloudKitContainer(name: "Models")
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "Models")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }

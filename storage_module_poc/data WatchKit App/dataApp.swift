@@ -10,11 +10,18 @@ import SwiftUI
 @main
 struct dataApp: App {
     let container = PersistenceController.shared.container
+    //Getting from the environment
     @Environment(\.managedObjectContext) var context
+    @Environment(\.presentationMode) var presentation
+    
+    //This allows for editing the date inside of the data
+    var modelItem: Items?
+    
     
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
+
                 ContentView()
             }
             //
@@ -24,4 +31,9 @@ struct dataApp: App {
 
         WKNotificationScene(controller: NotificationController.self, category: "myCategory")
     }
+
+
+    
+    
+    
 }

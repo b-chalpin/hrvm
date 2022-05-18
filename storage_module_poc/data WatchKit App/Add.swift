@@ -30,7 +30,6 @@ struct Add: View {
                     .cornerRadius(15)
             })
                 .padding(.horizontal)
-                .buttonStyle(PlainButtonStyle())
                 .disabled(ModelItems=="")
         }
         .navigationTitle("\(modelItem == nil ? "Add Data" : "Update Data")")
@@ -38,21 +37,19 @@ struct Add: View {
             
             //Checking if there is an item that has to be edited
             if let model = modelItem{
-                ModelItems  = model.hrvIte ??  ""
+                ModelItems  = model.hrvItem ??  ""
             }
         })
     }
-    
-    
     func AddToData(){
         //Checking if the Core has Data
         let model = modelItem == nil ? Items(context: context) : modelItem!
         
         //This is where you add Set the items for saving
-        model.hrvIte = ModelItems+" : This is saved data"
-        model.hrIte = "HrItem Is added"
-        model.monitorIte = "MonitorItem is added"
-        model.event = "Events is added"
+        model.hrvItem = ModelItems+" : This is saved data"
+        model.hrItem = "HrItem Is added"
+        model.monitorItem = "MonitorItem is added"
+        model.events = "Events is added"
         
         //Trying to save the data
         do{

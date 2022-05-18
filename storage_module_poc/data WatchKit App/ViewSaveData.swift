@@ -12,22 +12,22 @@ struct ViewSaveData: View {
     //To request a fetch of the Core Data items
     
     //Getting Items(The Models) from descending order
-    @FetchRequest(entity: Items.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Items.event, ascending: false)], animation: .easeIn) var results : FetchedResults<Items>
+    @FetchRequest(entity: Items.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Items.events, ascending: false)], animation: .easeIn) var results : FetchedResults<Items>
     
     var body: some View {
         List(results){item in
             HStack(spacing: 10){
                 VStack(alignment: .leading, spacing: 3, content: {
-                Text(item.hrvIte ?? "")
+                Text(item.hrvItem ?? "")
                     .font(.system(size:12))
                     .foregroundColor(.white)
-                Text(item.monitorIte ?? "")
+                Text(item.monitorItem ?? "")
                     .font(.system(size:12))
                     .foregroundColor(.white)
-                Text(item.hrIte ?? "")
+                Text(item.hrItem ?? "")
                     .font(.system(size:12))
                     .foregroundColor(.white)
-                Text(item.event ?? "")
+                Text(item.events ?? "")
                     .font(.system(size:12))
                     .foregroundColor(.white)
             })
