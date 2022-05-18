@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A75A8BFA282AD08C0094760F /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75A8BF9282AD08C0094760F /* Export.swift */; };
 		A772A18928243E3B00710B65 /* data WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A772A18828243E3B00710B65 /* data WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A772A19428243E3C00710B65 /* data WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A772A19328243E3C00710B65 /* data WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A772A19928243E3C00710B65 /* dataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A772A19828243E3C00710B65 /* dataApp.swift */; };
@@ -83,6 +84,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A75A8BF9282AD08C0094760F /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
 		A772A18428243E3B00710B65 /* data.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = data.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A772A18828243E3B00710B65 /* data WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "data WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A772A19328243E3C00710B65 /* data WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "data WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +166,7 @@
 				A7753B1028258C0C00AD4D6E /* Add.swift */,
 				A7EBD6ED28297FE80008ED20 /* delete.swift */,
 				A7EBD6EF282980E20008ED20 /* ViewSaveData.swift */,
+				A75A8BF9282AD08C0094760F /* Export.swift */,
 			);
 			path = "data WatchKit App";
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				A772A19D28243E3C00710B65 /* NotificationController.swift in Sources */,
 				A772A19B28243E3C00710B65 /* ContentView.swift in Sources */,
 				A772A1A128243E3C00710B65 /* ComplicationController.swift in Sources */,
+				A75A8BFA282AD08C0094760F /* Export.swift in Sources */,
 				A772A1D428243E5100710B65 /* Models.xcdatamodeld in Sources */,
 				A772A19928243E3C00710B65 /* dataApp.swift in Sources */,
 				A7753B1128258C0C00AD4D6E /* Add.swift in Sources */,

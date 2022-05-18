@@ -21,6 +21,7 @@ struct dataApp: App {
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
+
                 ContentView()
             }
             //
