@@ -17,13 +17,13 @@ struct ContentView: View {
         Section {
             TabView {
                 // page 1 - HRV monitor
-                MonitorView()
+                MonitorView().tag(0)
                 
                 // page 2 - real-time stats
-                StatisticView()
+                StatisticView().tag(1)
                 
                 // page 3 - event log
-                EventLogView()
+                EventLogView().tag(2)
             }
         }
         .alert(isPresented: self.$alertNotificationHandler.alert) {

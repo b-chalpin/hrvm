@@ -13,6 +13,7 @@ struct SettingsView : View {
     @State private var selectedSex: Int = 0
     @State private var selectedAge: Int = 25
     @State private var isEditing = false
+    @State private var formatter = NumberFormatter()
     
     @State private var isSaved: Bool = false
     @State private var saveButtonText: String = "Save"
@@ -38,48 +39,28 @@ struct SettingsView : View {
                     .foregroundColor(Color.white)
                     .frame(maxWidth: 100)
                 }
-                /*
-                HStack{
-                    Text("Age: \(selectedAge, specifier: "%g")")
-                    VStack{
-                        Slider(value: $selectedAge,
-                           in: 0...100, step: 1,
-                           onEditingChanged: {
-                        editing in isEditing = editing
-                        })
-                    }
-                }
-                 */
-                
                 HStack {
                     Text("Age:")
                         .fontWeight(.semibold)
                         .font(.system(size: 16))
                         .foregroundColor(Color.white)
-                    Picker("", selection: $selectedAge) {
-                        ForEach(1..<100) {
-                            Text("\($0)").tag($0)
+                        Picker("", selection: $selectedAge) {
+                            ForEach(1..<100) {
+                                Text("\($0)").tag($0)
+                            }
                         }
-                    }
-                    .frame(maxWidth: 100)
+                        .frame(maxWidth: 100)
                 }
-                
-                Spacer()
-                
-                Button(self.saveButtonText) {
-                    // save settings data to storage module
-                    print("save settings...")
-                    self.isSaved = true
-                    self.saveButtonText = "Saved"
-                }
-                .foregroundColor(self.calculateButtonColor())
-                .padding(.horizontal, 40.0)
-                .disabled(self.isSaved)
+                                
+                NavigationLink(destination: MonitorView()) {
+                    Text("Done").fontWeight(.semibold)
+                            .foregroundColor(BUTTON_COLOR)
+                    }.padding(.horizontal, 40.0)
+                        .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
             }
-            .frame(alignment: .top)
         }
     }
-    
+
     func calculateButtonColor() -> Color {
         return self.isSaved ? Color.gray.opacity(0.8) : BUTTON_COLOR
     }
