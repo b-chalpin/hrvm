@@ -4,7 +4,6 @@
 //
 //  Created by bchalpin on 5/3/22.
 //
-
 import SwiftUI
 import Charts
 
@@ -13,10 +12,10 @@ struct EventView : View {
     
     var body : some View{
         VStack {
-            Text(event.timeStamp).fontWeight(.bold)
-            Text("HRV: " + String(event.hrv))
-            Text("Average HRV: " + String(event.averageHR))
-            Text("Feedback: " + event.feedback)
+            Text(event.timeStamp).fontWeight(.bold).frame(alignment: .top)
+            Text("HRV: " + String(event.hrv)).frame(alignment: .top)
+            Text("Average HRV: " + String(event.averageHR)).frame(alignment: .top)
+            Text("Feedback: " + event.feedback).frame(alignment: .top)
             
             Chart(data: event.data)
                 .chartStyle(
@@ -24,7 +23,15 @@ struct EventView : View {
                                    fill: LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.05)]),
                                                         startPoint: .top,
                                                         endPoint: .bottom)
-                                        .frame(maxHeight: 100)))
+                                    .frame(height: 15, alignment: .bottom)))
+            
+            NavigationLink(destination: EventLogView()) {
+                Text("Done").fontWeight(.semibold)
+                .foregroundColor(BUTTON_COLOR)
+            }.padding(.horizontal, 40.0)
+            .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
+            .frame(alignment: .bottom)
+            
         }
     }
 }
