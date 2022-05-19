@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+public class HrvMapUtils {
+    public static func mapHrvStoreToDoubleArray(hrvStore: [HrvItem]) -> [Double] {
+        return hrvStore.map { hrv in
+            return hrv.value
+        }
+    }
+}

@@ -97,7 +97,7 @@ struct MonitorView: View {
             return [0.0, 0.0]
         }
         
-        let hrvStoreValues = self.hrPoller.hrvStore.map { $0.value }
+        let hrvStoreValues = HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: self.hrPoller.hrvStore)
        
         let min = 0.0 // lowest HRV we can have is 0.0, subtract 10.0 more for padding
         let max = hrvStoreValues.max()! + 10.0 // pad our upper bound for normalization

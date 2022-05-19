@@ -7,18 +7,19 @@
 
 import SwiftUI
 import Charts
+import Foundation
 
 struct EventView : View {
-    var event: Event
+    var event: EventItem
     
-    var body : some View{
+    var body : some View {
         VStack {
-            Text(event.timeStamp).fontWeight(.bold)
-            Text("HRV: " + String(event.hrv))
-            Text("Average HRV: " + String(event.averageHR))
-            Text("Feedback: " + event.feedback)
+            Text(StringFormatUtils.formatDateToString(input: event.timestamp)).fontWeight(.bold)
+            Text("HRV: " + String(event.hrv.value))
+//            Text("Average HRV: " + String(event.averageHR))
+            Text("Stressed: " + String(event.stressed).capitalized)
             
-            Chart(data: event.data)
+            Chart(data: HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: event.hrvStore))
                 .chartStyle(
                     AreaChartStyle(.quadCurve,
                                    fill: LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.05)]),
@@ -30,9 +31,10 @@ struct EventView : View {
 }
 
 struct EventView_Previews: PreviewProvider {
-    static let exampleEvent: Event = Event(id: 1, timeStamp: "timestamp", hrv: 45.0, averageHR: 78.9, feedback: "Stressed",
-                                           data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3])
+    static let dummyHrv = HrvItem(value: 0.0, timestamp: Date(), deltaHrvValue: 0.0, deltaUnixTimestamp: 0.0, avgHeartRateMS: 0.0, numHeartRateSamples: 0, hrSamples: [])
     
+    static let exampleEvent: EventItem = EventItem(id: UUID(), timestamp: Date(), hrv: dummyHrv, hrvStore: [dummyHrv], stressed: true)
+
     static var previews: some View {
         EventView(event: exampleEvent)
     }

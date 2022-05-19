@@ -6,16 +6,12 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct EventLogView: View {
-    let exampleEvents = [
-        //self.hrPoller.hrvTimestamp
-        Event(id: 5, timeStamp: "12:20:10 APR 2, 2022", hrv: 12.9, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3]),
-        Event(id: 4, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3]),
-        Event(id: 3, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3]),
-        Event(id: 2, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3]),
-        Event(id: 1, timeStamp: "12:20:10 APR 2, 2022", hrv: 18.0, averageHR: 15.0, feedback: "False", data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3])
-    ]
+    @EnvironmentObject var storageService: StorageService
+    
+    @State private var events: [EventItem] = []
     
     var body: some View {
         NavigationView {
@@ -32,15 +28,38 @@ struct EventLogView: View {
                     .foregroundColor(Color.white)
                     .frame(maxWidth: .infinity,
                            alignment: .topLeading)
-                Form {
-                    ForEach(self.exampleEvents) { event in
-                        NavigationLink(String(event.timeStamp),
-                                       destination: EventView(event: event))
+                if (self.events.count > 0) {
+                    Form {
+                        ForEach(self.events) { event in
+                            NavigationLink(StringFormatUtils.formatDateToString(input: event.timestamp),
+                                           destination: EventView(event: event))
+                        }
+                        .font(.caption2)
                     }
-                    .font(.caption2)
+                }
+                else {
+                    Text("No events recorded.")
+                        .frame(maxWidth: .infinity,
+                               maxHeight: .infinity,
+                               alignment: .center)
                 }
             }
         }
+        .onAppear() {
+            self.getPageOfEvents()
+        }
+        .onDisappear() {
+            self.clearEvents()
+        }
+    }
+    
+    private func getPageOfEvents() {
+        let newEvents = self.storageService.getAllStressEvents()
+        self.events.append(contentsOf: newEvents)
+    }
+    
+    private func clearEvents() {
+        self.events = []
     }
 }
 
