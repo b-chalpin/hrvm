@@ -10,13 +10,13 @@ import Foundation
 class ThreatDetector : ObservableObject {
     // singleton
     public static let shared: ThreatDetector = ThreatDetector()
-    private let lrModel: LogisticRegression = LogisticRegression()
+    private let lrModel: LogisticRegression
     
     @Published var threatDetected: Bool = false
     @Published var threatAcknowledged: Bool = false
     
     public func checkHrvForThreat(hrvStore: [HrvItem]) {
-        let predicitonSet = [hrvStores.map{$0.value}]
+        let predicitonSet = [hrvStore.map{$0.value}]
         
         if self.predict(predictionSet: predicitonSet) {
             threatDetected = true
@@ -44,9 +44,18 @@ class ThreatDetector : ObservableObject {
         // stubbed out for now
     }
     
-    // this method changed to detect if the threat was actaully acknowledged or not
-    public func acknowledgeThreat(feedback: Bool, hrvStore) {
+    // this method changed to detect if the threat was actaully acknowledged or not. Also calls fit and passes current HrvStore.
+    public func acknowledgeThreat(feedback: Bool, hrvStore: [HrvItem]) {
         print("FEEDBACK: \(feedback) - Threat acked")
         self.threatAcknowledged = true
+    }
+    
+    private func loadLRDataStore() {
+        // will need to add more logic here for loading from storage module
+        var dataStore = LRDataStore()
+    }
+    
+    private func updateLRDataStore(samples: [[HrvItem]], labels: [Double]) {
+        
     }
 }

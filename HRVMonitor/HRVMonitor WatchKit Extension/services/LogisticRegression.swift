@@ -8,8 +8,8 @@
 import Foundation
 import Accelerate
 
-public class LogisticRegression
-{
+public class LogisticRegression {
+    let dataStore:LRDataStore
     var weights:[Double]
     var rowCount:Int
     var columnCount:Int
@@ -18,10 +18,10 @@ public class LogisticRegression
     var eta:Double
     var lam:Double
     
-    public init()
-    {
+    public init(dataStore: LRDataStore) {
+        self.dataStore = dataStore
         //Initializing weights to zero and to be length of HRV store plus one to account for bias.
-        self.columnCount = 10 + 1
+        self.columnCount = Settings.HRVStoreSize + 1
         self.rowCount = 0
         self.epochs = 10
         self.eta = 0.0001
@@ -29,8 +29,8 @@ public class LogisticRegression
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
     }
     
-    public func fit(X:[[Double]], y:[Double], lam:Double?, eta:Double?, epochs:Int?)
-    {
+    public func fit(X:[[Double]], y:[Double], lam:Double?, eta:Double?, epochs:Int?) {
+        
         if(epochs != nil){self.epochs = epochs!}
         if(eta != nil){self.eta = eta!}
         if(lam != nil){self.lam = lam!}
@@ -50,8 +50,8 @@ public class LogisticRegression
         
     }
     
-    public func predict(X:[[Double]]) -> [Double]
-    {
+    public func predict(X:[[Double]]) -> [Double] {
+        
         var X_bias = X
         let rowCount = X_bias.count
         var columnCount = X_bias[0].count
@@ -75,8 +75,8 @@ public class LogisticRegression
         return self.v_sigmoid(signal: results, rowCount: rowCount, fit: false)
     }
     
-    public func error(X:[[Double]], y:[Double]) -> Double
-    {
+    public func error(X:[[Double]], y:[Double]) -> Double {
+        
         let predictions = self.predict(X: X)
         
         var error = 0.0
@@ -91,8 +91,8 @@ public class LogisticRegression
         return (error/Double(predictions.count))
     }
     
-    private func updateWeights(X:[Double], y:[Double], signal:[Double])
-    {
+    private func updateWeights(X:[Double], y:[Double], signal:[Double]) {
+        
         let samples = X
         let labels = y
         let sigmoid = self.v_sigmoid(signal: signal, rowCount: self.rowCount, fit: true)
@@ -111,8 +111,8 @@ public class LogisticRegression
         self.weights = m4
     }
     
-    private func calculateSignal(X:[Double], y:[Double]) -> [Double]
-    {
+    private func calculateSignal(X:[Double], y:[Double]) -> [Double] {
+        
         let samples = X
         let labels = y
         let weights = self.weights
@@ -124,8 +124,8 @@ public class LogisticRegression
         return signal
     }
     
-    private func initWeights()
-    {
+    private func initWeights() {
+        
         let randomNums = (0..<self.columnCount).map{ _ in Double.random(in: 0.0 ... 1.0)}
         let lower = -(1 / Double(self.columnCount).squareRoot())
         let upper = 1 / Double(self.columnCount).squareRoot()
@@ -139,8 +139,8 @@ public class LogisticRegression
         self.weights = weights
     }
     
-    private func normalize_0_1(X:[Double]) -> [Double]
-    {
+    private func normalize_0_1(X:[Double]) -> [Double] {
+        
         var x_min = 0.0
         var x_max = 0.0
         var X_norm = Array(repeating: 0.0, count: X.count)
@@ -167,8 +167,8 @@ public class LogisticRegression
         return X_norm
     }
     
-    private func addBiasColumn(X:[[Double]]) -> [[Double]]
-    {
+    private func addBiasColumn(X:[[Double]]) -> [[Double]] {
+        
         //Tried to find a clean/fast way to do this with accelerate lib. Need to look into it more this is pretty low cost for now though.
         var X_bias = X
         let rowCount = X_bias.count
@@ -181,8 +181,8 @@ public class LogisticRegression
         return X_bias
     }
     
-    private func v_sigmoid(signal:[Double], rowCount:Int, fit:Bool) -> [Double]
-    {
+    private func v_sigmoid(signal:[Double], rowCount:Int, fit:Bool) -> [Double] {
+        
         var negSignal = signal
         var sigmoid = Array(repeating: 0.0, count: rowCount)
         let ones = Array(repeating: 1.0, count: rowCount)

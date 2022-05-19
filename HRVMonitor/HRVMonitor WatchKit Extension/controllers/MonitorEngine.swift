@@ -65,7 +65,7 @@ class MonitorEngine : ObservableObject {
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
-                self.threatDetector.checkHrvForThreat(hrv: self.hrPoller.latestHrv!)
+                self.threatDetector.checkHrvForThreat(hrvStore: self.hrvStoreSnapshotForEvent)
                 self.getFeedback()
             }
         })
@@ -111,6 +111,7 @@ class MonitorEngine : ObservableObject {
         print("New HRV Event: \(newEvent)")
         
         // TODO: retrain model with the new HrvStore
+        self.threatDetector.acknowledgeThreat(feedback: feedback, hrvStore: currentHrvStore)
     }
     
     public func updateAppState(phase: ScenePhase) {
