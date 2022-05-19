@@ -18,9 +18,6 @@
 		A772A1A128243E3C00710B65 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A772A1A028243E3C00710B65 /* ComplicationController.swift */; };
 		A772A1A328243E3D00710B65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A772A1A228243E3D00710B65 /* Assets.xcassets */; };
 		A772A1A628243E3D00710B65 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A772A1A528243E3D00710B65 /* Preview Assets.xcassets */; };
-		A772A1B228243E3D00710B65 /* dataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A772A1B128243E3D00710B65 /* dataTests.swift */; };
-		A772A1BC28243E3D00710B65 /* dataUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A772A1BB28243E3D00710B65 /* dataUITests.swift */; };
-		A772A1BE28243E3D00710B65 /* dataUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A772A1BD28243E3D00710B65 /* dataUITestsLaunchTests.swift */; };
 		A772A1D428243E5100710B65 /* Models.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A772A1D228243E5100710B65 /* Models.xcdatamodeld */; };
 		A772A1D728243EE700710B65 /* PersistantContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A772A1D628243EE700710B65 /* PersistantContainer.swift */; };
 		A7753B1128258C0C00AD4D6E /* Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7753B1028258C0C00AD4D6E /* Add.swift */; };
@@ -101,10 +98,7 @@
 		A772A1A728243E3D00710B65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A772A1A828243E3D00710B65 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		A772A1AD28243E3D00710B65 /* dataTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dataTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A772A1B128243E3D00710B65 /* dataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataTests.swift; sourceTree = "<group>"; };
 		A772A1B728243E3D00710B65 /* dataUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dataUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A772A1BB28243E3D00710B65 /* dataUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataUITests.swift; sourceTree = "<group>"; };
-		A772A1BD28243E3D00710B65 /* dataUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A772A1D328243E5100710B65 /* Models.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Models.xcdatamodel; sourceTree = "<group>"; };
 		A772A1D628243EE700710B65 /* PersistantContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistantContainer.swift; sourceTree = "<group>"; };
 		A7753B1028258C0C00AD4D6E /* Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Add.swift; sourceTree = "<group>"; };
@@ -150,10 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				A772A2142824412500710B65 /* Shared */,
-				A772A18C28243E3B00710B65 /* data WatchKit App */,
 				A772A19728243E3C00710B65 /* data WatchKit Extension */,
-				A772A1B028243E3D00710B65 /* dataTests */,
-				A772A1BA28243E3D00710B65 /* dataUITests */,
 				A772A18528243E3B00710B65 /* Products */,
 				A746EB6C282EE245005C2040 /* Frameworks */,
 			);
@@ -171,28 +162,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A772A18C28243E3B00710B65 /* data WatchKit App */ = {
-			isa = PBXGroup;
-			children = (
-				A772A19828243E3C00710B65 /* dataApp.swift */,
-				A772A19A28243E3C00710B65 /* ContentView.swift */,
-				A7753B1028258C0C00AD4D6E /* Add.swift */,
-				A7EBD6ED28297FE80008ED20 /* delete.swift */,
-				A7EBD6EF282980E20008ED20 /* ViewSaveData.swift */,
-				A75A8BF9282AD08C0094760F /* Export.swift */,
-			);
-			path = "data WatchKit App";
-			sourceTree = "<group>";
-		};
 		A772A19728243E3C00710B65 /* data WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				A746EB6F282EE252005C2040 /* data WatchKit Extension.entitlements */,
+				A7753B1028258C0C00AD4D6E /* Add.swift */,
+				A7EBD6EF282980E20008ED20 /* ViewSaveData.swift */,
+				A7EBD6ED28297FE80008ED20 /* delete.swift */,
+				A772A19A28243E3C00710B65 /* ContentView.swift */,
+				A75A8BF9282AD08C0094760F /* Export.swift */,
+				A772A19828243E3C00710B65 /* dataApp.swift */,
 				A772A19C28243E3C00710B65 /* NotificationController.swift */,
 				A772A19E28243E3C00710B65 /* NotificationView.swift */,
 				A772A1A028243E3C00710B65 /* ComplicationController.swift */,
-				A772A1A228243E3D00710B65 /* Assets.xcassets */,
+				A746EB6F282EE252005C2040 /* data WatchKit Extension.entitlements */,
 				A772A1A728243E3D00710B65 /* Info.plist */,
+				A772A1A228243E3D00710B65 /* Assets.xcassets */,
 				A772A1A828243E3D00710B65 /* PushNotificationPayload.apns */,
 				A772A1A428243E3D00710B65 /* Preview Content */,
 			);
@@ -205,23 +189,6 @@
 				A772A1A528243E3D00710B65 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		A772A1B028243E3D00710B65 /* dataTests */ = {
-			isa = PBXGroup;
-			children = (
-				A772A1B128243E3D00710B65 /* dataTests.swift */,
-			);
-			path = dataTests;
-			sourceTree = "<group>";
-		};
-		A772A1BA28243E3D00710B65 /* dataUITests */ = {
-			isa = PBXGroup;
-			children = (
-				A772A1BB28243E3D00710B65 /* dataUITests.swift */,
-				A772A1BD28243E3D00710B65 /* dataUITestsLaunchTests.swift */,
-			);
-			path = dataUITests;
 			sourceTree = "<group>";
 		};
 		A772A2142824412500710B65 /* Shared */ = {
@@ -437,7 +404,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A772A1B228243E3D00710B65 /* dataTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,8 +411,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A772A1BE28243E3D00710B65 /* dataUITestsLaunchTests.swift in Sources */,
-				A772A1BC28243E3D00710B65 /* dataUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,8 +624,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "data WatchKit App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7ZTT37X4QG;
@@ -677,7 +642,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -685,8 +650,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "data WatchKit App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7ZTT37X4QG;
@@ -702,7 +668,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -739,6 +705,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -764,6 +731,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -787,6 +755,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -810,6 +779,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

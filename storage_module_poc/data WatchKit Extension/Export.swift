@@ -49,13 +49,28 @@ struct Export: View {
     }
     
     func exportToCSV(){
-        let contentToFile = converisonToCsv(items: allItems())
-        let path = "/Users/jAdams/Desktop/csvText.csv"
-        
-        do{
-            try contentToFile.write(toFile: path, atomically: true, encoding: String.Encoding.utf8)
-        }catch{
-            print("Error")
+        //let contentToFile = converisonToCsv(items: allItems())
+//        let containerURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)
+//        let documentDirectoryURL = containerURL!.appendingPathComponent("Documents")
+//        let documentURL = documentDirectoryURL.appendingPathComponent("myFile.txt")
+//        let text = String("test message")
+        if let containerUrl = FileManager.default.url(forUbiquityContainerIdentifier: nil) {
+            if !FileManager.default.fileExists(atPath: containerUrl.path, isDirectory: nil) {
+                do {
+                    try FileManager.default.createDirectory(at: containerUrl, withIntermediateDirectories: true, attributes: nil)
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+            }
+            
+            let fileUrl = containerUrl.appendingPathComponent("hello.txt")
+            do {
+                try "Hello iCloud!".write(to: fileUrl, atomically: true, encoding: .utf8)
+            }
+            catch {
+                print(error.localizedDescription)
+            }
         }
             
     }

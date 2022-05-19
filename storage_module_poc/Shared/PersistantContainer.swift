@@ -8,10 +8,14 @@
 
 import CoreData
 
+let cloudStoreLocation = URL(fileURLWithPath: "/path/to/cloud.store")
+
 struct PersistenceController {
     static let shared = PersistenceController()
+    
 
-    let container = NSPersistentCloudKitContainer(name: "Models")
+    let container = NSPersistentContainer(name: "Models")
+    
 
     init(inMemory: Bool = false) {
         if inMemory {
