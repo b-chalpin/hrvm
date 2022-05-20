@@ -13,6 +13,7 @@
 		663419C027DAD79D00F3823B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663419BF27DAD79D00F3823B /* NotificationFactory.swift */; };
 		663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663EE4E627E15B8E00AECB35 /* Configuration.swift */; };
 		6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* WorkoutManager.swift */; };
+		66DD4FFA2835B8BB0000E20A /* LRDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD4FF92835B8BB0000E20A /* LRDataStore.swift */; };
 		66F2F6F627E533D600561E15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2F6F527E533D600561E15 /* Settings.swift */; };
 		9906ED84282D88E700EA9F83 /* EventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9906ED83282D88E700EA9F83 /* EventItem.swift */; };
 		9917685127E00BF800AC764C /* MonitorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685027E00BF800AC764C /* MonitorEngine.swift */; };
@@ -113,6 +114,7 @@
 		663EE4E627E15B8E00AECB35 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		6659324527DBF50F002D1717 /* WorkoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		66A22CF22804A99D0016B27B /* HRVMonitor WatchKit ExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HRVMonitor WatchKit ExtensionDebug.entitlements"; sourceTree = "<group>"; };
+		66DD4FF92835B8BB0000E20A /* LRDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRDataStore.swift; sourceTree = "<group>"; };
 		66F2F6F527E533D600561E15 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		9906ED83282D88E700EA9F83 /* EventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventItem.swift; sourceTree = "<group>"; };
 		9917685027E00BF800AC764C /* MonitorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorEngine.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				9917685627E3EB7A00AC764C /* HrItem.swift */,
 				995221E22822105B00AFAF67 /* Event.swift */,
 				9906ED83282D88E700EA9F83 /* EventItem.swift */,
+				66DD4FF92835B8BB0000E20A /* LRDataStore.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				997139A82825F7C30029D831 /* ButtonConstants.swift in Sources */,
 				9971399D2825E5030029D831 /* StatisticView.swift in Sources */,
 				9932C41027CD983C001736F7 /* ComplicationController.swift in Sources */,
+				66DD4FFA2835B8BB0000E20A /* LRDataStore.swift in Sources */,
 				6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */,
 				995221E32822105B00AFAF67 /* Event.swift in Sources */,
 				9932C40827CD983C001736F7 /* HRVMonitorApp.swift in Sources */,
