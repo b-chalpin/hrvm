@@ -47,6 +47,8 @@
 		99AC909D2835BAD3009BEC95 /* AppModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99AC909A2835BAD3009BEC95 /* AppModel.xcdatamodeld */; };
 		99AC909F2835D21C009BEC95 /* HrvMapUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC909E2835D21C009BEC95 /* HrvMapUtils.swift */; };
 		99CCDBD127FBAA6500600DD1 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 99CCDBD027FBAA6500600DD1 /* Charts */; };
+		99E682B828383FB20035758A /* PatientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E682B728383FB20035758A /* PatientSettings.swift */; };
+		99E682BB2838435F0035758A /* PatientSettingsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E682BA2838435F0035758A /* PatientSettingsConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +159,8 @@
 		99AC909B2835BAD3009BEC95 /* AppModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppModel.xcdatamodel; sourceTree = "<group>"; };
 		99AC909C2835BAD3009BEC95 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		99AC909E2835D21C009BEC95 /* HrvMapUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HrvMapUtils.swift; sourceTree = "<group>"; };
+		99E682B728383FB20035758A /* PatientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSettings.swift; sourceTree = "<group>"; };
+		99E682BA2838435F0035758A /* PatientSettingsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSettingsConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +232,7 @@
 				9917685427E3E88600AC764C /* HrvItem.swift */,
 				9917685627E3EB7A00AC764C /* HrItem.swift */,
 				9906ED83282D88E700EA9F83 /* EventItem.swift */,
+				99E682B728383FB20035758A /* PatientSettings.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -359,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				997139A72825F7C30029D831 /* ButtonConstants.swift */,
+				99E682BA2838435F0035758A /* PatientSettingsConstants.swift */,
 			);
 			path = constants;
 			sourceTree = "<group>";
@@ -559,6 +565,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99E682B828383FB20035758A /* PatientSettings.swift in Sources */,
 				9932C40C27CD983C001736F7 /* NotificationController.swift in Sources */,
 				9971399B2825E3550029D831 /* MonitorView.swift in Sources */,
 				9917685327E176E100AC764C /* ThreatDetector.swift in Sources */,
@@ -583,6 +590,7 @@
 				9932C40E27CD983C001736F7 /* NotificationView.swift in Sources */,
 				99AC909D2835BAD3009BEC95 /* AppModel.xcdatamodeld in Sources */,
 				995221E52822108B00AFAF67 /* EventLogView.swift in Sources */,
+				99E682BB2838435F0035758A /* PatientSettingsConstants.swift in Sources */,
 				997EB00027DC141E004B257C /* MonitorItem.swift in Sources */,
 				663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */,
 				66F2F6F627E533D600561E15 /* Settings.swift in Sources */,
@@ -788,7 +796,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.4;
 			};
 			name = Debug;
 		};
@@ -828,7 +836,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.4;
 			};
 			name = Release;
 		};
@@ -854,7 +862,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.4;
 			};
 			name = Debug;
 		};
@@ -880,7 +888,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.4;
 			};
 			name = Release;
 		};

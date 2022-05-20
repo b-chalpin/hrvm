@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HrvReading" representedClassName="HrvReading" syncable="YES" codeGenerationType="class">
+        <attribute name="avgHeartRateBPM" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="avgHeartRateMS" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="deltaHrv" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="deltaUnixTimestamp" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="hrSamples" optional="YES" attributeType="Transformable"/>
+        <attribute name="hrv" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="numHeartRateSamples" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="unixTimestamp" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="StressEvent" representedClassName="StressEvent" syncable="YES" codeGenerationType="class">
         <attribute name="hrv" optional="YES" attributeType="Transformable"/>
         <attribute name="hrvStore" optional="YES" attributeType="Transformable"/>
@@ -7,7 +18,13 @@
         <attribute name="label" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="UserSetting" representedClassName="UserSetting" syncable="YES" codeGenerationType="class">
+        <attribute name="age" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sex" attributeType="String"/>
+    </entity>
     <elements>
         <element name="StressEvent" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="UserSetting" positionX="-63" positionY="18" width="128" height="59"/>
+        <element name="HrvReading" positionX="-54" positionY="27" width="128" height="14"/>
     </elements>
 </model>

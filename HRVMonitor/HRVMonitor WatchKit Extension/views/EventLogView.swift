@@ -12,6 +12,7 @@ struct EventLogView: View {
     @EnvironmentObject var storageService: StorageService
     
     @State private var events: [EventItem] = []
+    @State private var hasMoreEventPages: Bool = true // if false, we will not display "Load More" button
     
     var body: some View {
         NavigationView {
@@ -35,6 +36,15 @@ struct EventLogView: View {
                                            destination: EventView(event: event))
                         }
                         .font(.caption2)
+                        
+                        if (hasMoreEventPages) {
+                            Button(action: { self.getNextPageOfEvents() }) {
+                                Text("Load More")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(BUTTON_COLOR)
+                                
+                            }
+                        }
                     }
                 }
                 else {
@@ -46,20 +56,27 @@ struct EventLogView: View {
             }
         }
         .onAppear() {
-            self.getPageOfEvents()
+            self.getNextPageOfEvents()
         }
         .onDisappear() {
             self.clearEvents()
         }
     }
     
-    private func getPageOfEvents() {
-        let newEvents = self.storageService.getAllStressEvents()
-        self.events.append(contentsOf: newEvents)
+    private func getNextPageOfEvents() {
+        let newEvents = self.storageService.getPageOfEventsForOffset(offset: self.events.count)
+        
+        if (newEvents.count == 0) {
+            self.hasMoreEventPages = false
+        }
+        else {
+            self.events.append(contentsOf: newEvents)
+        }
     }
     
     private func clearEvents() {
         self.events = []
+        self.hasMoreEventPages = true
     }
 }
 

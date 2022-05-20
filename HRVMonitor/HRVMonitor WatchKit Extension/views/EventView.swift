@@ -15,24 +15,30 @@ struct EventView : View {
     var body : some View {
         VStack {
             Text(StringFormatUtils.formatDateToString(input: event.timestamp)).fontWeight(.bold)
-            Text("HRV: " + String(event.hrv.value))
-//            Text("Average HRV: " + String(event.averageHR))
+            Text("HRV: " + StringFormatUtils.formatDoubleToString(input: event.hrv.value))
+            Text("Average HRV: " + StringFormatUtils.formatDoubleToString(input: event.hrv.avgHeartRateBPM))
             Text("Stressed: " + String(event.stressed).capitalized)
             
             Chart(data: HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: event.hrvStore))
                 .chartStyle(
                     AreaChartStyle(.quadCurve,
-                                   fill: LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.05)]),
+                                   fill: LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.1)]),
                                                         startPoint: .top,
                                                         endPoint: .bottom)
-                                        .frame(maxHeight: 100)))
+                                    .frame(height: 15, alignment: .bottom)))
+            
+            NavigationLink(destination: EventLogView()) {
+                Text("Done").fontWeight(.semibold).foregroundColor(BUTTON_COLOR)
+            }
+            .padding(.horizontal, 40.0)
+            .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
+            .frame(alignment: .bottom)
         }
     }
 }
 
 struct EventView_Previews: PreviewProvider {
     static let dummyHrv = HrvItem(value: 0.0, timestamp: Date(), deltaHrvValue: 0.0, deltaUnixTimestamp: 0.0, avgHeartRateMS: 0.0, numHeartRateSamples: 0, hrSamples: [])
-    
     static let exampleEvent: EventItem = EventItem(id: UUID(), timestamp: Date(), hrv: dummyHrv, hrvStore: [dummyHrv], stressed: true)
 
     static var previews: some View {
