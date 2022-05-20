@@ -32,13 +32,14 @@ public class LogisticRegression {
     public func fit(samples:[[HrvItem]], labels:[Double]) {
         
         self.dataStore.add(samples: samples, labels: labels)
-        let X = self.dataStore.samples!.map{$0.map{$0.value}}
+        var X = self.dataStore.samples!.map{$0.map{$0.value}}
         let y = self.dataStore.labels!
         
         var epochs = self.dataStore.size
         self.rowCount = X.count
-        let X_bias = self.addBiasColumn(X: X)
-        let X_train = self.normalize_0_1(X: X_bias.flatMap{$0})
+        X = self.addBiasColumn(X: X)
+        X = X.shuffled()
+        let X_train = self.normalize_0_1(X: X.flatMap{$0})
         //self.initWeights()
         
         while(epochs > 0)
