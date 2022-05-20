@@ -15,12 +15,36 @@ class ThreatDetector : ObservableObject {
     @Published var threatDetected: Bool = false
     @Published var threatAcknowledged: Bool = false
     
+    init() {
+        self.lrModel = LogisticRegression(dataStore: LRDataStore())
+        self.loadLRDataStore()
+    }
+    
     public func checkHrvForThreat(hrvStore: [HrvItem]) {
         let predicitonSet = [hrvStore.map{$0.value}]
         
         if self.predict(predictionSet: predicitonSet) {
             threatDetected = true
         }
+    }
+    
+    // this method changed to detect if the threat was actaully acknowledged or not. Also calls fit and passes current HrvStore.
+    public func acknowledgeThreat(feedback: Bool, hrvStore: [HrvItem]) {
+        print("FEEDBACK: \(feedback) - Threat acked")
+        self.threatAcknowledged = true
+        
+        let samples = [hrvStore]
+        var labels = [Double](repeating: 0.0, count: samples.count)
+        
+        if feedback {
+            labels = [Double](repeating: 1.0, count: samples.count)
+        }
+        
+        self.fit(samples: samples, labels: labels)
+    }
+    
+    private func fit(samples: [[HrvItem]], labels: [Double]) {
+        self.lrModel.fit(samples: samples, labels: labels)
     }
     
     // returns true for danger; false otherwise
@@ -36,26 +60,24 @@ class ThreatDetector : ObservableObject {
         return false
     }
     
-    public func fit() {
-        // stubbed out for now
-    }
-    
     public func error() {
         // stubbed out for now
     }
     
-    // this method changed to detect if the threat was actaully acknowledged or not. Also calls fit and passes current HrvStore.
-    public func acknowledgeThreat(feedback: Bool, hrvStore: [HrvItem]) {
-        print("FEEDBACK: \(feedback) - Threat acked")
-        self.threatAcknowledged = true
-    }
-    
     private func loadLRDataStore() {
         // will need to add more logic here for loading from storage module
-        var dataStore = LRDataStore()
+        // get LRDataStore then lrModel.dataStore = dataStore
     }
     
-    private func updateLRDataStore(samples: [[HrvItem]], labels: [Double]) {
-        
+    private func saveLRDataStore() {
+        // this funciton will save lrModel.dataStore to storage module
+    }
+    
+    private func loadWeights() {
+        // this function will load weights from storage module then set lrModels weights
+    }
+    
+    private func saveWeights() {
+        // this function will save weights from lrModels to storage module
     }
 }

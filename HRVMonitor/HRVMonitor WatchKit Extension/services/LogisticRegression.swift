@@ -19,23 +19,23 @@ public class LogisticRegression {
     var lam:Double
     
     public init(dataStore: LRDataStore) {
-        self.dataStore = dataStore
         //Initializing weights to zero and to be length of HRV store plus one to account for bias.
+        self.dataStore = dataStore
         self.columnCount = Settings.HRVStoreSize + 1
         self.rowCount = 0
         self.epochs = 10
         self.eta = 0.0001
-        self.lam = 1.0
+        self.lam = 0.1
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
     }
     
-    public func fit(X:[[Double]], y:[Double], lam:Double?, eta:Double?, epochs:Int?) {
+    public func fit(samples:[[HrvItem]], labels:[Double]) {
         
-        if(epochs != nil){self.epochs = epochs!}
-        if(eta != nil){self.eta = eta!}
-        if(lam != nil){self.lam = lam!}
+        self.dataStore.add(samples: samples, labels: labels)
+        let X = self.dataStore.samples!.map{$0.map{$0.value}}
+        let y = self.dataStore.labels!
         
-        var epochs = self.epochs
+        var epochs = self.dataStore.size
         self.rowCount = X.count
         let X_bias = self.addBiasColumn(X: X)
         let X_train = self.normalize_0_1(X: X_bias.flatMap{$0})
