@@ -14,7 +14,7 @@ public class StorageService : ObservableObject {
     
     private let context = PersistenceController.shared.container.viewContext
     
-    public func createHrvReading(hrvItem: HrvItem) {
+    public func createHrvReading(hrvItem: HrvItem) {      
         let newHrvReading = HrvReading(context: context)
         
         // critical data
@@ -25,7 +25,7 @@ public class StorageService : ObservableObject {
         // hr data
         newHrvReading.avgHeartRateBPM = hrvItem.avgHeartRateBPM
         newHrvReading.avgHeartRateMS = hrvItem.avgHeartRateMS
-        //        newHrvReading.hrSamples = hrvItem.hrSamples // #task - custom data types
+        newHrvReading.hrSamples = JsonSerializerUtils.serialize(data: hrvItem.hrSamples)
         
         // delta values
         newHrvReading.deltaHrv = hrvItem.deltaHrvValue
@@ -47,8 +47,6 @@ public class StorageService : ObservableObject {
     }
     
     public func updateUserSettings(patientSettings: PatientSettings) {
-        print("UPDATING: \(patientSettings.age), \(patientSettings.sex)") // debug
-        
         var currentUserSetting = self.fetchSingleUserSetting()
         
         if (currentUserSetting == nil) { // if we do not fetch a user setting, it does not exist yet
@@ -78,8 +76,8 @@ public class StorageService : ObservableObject {
         
         newEvent.id = event.id
         newEvent.timestamp = event.timestamp
-//        newEvent.hrv = event.hrv
-//        newEvent.hrvStore = event.hrvStore as NSObject
+        newEvent.hrv = JsonSerializerUtils.serialize(data: event.hrv)
+        newEvent.hrvStore = JsonSerializerUtils.serialize(data: event.hrvStore)
         newEvent.label = event.stressed
         
         self.saveContext()
@@ -115,12 +113,14 @@ public class StorageService : ObservableObject {
     
     private func mapStressEventsToEventItems(stressEvents: [StressEvent]) -> [EventItem] {
         return stressEvents.map { (event) -> EventItem in
-            let dummyHrv = HrvItem(value: 13.5, timestamp: Date(), deltaHrvValue: -1.0, deltaUnixTimestamp: 10.0, avgHeartRateMS: 900.0, numHeartRateSamples: 1, hrSamples: []) // stub out for now
+            // deserialize stored JSON to objects
+            let hrvItem = JsonSerializerUtils.deserialize(jsonString: event.hrv!) as HrvItem
+            let hrvStore = JsonSerializerUtils.deserialize(jsonString: event.hrvStore!) as [HrvItem]
             
             return EventItem(id: event.id!,
                              timestamp: event.timestamp!,
-                             hrv: dummyHrv,
-                             hrvStore: [dummyHrv],
+                             hrv: hrvItem,
+                             hrvStore: hrvStore,
                              stressed: event.label)
         }
     }

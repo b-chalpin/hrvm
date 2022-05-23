@@ -16,7 +16,7 @@ class StringFormatUtils {
         let dateFormatter = DateFormatter()
 
         // Set Date/Time Style
-        dateFormatter.dateStyle = .long
+        dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
 
         // Convert Date to String

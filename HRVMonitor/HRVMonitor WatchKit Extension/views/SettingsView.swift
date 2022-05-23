@@ -64,9 +64,7 @@ struct SettingsView : View {
     }
     
     func setCurrentPatientSettings() {
-        let patientSettings = self.storageService.getPatientSettings() // debug
-        
-        print("FETCHED: \(patientSettings.age), \(patientSettings.sex)")
+        let patientSettings = self.storageService.getPatientSettings()
         
         // set our picker values
         self.selectedAge = patientSettings.age

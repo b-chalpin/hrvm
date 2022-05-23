@@ -14,25 +14,27 @@ struct EventView : View {
     
     var body : some View {
         VStack {
-            Text(StringFormatUtils.formatDateToString(input: event.timestamp)).fontWeight(.bold)
-            Text("HRV: " + StringFormatUtils.formatDoubleToString(input: event.hrv.value))
-            Text("Average HRV: " + StringFormatUtils.formatDoubleToString(input: event.hrv.avgHeartRateBPM))
-            Text("Stressed: " + String(event.stressed).capitalized)
+            Text(StringFormatUtils.formatDateToString(input: self.event.timestamp)).fontWeight(.bold)
+            Text("HRV: " + StringFormatUtils.formatDoubleToString(input: self.event.hrv.value))
+            Text("Average HRV: " + StringFormatUtils.formatDoubleToString(input: self.event.hrv.avgHeartRateBPM))
+            Text("Stressed: " + String(self.event.stressed).capitalized)
             
-            Chart(data: HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: event.hrvStore))
+            Spacer()
+            
+            Chart(data: HrvMapUtils.mapHrvStoreToDoubleArray_Normalized(hrvStore: self.event.hrvStore))
                 .chartStyle(
-                    AreaChartStyle(.quadCurve,
-                                   fill: LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.1)]),
-                                                        startPoint: .top,
-                                                        endPoint: .bottom)
-                                    .frame(height: 15, alignment: .bottom)))
+                    AreaChartStyle(.quadCurve, fill:
+                                    LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.2)]),
+                                                   startPoint: .top,
+                                                   endPoint: .bottom)
+                                        .frame(height: 30, alignment: .top)))
+            Spacer()
             
             NavigationLink(destination: EventLogView()) {
                 Text("Done").fontWeight(.semibold).foregroundColor(BUTTON_COLOR)
             }
-            .padding(.horizontal, 40.0)
             .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
-            .frame(alignment: .bottom)
+            .padding(.horizontal, 40.0)
         }
     }
 }

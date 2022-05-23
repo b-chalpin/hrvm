@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isClicked = false
+    
     var body: some View {
         VStack(spacing: 15){
         Button(action: exportToCSV, label: {
@@ -19,43 +21,62 @@ struct ContentView: View {
         })
             .padding(.horizontal)
             .buttonStyle(PlainButtonStyle())
-    }
+        }
+        
+        if (self.isClicked) {
+            Text("CLICKED!")
+        }
     }
     func exportToCSV(){
-        //create a FileManager object to allow for access to the file system
-        let manager = FileManager.default
-        
-        //This is to get the path to the documents for the user and it returns an array of one so you do .first to make it easier
-        guard let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first else{
-            return
-        }
-        //The .path will print the url path to the file
-        print(url.path)
-        let newFolder = url.appendingPathComponent("Example")
-        do{
-            //CreateDirectory will allow the person to create a folder inside the path directed to
-            try manager.createDirectory(at: newFolder, withIntermediateDirectories: true)
-        }
-        catch{
-            print("Error")
-        }
+//        //create a FileManager object to allow for access to the file system
+//        let manager = FileManager.default
+//
+//        //This is to get the path to the documents for the user and it returns an array of one so you do .first to make it easier
+//        guard let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first else{
+//            return
+//        }
+//        //The .path will print the url path to the file
+//        print(url.path)
+//        let newFolder = url.appendingPathComponent("Example")
+//        do {
+//            //CreateDirectory will allow the person to create a folder inside the path directed to
+//            try manager.createDirectory(at: newFolder, withIntermediateDirectories: true)
+//        }
+//        catch {
+//            print("Error")
+//        }
         do{
             //creating a file to the path specified, and the file with the date add to its attributes also its created with data. You have to convert the string into a data type
-            let string = "Hello World".data(using: .utf8)
-            let fileUrl = newFolder.appendingPathComponent("logs.txt")
-            manager.createFile(atPath: fileUrl.path, contents: string, attributes: [FileAttributeKey.creationDate:Date()])
+            let string = "Hello World"
+//            let fileUrl = newFolder.appendingPathComponent("logs.txt")
+//            manager.createFile(atPath: fileUrl.path, contents: string, attributes: [FileAttributeKey.creationDate:Date()])
+//            print("wrote to logs: \(fileUrl.path)")
+//
+            // BLAKE CODE
+            let documentsDir = try FileManager.default.url(for: .documentDirectory, in:.userDomainMask, appropriateFor:nil, create:true)
+            print(documentsDir)
+            try string.write(to: NSURL(string:"helloworld.csv", relativeTo:documentsDir)! as URL, atomically:true, encoding:String.Encoding.ascii)
+            // END BLAKE CODE
+//
+//            print("LOGS Created? \(manager.fileExists(atPath: fileUrl.path))")
         }
-        // to write to a file that is already created
-        let string = "Updated String".data(using: .utf8)
-        
-        let fileUrl = newFolder.appendingPathComponent("logs2.txt")
-        do{
-            try string?.write(to: fileUrl)
-        } catch{
-             print("error")
-            }
-
-
+        catch {
+            fatalError("Unable to create file")
+        }
+//        // to write to a file that is already created
+//        let string = "Updated String".data(using: .utf8)
+//
+//        let fileUrl = newFolder.appendingPathComponent("logs2.txt")
+//        do {
+//            try string?.write(to: fileUrl)
+//            print("wrote to logs2: \(fileUrl.path)")
+//
+//            print("LOGS2 Created? \(manager.fileExists(atPath: fileUrl.path))")
+//        } catch {
+//             print("error")
+//            }
+//
+//        self.isClicked = true
     }
 }
 

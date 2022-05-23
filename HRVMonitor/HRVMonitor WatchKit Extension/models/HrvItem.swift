@@ -8,7 +8,11 @@
 import Foundation
 
 // class reposible for storing a single HRV sample's data
-public class HrvItem : MonitorItem<Double> {
+public class HrvItem : NSObject, Codable {
+    public var value: Double
+    public var timestamp: Date
+    
+    public var unixTimestamp: Double
     public var deltaHrvValue: Double // difference in HRV from the previous HRVItem
     public var deltaUnixTimestamp: Double // difference in time since the previous HRVItem
     public var avgHeartRateBPM: Double // average heart rate for the samples used to calculate this HRV in BPM
@@ -17,14 +21,15 @@ public class HrvItem : MonitorItem<Double> {
     public var hrSamples: [HrItem] // store the HR samples used to calculate HRV
     
     init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HrItem]) {
+        self.value = value
+        self.timestamp = timestamp
+        self.unixTimestamp = timestamp.timeIntervalSince1970
         self.deltaHrvValue = deltaHrvValue
         self.deltaUnixTimestamp = deltaUnixTimestamp
         self.avgHeartRateBPM = 60_000 / avgHeartRateMS
         self.avgHeartRateMS = avgHeartRateMS
         self.numHeartRateSamples = numHeartRateSamples
         self.hrSamples = hrSamples
-        
-        super.init(value: value, timestamp: timestamp)
     }
     
     public override var description: String {

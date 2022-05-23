@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EventItem: Identifiable, Hashable {
+public struct EventItem: Identifiable, Hashable, Codable {
     public var id: UUID
     public var timestamp: Date
     public var hrv: HrvItem

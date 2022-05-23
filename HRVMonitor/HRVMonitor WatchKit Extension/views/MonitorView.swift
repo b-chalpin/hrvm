@@ -22,7 +22,7 @@ struct MonitorView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    Chart(data: getHrvStoreForChart())
+                    Chart(data: HrvMapUtils.mapHrvStoreToDoubleArray_Normalized(hrvStore: self.hrPoller.hrvStore))
                         .chartStyle(
                             AreaChartStyle(.quadCurve, fill:
                                             LinearGradient(gradient: .init(colors: [calculateMoodColor().opacity(0.5), calculateMoodColor().opacity(0.05)]),
@@ -89,20 +89,6 @@ struct MonitorView: View {
         case HeartRatePollerStatus.active:
             return StringFormatUtils.formatDoubleToString(input: self.hrPoller.latestHrv!.value)
         }
-    }
-    
-    func getHrvStoreForChart() -> [Double] {
-        // return empty graph array for a hrvstore that is empty or a single item
-        if self.hrPoller.hrvStore.count <= 1 {
-            return [0.0, 0.0]
-        }
-        
-        let hrvStoreValues = HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: self.hrPoller.hrvStore)
-       
-        let min = 0.0 // lowest HRV we can have is 0.0, subtract 10.0 more for padding
-        let max = hrvStoreValues.max()! + 10.0 // pad our upper bound for normalization
-
-        return hrvStoreValues.map { ($0 - min) / (max - min) }
     }
     
     func calculateStopStartButton() -> some View {
