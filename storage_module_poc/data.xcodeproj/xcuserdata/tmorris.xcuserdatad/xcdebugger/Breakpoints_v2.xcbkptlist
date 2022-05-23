@@ -7,32 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "49F0E6A3-3131-4F73-BB73-6D3749214939"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "data WatchKit App/ViewSaveData.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E5D35476-A4A5-44AE-B678-5099766F4509"
+            uuid = "8866FACD-3DB8-4607-A133-528CE03BC05C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "dataTests/dataTests.swift"
+            filePath = "data WatchKit Extension/Export.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "setUpWithError()"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "exportToCSV()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
