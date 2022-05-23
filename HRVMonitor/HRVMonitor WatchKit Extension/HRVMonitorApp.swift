@@ -13,6 +13,10 @@ struct HRVMonitorApp: App {
     @StateObject var threatDetector = ThreatDetector.shared
     @StateObject var alertNotificationHandler = AlertNotificationHandler.shared
     @StateObject var monitorEngine = MonitorEngine.shared
+    @StateObject var storageService = StorageService.shared
+    
+    // storage module
+    private let container = PersistenceController.shared.container
     
     @SceneBuilder var body: some Scene {
         WindowGroup {
@@ -22,6 +26,8 @@ struct HRVMonitorApp: App {
                     .environmentObject(self.threatDetector)
                     .environmentObject(self.alertNotificationHandler)
                     .environmentObject(self.monitorEngine)
+                    .environmentObject(self.storageService)
+                    .environment(\.managedObjectContext, container.viewContext)
             }
         }
 

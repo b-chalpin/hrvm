@@ -23,6 +23,7 @@ class MonitorEngine : ObservableObject {
     private var hrPoller = HeartRatePoller.shared
     private var threatDetector = ThreatDetector.shared
     private var alertNotificationHandler = AlertNotificationHandler.shared
+    private var storageService = StorageService.shared
     
     private var workoutManager = WorkoutManager()
     private var monitorTimer: Timer?
@@ -84,8 +85,8 @@ class MonitorEngine : ObservableObject {
     
     private func getFeedback() {
         if (self.threatDetector.threatDetected) {
-            // save current HRV stuff
-            self.saveHrvSnapshotsForEvent()
+            self.saveHrvSnapshotsForEvent() // save current HRV and HRV Store
+            
             self.threatDetector.threatDetected = false
             WKInterfaceDevice.current().play(.failure)
             
@@ -105,12 +106,17 @@ class MonitorEngine : ObservableObject {
         let currentHrvStore = self.hrvStoreSnapshotForEvent
         let currentHrv = self.hrvSnapshotForEvent! // assume app is running at this point
         
-        let newEvent = EventItem(hrv: currentHrv, hrvStore: currentHrvStore, stressed: feedback)
+        let newEvent = EventItem(id: UUID(),
+                                 timestamp: currentHrv.timestamp,
+                                 hrv: currentHrv,
+                                 hrvStore: currentHrvStore,
+                                 stressed: feedback)
         
         // async call to save new event (storage module)
         print("New HRV Event: \(newEvent)")
         
-        // TODO: retrain model with the new HrvStore
+        self.storageService.createStressEvent(event: newEvent)
+
         self.threatDetector.acknowledgeThreat(feedback: feedback, hrvStore: currentHrvStore)
     }
     

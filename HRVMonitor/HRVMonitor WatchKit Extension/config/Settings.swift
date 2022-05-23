@@ -84,4 +84,13 @@ enum Settings {
             return 5.0
         }
     }
+    
+    public static var StressEventPageSize: Int {
+        do {
+            return try Configuration.value(key: "STRESS_EVENT_PAGE_SIZE")
+        }
+        catch {
+            return 5
+        }
+    }
 }

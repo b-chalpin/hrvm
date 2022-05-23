@@ -4,19 +4,13 @@
 //
 //  Created by bchalpin on 5/3/22.
 //
-
 import SwiftUI
 
 struct SettingsView : View {
-    let sex = ["Female", "Male"]
+    @EnvironmentObject var storageService: StorageService
     
-    @State private var selectedSex: Int = 0
-    @State private var selectedAge: Int = 25
-    @State private var isEditing = false
-    @State private var formatter = NumberFormatter()
-    
-    @State private var isSaved: Bool = false
-    @State private var saveButtonText: String = "Save"
+    @State var selectedSex: Int = 0
+    @State var selectedAge: Int = 25
     
     var body : some View {
         VStack {
@@ -31,9 +25,9 @@ struct SettingsView : View {
                     Text("Sex:")
                         .fontWeight(.semibold)
                         .foregroundColor(Color.white)
-                    Picker("", selection: $selectedSex) {
-                        Text("Male").tag(0)
-                        Text("Female").tag(1)
+                    Picker("", selection: self.$selectedSex) {
+                        Text(PATIENT_SEX_LIST[0]).tag(0)
+                        Text(PATIENT_SEX_LIST[1]).tag(1)
                     }
                     .font(.system(size: 16))
                     .foregroundColor(Color.white)
@@ -44,26 +38,44 @@ struct SettingsView : View {
                         .fontWeight(.semibold)
                         .font(.system(size: 16))
                         .foregroundColor(Color.white)
-                        Picker("", selection: $selectedAge) {
-                            ForEach(1..<100) {
-                                Text("\($0)").tag($0)
-                            }
+                    Picker("", selection: self.$selectedAge) {
+                        ForEach(1..<100, id: \.self) {
+                            Text("\($0)").tag($0)
                         }
-                        .frame(maxWidth: 100)
+                    }
+                    .frame(maxWidth: 100)
                 }
                                 
                 NavigationLink(destination: MonitorView()) {
                     Text("Done").fontWeight(.semibold)
                             .foregroundColor(BUTTON_COLOR)
-                    }.padding(.horizontal, 40.0)
-                        .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
+                }
+                .padding(.horizontal, 40.0)
+                .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
+                // we will update the patient settings when we use the navlink
+                .simultaneousGesture(TapGesture().onEnded({
+                    self.updatePatientSettings()
+                }))
             }
         }
+        .onAppear() {
+            self.setCurrentPatientSettings()
+        }
+    }
+    
+    func setCurrentPatientSettings() {
+        let patientSettings = self.storageService.getPatientSettings()
+        
+        // set our picker values
+        self.selectedAge = patientSettings.age
+        self.selectedSex = PATIENT_SEX_LIST.firstIndex(of: patientSettings.sex)!
     }
 
-    func calculateButtonColor() -> Color {
-        return self.isSaved ? Color.gray.opacity(0.8) : BUTTON_COLOR
+    func updatePatientSettings() {
+        let newPatientSettings = PatientSettings(age: self.selectedAge, sex: PATIENT_SEX_LIST[self.selectedSex])
+        self.storageService.updateUserSettings(patientSettings: newPatientSettings)
     }
+    
 }
 
 struct SettingsView_Previews: PreviewProvider {

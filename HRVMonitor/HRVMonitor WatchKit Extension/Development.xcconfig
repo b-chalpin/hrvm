@@ -2,13 +2,12 @@
 //  Development.xcconfig
 //  HRVMonitor
 //
-//  Created by Timoster the Gr9 on 3/15/22.
+//  Created by bchalpin on 3/15/22.
 //
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-BASE_URL = api.development.com
 SAFE_HRV_THRESHOLD = 50.0
 WARNING_HRV_THRESHOLD = 20.0
 DANGER_HRV_THRESHOLD = 15.0
@@ -17,4 +16,5 @@ HR_WINDOW_SIZE = 30
 HR_STORE_SIZE = 60
 HRV_STORE_SIZE = 10
 NOTIFICATION_DELAY_SEC = 2.0
-DEMO_MODE = false
+DEMO_MODE = true
+STRESS_EVENT_PAGE_SIZE = 3

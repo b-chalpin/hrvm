@@ -19,6 +19,8 @@ public class HeartRatePoller : ObservableObject {
     // singleton
     public static let shared: HeartRatePoller = HeartRatePoller()
     
+    private var storageService = StorageService.shared
+    
     // variable to indicate whether we have notified the poller to stop
     private var hasBeenStopped: Bool = true
 
@@ -117,6 +119,9 @@ public class HeartRatePoller : ObservableObject {
                     
                     // add new Hrv to store
                     self.addHrvToHrvStore(newHrv: newHrv)
+                    
+                    // store new HRV to CoreData
+                    self.storageService.createHrvReading(hrvItem: newHrv)
                 }
             })
             self.healthStore.execute(query)

@@ -6,40 +6,42 @@
 //
 import SwiftUI
 import Charts
+import Foundation
 
 struct EventView : View {
-    var event: Event
+    var event: EventItem
     
-    var body : some View{
+    var body : some View {
         VStack {
-            Text(event.timeStamp).fontWeight(.bold).frame(alignment: .top)
-            Text("HRV: " + String(event.hrv)).frame(alignment: .top)
-            Text("Average HRV: " + String(event.averageHR)).frame(alignment: .top)
-            Text("Feedback: " + event.feedback).frame(alignment: .top)
+            Text(StringFormatUtils.formatDateToString(input: self.event.timestamp)).fontWeight(.bold)
+            Text("HRV: " + StringFormatUtils.formatDoubleToString(input: self.event.hrv.value))
+            Text("Average HRV: " + StringFormatUtils.formatDoubleToString(input: self.event.hrv.avgHeartRateBPM))
+            Text("Stressed: " + String(self.event.stressed).capitalized)
             
-            Chart(data: event.data)
+            Spacer()
+            
+            Chart(data: HrvMapUtils.mapHrvStoreToDoubleArray_Normalized(hrvStore: self.event.hrvStore))
                 .chartStyle(
-                    AreaChartStyle(.quadCurve,
-                                   fill: LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.05)]),
-                                                        startPoint: .top,
-                                                        endPoint: .bottom)
-                                    .frame(height: 15, alignment: .bottom)))
+                    AreaChartStyle(.quadCurve, fill:
+                                    LinearGradient(gradient: .init(colors: [Color.red.opacity(0.5), Color.red.opacity(0.2)]),
+                                                   startPoint: .top,
+                                                   endPoint: .bottom)
+                                        .frame(height: 30, alignment: .top)))
+            Spacer()
             
             NavigationLink(destination: EventLogView()) {
-                Text("Done").fontWeight(.semibold)
-                .foregroundColor(BUTTON_COLOR)
-            }.padding(.horizontal, 40.0)
+                Text("Done").fontWeight(.semibold).foregroundColor(BUTTON_COLOR)
+            }
             .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
-            .frame(alignment: .bottom)
-            
+            .padding(.horizontal, 40.0)
         }
     }
 }
 
 struct EventView_Previews: PreviewProvider {
-    static let exampleEvent: Event = Event(id: 1, timeStamp: "timestamp", hrv: 45.0, averageHR: 78.9, feedback: "Stressed",
-                                           data: [0.0,0.8,0.7,0.4,0.6,0.4,0.2,0.1,0.2,0.3])
-    
+    static let dummyHrv = HrvItem(value: 0.0, timestamp: Date(), deltaHrvValue: 0.0, deltaUnixTimestamp: 0.0, avgHeartRateMS: 0.0, numHeartRateSamples: 0, hrSamples: [])
+    static let exampleEvent: EventItem = EventItem(id: UUID(), timestamp: Date(), hrv: dummyHrv, hrvStore: [dummyHrv], stressed: true)
+
     static var previews: some View {
         EventView(event: exampleEvent)
     }
