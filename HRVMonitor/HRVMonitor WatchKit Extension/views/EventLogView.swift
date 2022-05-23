@@ -4,7 +4,6 @@
 //
 //  Created by bchalpin on 5/3/22.
 //
-
 import SwiftUI
 import Foundation
 
@@ -16,13 +15,15 @@ struct EventLogView: View {
     
     var body: some View {
         NavigationView {
+            ZStack{
             VStack {
-                Text("EVENT LOG")
+                Text("EVENTS")
                     .fontWeight(.semibold)
                     .font(.system(size: 20))
                     .foregroundColor(Color.white)
                     .frame(maxWidth: .infinity,
                            alignment: .topLeading)
+                    .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0)))
                 Text("High Stress Detected")
                     .fontWeight(.semibold)
                     .font(.system(size: 12))
@@ -78,8 +79,7 @@ struct EventLogView: View {
         self.events = []
         self.hasMoreEventPages = true
     }
-}
-
+    
 struct EventLogView_Previews: PreviewProvider {
     static var previews: some View {
         EventLogView()

@@ -4,7 +4,6 @@
 //
 //  Created by bchalpin on 5/3/22.
 //
-
 import SwiftUI
 import Charts
 import Foundation
