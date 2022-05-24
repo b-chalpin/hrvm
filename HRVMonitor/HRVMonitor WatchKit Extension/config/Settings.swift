@@ -49,15 +49,6 @@ enum Settings {
         }
     }
     
-    public static var HRStoreSize: Int {
-        do {
-            return try Configuration.value(key: "HR_STORE_SIZE")
-        }
-        catch {
-            return 60
-        }
-    }
-    
     public static var HRVStoreSize: Int {
         do {
             return try Configuration.value(key: "HRV_STORE_SIZE")
@@ -93,4 +84,24 @@ enum Settings {
             return 5
         }
     }
+    
+    public static var PredictionThreshold: Double {
+        do {
+            return try Configuration.value(key: "PREDICTION_THRESHOLD")
+        }
+        catch {
+            return 0.6
+        }
+    }
+    
+    public static var StaticThreatDetector: Bool {
+        do {
+            return try Configuration.value(key: "STATIC_THREAT_DETECTOR")
+        }
+        catch {
+            return true
+        }
+    }
+    
+    // #task - add LR hyper params
 }
