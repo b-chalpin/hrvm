@@ -24,7 +24,7 @@ public class LogisticRegression {
         self.columnCount = Settings.HRVStoreSize + 1
         self.rowCount = 0
         self.epochs = 5
-        self.eta = 0.01
+        self.eta = 0.001
         self.lam = 1.0
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
     }
@@ -32,18 +32,16 @@ public class LogisticRegression {
     public func fit(samples: [[HrvItem]], labels: [Double]) {
         // reset model weights
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
-        
         self.dataStore.add(samples: samples, labels: labels)
         
         var X = self.dataStore.samples!.map { $0.map { $0.value } }
         let y = self.dataStore.labels!
-        
-        //var epochs = min(self.dataStore.size, self.epochs)
+
+        var epochs = self.epochs
         self.rowCount = X.count
         X = self.addBiasColumn(X: X)
         X = X.shuffled()
         let X_train = self.normalize_0_1(X: X.flatMap{$0})
-        //self.initWeights()
         
         while(epochs > 0)
         {
@@ -51,8 +49,6 @@ public class LogisticRegression {
             self.updateWeights(X: X_train, y: y, signal: signal)
             epochs -= 1
         }
-        
-        print(self.weights) // debug
     }
     
     public func predict(X: [[Double]]) -> [Double] {
