@@ -9,33 +9,36 @@ import Foundation
 import Accelerate
 
 public class LogisticRegression {
-    let dataStore:LRDataStore
-    var weights:[Double]
-    var rowCount:Int
-    var columnCount:Int
+    let dataStore: LRDataStore
+    var weights: [Double]
+    var rowCount: Int
+    var columnCount: Int
     
-    var epochs:Int
-    var eta:Double
-    var lam:Double
+    var epochs: Int
+    var eta: Double
+    var lam: Double
     
     public init(dataStore: LRDataStore) {
         //Initializing weights to zero and to be length of HRV store plus one to account for bias.
         self.dataStore = dataStore
         self.columnCount = Settings.HRVStoreSize + 1
         self.rowCount = 0
-        self.epochs = 10
-        self.eta = 0.0001
-        self.lam = 0.1
+        self.epochs = 5
+        self.eta = 0.01
+        self.lam = 1.0
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
     }
     
-    public func fit(samples:[[HrvItem]], labels:[Double]) {
+    public func fit(samples: [[HrvItem]], labels: [Double]) {
+        // reset model weights
+        self.weights = [Double](repeating: 0.0, count: self.columnCount)
         
         self.dataStore.add(samples: samples, labels: labels)
-        var X = self.dataStore.samples!.map{$0.map{$0.value}}
+        
+        var X = self.dataStore.samples!.map { $0.map { $0.value } }
         let y = self.dataStore.labels!
         
-        var epochs = self.dataStore.size
+        //var epochs = min(self.dataStore.size, self.epochs)
         self.rowCount = X.count
         X = self.addBiasColumn(X: X)
         X = X.shuffled()
@@ -49,9 +52,10 @@ public class LogisticRegression {
             epochs -= 1
         }
         
+        print(self.weights) // debug
     }
     
-    public func predict(X:[[Double]]) -> [Double] {
+    public func predict(X: [[Double]]) -> [Double] {
         
         var X_bias = X
         let rowCount = X_bias.count

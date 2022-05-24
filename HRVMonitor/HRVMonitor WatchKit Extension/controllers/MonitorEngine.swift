@@ -66,8 +66,10 @@ class MonitorEngine : ObservableObject {
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
-                self.threatDetector.checkHrvForThreat(hrvStore: self.hrvStoreSnapshotForEvent)
-                self.getFeedback()
+                if (self.hrPoller.hrvStore.count == Settings.HRVStoreSize) { // do not predict until hrv store is at capacity
+                    self.threatDetector.checkHrvForThreat(hrvStore: self.hrPoller.hrvStore)
+                    self.getFeedback()
+                }
             }
         })
     }
@@ -115,7 +117,7 @@ class MonitorEngine : ObservableObject {
         // async call to save new event (storage module)
         print("New HRV Event: \(newEvent)")
         
-        self.storageService.createStressEvent(event: newEvent)
+        self.storageService.createEventItem(event: newEvent)
 
         self.threatDetector.acknowledgeThreat(feedback: feedback, hrvStore: currentHrvStore)
     }

@@ -121,7 +121,7 @@ public class HeartRatePoller : ObservableObject {
                     self.addHrvToHrvStore(newHrv: newHrv)
                     
                     // store new HRV to CoreData
-                    self.storageService.createHrvReading(hrvItem: newHrv)
+                    self.storageService.createHrvItem(hrvItem: newHrv)
                 }
             })
             self.healthStore.execute(query)

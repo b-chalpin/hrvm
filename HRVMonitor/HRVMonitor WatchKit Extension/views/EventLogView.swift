@@ -16,43 +16,44 @@ struct EventLogView: View {
     var body: some View {
         NavigationView {
             ZStack{
-            VStack {
-                Text("EVENTS")
-                    .fontWeight(.semibold)
-                    .font(.system(size: 20))
-                    .foregroundColor(Color.white)
-                    .frame(maxWidth: .infinity,
-                           alignment: .topLeading)
-                    .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0)))
-                Text("High Stress Detected")
-                    .fontWeight(.semibold)
-                    .font(.system(size: 12))
-                    .foregroundColor(Color.white)
-                    .frame(maxWidth: .infinity,
-                           alignment: .topLeading)
-                if (self.events.count > 0) {
-                    Form {
-                        ForEach(self.events) { event in
-                            NavigationLink(StringFormatUtils.formatDateToString(input: event.timestamp),
-                                           destination: EventView(event: event))
-                        }
-                        .font(.caption2)
-                        
-                        if (hasMoreEventPages) {
-                            Button(action: { self.getNextPageOfEvents() }) {
-                                Text("Load More")
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(BUTTON_COLOR)
-                                
+                VStack {
+                    Text("EVENTS")
+                        .fontWeight(.semibold)
+                        .font(.system(size: 20))
+                        .foregroundColor(Color.white)
+                        .frame(maxWidth: .infinity,
+                               alignment: .topLeading)
+                        .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0)))
+                    Text("High Stress Detected")
+                        .fontWeight(.semibold)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color.white)
+                        .frame(maxWidth: .infinity,
+                               alignment: .topLeading)
+                    if (self.events.count > 0) {
+                        Form {
+                            ForEach(self.events) { event in
+                                NavigationLink(StringFormatUtils.formatDateToString(input: event.timestamp),
+                                               destination: EventView(event: event))
+                            }
+                            .font(.caption2)
+                            
+                            if (hasMoreEventPages) {
+                                Button(action: { self.getNextPageOfEvents() }) {
+                                    Text("Load More")
+                                        .fontWeight(.semibold)
+                                        .foregroundColor(BUTTON_COLOR)
+                                    
+                                }
                             }
                         }
                     }
-                }
-                else {
-                    Text("No events recorded.")
-                        .frame(maxWidth: .infinity,
-                               maxHeight: .infinity,
-                               alignment: .center)
+                    else {
+                        Text("No events recorded.")
+                            .frame(maxWidth: .infinity,
+                                   maxHeight: .infinity,
+                                   alignment: .center)
+                    }
                 }
             }
         }
@@ -79,7 +80,8 @@ struct EventLogView: View {
         self.events = []
         self.hasMoreEventPages = true
     }
-    
+}
+
 struct EventLogView_Previews: PreviewProvider {
     static var previews: some View {
         EventLogView()
