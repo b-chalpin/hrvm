@@ -14,11 +14,12 @@ public class HrvMapUtils {
         }
     }
     
+    // used ONLY for UI graphs
     public static func mapHrvStoreToDoubleArray_Normalized(hrvStore: [HrvItem]) -> [Double] {
         let hrvStoreDoubles = mapHrvStoreToDoubleArray(hrvStore: hrvStore)
         
-        if (hrvStoreDoubles.count == 0) {
-            print("mapHrvStoreToDoubleArray_Normalized - No HRV Store values found when mapping [HrvItem] -> [Double]. Returning [0.0, 0.0]")
+        if (hrvStoreDoubles.count < 2) {
+            print("mapHrvStoreToDoubleArray_Normalized - Less than 2 HRV Store values found when mapping [HrvItem] -> [Double]. Returning [0.0, 0.0]")
             return [0.0, 0.0]
         }
         

@@ -23,9 +23,9 @@ public class LogisticRegression {
         self.dataStore = dataStore
         self.columnCount = Settings.HRVStoreSize + 1
         self.rowCount = 0
-        self.epochs = 5
-        self.eta = 0.001
-        self.lam = 1.0
+        self.epochs = Settings.LrEpochs
+        self.eta = Settings.LrLearningRate
+        self.lam = Settings.LrLambda
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
     }
     

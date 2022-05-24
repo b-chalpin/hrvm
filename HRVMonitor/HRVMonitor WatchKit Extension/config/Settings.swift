@@ -103,5 +103,39 @@ enum Settings {
         }
     }
     
-    // #task - add LR hyper params
+    public static var LrPredictionThreshold: Double {
+        do {
+            return try Configuration.value(key: "LR_PREDICTION_THRESHOLD")
+        }
+        catch {
+            return 0.40
+        }
+    }
+    
+    public static var LrEpochs: Int {
+        do {
+            return try Configuration.value(key: "LR_EPOCHS")
+        }
+        catch {
+            return 5
+        }
+    }
+    
+    public static var LrLearningRate: Double {
+        do {
+            return try Configuration.value(key: "LR_LEARNING_RATE")
+        }
+        catch {
+            return 0.01
+        }
+    }
+    
+    public static var LrLambda: Double {
+        do {
+            return try Configuration.value(key: "LR_LAMBDA")
+        }
+        catch {
+            return 1.0
+        }
+    }
 }

@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LR_LAMBDA</key>
+	<string>$(LR_LAMBDA)</string>
+	<key>LR_LEARNING_RATE</key>
+	<string>$(LR_LEARNING_RATE)</string>
+	<key>LR_EPOCHS</key>
+	<string>$(LR_EPOCHS)</string>
+	<key>LR_PREDICTION_THRESHOLD</key>
+	<string>$(LR_PREDICTION_THRESHOLD)</string>
 	<key>STATIC_THREAT_DETECTOR</key>
 	<string>$(STATIC_THREAT_DETECTOR)</string>
 	<key>PREDICTION_THRESHOLD</key>

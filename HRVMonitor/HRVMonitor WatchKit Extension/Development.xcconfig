@@ -8,15 +8,53 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
+// MARK: - mood ring config
+
+// potentially unused
 SAFE_HRV_THRESHOLD = 50.0
+
+// if  above this -> green
+// if below this -> yellow
 WARNING_HRV_THRESHOLD = 20.0
+
+// if below this -> red
 DANGER_HRV_THRESHOLD = 15.0
+
+// MARK: - hrv/hr related config
+
+// time in seconds between each polling of hrv
 HRV_MONITOR_INTERVAL_SEC = 5.0
+
+// number of (most recent) hr samples to be included in each hrv calculation
 HR_WINDOW_SIZE = 30
+
+// number of (most recent) hrv values that will be stored in "sliding hrv window"
 HRV_STORE_SIZE = 7
+
+// delay in seconds between notifications
 NOTIFICATION_DELAY_SEC = 2.0
-DEMO_MODE = false
+
+// pagination size for events in UI
 STRESS_EVENT_PAGE_SIZE = 3
+
+// MARK: - app state config
+
+// true: CoreData entities can be updated/created
+// false: CoreData entities can NOT be updated/created
+// NOTE: this is mainly for development purposes
 IS_DATA_PERSISTENT = true
+
+// true: hrv will be generated randomly
+// false: hrv will be read from the patient
+DEMO_MODE = false
+
+// true: (static) threat prediction will use DANGER_HRV_THRESHOLD
+// false: (intelligent) prediction will use LR
 STATIC_THREAT_DETECTOR = false
-PREDICTION_THRESHOLD = 0.40
+
+// MARK: - lr hyperparameters
+
+LR_PREDICTION_THRESHOLD = 0.40
+LR_EPOCHS = 5
+LR_LEARNING_RATE = 0.001
+LR_LAMBDA = 1.0
