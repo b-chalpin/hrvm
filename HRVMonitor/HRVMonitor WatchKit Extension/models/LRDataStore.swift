@@ -11,6 +11,7 @@ public class LRDataStore : Codable {
     var samples: [[HrvItem]]?
     var labels: [Double]?
     var size: Int = 0
+    var stressCount: Int = 0
     
     public func add(samples: [[HrvItem]], labels: [Double]) {
         if(self.samples == nil) {
