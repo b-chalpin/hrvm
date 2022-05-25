@@ -15,15 +15,15 @@ SAFE_HRV_THRESHOLD = 50.0
 
 // if  above this -> green
 // if below this -> yellow
-WARNING_HRV_THRESHOLD = 20.0
+WARNING_HRV_THRESHOLD = 25.0
 
 // if below this -> red
-DANGER_HRV_THRESHOLD = 15.0
+DANGER_HRV_THRESHOLD = 20.0
 
 // MARK: - hrv/hr related config
 
 // time in seconds between each polling of hrv
-HRV_MONITOR_INTERVAL_SEC = 5.0
+HRV_MONITOR_INTERVAL_SEC = 3.5
 
 // number of (most recent) hr samples to be included in each hrv calculation
 HR_WINDOW_SIZE = 30
@@ -46,11 +46,11 @@ IS_DATA_PERSISTENT = true
 
 // true: hrv will be generated randomly
 // false: hrv will be read from the patient
-DEMO_MODE = false
+DEMO_MODE = true
 
 // true: (static) threat prediction will use DANGER_HRV_THRESHOLD
 // false: (intelligent) prediction will use LR
-STATIC_THREAT_DETECTOR = false
+STATIC_THREAT_DETECTOR = true
 
 // MARK: - lr hyperparameters
 
