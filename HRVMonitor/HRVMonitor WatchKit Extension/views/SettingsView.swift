@@ -9,6 +9,9 @@ import SwiftUI
 struct SettingsView : View {
     @EnvironmentObject var storageService: StorageService
     
+    // binding used to close the navigation link
+    @Binding var isSettingsViewActive: Bool
+    
     @State var selectedSex: Int = 0
     @State var selectedAge: Int = 25
     
@@ -45,17 +48,16 @@ struct SettingsView : View {
                     }
                     .frame(maxWidth: 100)
                 }
-                                
-                NavigationLink(destination: MonitorView()) {
-                    Text("Done").fontWeight(.semibold)
-                            .foregroundColor(BUTTON_COLOR)
-                }
-                .padding(.horizontal, 40.0)
-                .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
-                // we will update the patient settings when we use the navlink
-                .simultaneousGesture(TapGesture().onEnded({
+
+                // return to MonitorView
+                Button(action: {
                     self.updatePatientSettings()
-                }))
+                    self.isSettingsViewActive = false
+                }) {
+                    Text("Done").fontWeight(.semibold).foregroundColor(BUTTON_COLOR)
+                }
+                .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.2)))
+                .padding(.horizontal, 40.0)
             }
         }
         .onAppear() {
@@ -80,6 +82,6 @@ struct SettingsView : View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(isSettingsViewActive: .constant(true))
     }
 }
