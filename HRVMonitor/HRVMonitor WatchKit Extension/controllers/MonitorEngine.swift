@@ -31,6 +31,10 @@ class MonitorEngine : ObservableObject {
     // vars to store hrv and hrvstore for event
     private var hrvSnapshotForEvent: HrvItem?
     private var hrvStoreSnapshotForEvent: [HrvItem] = []
+    
+    // var for notification cooldown
+    private var isAlertCoolingDown: Bool = false
+    private var notifyCooldownTimer: Timer?
 
     public func stopMonitoring() {
         // end workout
@@ -42,7 +46,6 @@ class MonitorEngine : ObservableObject {
     }
     
     public func startMonitoring() {
-        
         // start workout
         self.workoutManager.startWorkout()
         
@@ -59,7 +62,7 @@ class MonitorEngine : ObservableObject {
 
         self.monitorTimer = Timer.scheduledTimer(withTimeInterval: Settings.HRVMonitorIntervalSec, repeats: true, block: {_ in
             if Settings.DemoMode {
-                self.hrPoller.demo()
+                self.hrPoller.demo() // will generate random hrv values (RNG)
             }
             else {
                 self.hrPoller.poll()
@@ -67,8 +70,8 @@ class MonitorEngine : ObservableObject {
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
                 if (self.hrPoller.hrvStore.count == Settings.HRVStoreSize) { // do not predict until hrv store is at capacity
-                    self.threatDetector.checkHrvForThreat(hrvStore: self.hrPoller.hrvStore)
-                    self.getFeedback()
+                    self.threatDetector.checkHrvForThreat(hrvStore: self.hrPoller.hrvStore) // predict threat level with new hrv store
+                    self.notifyUserIfThreatDetected()
                 }
             }
         })
@@ -85,8 +88,10 @@ class MonitorEngine : ObservableObject {
         self.hrvStoreSnapshotForEvent = self.hrPoller.hrvStore
     }
     
-    private func getFeedback() {
-        if (self.threatDetector.threatDetected) {
+    private func notifyUserIfThreatDetected() {
+        if (self.threatDetector.threatDetected && !self.isAlertCoolingDown) {
+            print("NOTIFYING USER")
+            
             self.saveHrvSnapshotsForEvent() // save current HRV and HRV Store
             
             self.threatDetector.threatDetected = false
@@ -105,6 +110,9 @@ class MonitorEngine : ObservableObject {
     }
     
     public func acknowledgeThreat(feedback: Bool) {
+        // start notification/alert cooldown
+        self.startCooldownTimer()
+        
         let currentHrvStore = self.hrvStoreSnapshotForEvent
         let currentHrv = self.hrvSnapshotForEvent! // assume app is running at this point
         
@@ -120,6 +128,19 @@ class MonitorEngine : ObservableObject {
         self.storageService.createEventItem(event: newEvent)
 
         self.threatDetector.acknowledgeThreat(feedback: feedback, hrvStore: currentHrvStore)
+    }
+    
+    private func startCooldownTimer() {
+        print("LOG - Starting alert cooldown timer")
+        
+        // set notification/alert cooldown
+        self.isAlertCoolingDown = true
+        
+        // initialize a timer that repeats only once
+        self.notifyCooldownTimer = Timer.scheduledTimer(withTimeInterval: Settings.NotificationDelaySec, repeats: false, block: { _ in
+            print("LOG - Alert cooldown timer elapsed")
+            self.isAlertCoolingDown = false
+        })
     }
     
     public func updateAppState(phase: ScenePhase) {

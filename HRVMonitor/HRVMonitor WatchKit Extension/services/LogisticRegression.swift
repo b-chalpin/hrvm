@@ -34,8 +34,8 @@ public class LogisticRegression {
         var X = samples.map { $0.map { $0.value } }
         let y = labels
 
-        var epochs = self.epochs
         self.rowCount = X.count
+        var epochs = self.epochs // set epochs to number of samples
         X = self.addBiasColumn(X: X)
         X = X.shuffled()
         let X_train = self.normalize_0_1(X: X.flatMap { $0 })
@@ -73,14 +73,16 @@ public class LogisticRegression {
         return self.v_sigmoid(signal: results, rowCount: rowCount, fit: false)
     }
     
-    public func error(X:[[Double]], y:[Double]) -> Double {
+    public func error(X: [[HrvItem]], y: [Double]) -> Double {
+        let doubleSamples = X.map { $0.map { $0.value } }
         
-        let predictions = self.predict(X: X)
+        let predictions = self.predict(X: doubleSamples)
         
         var error = 0.0
         for i in 0...(predictions.count - 1)
         {
-            if((predictions[i] > 0.5 && y[i] == 0) || (predictions[i] <= 0.5 && y[i] == 1))
+            if((predictions[i] > Settings.LrPredictionThreshold && y[i] == 0) ||
+               (predictions[i] <= Settings.LrPredictionThreshold && y[i] == 1))
             {
                 error += 1.0
             }

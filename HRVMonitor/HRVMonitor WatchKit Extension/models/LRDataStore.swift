@@ -2,7 +2,7 @@
 //  LRDataStore.swift
 //  HRVMonitor WatchKit Extension
 //
-//  Created by Timoster the Gr9 on 5/18/22.
+//  Created by Nick Adams on 5/18/22.
 //
 
 import Foundation
@@ -10,6 +10,7 @@ import Foundation
 public class LRDataStore : Codable {
     var samples: [[HrvItem]]?
     var labels: [Double]?
+    var error: [Double]? // array of error values for each fit
     var size: Int = 0 // number of samples
     var stressCount: Int = 0 // count of the number of samples with label == 1
     
@@ -29,6 +30,16 @@ public class LRDataStore : Codable {
         
         if (feedback) {
             self.stressCount += 1
+        }
+    }
+    
+    public func addError(error: Double)
+    {
+        if(self.error == nil) {
+            self.error = [error]
+        }
+        else {
+            self.error?.append(error)
         }
     }
 }

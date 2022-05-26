@@ -147,7 +147,6 @@ public class HeartRatePoller : ObservableObject {
                              numHeartRateSamples: 0,
                              hrSamples: [])
         
-        // create dummy HRVItem
         self.latestHrv = newHrv
         
         // for the demo graph
