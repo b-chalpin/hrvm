@@ -13,18 +13,18 @@ enum Settings {
         }
     }
     
-    public static var WarningHRVThreshold: Double {
+    public static var MoodWarningHRVThreshold: Double {
         do {
-            return try Configuration.value(key: "WARNING_HRV_THRESHOLD")
+            return try Configuration.value(key: "MOOD_WARNING_HRV_THRESHOLD")
         }
         catch {
             return 30.0
         }
     }
     
-    public static var DangerHRVThreshold: Double {
+    public static var MoodDangerHRVThreshold: Double {
         do {
-            return try Configuration.value(key: "DANGER_HRV_THRESHOLD")
+            return try Configuration.value(key: "MOOD_DANGER_HRV_THRESHOLD")
         }
         catch {
             return 20.0
@@ -85,24 +85,6 @@ enum Settings {
         }
     }
     
-    public static var PredictionThreshold: Double {
-        do {
-            return try Configuration.value(key: "PREDICTION_THRESHOLD")
-        }
-        catch {
-            return 0.6
-        }
-    }
-    
-    public static var StaticThreatDetector: Bool {
-        do {
-            return try Configuration.value(key: "STATIC_THREAT_DETECTOR")
-        }
-        catch {
-            return true
-        }
-    }
-    
     public static var LrPredictionThreshold: Double {
         do {
             return try Configuration.value(key: "LR_PREDICTION_THRESHOLD")
@@ -136,6 +118,24 @@ enum Settings {
         }
         catch {
             return 1.0
+        }
+    }
+    
+    public static var MinStressEventCount: Int {
+        do {
+            return try Configuration.value(key: "MIN_STRESS_EVENT_COUNT")
+        }
+        catch {
+            return 5
+        }
+    }
+    
+    public static var StaticDangerThreshold: Double {
+        do {
+            return try Configuration.value(key: "STATIC_DANGER_THRESHOLD")
+        }
+        catch {
+            return 30.0
         }
     }
 }

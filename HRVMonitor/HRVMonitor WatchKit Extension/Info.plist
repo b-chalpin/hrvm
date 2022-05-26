@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>STATIC_DANGER_THRESHOLD</key>
+	<string>$(STATIC_DANGER_THRESHOLD)</string>
+	<key>MIN_STRESS_EVENT_COUNT</key>
+	<string>$(MIN_STRESS_EVENT_COUNT)</string>
 	<key>LR_LAMBDA</key>
 	<string>$(LR_LAMBDA)</string>
 	<key>LR_LEARNING_RATE</key>
@@ -10,8 +14,6 @@
 	<string>$(LR_EPOCHS)</string>
 	<key>LR_PREDICTION_THRESHOLD</key>
 	<string>$(LR_PREDICTION_THRESHOLD)</string>
-	<key>STATIC_THREAT_DETECTOR</key>
-	<string>$(STATIC_THREAT_DETECTOR)</string>
 	<key>PREDICTION_THRESHOLD</key>
 	<string>$(PREDICTION_THRESHOLD)</string>
 	<key>STRESS_EVENT_PAGE_SIZE</key>
@@ -31,8 +33,8 @@
 			<string>Owner</string>
 		</dict>
 	</array>
-	<key>DANGER_HRV_THRESHOLD</key>
-	<string>$(DANGER_HRV_THRESHOLD)</string>
+	<key>MOOD_DANGER_HRV_THRESHOLD</key>
+	<string>$(MOOD_DANGER_HRV_THRESHOLD)</string>
 	<key>HRV_MONITOR_INTERVAL_SEC</key>
 	<string>$(HRV_MONITOR_INTERVAL_SEC)</string>
 	<key>HRV_STORE_SIZE</key>
@@ -51,12 +53,12 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
-	<key>SAFE_HRV_THRESHOLD</key>
-	<string>$(SAFE_HRV_THRESHOLD)</string>
+	<key>MOOD_SAFE_HRV_THRESHOLD</key>
+	<string>$(MOOD_SAFE_HRV_THRESHOLD)</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>WARNING_HRV_THRESHOLD</key>
-	<string>$(WARNING_HRV_THRESHOLD)</string>
+	<key>MOOD_WARNING_HRV_THRESHOLD</key>
+	<string>$(MOOD_WARNING_HRV_THRESHOLD)</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
