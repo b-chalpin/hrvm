@@ -85,24 +85,6 @@ enum Settings {
         }
     }
     
-    public static var PredictionThreshold: Double {
-        do {
-            return try Configuration.value(key: "PREDICTION_THRESHOLD")
-        }
-        catch {
-            return 0.6
-        }
-    }
-    
-    public static var StaticThreatDetector: Bool {
-        do {
-            return try Configuration.value(key: "STATIC_THREAT_DETECTOR")
-        }
-        catch {
-            return true
-        }
-    }
-    
     public static var LrPredictionThreshold: Double {
         do {
             return try Configuration.value(key: "LR_PREDICTION_THRESHOLD")
@@ -136,6 +118,15 @@ enum Settings {
         }
         catch {
             return 1.0
+        }
+    }
+    
+    public static var MinStressEventCount: Int {
+        do {
+            return try Configuration.value(key: "MIN_STRESS_EVENT_COUNT")
+        }
+        catch {
+            return 5
         }
     }
 }

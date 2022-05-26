@@ -126,7 +126,6 @@ class MonitorEngine : ObservableObject {
         switch phase {
             case .active:
                 // The app has become active.
-                print(phase)
                 self.alertNotificationHandler.appState = .foreground
                 break
 
@@ -135,7 +134,6 @@ class MonitorEngine : ObservableObject {
 
             case .background:
                 // The app has moved to the background.
-                print(phase)
                 self.alertNotificationHandler.appState = .background
                 break
 

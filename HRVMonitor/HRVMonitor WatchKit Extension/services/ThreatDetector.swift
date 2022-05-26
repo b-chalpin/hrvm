@@ -17,75 +17,91 @@ class ThreatDetector : ObservableObject {
     public static let shared: ThreatDetector = ThreatDetector()
     
     private var storageService = StorageService.shared
-    private let lrModel = LogisticRegression(dataStore: LRDataStore())
+    private let lrModel = LogisticRegression()
     private var predictorMode: ThreatDetectorStatus = ._static
-    private var lrDataStore: LRDataStore
+    private var dataStore: LRDataStore
     
     @Published var threatDetected: Bool = false
     @Published var threatAcknowledged: Bool = false
     
     init() {
-        self.lrDataStore = self.storageService.loadLRDataStore()
+        self.dataStore = self.storageService.loadLRDataStore()
     }
     
     public func checkHrvForThreat(hrvStore: [HrvItem]) {
         if self.predict(predictionSet: hrvStore) {
-            threatDetected = true
+            self.threatDetected = true
         }
     }
     
     // this method changed to detect if the threat was actaully acknowledged or not. Also calls fit and passes current HrvStore.
     public func acknowledgeThreat(feedback: Bool, hrvStore: [HrvItem]) {
+        let newSamples = [hrvStore]
+        let newLabels = self.generateLabelForFeedback(feedback: feedback, samples: newSamples)
+        
+        // append our new data store sample and label
+        self.dataStore.add(samples: newSamples, labels: newLabels, feedback: feedback)
+        
         // persist updates data store to storage
-        storageService.saveLRDataStore(datastore: self.lrModel.dataStore)
+        storageService.saveLRDataStore(datastore: self.dataStore)
         
         print("FEEDBACK: \(feedback) - Threat acked")
         self.threatAcknowledged = true
         
-        let samples = [hrvStore]
+        // check if we can start using dynamic prediction; if our stress count is larger than our minimum, we will switch to dynamic mode
+        if (self.dataStore.stressCount > Settings.MinStressEventCount) {
+            self.predictorMode = ._dynamic
+        }
+        
+        if (self.predictorMode == ._dynamic) {
+            // train model with new user feedback
+            self.fit_dynamic()
+            
+            // persist new trained weights to storage
+            self.storageService.saveLRWeights(lrWeights: self.lrModel.weights)
+        }
+    }
+    
+    private func generateLabelForFeedback(feedback: Bool, samples: [[HrvItem]]) -> [Double] {
         var labels = [Double](repeating: 0.0, count: samples.count)
         
         if feedback {
             labels = [Double](repeating: 1.0, count: samples.count)
         }
         
-        if (self.predictorMode == ._static) {
-            // train model with new user feedback
-            self.fit(samples: samples, labels: labels)
-            
-            // persist new trained weights to storage
-            storageService.saveLRWeights(lrWeights: self.lrModel.weights)
-        }
+        return labels
     }
     
-    private func fit(samples: [[HrvItem]], labels: [Double]) {
-        self.lrModel.fit(samples: samples, labels: labels)
+    // train the LR model on our current data store and labels
+    private func fit_dynamic() {
+        self.lrModel.fit(samples: self.dataStore.samples!, labels: self.dataStore.labels!)
     }
     
     // returns true for danger; false otherwise
     private func predict(predictionSet: [HrvItem]) -> Bool {
         if (self.predictorMode == ._static) {
-            return predict_static(predictionSet: predictionSet)
+            return self.predict_static(predictionSet: predictionSet)
         }
         else {
-            return predict_lr(predictionSet: predictionSet)
+            return self.predict_dynamic(predictionSet: predictionSet)
         }
     }
     
     // static prediction method; compare latest HRV to a threshold value
     private func predict_static(predictionSet: [HrvItem]) -> Bool {
+        print("STATIC!!")
         return predictionSet.last!.value < Settings.DangerHRVThreshold
     }
     
     // use the logistic regressor to predict
-    private func predict_lr(predictionSet: [HrvItem]) -> Bool {
+    private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
         let doublePredictionSet = [HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: predictionSet)] // lr needs a [[Double]]
         
-        let prediction = lrModel.predict(X: doublePredictionSet)
+        let prediction = self.lrModel.predict(X: doublePredictionSet)
+
+        print("DYNAMIC!! - prediction: \(prediction[0])")
         
-        print("PREDICTION: \(prediction[0])") // debug
-        
-        return prediction[0] > Settings.PredictionThreshold
+        return prediction[0] > Settings.LrPredictionThreshold
     }
     
     public func error() {

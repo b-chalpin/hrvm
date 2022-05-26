@@ -38,7 +38,7 @@ public class LogisticRegression {
         self.rowCount = X.count
         X = self.addBiasColumn(X: X)
         X = X.shuffled()
-        let X_train = self.normalize_0_1(X: X.flatMap{$0})
+        let X_train = self.normalize_0_1(X: X.flatMap { $0 })
         
         while(epochs > 0)
         {

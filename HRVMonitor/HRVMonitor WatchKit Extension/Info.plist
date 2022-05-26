@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>MIN_STRESS_EVENT_COUNT</key>
+	<string>$(MIN_STRESS_EVENT_COUNT)</string>
 	<key>LR_LAMBDA</key>
 	<string>$(LR_LAMBDA)</string>
 	<key>LR_LEARNING_RATE</key>
@@ -10,8 +12,6 @@
 	<string>$(LR_EPOCHS)</string>
 	<key>LR_PREDICTION_THRESHOLD</key>
 	<string>$(LR_PREDICTION_THRESHOLD)</string>
-	<key>STATIC_THREAT_DETECTOR</key>
-	<string>$(STATIC_THREAT_DETECTOR)</string>
 	<key>PREDICTION_THRESHOLD</key>
 	<string>$(PREDICTION_THRESHOLD)</string>
 	<key>STRESS_EVENT_PAGE_SIZE</key>
