@@ -29,16 +29,17 @@ struct ContentView: View {
         .alert(isPresented: self.$alertNotificationHandler.alert) {
             Alert(
                 title: Text("Are you stressed?"),
+                message: Text("We have noticed a dangerous trend in your Heart Rate Variability.").font(.system(size: 10)),
                 primaryButton: .default(
                     Text("No"),
                     action: {
-                        self.monitorEngine.acknowledgeThreat(feedback: false)
+                        self.monitorEngine.acknowledgeThreat(feedback: false, manuallyAcked: false)
                     }
                 ),
                 secondaryButton: .default(
                     Text("Yes"),
                     action: {
-                        self.monitorEngine.acknowledgeThreat(feedback: true)
+                        self.monitorEngine.acknowledgeThreat(feedback: true, manuallyAcked: false)
                     }
                   )
             )
