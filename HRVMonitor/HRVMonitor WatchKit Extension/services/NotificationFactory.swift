@@ -37,7 +37,7 @@ public class NotificationFactory {
         content.title = "HRVAlert"
         content.categoryIdentifier = "HRVNotification"
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3.0, repeats: false)
         let request = UNNotificationRequest(identifier: "HRVAlert", content: content, trigger: trigger)
         
         return request

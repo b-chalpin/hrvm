@@ -70,8 +70,8 @@ class MonitorEngine : ObservableObject {
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
                 if (self.hrPoller.hrvStore.count == Settings.HRVStoreSize) { // do not predict until hrv store is at capacity
-                    self.threatDetector.checkHrvForThreat(hrvStore: self.hrPoller.hrvStore) // predict threat level with new hrv store
-                    self.notifyUserIfThreatDetected()
+                    let predictedThreat = self.threatDetector.checkHrvForThreat(hrvStore: self.hrPoller.hrvStore) // predict threat level with new hrv store
+                    self.notifyUserIfThreatDetected(threatDetected: predictedThreat)
                 }
             }
         })
@@ -88,13 +88,12 @@ class MonitorEngine : ObservableObject {
         self.hrvStoreSnapshotForEvent = self.hrPoller.hrvStore
     }
     
-    private func notifyUserIfThreatDetected() {
-        if (self.threatDetector.threatDetected && !self.isAlertCoolingDown) {
+    private func notifyUserIfThreatDetected(threatDetected: Bool) {
+        if (threatDetected && !self.isAlertCoolingDown) {
             print("NOTIFYING USER")
             
             self.saveHrvSnapshotsForEvent() // save current HRV and HRV Store
-            
-            self.threatDetector.threatDetected = false
+
             WKInterfaceDevice.current().play(.failure)
             
             if(self.alertNotificationHandler.appState == .foreground)
@@ -107,11 +106,16 @@ class MonitorEngine : ObservableObject {
                 self.alertNotificationHandler.notify()
             }
         }
+        else {
+            print("THREAT NOT DETECTED")
+        }
     }
     
-    public func acknowledgeThreat(feedback: Bool) {
-        // start notification/alert cooldown
-        self.startCooldownTimer()
+    public func acknowledgeThreat(feedback: Bool, manuallyAcked: Bool) {
+        if (!manuallyAcked) { // if threat ack is NOT purposefully triggered, start alert cooldown
+            // start notification/alert cooldown
+            self.startCooldownTimer()
+        }
         
         let currentHrvStore = self.hrvStoreSnapshotForEvent
         let currentHrv = self.hrvSnapshotForEvent! // assume app is running at this point

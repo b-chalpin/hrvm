@@ -20,18 +20,15 @@ class ThreatDetector : ObservableObject {
     private let lrModel = LogisticRegression()
     private var predictorMode: ThreatDetectorStatus = ._static
     private var dataStore: LRDataStore
-    
-    @Published var threatDetected: Bool = false
+
     @Published var threatAcknowledged: Bool = false
     
     init() {
         self.dataStore = self.storageService.loadLRDataStore()
     }
     
-    public func checkHrvForThreat(hrvStore: [HrvItem]) {
-        if self.predict(predictionSet: hrvStore) {
-            self.threatDetected = true
-        }
+    public func checkHrvForThreat(hrvStore: [HrvItem]) -> Bool {
+        return self.predict(predictionSet: hrvStore)
     }
     
     // this method changed to detect if the threat was actaully acknowledged or not. Also calls fit and passes current HrvStore.

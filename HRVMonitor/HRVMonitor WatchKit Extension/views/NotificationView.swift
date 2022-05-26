@@ -12,25 +12,31 @@ struct NotificationView: View {
     
     var body: some View {
         VStack{
-            //HRV Label
-            Text("Are you Stressed?").fontWeight(.semibold)
-                .font(.body)
-                .foregroundColor(Color.white)
-                .multilineTextAlignment(.center)
-                .padding()
-    
-            Button(action: {
-                //Add action here - another view/input data
-                self.monitorEngine.acknowledgeThreat(feedback: true)
-            }) {
-                    Text("Yes")
-            }
-            
-            Button(action: {
-                //Add action here - another view/input data
-                self.monitorEngine.acknowledgeThreat(feedback: false)
-            }) {
-                    Text("No")
+            ScrollView {
+                //HRV Label
+                Text("Are you Stressed?")
+                    .fontWeight(.semibold)
+                    .font(.system(size: 18))
+                    .multilineTextAlignment(.center)
+                Text("We have noticed a dangerous trend in your Heart Rate Variability.")
+                    .multilineTextAlignment(.center)
+                    .font(.system(size: 14))
+                
+                Spacer(minLength: 10.0)
+        
+                Button(action: {
+                    //Add action here - another view/input data
+                    self.monitorEngine.acknowledgeThreat(feedback: true, manuallyAcked: false)
+                }) {
+                        Text("Yes")
+                }
+                
+                Button(action: {
+                    //Add action here - another view/input data
+                    self.monitorEngine.acknowledgeThreat(feedback: false, manuallyAcked: false)
+                }) {
+                        Text("No")
+                }
             }
         }
     }
