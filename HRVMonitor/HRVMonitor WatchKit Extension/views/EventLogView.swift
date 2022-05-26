@@ -35,7 +35,8 @@ struct EventLogView: View {
                     if (self.events.count > 0) {
                         Form {
                             ForEach(self.events, id: \.self) { event in
-                                // each event will be a navigation link to a detailed view
+                                // NOTE: using the binding of isEventViewActive for all of these navigation links leads to SwiftUI warnings;
+                                // need to find a way to either assign a binding for each EventView, or otherwise
                                 NavigationLink(StringFormatUtils.formatDateToString(input: event.timestamp),
                                                isActive: self.$isEventViewActive,
                                                destination: { EventView(event: event, isEventViewActive: self.$isEventViewActive) })
