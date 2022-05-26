@@ -19,6 +19,7 @@
         <attribute name="unixTimestamp" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="CD_LRDataStore" representedClassName="CD_LRDataStore" syncable="YES" codeGenerationType="class">
+        <attribute name="error" optional="YES" attributeType="Transformable" customClassName="[Double]"/>
         <attribute name="labels" attributeType="Transformable" customClassName="[Double]"/>
         <attribute name="samples" attributeType="String"/>
         <attribute name="size" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -31,10 +32,10 @@
         <attribute name="sex" attributeType="String"/>
     </entity>
     <elements>
-        <element name="CD_HrvItem" positionX="-54" positionY="27" width="128" height="164"/>
-        <element name="CD_LRDataStore" positionX="-54" positionY="72" width="128" height="74"/>
-        <element name="CD_LRWeights" positionX="-45" positionY="81" width="128" height="44"/>
         <element name="CD_EventItem" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="CD_HrvItem" positionX="-54" positionY="27" width="128" height="164"/>
+        <element name="CD_LRDataStore" positionX="-54" positionY="72" width="128" height="89"/>
+        <element name="CD_LRWeights" positionX="-45" positionY="81" width="128" height="44"/>
         <element name="CD_PatientSettings" positionX="-63" positionY="18" width="128" height="59"/>
     </elements>
 </model>

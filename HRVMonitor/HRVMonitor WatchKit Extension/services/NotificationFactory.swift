@@ -12,13 +12,11 @@ import DeveloperToolsSupport
 public class NotificationFactory {
     private let center: UNUserNotificationCenter
     public var authorized: Bool
-    private var notificationDelay: Double
     
     public init() {
         // getting the current instance of the UNUserNotificationCenter object
         self.center = UNUserNotificationCenter.current()
         self.authorized = false
-        self.notificationDelay = Settings.NotificationDelaySec
         self.getAuthorization()
     }
     
@@ -39,7 +37,7 @@ public class NotificationFactory {
         content.title = "HRVAlert"
         content.categoryIdentifier = "HRVNotification"
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: self.notificationDelay, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1.0, repeats: false)
         let request = UNNotificationRequest(identifier: "HRVAlert", content: content, trigger: trigger)
         
         return request

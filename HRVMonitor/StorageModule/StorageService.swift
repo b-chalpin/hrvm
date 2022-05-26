@@ -14,7 +14,7 @@ public class StorageService : ObservableObject {
     
     private let context = PersistenceController.shared.container.viewContext
     
-    // MARK: HRV APIs
+    // MARK: - HRV APIs
     public func createHrvItem(hrvItem: HrvItem) {      
         let newHrvReading = CD_HrvItem(context: context)
         
@@ -35,7 +35,7 @@ public class StorageService : ObservableObject {
         self.saveContext()
     }
     
-    // MARK: Patient Settings APIs
+    // MARK: - Patient Settings APIs
     // function for settings view to use on initialization
     public func getPatientSettings() -> PatientSettings {
         let userSetting = self.fetchSingleStoredPatientSettings()
@@ -73,7 +73,7 @@ public class StorageService : ObservableObject {
         }
     }
     
-    // MARK: Event APIs
+    // MARK: - Event APIs
     public func createEventItem(event: EventItem) {
         let newEvent = CD_EventItem(context: context)
         
@@ -128,7 +128,7 @@ public class StorageService : ObservableObject {
         }
     }
     
-    // MARK: LR APIs
+    // MARK: - LR APIs
     public func loadLRDataStore() -> LRDataStore {
         let cd_lrDataStore = self.fetchSingleLRDataStore()
         
@@ -140,6 +140,7 @@ public class StorageService : ObservableObject {
             
             lrDataStore.samples = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.samples!) as [[HrvItem]]
             lrDataStore.labels = cd_lrDataStore!.labels!
+            lrDataStore.error = cd_lrDataStore!.error // error can be nil
             
             return lrDataStore
         }
@@ -155,6 +156,7 @@ public class StorageService : ObservableObject {
         
         currentLrDataStore!.samples = JsonSerializerUtils.serialize(data: datastore.samples)
         currentLrDataStore!.labels = datastore.labels
+        currentLrDataStore!.error = datastore.error
 
         self.saveContext()
     }

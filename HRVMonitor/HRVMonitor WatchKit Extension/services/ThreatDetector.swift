@@ -2,7 +2,7 @@
 //  ThreatDetector.swift
 //  HRVMonitor WatchKit Extension
 //
-//  Created by bchalpin on 3/15/22.
+//  Created by bchalpin/ Nick Adams on 3/15/22.
 //
 
 import Foundation
@@ -41,10 +41,7 @@ class ThreatDetector : ObservableObject {
         
         // append our new data store sample and label
         self.dataStore.add(samples: newSamples, labels: newLabels, feedback: feedback)
-        
-        // persist updates data store to storage
-        storageService.saveLRDataStore(datastore: self.dataStore)
-        
+       
         print("FEEDBACK: \(feedback) - Threat acked")
         self.threatAcknowledged = true
         
@@ -59,7 +56,15 @@ class ThreatDetector : ObservableObject {
             
             // persist new trained weights to storage
             self.storageService.saveLRWeights(lrWeights: self.lrModel.weights)
+            
+            let error = self.lrModel.error(X: self.dataStore.samples!, y: self.dataStore.labels!)
+            self.dataStore.addError(error: error)
+            
+            print("ERROR: \(error)")
         }
+        
+        // persist new error update to storage
+        storageService.saveLRDataStore(datastore: self.dataStore)
     }
     
     private func generateLabelForFeedback(feedback: Bool, samples: [[HrvItem]]) -> [Double] {
@@ -89,22 +94,18 @@ class ThreatDetector : ObservableObject {
     
     // static prediction method; compare latest HRV to a threshold value
     private func predict_static(predictionSet: [HrvItem]) -> Bool {
-        print("STATIC!!")
+        print("STATIC MODE - Prediction")
+        
         return predictionSet.last!.value < Settings.StaticDangerThreshold
     }
     
     // use the logistic regressor to predict
     private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
         let doublePredictionSet = [HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: predictionSet)] // lr needs a [[Double]]
-        
         let prediction = self.lrModel.predict(X: doublePredictionSet)
-
-        print("DYNAMIC!! - prediction: \(prediction[0])")
+        
+        print("DYNAMIC MODE - Prediction: \(prediction[0])")
         
         return prediction[0] > Settings.LrPredictionThreshold
-    }
-    
-    public func error() {
-        // stubbed out for now
     }
 }
