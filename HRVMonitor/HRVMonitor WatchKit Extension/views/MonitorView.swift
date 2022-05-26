@@ -16,7 +16,7 @@ struct MonitorView: View {
     
     @State private var isLoading = false // used for scroll wheel animation
     
-//    private var monitorEngine: MonitorEngine = MonitorEngine()
+    @State var isEventViewActive: Bool = false // used for the navigation link to settings
     
     var body: some View {
         NavigationView {
@@ -35,7 +35,7 @@ struct MonitorView: View {
                 VStack {
                     HStack {
                         // settings icon which links -> SettingsView
-                        NavigationLink(destination: SettingsView()) {
+                        NavigationLink(isActive: self.$isEventViewActive, destination: { SettingsView(isSettingsViewActive: self.$isEventViewActive) }) {
                             Image("settingsIcon")
                                 .resizable()
                                 .opacity(0.9)

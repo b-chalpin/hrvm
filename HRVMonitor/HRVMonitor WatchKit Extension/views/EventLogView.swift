@@ -13,6 +13,8 @@ struct EventLogView: View {
     @State private var events: [EventItem] = []
     @State private var hasMoreEventPages: Bool = true // if false, we will not display "Load More" button
     
+    @State var isEventViewActive: Bool = false
+    
     var body: some View {
         NavigationView {
             ZStack{
@@ -32,9 +34,11 @@ struct EventLogView: View {
                                alignment: .topLeading)
                     if (self.events.count > 0) {
                         Form {
-                            ForEach(self.events) { event in
+                            ForEach(self.events, id: \.self) { event in
+                                // each event will be a navigation link to a detailed view
                                 NavigationLink(StringFormatUtils.formatDateToString(input: event.timestamp),
-                                               destination: EventView(event: event))
+                                               isActive: self.$isEventViewActive,
+                                               destination: { EventView(event: event, isEventViewActive: self.$isEventViewActive) })
                             }
                             .font(.caption2)
                             
