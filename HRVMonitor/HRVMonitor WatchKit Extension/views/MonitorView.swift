@@ -141,10 +141,10 @@ struct MonitorView: View {
         if self.hrPoller.isActive() {
             // check for the unexpected case where
             if let hrv = self.hrPoller.latestHrv?.value {
-                if hrv <= Settings.DangerHRVThreshold {
+                if hrv <= Settings.MoodDangerHRVThreshold {
                     return Color.red
                 }
-                else if hrv <= Settings.WarningHRVThreshold {
+                else if hrv <= Settings.MoodWarningHRVThreshold {
                     return Color.yellow
                 }
                 // above warning threshold
@@ -165,10 +165,10 @@ struct MonitorView: View {
         if self.hrPoller.isActive() {
             // check for the unexpected case where
             if let hrv = self.hrPoller.latestHrv?.value {
-                if hrv <= Settings.DangerHRVThreshold {
+                if hrv <= Settings.MoodDangerHRVThreshold {
                     return "redHeart"
                 }
-                else if hrv <= Settings.WarningHRVThreshold {
+                else if hrv <= Settings.MoodWarningHRVThreshold {
                     return "yellowHeart"
                 }
                 // above warning threshold

@@ -13,18 +13,18 @@ enum Settings {
         }
     }
     
-    public static var WarningHRVThreshold: Double {
+    public static var MoodWarningHRVThreshold: Double {
         do {
-            return try Configuration.value(key: "WARNING_HRV_THRESHOLD")
+            return try Configuration.value(key: "MOOD_WARNING_HRV_THRESHOLD")
         }
         catch {
             return 30.0
         }
     }
     
-    public static var DangerHRVThreshold: Double {
+    public static var MoodDangerHRVThreshold: Double {
         do {
-            return try Configuration.value(key: "DANGER_HRV_THRESHOLD")
+            return try Configuration.value(key: "MOOD_DANGER_HRV_THRESHOLD")
         }
         catch {
             return 20.0
@@ -127,6 +127,15 @@ enum Settings {
         }
         catch {
             return 5
+        }
+    }
+    
+    public static var StaticDangerThreshold: Double {
+        do {
+            return try Configuration.value(key: "STATIC_DANGER_THRESHOLD")
+        }
+        catch {
+            return 30.0
         }
     }
 }

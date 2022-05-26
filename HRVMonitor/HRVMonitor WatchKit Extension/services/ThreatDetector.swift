@@ -90,7 +90,7 @@ class ThreatDetector : ObservableObject {
     // static prediction method; compare latest HRV to a threshold value
     private func predict_static(predictionSet: [HrvItem]) -> Bool {
         print("STATIC!!")
-        return predictionSet.last!.value < Settings.DangerHRVThreshold
+        return predictionSet.last!.value < Settings.StaticDangerThreshold
     }
     
     // use the logistic regressor to predict
