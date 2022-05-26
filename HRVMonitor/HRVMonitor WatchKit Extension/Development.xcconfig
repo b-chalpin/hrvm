@@ -50,7 +50,7 @@ DEMO_MODE = true
 
 // threshold for Threat Detector to switch from predictor mode: static -> dynamic
 // represents the minimum number of records in data store marked as "stressful" (label = 1)
-MIN_STRESS_EVENT_COUNT = 2
+MIN_STRESS_EVENT_COUNT = 10
 
 // MARK: - lr hyperparameters
 
