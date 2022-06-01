@@ -141,6 +141,8 @@ public class StorageService : ObservableObject {
             lrDataStore.samples = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.samples!) as [[HrvItem]]
             lrDataStore.labels = cd_lrDataStore!.labels!
             lrDataStore.error = cd_lrDataStore!.error // error can be nil
+            lrDataStore.size = Int(cd_lrDataStore!.size)
+            lrDataStore.stressCount = Int(cd_lrDataStore!.stressCount)
             
             return lrDataStore
         }
@@ -157,6 +159,8 @@ public class StorageService : ObservableObject {
         currentLrDataStore!.samples = JsonSerializerUtils.serialize(data: datastore.samples)
         currentLrDataStore!.labels = datastore.labels
         currentLrDataStore!.error = datastore.error
+        currentLrDataStore!.size = Int16(datastore.size)
+        currentLrDataStore!.stressCount = Int16(datastore.stressCount)
 
         self.saveContext()
     }
