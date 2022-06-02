@@ -77,7 +77,6 @@ struct SettingsView : View {
         let newPatientSettings = PatientSettings(age: self.selectedAge, sex: PATIENT_SEX_LIST[self.selectedSex])
         self.storageService.updateUserSettings(patientSettings: newPatientSettings)
     }
-    
 }
 
 struct SettingsView_Previews: PreviewProvider {

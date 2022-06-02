@@ -205,7 +205,7 @@ public class StorageService : ObservableObject {
         let request = NSFetchRequest<CD_LRWeights>(entityName: "CD_LRWeights")
 
         do {
-            return try context.fetch(request).first
+            return try self.context.fetch(request).first
         }
         catch {
             fatalError("Fatal error occurred fetching global LR Weights")
@@ -213,14 +213,16 @@ public class StorageService : ObservableObject {
     }
     
     private func saveContext() {
-      if context.hasChanges {
-        do {
-          try context.save()
-        } catch {
-            if let nserror = error as NSError? {
-                fatalError("Unable to save context - \(nserror.userInfo) - \(nserror)")
+        DispatchQueue.main.async {
+            if self.context.hasChanges {
+              do {
+                  try self.context.save()
+              } catch {
+                  if let nserror = error as NSError? {
+                      fatalError("Unable to save context - \(nserror.userInfo) - \(nserror)")
+                  }
+              }
             }
         }
-      }
     }
 }

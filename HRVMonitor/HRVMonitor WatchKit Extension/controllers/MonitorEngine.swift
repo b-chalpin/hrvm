@@ -69,12 +69,16 @@ class MonitorEngine : ObservableObject {
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
-                if (self.hrPoller.hrvStore.count == Settings.HRVStoreSize) { // do not predict until hrv store is at capacity
+                if (self.isPredicting()) { // do not predict until hrv store is at capacity
                     let predictedThreat = self.threatDetector.checkHrvForThreat(hrvStore: self.hrPoller.hrvStore) // predict threat level with new hrv store
                     self.notifyUserIfThreatDetected(threatDetected: predictedThreat)
                 }
             }
         })
+    }
+    
+    public func isPredicting() -> Bool {
+        return self.hrPoller.hrvStore.count == Settings.HRVStoreSize && self.hrPoller.isActive()
     }
     
     private func stopMonitorTimer() {
@@ -112,13 +116,20 @@ class MonitorEngine : ObservableObject {
     }
     
     public func acknowledgeThreat(feedback: Bool, manuallyAcked: Bool) {
-        if (!manuallyAcked) { // if threat ack is NOT purposefully triggered, start alert cooldown
-            // start notification/alert cooldown
-            self.startCooldownTimer()
-        }
+        var currentHrvStore: [HrvItem]
+        var currentHrv: HrvItem
         
-        let currentHrvStore = self.hrvStoreSnapshotForEvent
-        let currentHrv = self.hrvSnapshotForEvent! // assume app is running at this point
+        if (manuallyAcked) {
+            currentHrvStore = self.hrPoller.hrvStore
+            currentHrv = self.hrPoller.latestHrv!
+        }
+        else { // NOT manually acked -- acked by either alert or notification
+            // if threat ack is NOT purposefully triggered, start alert cooldown
+            self.startCooldownTimer()
+            
+            currentHrvStore = self.hrvStoreSnapshotForEvent
+            currentHrv = self.hrvSnapshotForEvent! // assume app is running at this point
+        }
         
         let newEvent = EventItem(id: UUID(),
                                  timestamp: currentHrv.timestamp,
@@ -129,6 +140,7 @@ class MonitorEngine : ObservableObject {
         // async call to save new event (storage module)
         print("New HRV Event: \(newEvent)")
         
+        // to increase performance, make this asynchronous
         self.storageService.createEventItem(event: newEvent)
 
         self.threatDetector.acknowledgeThreat(feedback: feedback, hrvStore: currentHrvStore)
