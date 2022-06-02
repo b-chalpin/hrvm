@@ -13,7 +13,7 @@ struct EventLogView: View {
     @State private var events: [EventItem] = []
     @State private var hasMoreEventPages: Bool = true // if false, we will not display "Load More" button
     
-    @State var isEventViewActive: Bool = false
+    @State var isEventViewActiveList: [Bool] = []
     
     var body: some View {
         NavigationView {
@@ -35,11 +35,12 @@ struct EventLogView: View {
                     if (self.events.count > 0) {
                         Form {
                             ForEach(self.events, id: \.self) { event in
-                                // NOTE: using the binding of isEventViewActive for all of these navigation links leads to SwiftUI warnings;
-                                // need to find a way to either assign a binding for each EventView, or otherwise
+                                // we will get the isActive binding for each specific event
+                                let isSingleEventViewActive: Binding<Bool> = self.$isEventViewActiveList[self.events.firstIndex(of: event)!]
+
                                 NavigationLink(StringFormatUtils.formatDateToString(input: event.timestamp),
-                                               isActive: self.$isEventViewActive,
-                                               destination: { EventView(event: event, isEventViewActive: self.$isEventViewActive) })
+                                               isActive: isSingleEventViewActive,
+                                               destination: { EventView(event: event, isEventViewActive: isSingleEventViewActive) })
                             }
                             .font(.caption2)
                             
@@ -77,12 +78,14 @@ struct EventLogView: View {
             self.hasMoreEventPages = false
         }
         else {
+            self.isEventViewActiveList.append(contentsOf: Array(repeating: false, count: Settings.StressEventPageSize))
             self.events.append(contentsOf: newEvents)
         }
     }
     
     private func clearEvents() {
         self.events = []
+        self.isEventViewActiveList = []
         self.hasMoreEventPages = true
     }
 }

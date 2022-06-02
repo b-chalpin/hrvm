@@ -16,8 +16,7 @@ class StringFormatUtils {
         let dateFormatter = DateFormatter()
 
         // Set Date/Time Style
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "M/d/y, HH:mm:ss"
 
         // Convert Date to String
         return dateFormatter.string(from: input)
