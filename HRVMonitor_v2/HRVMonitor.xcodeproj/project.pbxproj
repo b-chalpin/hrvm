@@ -205,6 +205,7 @@
 		66DD92FB284975F800D88A92 /* PersistenceContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceContainer.swift; sourceTree = "<group>"; };
 		66DD93002849786B00D88A92 /* WatchExportSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchExportSession.swift; sourceTree = "<group>"; };
 		66DD9302284978D600D88A92 /* ExportedEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedEntities.swift; sourceTree = "<group>"; };
+		66DD930628497C2700D88A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +291,7 @@
 		66DD921D28496C6900D88A92 /* HRVMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				66DD930628497C2700D88A92 /* Info.plist */,
 				66DD921E28496C6900D88A92 /* HRVMonitorApp.swift */,
 				66DD922028496C6900D88A92 /* ContentView.swift */,
 				66DD922228496C6A00D88A92 /* Assets.xcassets */,
@@ -1121,6 +1123,7 @@
 				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HRVMonitor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1152,6 +1155,7 @@
 				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HRVMonitor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

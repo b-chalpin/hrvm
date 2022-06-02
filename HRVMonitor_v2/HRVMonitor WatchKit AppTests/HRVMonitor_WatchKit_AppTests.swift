@@ -2,7 +2,7 @@
 //  HRVMonitor_WatchKit_AppTests.swift
 //  HRVMonitor WatchKit AppTests
 //
-//  Created by Timoster the Gr9 on 6/2/22.
+//  Created by Nick Adams on 6/2/22.
 //
 
 import XCTest

@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  HRVMonitor
 //
-//  Created by Timoster the Gr9 on 6/2/22.
+//  Created by Nick Adams on 6/2/22.
 //
 
 import SwiftUI
