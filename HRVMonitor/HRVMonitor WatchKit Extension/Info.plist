@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 	<key>STATIC_DANGER_THRESHOLD</key>
 	<string>$(STATIC_DANGER_THRESHOLD)</string>
 	<key>MIN_STRESS_EVENT_COUNT</key>
@@ -55,8 +59,6 @@
 	</dict>
 	<key>MOOD_SAFE_HRV_THRESHOLD</key>
 	<string>$(MOOD_SAFE_HRV_THRESHOLD)</string>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 	<key>MOOD_WARNING_HRV_THRESHOLD</key>
 	<string>$(MOOD_WARNING_HRV_THRESHOLD)</string>
 	<key>UIBackgroundModes</key>

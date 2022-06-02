@@ -10,6 +10,9 @@ import SwiftUI
 struct ExportView: View {
     @EnvironmentObject var storageService: StorageService
     
+    // used for exporting files to iOS app
+    private let watchExportSession = WatchExportSession().session
+    
     var body: some View {
         VStack {
             Text("EXPORT")
@@ -37,8 +40,20 @@ struct ExportView: View {
     }
     
     private func exportData() {
-        self.storageService.exportAllDataToJson()
-        print("Exported")
+        let json = self.storageService.exportAllDataToJson()
+        sendDataToPhoneViaWC(dataToExport: json)
+    }
+    
+    private func sendDataToPhoneViaWC(dataToExport: String) {
+        guard let baseDirUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        
+        let fileUrl = baseDirUrl.appendingPathComponent("export.json")
+        let string = dataToExport.data(using: .utf8)
+        FileManager.default.createFile(atPath: fileUrl.path, contents: string)
+
+        self.watchExportSession.transferFile(fileUrl, metadata: nil)
     }
 }
 
