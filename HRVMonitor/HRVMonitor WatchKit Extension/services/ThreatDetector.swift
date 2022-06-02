@@ -24,7 +24,7 @@ class ThreatDetector : ObservableObject {
     @Published var threatAcknowledged: Bool = false
     
     init() {
-        self.dataStore = self.storageService.loadLRDataStore()
+        self.dataStore = self.storageService.getLRDataStore()
     }
     
     public func checkHrvForThreat(hrvStore: [HrvItem]) -> Bool {

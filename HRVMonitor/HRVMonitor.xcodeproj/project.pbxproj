@@ -47,6 +47,7 @@
 		997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */; };
 		997EB00027DC141E004B257C /* MonitorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFFF27DC141E004B257C /* MonitorItem.swift */; };
 		998611CA28482B3A00D6981D /* ManualFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998611C928482B3A00D6981D /* ManualFeedbackView.swift */; };
+		999D59AF28494453006B820B /* ExportedEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 999D59AE28494453006B820B /* ExportedEntities.swift */; };
 		99A298A328492D4300AE045C /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A298A228492D4300AE045C /* ExportView.swift */; };
 		99AC909D2835BAD3009BEC95 /* AppModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99AC909A2835BAD3009BEC95 /* AppModel.xcdatamodeld */; };
 		99AC909F2835D21C009BEC95 /* HrvMapUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC909E2835D21C009BEC95 /* HrvMapUtils.swift */; };
@@ -163,6 +164,7 @@
 		997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatePoller.swift; sourceTree = "<group>"; };
 		997EAFFF27DC141E004B257C /* MonitorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorItem.swift; sourceTree = "<group>"; };
 		998611C928482B3A00D6981D /* ManualFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFeedbackView.swift; sourceTree = "<group>"; };
+		999D59AE28494453006B820B /* ExportedEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedEntities.swift; sourceTree = "<group>"; };
 		99A298A228492D4300AE045C /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		99AC909B2835BAD3009BEC95 /* AppModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppModel.xcdatamodel; sourceTree = "<group>"; };
 		99AC909C2835BAD3009BEC95 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				9906ED83282D88E700EA9F83 /* EventItem.swift */,
 				99E682B728383FB20035758A /* PatientSettings.swift */,
 				66DD4FF92835B8BB0000E20A /* LRDataStore.swift */,
+				999D59AE28494453006B820B /* ExportedEntities.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				99AC909D2835BAD3009BEC95 /* AppModel.xcdatamodeld in Sources */,
 				995221E52822108B00AFAF67 /* EventLogView.swift in Sources */,
 				99365292283BFF2F00192FD3 /* JsonSerializerUtils.swift in Sources */,
+				999D59AF28494453006B820B /* ExportedEntities.swift in Sources */,
 				99E682BB2838435F0035758A /* PatientSettingsConstants.swift in Sources */,
 				997EB00027DC141E004B257C /* MonitorItem.swift in Sources */,
 				663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */,

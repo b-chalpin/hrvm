@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ExportView: View {
+    @EnvironmentObject var storageService: StorageService
+    
     var body: some View {
         VStack {
             Text("EXPORT")
@@ -16,7 +18,7 @@ struct ExportView: View {
                 .frame(maxWidth: .infinity,
                        alignment: .topLeading)
             
-            Text("Your data will be exported to your iPhone Files app. Find the file named: export.csv")
+            Text("Your data will be exported to your iPhone Files app. Find the file named: export.json")
                 .frame(maxWidth: .infinity,
                        maxHeight: .infinity,
                        alignment: .center)
@@ -35,7 +37,8 @@ struct ExportView: View {
     }
     
     private func exportData() {
-        print("Implement me")
+        self.storageService.exportAllDataToJson()
+        print("Exported")
     }
 }
 

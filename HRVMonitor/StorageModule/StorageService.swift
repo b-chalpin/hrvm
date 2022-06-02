@@ -129,7 +129,7 @@ public class StorageService : ObservableObject {
     }
     
     // MARK: - LR APIs
-    public func loadLRDataStore() -> LRDataStore {
+    public func getLRDataStore() -> LRDataStore {
         let cd_lrDataStore = self.fetchSingleLRDataStore()
         
         if (cd_lrDataStore == nil) { // if nil, we do not have a LR Data Store yet
@@ -177,7 +177,7 @@ public class StorageService : ObservableObject {
         }
     }
     
-    public func loadLRWeights() -> [Double] {
+    public func getLRWeights() -> [Double] {
         let cd_lrWeights = self.fetchSingleLrWeights()
         
         if (cd_lrWeights == nil) { // if nil, crash and burn
@@ -210,6 +210,17 @@ public class StorageService : ObservableObject {
         catch {
             fatalError("Fatal error occurred fetching global LR Weights")
         }
+    }
+    
+    // MARK: - export APIs
+    public func exportAllDataToJson() -> String {
+        var dataToExport = ExportedEntites()
+        
+        // for now we will only export data store, and stress events
+        dataToExport.lrDataStore = self.getLRDataStore()
+        dataToExport.eventItems = self.getAllStressEvents()
+        
+        return JsonSerializerUtils.serialize(data: dataToExport)
     }
     
     private func saveContext() {
