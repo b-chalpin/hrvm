@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct NotificationView: View {
+    // we must use singleton here, since the notification controller has no access to EnvironmentObjects
     private var monitorEngine = MonitorEngine.shared
     
+    // #task - this view is the same as ManualFeedbackView, need to move to common lib
     var body: some View {
         VStack{
             ScrollView {

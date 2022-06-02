@@ -24,6 +24,9 @@ struct ContentView: View {
                 
                 // page 3 - event log
                 EventLogView()
+                
+                // page 4 - export
+                // #task - implement export view
             }
         }
         .alert(isPresented: self.$alertNotificationHandler.alert) {

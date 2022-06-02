@@ -17,6 +17,7 @@ struct MonitorView: View {
     @State private var isLoading = false // used for scroll wheel animation
     
     @State var isEventViewActive: Bool = false // used for the navigation link to settings
+    @State var isManualFeedbackViewActive: Bool = false // used for the navigation link to settings
     
     var body: some View {
         NavigationView {
@@ -48,13 +49,17 @@ struct MonitorView: View {
                             
                         Spacer()
                             
-                        // heart icon
-                        Image(calculateMoodHeartImageName())
-                            .resizable()
-                            .frame(width: 25,
-                                    height: 22,
-                                    alignment: .topTrailing)
-                            .padding(.trailing, 10.0)
+                        // settings icon which links -> SettingsView
+                        NavigationLink(isActive: self.$isManualFeedbackViewActive, destination: { ManualFeedbackView(isManualFeedbackViewActive: self.$isManualFeedbackViewActive) }) {
+                            // heart icon
+                            Image(calculateMoodHeartImageName())
+                                .resizable()
+                                .frame(width: 25,
+                                        height: 22,
+                                        alignment: .topTrailing)
+                        }
+                        .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0.0)))
+                        .frame(maxWidth: 50, alignment: .topTrailing)
                     }
                     Spacer()
                 }

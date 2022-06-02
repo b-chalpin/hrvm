@@ -141,6 +141,8 @@ public class StorageService : ObservableObject {
             lrDataStore.samples = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.samples!) as [[HrvItem]]
             lrDataStore.labels = cd_lrDataStore!.labels!
             lrDataStore.error = cd_lrDataStore!.error // error can be nil
+            lrDataStore.size = Int(cd_lrDataStore!.size)
+            lrDataStore.stressCount = Int(cd_lrDataStore!.stressCount)
             
             return lrDataStore
         }
@@ -157,6 +159,8 @@ public class StorageService : ObservableObject {
         currentLrDataStore!.samples = JsonSerializerUtils.serialize(data: datastore.samples)
         currentLrDataStore!.labels = datastore.labels
         currentLrDataStore!.error = datastore.error
+        currentLrDataStore!.size = Int16(datastore.size)
+        currentLrDataStore!.stressCount = Int16(datastore.stressCount)
 
         self.saveContext()
     }
@@ -201,7 +205,7 @@ public class StorageService : ObservableObject {
         let request = NSFetchRequest<CD_LRWeights>(entityName: "CD_LRWeights")
 
         do {
-            return try context.fetch(request).first
+            return try self.context.fetch(request).first
         }
         catch {
             fatalError("Fatal error occurred fetching global LR Weights")
@@ -209,14 +213,16 @@ public class StorageService : ObservableObject {
     }
     
     private func saveContext() {
-      if context.hasChanges {
-        do {
-          try context.save()
-        } catch {
-            if let nserror = error as NSError? {
-                fatalError("Unable to save context - \(nserror.userInfo) - \(nserror)")
+        DispatchQueue.main.async {
+            if self.context.hasChanges {
+              do {
+                  try self.context.save()
+              } catch {
+                  if let nserror = error as NSError? {
+                      fatalError("Unable to save context - \(nserror.userInfo) - \(nserror)")
+                  }
+              }
             }
         }
-      }
     }
 }
