@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ExportView: View {
+    @EnvironmentObject var storageService: StorageService
+    
+    // used for exporting files to iOS app
+    private let watchExportSession = WatchExportSession().session
+    
     var body: some View {
         VStack {
             Text("EXPORT")
@@ -16,7 +21,7 @@ struct ExportView: View {
                 .frame(maxWidth: .infinity,
                        alignment: .topLeading)
             
-            Text("Your data will be exported to your iPhone Files app. Find the file named: export.csv")
+            Text("Your data will be exported to your iPhone Files app. Find the file named: export.json")
                 .frame(maxWidth: .infinity,
                        maxHeight: .infinity,
                        alignment: .center)
@@ -35,7 +40,20 @@ struct ExportView: View {
     }
     
     private func exportData() {
-        print("Implement me")
+        let json = self.storageService.exportAllDataToJson()
+        sendDataToPhoneViaWC(dataToExport: json)
+    }
+    
+    private func sendDataToPhoneViaWC(dataToExport: String) {
+        guard let baseDirUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return
+        }
+        
+        let fileUrl = baseDirUrl.appendingPathComponent("export.json")
+        let string = dataToExport.data(using: .utf8)
+        FileManager.default.createFile(atPath: fileUrl.path, contents: string)
+
+        self.watchExportSession.transferFile(fileUrl, metadata: nil)
     }
 }
 

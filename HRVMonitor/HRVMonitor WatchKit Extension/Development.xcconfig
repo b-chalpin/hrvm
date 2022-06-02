@@ -63,4 +63,4 @@ LR_LAMBDA = 1.0
 // MARK: - static predictor config
 
 // if hrv falls below this value in static predictor: stress detected
-STATIC_DANGER_THRESHOLD = 50.0
+STATIC_DANGER_THRESHOLD = 20.0
