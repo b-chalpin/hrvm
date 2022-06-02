@@ -22,14 +22,11 @@ struct EventLogView: View {
                     Text("EVENTS")
                         .fontWeight(.semibold)
                         .font(.system(size: 20))
-                        .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity,
                                alignment: .topLeading)
-                        .buttonStyle(BorderedButtonStyle(tint: Color.gray.opacity(0)))
                     Text("High Stress Detected")
                         .fontWeight(.semibold)
                         .font(.system(size: 12))
-                        .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity,
                                alignment: .topLeading)
                     if (self.events.count > 0) {

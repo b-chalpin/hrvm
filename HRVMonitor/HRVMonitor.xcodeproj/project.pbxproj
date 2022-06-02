@@ -47,6 +47,7 @@
 		997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */; };
 		997EB00027DC141E004B257C /* MonitorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 997EAFFF27DC141E004B257C /* MonitorItem.swift */; };
 		998611CA28482B3A00D6981D /* ManualFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998611C928482B3A00D6981D /* ManualFeedbackView.swift */; };
+		99A298A328492D4300AE045C /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A298A228492D4300AE045C /* ExportView.swift */; };
 		99AC909D2835BAD3009BEC95 /* AppModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99AC909A2835BAD3009BEC95 /* AppModel.xcdatamodeld */; };
 		99AC909F2835D21C009BEC95 /* HrvMapUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AC909E2835D21C009BEC95 /* HrvMapUtils.swift */; };
 		99CCDBD127FBAA6500600DD1 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 99CCDBD027FBAA6500600DD1 /* Charts */; };
@@ -162,6 +163,7 @@
 		997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatePoller.swift; sourceTree = "<group>"; };
 		997EAFFF27DC141E004B257C /* MonitorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorItem.swift; sourceTree = "<group>"; };
 		998611C928482B3A00D6981D /* ManualFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFeedbackView.swift; sourceTree = "<group>"; };
+		99A298A228492D4300AE045C /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		99AC909B2835BAD3009BEC95 /* AppModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppModel.xcdatamodel; sourceTree = "<group>"; };
 		99AC909C2835BAD3009BEC95 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		99AC909E2835D21C009BEC95 /* HrvMapUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HrvMapUtils.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				9971399A2825E3550029D831 /* MonitorView.swift */,
 				9971399C2825E5030029D831 /* StatisticView.swift */,
 				998611C928482B3A00D6981D /* ManualFeedbackView.swift */,
+				99A298A228492D4300AE045C /* ExportView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				99502B42282F25ED00A7A2EE /* PersistenceContainer.swift in Sources */,
 				997EAFFA27D6FCCA004B257C /* HeartRatePoller.swift in Sources */,
 				99AC909F2835D21C009BEC95 /* HrvMapUtils.swift in Sources */,
+				99A298A328492D4300AE045C /* ExportView.swift in Sources */,
 				9917685727E3EB7A00AC764C /* HrItem.swift in Sources */,
 				997139A82825F7C30029D831 /* ButtonConstants.swift in Sources */,
 				9971399D2825E5030029D831 /* StatisticView.swift in Sources */,
