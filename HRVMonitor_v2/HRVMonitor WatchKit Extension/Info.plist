@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BASE_URL</key>
+	<string>$(BASE_URL)</string>
+	<key>DEMO_MODE</key>
+	<string>$(DEMO_MODE)</string>
+	<key>HRV_MONITOR_INTERVAL_SEC</key>
+	<string>$(HRV_MONITOR_INTERVAL_SEC)</string>
+	<key>HRV_STORE_SIZE</key>
+	<string>$(HRV_STORE_SIZE)</string>
+	<key>HR_STORE_SIZE</key>
+	<string>$(HR_STORE_SIZE)</string>
+	<key>HR_WINDOW_SIZE</key>
+	<string>$(HR_WINDOW_SIZE)</string>
+	<key>LR_EPOCHS</key>
+	<string>$(LR_EPOCHS)</string>
+	<key>LR_LAMBDA</key>
+	<string>$(LR_LAMBDA)</string>
+	<key>LR_LEARNING_RATE</key>
+	<string>$(LR_LEARNING_RATE)</string>
+	<key>LR_PREDICTION_THRESHOLD</key>
+	<string>$(LR_PREDICTION_THRESHOLD)</string>
+	<key>MIN_STRESS_EVENT_COUNT</key>
+	<string>$(MIN_STRESS_EVENT_COUNT)</string>
+	<key>MOOD_DANGER_HRV_THRESHOLD</key>
+	<string>$(MOOD_DANGER_HRV_THRESHOLD)</string>
+	<key>MOOD_SAFE_HRV_THRESHOLD</key>
+	<string>$(MOOD_SAFE_HRV_THRESHOLD)</string>
+	<key>MOOD_WARNING_HRV_THRESHOLD</key>
+	<string>$(MOOD_WARNING_HRV_THRESHOLD)</string>
+	<key>NOTIFICATION_DELAY_SEC</key>
+	<string>$(NOTIFICATION_DELAY_SEC)</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>WKAppBundleIdentifier</key>
+			<string>EWU.HRVMonitor.watchkitapp</string>
+		</dict>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.watchkit</string>
+	</dict>
+	<key>PREDICTION_THRESHOLD</key>
+	<string>$(PREDICTION_THRESHOLD)</string>
+	<key>STATIC_DANGER_THRESHOLD</key>
+	<string>$(STATIC_DANGER_THRESHOLD)</string>
+	<key>STRESS_EVENT_PAGE_SIZE</key>
+	<string>$(STRESS_EVENT_PAGE_SIZE)</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>WKBackgroundModes</key>
+	<array>
+		<string>workout-processing</string>
+	</array>
+</dict>
+</plist>
