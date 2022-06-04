@@ -15,6 +15,9 @@ struct HRVMonitorApp: App {
     @StateObject var monitorEngine = MonitorEngine.shared
     @StateObject var storageService = StorageService.shared
     
+    // for watch connectivity on export
+    @StateObject var watchExportSession = WatchExportSession()
+    
     // storage module
     private let container = PersistenceController.shared.container
     
@@ -27,6 +30,7 @@ struct HRVMonitorApp: App {
                     .environmentObject(self.alertNotificationHandler)
                     .environmentObject(self.monitorEngine)
                     .environmentObject(self.storageService)
+                    .environmentObject(self.watchExportSession)
                     .environment(\.managedObjectContext, container.viewContext)
             }
         }

@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "watch_48.png",
       "idiom" : "watch",
       "role" : "notificationCenter",
       "scale" : "2x",
@@ -8,6 +9,7 @@
       "subtype" : "38mm"
     },
     {
+      "filename" : "watch_55.png",
       "idiom" : "watch",
       "role" : "notificationCenter",
       "scale" : "2x",
@@ -27,6 +29,7 @@
       "size" : "29x29"
     },
     {
+      "filename" : "watch_66.png",
       "idiom" : "watch",
       "role" : "notificationCenter",
       "scale" : "2x",
@@ -34,6 +37,7 @@
       "subtype" : "45mm"
     },
     {
+      "filename" : "watch_80.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -41,6 +45,7 @@
       "subtype" : "38mm"
     },
     {
+      "filename" : "watch_88.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -48,6 +53,7 @@
       "subtype" : "40mm"
     },
     {
+      "filename" : "watch_92.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -55,6 +61,7 @@
       "subtype" : "41mm"
     },
     {
+      "filename" : "watch_100.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -62,6 +69,7 @@
       "subtype" : "44mm"
     },
     {
+      "filename" : "watch_fill_102.png",
       "idiom" : "watch",
       "role" : "appLauncher",
       "scale" : "2x",
@@ -69,6 +77,7 @@
       "subtype" : "45mm"
     },
     {
+      "filename" : "watch_172.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -76,6 +85,7 @@
       "subtype" : "38mm"
     },
     {
+      "filename" : "watch_196.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -83,6 +93,7 @@
       "subtype" : "42mm"
     },
     {
+      "filename" : "watch_216.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
@@ -90,6 +101,7 @@
       "subtype" : "44mm"
     },
     {
+      "filename" : "watch_234.png",
       "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",

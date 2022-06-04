@@ -11,7 +11,9 @@ struct ExportView: View {
     @EnvironmentObject var storageService: StorageService
     
     // used for exporting files to iOS app
-    private let watchExportSession = WatchExportSession().session
+    @EnvironmentObject var watchExportSession: WatchExportSession
+    
+    @State var isExported = false
     
     var body: some View {
         VStack {
@@ -30,18 +32,35 @@ struct ExportView: View {
             
             Spacer()
             
-            Button(action: {
-                self.exportData()
-            }) {
-                    Text("Export")
-                    .foregroundColor(BUTTON_COLOR)
+            if (!self.isExported) {
+                Button(action: {
+                    self.exportData()
+                }) {
+                        Text("Export")
+                        .foregroundColor(BUTTON_COLOR)
+                }
             }
+            else {
+                Button(action: {
+                    // dummy button
+                }) {
+                        Text("Exported")
+                        .foregroundColor(Color.gray)
+                }
+                .disabled(true)
+            }
+        }
+        .onDisappear {
+            self.isExported = false
         }
     }
     
     private func exportData() {
         let json = self.storageService.exportAllDataToJson()
         sendDataToPhoneViaWC(dataToExport: json)
+        
+        // disable the button
+        self.isExported = true
     }
     
     private func sendDataToPhoneViaWC(dataToExport: String) {
@@ -50,10 +69,10 @@ struct ExportView: View {
         }
         
         let fileUrl = baseDirUrl.appendingPathComponent("export.json")
-        let string = dataToExport.data(using: .utf8)
-        FileManager.default.createFile(atPath: fileUrl.path, contents: string)
+        let fileContent = dataToExport.data(using: .utf8)
+        FileManager.default.createFile(atPath: fileUrl.path, contents: fileContent)
 
-        self.watchExportSession.transferFile(fileUrl, metadata: nil)
+        self.watchExportSession.session?.transferFile(fileUrl, metadata: nil)
     }
 }
 

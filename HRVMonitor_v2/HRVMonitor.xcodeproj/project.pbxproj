@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66A0FDE1284AC13E005FB8DF /* PhoneExportSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A0FDE0284AC13E005FB8DF /* PhoneExportSession.swift */; };
 		66DD921F28496C6900D88A92 /* HRVMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD921E28496C6900D88A92 /* HRVMonitorApp.swift */; };
 		66DD922128496C6900D88A92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD922028496C6900D88A92 /* ContentView.swift */; };
 		66DD922328496C6A00D88A92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66DD922228496C6A00D88A92 /* Assets.xcassets */; };
@@ -14,7 +15,7 @@
 		66DD923028496C6A00D88A92 /* HRVMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD922F28496C6A00D88A92 /* HRVMonitorTests.swift */; };
 		66DD923A28496C6A00D88A92 /* HRVMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD923928496C6A00D88A92 /* HRVMonitorUITests.swift */; };
 		66DD923C28496C6A00D88A92 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD923B28496C6A00D88A92 /* HRVMonitorUITestsLaunchTests.swift */; };
-		66DD924028496C6A00D88A92 /* HRVMonitor WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 66DD923F28496C6A00D88A92 /* HRVMonitor WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		66DD924028496C6A00D88A92 /* HRV Monitor.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 66DD923F28496C6A00D88A92 /* HRV Monitor.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		66DD924528496C6B00D88A92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66DD924428496C6B00D88A92 /* Assets.xcassets */; };
 		66DD924B28496C6C00D88A92 /* HRVMonitor WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 66DD924A28496C6C00D88A92 /* HRVMonitor WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		66DD925028496C6C00D88A92 /* HRVMonitorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD924F28496C6C00D88A92 /* HRVMonitorApp.swift */; };
@@ -131,7 +132,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				66DD924028496C6A00D88A92 /* HRVMonitor WatchKit App.app in Embed Watch Content */,
+				66DD924028496C6A00D88A92 /* HRV Monitor.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,6 +140,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		66A0FDE0284AC13E005FB8DF /* PhoneExportSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneExportSession.swift; sourceTree = "<group>"; };
 		66DD921B28496C6900D88A92 /* HRVMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HRVMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66DD921E28496C6900D88A92 /* HRVMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorApp.swift; sourceTree = "<group>"; };
 		66DD922028496C6900D88A92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -149,7 +151,7 @@
 		66DD923528496C6A00D88A92 /* HRVMonitorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HRVMonitorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66DD923928496C6A00D88A92 /* HRVMonitorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITests.swift; sourceTree = "<group>"; };
 		66DD923B28496C6A00D88A92 /* HRVMonitorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		66DD923F28496C6A00D88A92 /* HRVMonitor WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRVMonitor WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		66DD923F28496C6A00D88A92 /* HRV Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRV Monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66DD924428496C6B00D88A92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66DD924A28496C6C00D88A92 /* HRVMonitor WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HRVMonitor WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66DD924F28496C6C00D88A92 /* HRVMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorApp.swift; sourceTree = "<group>"; };
@@ -258,6 +260,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		66A0FDDF284AC12D005FB8DF /* export */ = {
+			isa = PBXGroup;
+			children = (
+				66A0FDE0284AC13E005FB8DF /* PhoneExportSession.swift */,
+			);
+			path = export;
+			sourceTree = "<group>";
+		};
 		66DD921228496C6900D88A92 = {
 			isa = PBXGroup;
 			children = (
@@ -280,7 +290,7 @@
 				66DD921B28496C6900D88A92 /* HRVMonitor.app */,
 				66DD922B28496C6A00D88A92 /* HRVMonitorTests.xctest */,
 				66DD923528496C6A00D88A92 /* HRVMonitorUITests.xctest */,
-				66DD923F28496C6A00D88A92 /* HRVMonitor WatchKit App.app */,
+				66DD923F28496C6A00D88A92 /* HRV Monitor.app */,
 				66DD924A28496C6C00D88A92 /* HRVMonitor WatchKit Extension.appex */,
 				66DD926428496C6D00D88A92 /* HRVMonitor WatchKit AppTests.xctest */,
 				66DD926E28496C6D00D88A92 /* HRVMonitor WatchKit AppUITests.xctest */,
@@ -291,6 +301,7 @@
 		66DD921D28496C6900D88A92 /* HRVMonitor */ = {
 			isa = PBXGroup;
 			children = (
+				66A0FDDF284AC12D005FB8DF /* export */,
 				66DD930628497C2700D88A92 /* Info.plist */,
 				66DD921E28496C6900D88A92 /* HRVMonitorApp.swift */,
 				66DD922028496C6900D88A92 /* ContentView.swift */,
@@ -565,7 +576,7 @@
 			);
 			name = "HRVMonitor WatchKit App";
 			productName = "HRVMonitor WatchKit App";
-			productReference = 66DD923F28496C6A00D88A92 /* HRVMonitor WatchKit App.app */;
+			productReference = 66DD923F28496C6A00D88A92 /* HRV Monitor.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		66DD924928496C6C00D88A92 /* HRVMonitor WatchKit Extension */ = {
@@ -753,6 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66DD922128496C6900D88A92 /* ContentView.swift in Sources */,
+				66A0FDE1284AC13E005FB8DF /* PhoneExportSession.swift in Sources */,
 				66DD921F28496C6900D88A92 /* HRVMonitorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -995,7 +1007,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HRVMonitor WatchKit Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "HRV Monitor";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = HRVMonitor_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "HRVMonitor App would like to use your heart rate records to monitor your HRV";
@@ -1032,7 +1044,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HRVMonitor WatchKit Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "HRV Monitor";
 				INFOPLIST_KEY_CLKComplicationPrincipalClass = HRVMonitor_WatchKit_Extension.ComplicationController;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "HRVMonitor App would like to use your heart rate records to monitor your HRV";
@@ -1070,12 +1082,11 @@
 				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = HRVMonitor_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit App";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = EWU.HRVMonitor;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = EWU.HRVMonitor.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "HRV Monitor";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1096,12 +1107,11 @@
 				DEVELOPMENT_TEAM = 7ZTT37X4QG;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = HRVMonitor_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = "HRVMonitor WatchKit App";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = EWU.HRVMonitor;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = EWU.HRVMonitor.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "HRV Monitor";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1124,6 +1134,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HRVMonitor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "HRV Export";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1156,6 +1168,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HRVMonitor/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "HRV Export";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

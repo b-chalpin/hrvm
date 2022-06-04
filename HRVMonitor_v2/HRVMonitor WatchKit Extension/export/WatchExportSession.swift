@@ -7,14 +7,13 @@
 
 import WatchConnectivity
 
-class WatchExportSession : NSObject, WCSessionDelegate {
-    public var session: WCSession
+class WatchExportSession : NSObject, WCSessionDelegate, ObservableObject {
+    public var session: WCSession? = WCSession.isSupported() ? WCSession.default : nil
 
-    init(session: WCSession = .default){
-        self.session = session
+    override init() {
         super.init()
-        self.session.delegate = self
-        session.activate()
+        self.session?.delegate = self
+        session?.activate()
     }
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}

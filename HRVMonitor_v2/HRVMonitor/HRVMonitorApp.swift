@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct HRVMonitorApp: App {
+    @StateObject var phoneExportSession = PhoneExportSession()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(self.phoneExportSession)
         }
     }
 }

@@ -92,7 +92,7 @@ public class StorageService : ObservableObject {
         
         do {
             let storedEvents = try context.fetch(request)
-            return mapCDEventItemsToEventItems(stressEvents: storedEvents)
+            return mapCDEventItemsToEventItems(stressEvents: storedEvents, includeHrItems: false)
         }
         catch {
             fatalError("Fatal error occurred fetching all events")
@@ -107,18 +107,18 @@ public class StorageService : ObservableObject {
         
         do {
             let storedEvents = try context.fetch(request)
-            return mapCDEventItemsToEventItems(stressEvents: storedEvents)
+            return mapCDEventItemsToEventItems(stressEvents: storedEvents, includeHrItems: false)
         }
         catch {
             fatalError("Fatal error occurred fetching page of stress events for (offset: \(offset)")
         }
     }
     
-    private func mapCDEventItemsToEventItems(stressEvents: [CD_EventItem]) -> [EventItem] {
+    private func mapCDEventItemsToEventItems(stressEvents: [CD_EventItem], includeHrItems: Bool) -> [EventItem] {
         return stressEvents.map { (event) -> EventItem in
             // deserialize stored JSON to objects
             let hrvItem = JsonSerializerUtils.deserialize(jsonString: event.hrv!) as HrvItem
-            let hrvStore = JsonSerializerUtils.deserialize(jsonString: event.hrvStore!) as [HrvItem]
+            let hrvStore = includeHrItems ? JsonSerializerUtils.deserialize(jsonString: event.hrvStore!) as [HrvItem] : []
             
             return EventItem(id: event.id!,
                              timestamp: event.timestamp!,
