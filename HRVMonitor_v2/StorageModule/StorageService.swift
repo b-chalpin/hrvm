@@ -118,7 +118,7 @@ public class StorageService : ObservableObject {
         return stressEvents.map { (event) -> EventItem in
             // deserialize stored JSON to objects
             let hrvItem = JsonSerializerUtils.deserialize(jsonString: event.hrv!) as HrvItem
-            let hrvStore = includeHrItems ? JsonSerializerUtils.deserialize(jsonString: event.hrvStore!) as [HrvItem] : []
+            let hrvStore = JsonSerializerUtils.deserialize(jsonString: event.hrvStore!) as [HrvItem]
             
             return EventItem(id: event.id!,
                              timestamp: event.timestamp!,
