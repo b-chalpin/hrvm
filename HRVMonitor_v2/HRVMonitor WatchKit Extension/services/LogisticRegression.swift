@@ -35,7 +35,8 @@ public class LogisticRegression {
         let y = labels
 
         self.rowCount = X.count
-        var epochs = self.epochs // set epochs to number of samples
+        var epochs = self.rowCount/4 // set epochs to number of samples
+        if(self.rowCount < 4){epochs = 1}
         X = self.addBiasColumn(X: X)
         X = X.shuffled()
         let X_train = self.normalize_0_1(X: X.flatMap { $0 })
