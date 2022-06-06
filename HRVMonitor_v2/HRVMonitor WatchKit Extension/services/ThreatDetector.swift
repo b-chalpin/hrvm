@@ -25,10 +25,18 @@ class ThreatDetector : ObservableObject {
     
     init() {
         self.dataStore = self.storageService.getLRDataStore()
+        self.checkThreatMode()
     }
     
     public func checkHrvForThreat(hrvStore: [HrvItem]) -> Bool {
         return self.predict(predictionSet: hrvStore)
+    }
+    
+    // for checking if we should switch threat mode in acknowledgeThreat but also when we initialize ThreatDetector
+    private func checkThreatMode() {
+        if (self.dataStore.stressCount > Settings.MinStressEventCount) {
+            self.predictorMode = ._dynamic
+        }
     }
     
     // this method changed to detect if the threat was actaully acknowledged or not. Also calls fit and passes current HrvStore.
@@ -43,9 +51,7 @@ class ThreatDetector : ObservableObject {
         self.threatAcknowledged = true
         
         // check if we can start using dynamic prediction; if our stress count is larger than our minimum, we will switch to dynamic mode
-        if (self.dataStore.stressCount > Settings.MinStressEventCount) {
-            self.predictorMode = ._dynamic
-        }
+        self.checkThreatMode()
         
         if (self.predictorMode == ._dynamic) {
             // train model with new user feedback
