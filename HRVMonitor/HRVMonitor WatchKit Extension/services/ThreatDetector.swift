@@ -26,6 +26,8 @@ class ThreatDetector : ObservableObject {
     init() {
         self.dataStore = self.storageService.getLRDataStore()
         self.checkThreatMode()
+        print(dataStore.size, "\n")
+        print(dataStore.stressCount, "\n")
         print(dataStore.error!, "\n")
         print(dataStore.labels!, "\n")
         print(dataStore.samples!)
@@ -68,7 +70,7 @@ class ThreatDetector : ObservableObject {
             
             print("ERROR: \(error)")
         }
-        
+        print(dataStore.error!, "\n")
         // persist new error update to storage
         storageService.saveLRDataStore(datastore: self.dataStore)
     }
