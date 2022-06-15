@@ -26,11 +26,6 @@ class ThreatDetector : ObservableObject {
     init() {
         self.dataStore = self.storageService.getLRDataStore()
         self.checkThreatMode()
-        print(dataStore.size, "\n")
-        print(dataStore.stressCount, "\n")
-        print(dataStore.error!, "\n")
-        print(dataStore.labels!, "\n")
-        print(dataStore.samples!)
     }
     
     public func checkHrvForThreat(hrvStore: [HrvItem]) -> Bool {

@@ -94,8 +94,6 @@ class MonitorEngine : ObservableObject {
     
     private func notifyUserIfThreatDetected(threatDetected: Bool) {
         if (threatDetected && !self.isAlertCoolingDown) {
-            print("NOTIFYING USER")
-            
             self.saveHrvSnapshotsForEvent() // save current HRV and HRV Store
 
             WKInterfaceDevice.current().play(.failure)
@@ -109,9 +107,6 @@ class MonitorEngine : ObservableObject {
                 self.alertNotificationHandler.alert = false
                 self.alertNotificationHandler.notify()
             }
-        }
-        else {
-            print("THREAT NOT DETECTED")
         }
     }
     
@@ -138,9 +133,6 @@ class MonitorEngine : ObservableObject {
                                  stressed: feedback)
         
         // async call to save new event (storage module)
-        print("New HRV Event: \(newEvent)")
-        
-        // to increase performance, make this asynchronous
         self.storageService.createEventItem(event: newEvent)
 
         self.threatDetector.acknowledgeThreat(feedback: feedback, hrvStore: currentHrvStore)
