@@ -1,5 +1,5 @@
 # Heart Rate Variability Monitor
-> EWU undergrad senior project (CSCD 488 & 490)
+> EWU Team E1 undergrad senior project (CSCD 488 & 490)
 >
 > Project started: 1/17/2022
 >
