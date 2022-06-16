@@ -15,6 +15,7 @@
 * [Usage](#usage)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
+* [Beta Testing](#beta-testing)
 * [Acknowledgements](#acknowledgements)
 * [Contributors](#contributors)
 
@@ -94,8 +95,9 @@ Future work:
   - Data storage
   - Model training
 
-TODO:
-- Deploy application to Test Flight
+
+## Beta Testing
+To apply to join the Test Flight application beta testing, please contact us at `hrv.monitor.e1@gmail.com`.
 
 
 ## Acknowledgements
