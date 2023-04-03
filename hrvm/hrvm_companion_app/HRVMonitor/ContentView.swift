@@ -11,45 +11,69 @@ struct ContentView: View {
     @EnvironmentObject var session: PhoneExportSession
     
     @State private var isReachable = "NO"
+    @State private var selectedTab = 0
     
     var body: some View {
         NavigationView {
             VStack {
-                Text("HRV Export")
-                    .font(.title)
                 HStack {
-                    Button(action: {
-                        let updateIsReachable: String
-                        if self.session.session == nil {
-                            updateIsReachable = "NO"
-                        }
-                        else {
-                            updateIsReachable = self.session.session!.isReachable ? "YES": "NO"
-                        }
-                        
-                        self.isReachable = updateIsReachable
-                    }) {
-                        Text("Refresh")
-                    }
-                    .padding(.leading, 16.0)
-                    
                     Spacer()
-                    
-                    Text("Export Session Active:")
-                        .font(.headline)
-                        .padding()
-                    Text(self.isReachable)
-                        .foregroundColor(.gray)
-                        .font(.subheadline)
-                        .padding()
                 }
-                
-                Text("In order for your iPhone to receive export from the Watch, this app must be open.")
-                    .multilineTextAlignment(.center)
-                
                 Spacer()
             }
             .background(Color.init(.systemGray5))
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItemGroup(placement: .bottomBar) {
+                    Button(action: {
+                        selectedTab = 0
+                    }) {
+                        VStack {
+                            Image(systemName: "square.and.arrow.up")
+                            Text("Export")
+                        }
+                    }
+                    .foregroundColor(selectedTab == 0 ? Color.accentColor : Color.gray)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        selectedTab = 1
+                    }) {
+                        VStack {
+                            Image(systemName: "heart.fill")
+                            Text("Stress Data")
+                        }
+                    }
+                    .foregroundColor(selectedTab == 1 ? Color.accentColor : Color.gray)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        selectedTab = 2
+                    }) {
+                        VStack {
+                            Image(systemName: "gear")
+                            Text("Settings")
+                        }
+                    }
+                    .foregroundColor(selectedTab == 2 ? Color.accentColor : Color.gray)
+                    
+                }
+            }
+            .overlay(
+                Group {
+                    if selectedTab == 0 {
+                        ExportView()
+                    } else if selectedTab == 1 {
+                        StressDataView()
+                    } else {
+                        SettingsView()
+                    }
+                }
+            )
         }
     }
 }
