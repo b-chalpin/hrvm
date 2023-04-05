@@ -15,20 +15,6 @@
 
 import Foundation
 
-// Helper function to calculate the mean RR interval
-func calculateMeanRR(hrSamples: [HrItem]) -> Double {
-    let totalRRIntervals = hrSamples.count - 1
-    if totalRRIntervals <= 0 { return 0.0 }
-
-    var sumRRIntervals = 0.0
-    for i in 1..<hrSamples.count {
-        let rrInterval = hrSamples[i].unixTimestamp - hrSamples[i - 1].unixTimestamp
-        sumRRIntervals += rrInterval * 1000 // Convert to milliseconds
-    }
-
-    return sumRRIntervals / Double(totalRRIntervals)
-}
-
 // class reposible for storing a single HRV sample's data
 public class HrvItem : NSObject, Codable {
     public var value: Double

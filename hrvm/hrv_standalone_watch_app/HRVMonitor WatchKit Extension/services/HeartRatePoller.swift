@@ -1,9 +1,28 @@
-//
-//  HeartRatePoller.swift
-//  HRVMonitor WatchKit Extension
-//
-//  Created by bchalpin on 3/7/22.
-//
+// This is a Swift file for a Heart Rate Variability (HRV) Poller class in an Apple Watch application.
+// It imports the HealthKit framework to access the user's heart rate data. 
+
+// The `HeartRatePoller` class is an ObservableObject and contains several properties, including:
+// - `latestHrv`: the current HRV value.
+// - `hrvStore`: an array to store HRV values that are being calculated.
+// - `status`: an enum that represents the current status of the poller (stopped, starting, or active).
+// - `authStatus`: the authorization status for accessing the user's heart rate data.
+// - `minHrvValue`, `maxHrvValue`, and `avgHrvValue`: statistics for the HRV values that are being stored.
+
+// The `HeartRatePoller` class also has several functions, including:
+// - `poll()`: a function that queries the user's heart rate data and calculates the current HRV.
+// - `demo()`: a function to simulate HRV values for demo purposes.
+// - `initPolling()`: a function to initialize the poller.
+// - `stopPolling()`: a function to stop the poller.
+// - `resetStoppedFlag()`: a function to reset the stopped flag.
+// - `calculateHrv(hrSamples: [HrItem])`: a function that calculates the HRV value based on an array of heart rate data samples.
+// - `calculateStdDev(samples: [Double])`: a function that calculates the standard deviation of an array of samples.
+// - `calculateMean(samples: [Double])`: a function that calculates the mean of an array of samples.
+// - `calculateDeltaHrvValue(newHrvValue: Double)`: a function that calculates the change in HRV value from the previous value.
+// - `calculateDeltaUnixTimestamp(newHrvTimestamp: Date)`: a function that calculates the change in Unix timestamp from the previous HRV value.
+// - `addHrvToHrvStore(newHrv: HrvItem)`: a function that adds the latest HRV value to the `hrvStore`.
+// - `updateHrvStats()`: a function that updates the statistics for the HRV values stored in `hrvStore`.
+// - `resetHrvStats()`: a function that resets the HRV statistics to their default values.
+// - `updateStatus(status: HeartRatePollerStatus)`: a function that updates the status of the poller.
 
 import Foundation
 import HealthKit
@@ -231,6 +250,20 @@ public class HeartRatePoller : ObservableObject {
         else {
             return 0.0
         }
+    }
+
+    // Helper function to calculate the mean RR interval
+    func calculateMeanRR(hrSamples: [HrItem]) -> Double {
+        let totalRRIntervals = hrSamples.count - 1
+        if totalRRIntervals <= 0 { return 0.0 }
+
+        var sumRRIntervals = 0.0
+        for i in 1..<hrSamples.count {
+            let rrInterval = hrSamples[i].unixTimestamp - hrSamples[i - 1].unixTimestamp
+            sumRRIntervals += rrInterval * 1000 // Convert to milliseconds
+        }
+
+        return sumRRIntervals / Double(totalRRIntervals)
     }
     
     private func addHrvToHrvStore(newHrv: HrvItem) {

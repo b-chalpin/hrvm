@@ -1,7 +1,21 @@
 //
 //  ThreatDetector.swift
 //  HRVMonitor WatchKit Extension
-//
+/*
+ThreatDetector is a singleton class that encapsulates the functionality to detect and acknowledge
+potential HRV stress events. It uses the logistic regression algorithm (LogisticRegression class) 
+to make dynamic predictions if there are enough stress events detected in the LRDataStore object.
+
+It contains methods to check for threats (checkHrvForThreat), 
+acknowledge threats (acknowledgeThreat), 
+generate labels for LR, and switch between prediction modes (checkThreatMode).
+
+The ThreatDetectorStatus enum is used to keep track of the prediction mode (static or dynamic) and the ThreatDetector 
+class is an ObservableObject to make sure that changes to threatAcknowledged are properly published.
+
+The storageService object is used to interact with a persistent storage mechanism 
+(LRDataStore object) that stores the HRV data and predicted labels.
+*/
 //  Created by bchalpin/ Nick Adams on 3/15/22.
 //
 
