@@ -2,6 +2,12 @@
 //  LRDataStore.swift
 //  HRVMonitor WatchKit Extension
 //
+//  This Swift code file defines the LRDataStore class for the HRVMonitor WatchKit Extension.
+//  The LRDataStore class is responsible for storing and managing logistic regression (LR) data,
+//  such as HRV samples, labels, error values for each fit, the total number of samples, and
+//  the count of samples with a stress label of 1. This class is used to store and maintain
+//  the necessary data for logistic regression-based threat prediction within the app.
+//
 //  Created by Nick Adams on 5/18/22.
 //
 

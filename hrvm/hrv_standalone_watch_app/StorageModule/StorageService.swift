@@ -2,8 +2,39 @@
 //  StorageService.swift
 //  HRVMonitor WatchKit Extension
 //
+//  This Swift code file defines a StorageService class for an HRVMonitor WatchKit Extension,
+//  which manages storage and retrieval of heart rate variability (HRV) data, patient settings,
+//  events, and logistic regression (LR) model data using Core Data. The class is designed as
+//  a singleton, providing a single point of access to the storage functionality.
+//
+//  Key functionalities include:
+//
+//  - HRV APIs:
+//    * createHrvItem(hrvItem: HrvItem): Creates and saves a new HRV item in Core Data.
+//
+//  - Patient Settings APIs:
+//    * getPatientSettings() -> PatientSettings: Retrieves the patient's settings.
+//    * updateUserSettings(patientSettings: PatientSettings): Updates the patient's settings.
+//
+//  - Event APIs:
+//    * createEventItem(event: EventItem): Creates and saves a new event item in Core Data.
+//    * getAllStressEvents() -> [EventItem]: Retrieves all stored stress events.
+//    * getPageOfEventsForOffset(offset: Int) -> [EventItem]: Retrieves a page of stress events for the given offset.
+//
+//  - LR APIs:
+//    * getLRDataStore() -> LRDataStore: Retrieves the logistic regression data store.
+//    * saveLRDataStore(datastore: LRDataStore): Saves the logistic regression data store.
+//    * getLRWeights() -> [Double]: Retrieves the logistic regression weights.
+//    * saveLRWeights(lrWeights: [Double]): Saves the logistic regression weights.
+//
+//  - Export APIs:
+//    * exportAllDataToJson() -> String: Exports all data to a JSON string.
+//
+//  The class also contains utility methods for fetching, mapping, and saving entities in Core Data.
+//
 //  Created by bchalpin on 5/13/22.
 //
+
 
 import Foundation
 import CoreData
@@ -31,6 +62,9 @@ public class StorageService : ObservableObject {
         // delta values
         newHrvReading.deltaHrv = hrvItem.deltaHrvValue
         newHrvReading.deltaUnixTimestamp = hrvItem.deltaUnixTimestamp
+
+        // mean RR
+        newHrvReading.meanRR = hrvItem.meanRR  // Add this line
         
         self.saveContext()
     }

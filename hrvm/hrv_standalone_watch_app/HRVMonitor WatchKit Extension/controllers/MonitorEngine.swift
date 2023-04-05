@@ -2,6 +2,19 @@
 //  MonitorEngine.swift
 //  HRVMonitor WatchKit Extension
 //
+//  This Swift code file defines the MonitorEngine class for the HRVMonitor WatchKit Extension.
+//  The MonitorEngine is responsible for managing the heart rate monitoring process by coordinating
+//  the HeartRatePoller, ThreatDetector, AlertNotificationHandler, StorageService, and WorkoutManager.
+//  The class is designed as a singleton to ensure a single point of access to its functionality.
+//
+//  Key functionalities include:
+//  - Starting and stopping the monitoring process.
+//  - Coordinating with the HeartRatePoller for heart rate polling and handling demo mode.
+//  - Predicting threats using the ThreatDetector.
+//  - Managing alert notifications and cooldowns.
+//  - Acknowledging threats and saving them as events in StorageService.
+//  - Updating the app's state for proper handling of notifications and alerts.
+//
 //  Created by bchalpin on 3/14/22.
 //
 
