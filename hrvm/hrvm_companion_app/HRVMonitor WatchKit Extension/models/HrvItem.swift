@@ -19,8 +19,9 @@ public class HrvItem : NSObject, Codable {
     public var avgHeartRateMS: Double // average heart rate for the samples used to calculate this HRV in Milliseconds
     public var numHeartRateSamples: Int // number of heart rate samples used to calculate this HRV
     public var hrSamples: [HrItem] // store the HR samples used to calculate HRV
+    public var meanRR: Double // mean of RR intervals (inter-beat intervals) in milliseconds
     
-    init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HrItem]) {
+    init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HrItem], meanRR: Double) {
         self.value = value
         self.timestamp = timestamp
         self.unixTimestamp = timestamp.timeIntervalSince1970
@@ -30,10 +31,11 @@ public class HrvItem : NSObject, Codable {
         self.avgHeartRateMS = avgHeartRateMS
         self.numHeartRateSamples = numHeartRateSamples
         self.hrSamples = hrSamples
+        self.meanRR = meanRR
     }
     
     public override var description: String {
-//        "Value: \(self.value) - Timestamp: \(self.timestamp) - deltaHrvValue: \(self.deltaHrvValue) - deltaUnixTimestamp: \(self.deltaUnixTimestamp) - avgHeartRateBPM: \(self.avgHeartRateBPM) - avgHeartRateMS: \(self.avgHeartRateMS) - numHRSamples: \(self.numHeartRateSamples)"
+//        "Value: \(self.value) - Timestamp: \(self.timestamp) - deltaHrvValue: \(self.deltaHrvValue) - deltaUnixTimestamp: \(self.deltaUnixTimestamp) - avgHeartRateBPM: \(self.avgHeartRateBPM) - avgHeartRateMS: \(self.avgHeartRateMS) - numHRSamples: \(self.numHeartRateSamples) - meanRR: \(self.meanRR)"
         "\(self.value)"
     }
 }

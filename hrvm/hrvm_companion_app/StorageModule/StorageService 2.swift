@@ -31,6 +31,9 @@ public class StorageService : ObservableObject {
         // delta values
         newHrvReading.deltaHrv = hrvItem.deltaHrvValue
         newHrvReading.deltaUnixTimestamp = hrvItem.deltaUnixTimestamp
+
+        // other data
+        newHrvReading.meanRR = hrvItem.meanRR
         
         self.saveContext()
     }

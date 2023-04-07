@@ -83,53 +83,53 @@ public class HeartRatePoller : ObservableObject {
                     return
                 }
                 
-                if let error = error {
-                    print("ERROR - Unexpected error occurred - \(error)")
-                }
-                
-                guard let results = results else {
-                    print("ERROR - query results are empty")
-                    return
-                }
-                
-                if results.count == 0 {
-                    print("No records returned for heart rate")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    // map health store query result to HRItem array
-                    let newHRSamples = results.map { (sample) -> HrItem in
-                        let quantity = (sample as! HKQuantitySample).quantity
-                        let heartRateUnit = HKUnit(from: "count/min")
-                        
-                        let heartRateBpm = quantity.doubleValue(for: heartRateUnit)
-                        let heartRateTimestamp = sample.endDate
-                        
-                        return HrItem(value: heartRateBpm, timestamp: heartRateTimestamp)
-                    }
+            if let error = error {
+                print("ERROR - Unexpected error occurred - \(error)")
+            }
+            
+            guard let results = results else {
+                print("ERROR - query results are empty")
+                return
+            }
+            
+            if results.count == 0 {
+                print("No records returned for heart rate")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                // map health store query result to HRItem array
+                let newHRSamples = results.map { (sample) -> HrItem in
+                    let quantity = (sample as! HKQuantitySample).quantity
+                    let heartRateUnit = HKUnit(from: "count/min")
                     
-                    let newHrv = self.calculateHrv(hrSamples: newHRSamples)
+                    let heartRateBpm = quantity.doubleValue(for: heartRateUnit)
+                    let heartRateTimestamp = sample.endDate
+                    
+                    return HrItem(value: heartRateBpm, timestamp: heartRateTimestamp)
+                }
+                
+                let newHrv = self.calculateHrv(hrSamples: newHRSamples)
 
-                    // update subscribed views with new hrv and active status
-                    self.latestHrv = newHrv
-                    self.updateStatus(status: .active)
+                // update subscribed views with new hrv and active status
+                self.latestHrv = newHrv
+                self.updateStatus(status: .active)
 
-                    print("LOG - HRV UPDATED: \(self.latestHrv!)")
-                    
-                    // add new Hrv to store
-                    self.addHrvToHrvStore(newHrv: newHrv)
-                    
-                    // store new HRV to CoreData
-                    self.storageService.createHrvItem(hrvItem: newHrv)
-                }
-            })
-            self.healthStore.execute(query)
-        }
-        else {
-            fatalError("ERROR - Unable to query Health Store. Health data is not available")
-        }
+                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.value), meanRR: \(self.latestHrv!.meanRR)")
+                
+                // add new Hrv to store
+                self.addHrvToHrvStore(newHrv: newHrv)
+                
+                // store new HRV to CoreData
+                self.storageService.createHrvItem(hrvItem: newHrv)
+            }
+        })
+        self.healthStore.execute(query)
     }
+    else {
+        fatalError("ERROR - Unable to query Health Store. Health data is not available")
+    }
+}
     
     // demo function to assign latestHrv to random value
     public func demo() {
@@ -145,7 +145,8 @@ public class HeartRatePoller : ObservableObject {
                              deltaUnixTimestamp: 1.0,
                              avgHeartRateMS: 900.0,
                              numHeartRateSamples: 0,
-                             hrSamples: [])
+                             hrSamples: [],
+                             meanRR: 0.0)
         
         self.latestHrv = newHrv
         
@@ -188,6 +189,7 @@ public class HeartRatePoller : ObservableObject {
         let deltaHrvValue = self.calculateDeltaHrvValue(newHrvValue: hrvInMS)
         let deltaUnixTimestamp = self.calculateDeltaUnixTimestamp(newHrvTimestamp: hrvTimestamp)
         let numHeartRateSamples = Settings.HRWindowSize
+        let meanRR = self.calculateMeanRR(hrSamples: hrSamples)
         
         // finally create a new HRV sample
         return HrvItem(value: hrvInMS,
@@ -196,7 +198,8 @@ public class HeartRatePoller : ObservableObject {
                        deltaUnixTimestamp: deltaUnixTimestamp,
                        avgHeartRateMS: avgHeartRateMS,
                        numHeartRateSamples: numHeartRateSamples,
-                       hrSamples: hrSamples)
+                       hrSamples: hrSamples,
+                       meanRR: meanRR)
     }
     
     private func calculateStdDev(samples: [Double]) -> Double {
@@ -213,6 +216,16 @@ public class HeartRatePoller : ObservableObject {
         
         let length = Double(samples.count)
         return samples.reduce(0, {$0 + $1}) / length
+    }
+
+    private func calculateMeanRR(hrSamples: [HrItem]) -> Double {
+        if hrSamples.count == 0 {
+            fatalError("ERROR - Cannot calculate the mean RR of 0 samples. Will result in a divide by 0")
+        }
+        
+        let length = Double(hrSamples.count)
+        let sumOfRR = hrSamples.map { $0.timestamp.timeIntervalSince1970 }.reduce(0, {$0 + $1})
+        return sumOfRR / length
     }
     
     private func calculateDeltaHrvValue(newHrvValue: Double) -> Double {

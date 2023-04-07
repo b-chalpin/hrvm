@@ -104,9 +104,7 @@ class ThreatDetector : ObservableObject {
         if (self.predictorMode == ._static) {
             return self.predict_static(predictionSet: predictionSet)
         }
-        else {
-            return self.predict_dynamic(predictionSet: predictionSet)
-        }
+        return false
     }
     
     // static prediction method; compare latest HRV to a threshold value
@@ -116,13 +114,13 @@ class ThreatDetector : ObservableObject {
         return predictionSet.last!.value < Settings.StaticDangerThreshold
     }
     
-    // use the logistic regressor to predict
-    private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
-        let doublePredictionSet = [HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: predictionSet)] // lr needs a [[Double]]
-        let prediction = self.lrModel.predict(X: doublePredictionSet)
-        
-        print("DYNAMIC MODE - Prediction: \(prediction[0])")
-        
-        return prediction[0] > Settings.LrPredictionThreshold
-    }
+//    // use the logistic regressor to predict
+//    private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
+////        let doublePredictionSet = [HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: predictionSet)] // lr needs a [[Double]]
+////        let prediction = self.lrModel.predict(X: doublePredictionSet)
+//
+////        print("DYNAMIC MODE - Prediction: \(prediction[0])")
+//
+////        return prediction[0] > Settings.LrPredictionThreshold
+//    }
 }

@@ -22,18 +22,17 @@ import Foundation
 public class HrvMapUtils {
     public static func mapHrvStoreToDoubleArray(hrvStore: [HrvItem]) -> [[String: Double]] {
         return hrvStore.map { hrv in
-                return [
-                    "RMSSD": hrv.value,
-                    "meanRR": hrv.meanRR
-                ]
-            }
+            return [
+                "RMSSD": hrv.value,
+                "meanRR": hrv.meanRR
+            ]
+        }
     }
     
-    // used ONLY for UI graphs
     public static func mapHrvStoreToDoubleArray_Normalized(hrvStore: [HrvItem]) -> [Double] {
         let hrvStoreDicts = mapHrvStoreToDoubleArray(hrvStore: hrvStore)
-        let hrvStoreDoubles = hrvStoreDicts.map { $0["value"]! }
-        
+        let hrvStoreDoubles = hrvStoreDicts.map { $0["RMSSD"]! }
+
         if (hrvStoreDoubles.count < 2) {
             print("mapHrvStoreToDoubleArray_Normalized - Less than 2 HRV Store values found when mapping [HrvItem] -> [Double]. Returning [0.0, 0.0]")
             return [0.0, 0.0]

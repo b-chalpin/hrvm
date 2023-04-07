@@ -46,7 +46,7 @@ public class StorageService : ObservableObject {
     private let context = PersistenceController.shared.container.viewContext
     
     // MARK: - HRV APIs
-    public func createHrvItem(hrvItem: HrvItem) {      
+    public func createHrvItem(hrvItem: HrvItem) {
         let newHrvReading = CD_HrvItem(context: context)
         
         // critical data
@@ -58,13 +58,11 @@ public class StorageService : ObservableObject {
         newHrvReading.avgHeartRateBPM = hrvItem.avgHeartRateBPM
         newHrvReading.avgHeartRateMS = hrvItem.avgHeartRateMS
         newHrvReading.hrSamples = JsonSerializerUtils.serialize(data: hrvItem.hrSamples)
+        newHrvReading.meanRR = hrvItem.meanRR
         
         // delta values
         newHrvReading.deltaHrv = hrvItem.deltaHrvValue
         newHrvReading.deltaUnixTimestamp = hrvItem.deltaUnixTimestamp
-
-        // mean RR
-        newHrvReading.meanRR = hrvItem.meanRR  // Add this line
         
         self.saveContext()
     }
@@ -248,7 +246,7 @@ public class StorageService : ObservableObject {
     
     // MARK: - export APIs
     public func exportAllDataToJson() -> String {
-        var dataToExport = ExportedEntites()
+        let dataToExport = ExportedEntites()
         
         // for now we will only export data store, and stress events
         dataToExport.lrDataStore = self.getLRDataStore()

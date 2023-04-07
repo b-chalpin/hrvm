@@ -119,7 +119,6 @@ This project was made possible by Dr. Alicia Hegie and Dr. Frank Jackson of St. 
 ### Contributors
 
 * Blake Chalpin ([b-chalpin](https://github.com/b-chalpin))
-
 * Nick Adams ([Nick-P-Adams](https://github.com/Nick-P-Adams))
 * Madison Reese ([MadisonReese](https://github.com/MadisonReese))
 * Jared Adams ([AndroidDucky](https://github.com/AndroidDucky))
