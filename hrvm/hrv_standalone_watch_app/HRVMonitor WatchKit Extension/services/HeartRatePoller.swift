@@ -258,7 +258,7 @@ public class HeartRatePoller : ObservableObject {
 
     private func calculateMeanRR(hrSamples: [HrItem]) -> Double {
         let rrIntervals = hrSamples.map { (sample) -> Double in
-            return 6000.0 / sample.value // convert BPM to RR interval in miliseconds (https://en.my-ekg.com/calculation-ekg/rr-interval-calculator.php#:~:text=Explanation%20of%20R%2DR%20Interval%20Calculation&text=In%20a%20regular%20rhythm%20electrocardiogram,6000%20by%20the%20heart%20rate.)
+            return 60.0 / sample.value * 1000.0 // convert BPM to RR interval in milliseconds
         }
         
         return self.calculateMean(samples: rrIntervals)

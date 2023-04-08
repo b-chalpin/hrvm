@@ -71,6 +71,13 @@
     },
     {
       "idiom" : "watch",
+      "role" : "appLauncher",
+      "scale" : "2x",
+      "size" : "54x54",
+      "subtype" : "49mm"
+    },
+    {
+      "idiom" : "watch",
       "role" : "quickLook",
       "scale" : "2x",
       "size" : "86x86",
@@ -98,6 +105,14 @@
       "subtype" : "45mm"
     },
     {
+      "idiom" : "watch",
+      "role" : "quickLook",
+      "scale" : "2x",
+      "size" : "129x129",
+      "subtype" : "49mm"
+    },
+    {
+      "filename" : "DALL·E 2023-04-07 14.44.48 - Heart Rate Variability Futuristic Clean.png",
       "idiom" : "watch-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
