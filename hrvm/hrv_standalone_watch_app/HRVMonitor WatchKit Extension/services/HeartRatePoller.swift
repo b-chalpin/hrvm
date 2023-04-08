@@ -19,6 +19,7 @@
 // - `calculateMean(samples: [Double])`: a function that calculates the mean of an array of samples.
 // - `calculateDeltaHrvValue(newHrvValue: Double)`: a function that calculates the change in HRV value from the previous value.
 // - `calculateMeanRR(hrSamples: [HrItem])`: a function that calculates the mean RR interval (inter-beat interval) from an array of heart rate samples.
+// - `calculateMedianRR(hrSamples: [HrItem])`: a function that calculates the median RR interval (inter-beat interval) from an array of heart rate samples.
 // - `calculateDeltaUnixTimestamp(newHrvTimestamp: Date)`: a function that calculates the change in Unix timestamp from the previous HRV value.
 // - `addHrvToHrvStore(newHrv: HrvItem)`: a function that adds the latest HRV value to the `hrvStore`.
 // - `updateHrvStats()`: a function that updates the statistics for the HRV values stored in `hrvStore`.
@@ -135,7 +136,7 @@ public class HeartRatePoller : ObservableObject {
                 self.latestHrv = newHrv
                 self.updateStatus(status: .active)
 
-                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.value), meanRR: \(self.latestHrv!.meanRR)")
+                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.value), meanRR: \(self.latestHrv!.meanRR) medianRR: \(self.latestHrv!.medianRR)")
                 
                 // add new Hrv to store
                 self.addHrvToHrvStore(newHrv: newHrv)
@@ -166,7 +167,8 @@ public class HeartRatePoller : ObservableObject {
                              avgHeartRateMS: 900.0,
                              numHeartRateSamples: 0,
                              hrSamples: [],
-                             meanRR: 0.0)
+                             meanRR: 0.0,
+                             medianRR: 0.0)
         
         self.latestHrv = newHrv
         
@@ -210,6 +212,7 @@ public class HeartRatePoller : ObservableObject {
         let deltaUnixTimestamp = self.calculateDeltaUnixTimestamp(newHrvTimestamp: hrvTimestamp)
         let numHeartRateSamples = Settings.HRWindowSize
         let meanRR = self.calculateMeanRR(hrSamples: hrSamples)
+        let medianRR = self.calculateMedianRR(hrSamples: hrSamples)
         
         // finally create a new HRV sample
         return HrvItem(value: hrvInMS,
@@ -219,7 +222,8 @@ public class HeartRatePoller : ObservableObject {
                        avgHeartRateMS: avgHeartRateMS,
                        numHeartRateSamples: numHeartRateSamples,
                        hrSamples: hrSamples,
-                       meanRR: meanRR)
+                       meanRR: meanRR,
+                       medianRR: medianRR)
     }
     
     private func calculateStdDev(samples: [Double]) -> Double {
@@ -262,6 +266,27 @@ public class HeartRatePoller : ObservableObject {
         }
         
         return self.calculateMean(samples: rrIntervals)
+    }
+
+    private func calculateMedianRR(hrSamples: [HrItem]) -> Double {
+        let rrIntervals = hrSamples.map { (sample) -> Double in
+            return 60.0 / sample.value * 1000.0 // convert BPM to RR interval in milliseconds
+        }
+        
+        let sortedRRIntervals = rrIntervals.sorted()
+        let length = sortedRRIntervals.count
+        
+        if length % 2 == 0 {
+            // even number of samples
+            let midIndex = length / 2
+            let median = (sortedRRIntervals[midIndex] + sortedRRIntervals[midIndex - 1]) / 2.0
+            return median
+        }
+        else {
+            // odd number of samples
+            let midIndex = length / 2
+            return sortedRRIntervals[midIndex]
+        }
     }
 
 

@@ -34,6 +34,7 @@ public class StorageService : ObservableObject {
 
         // other data
         newHrvReading.meanRR = hrvItem.meanRR
+        newHrvReading.medianRR = hrvItem.medianRR
         
         self.saveContext()
     }

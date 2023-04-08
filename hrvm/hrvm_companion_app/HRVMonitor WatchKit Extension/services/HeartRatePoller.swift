@@ -115,7 +115,7 @@ public class HeartRatePoller : ObservableObject {
                 self.latestHrv = newHrv
                 self.updateStatus(status: .active)
 
-                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.value), meanRR: \(self.latestHrv!.meanRR)")
+                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.value), meanRR: \(self.latestHrv!.meanRR), medianRR: \(self.latestHrv!.medianRR), numSamples: \(self.latestHrv!.numHeartRateSamples)")
                 
                 // add new Hrv to store
                 self.addHrvToHrvStore(newHrv: newHrv)
@@ -146,7 +146,8 @@ public class HeartRatePoller : ObservableObject {
                              avgHeartRateMS: 900.0,
                              numHeartRateSamples: 0,
                              hrSamples: [],
-                             meanRR: 0.0)
+                             meanRR: 0.0,
+                             medianRR: 0.0)
         
         self.latestHrv = newHrv
         
@@ -190,6 +191,7 @@ public class HeartRatePoller : ObservableObject {
         let deltaUnixTimestamp = self.calculateDeltaUnixTimestamp(newHrvTimestamp: hrvTimestamp)
         let numHeartRateSamples = Settings.HRWindowSize
         let meanRR = self.calculateMeanRR(hrSamples: hrSamples)
+        let medianRR = self.calculateMedianRR(hrSamples: hrSamples)
         
         // finally create a new HRV sample
         return HrvItem(value: hrvInMS,
@@ -199,7 +201,8 @@ public class HeartRatePoller : ObservableObject {
                        avgHeartRateMS: avgHeartRateMS,
                        numHeartRateSamples: numHeartRateSamples,
                        hrSamples: hrSamples,
-                       meanRR: meanRR)
+                       meanRR: meanRR,
+                       medianRR: medianRR)
     }
     
     private func calculateStdDev(samples: [Double]) -> Double {
@@ -226,6 +229,27 @@ public class HeartRatePoller : ObservableObject {
         let length = Double(hrSamples.count)
         let sumOfRR = hrSamples.map { $0.timestamp.timeIntervalSince1970 }.reduce(0, {$0 + $1})
         return sumOfRR / length
+    }
+
+    private func calculateMedianRR(hrSamples: [HrItem]) -> Double {
+        let rrIntervals = hrSamples.map { (sample) -> Double in
+            return 60.0 / sample.value * 1000.0 // convert BPM to RR interval in milliseconds
+        }
+        
+        let sortedRRIntervals = rrIntervals.sorted()
+        let length = sortedRRIntervals.count
+        
+        if length % 2 == 0 {
+            // even number of samples
+            let midIndex = length / 2
+            let median = (sortedRRIntervals[midIndex] + sortedRRIntervals[midIndex - 1]) / 2.0
+            return median
+        }
+        else {
+            // odd number of samples
+            let midIndex = length / 2
+            return sortedRRIntervals[midIndex]
+        }
     }
     
     private func calculateDeltaHrvValue(newHrvValue: Double) -> Double {

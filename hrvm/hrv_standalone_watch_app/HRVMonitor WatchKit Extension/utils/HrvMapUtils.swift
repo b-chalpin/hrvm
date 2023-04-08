@@ -24,7 +24,8 @@ public class HrvMapUtils {
         return hrvStore.map { hrv in
             return [
                 "RMSSD": hrv.value,
-                "meanRR": hrv.meanRR
+                "meanRR": hrv.meanRR,
+                "medianRR": hrv.medianRR,
             ]
         }
     }
