@@ -20,6 +20,7 @@
 // - `calculateDeltaHrvValue(newHrvValue: Double)`: a function that calculates the change in HRV value from the previous value.
 // - `calculateMeanRR(hrSamples: [HrItem])`: a function that calculates the mean RR interval (inter-beat interval) from an array of heart rate samples.
 // - `calculateMedianRR(hrSamples: [HrItem])`: a function that calculates the median RR interval (inter-beat interval) from an array of heart rate samples.
+// - `calculatepNN50(hrSamples: [HrItem])`: a function that calculates the percentage of NN50 values from an array of heart rate samples.
 // - `calculateDeltaUnixTimestamp(newHrvTimestamp: Date)`: a function that calculates the change in Unix timestamp from the previous HRV value.
 // - `addHrvToHrvStore(newHrv: HrvItem)`: a function that adds the latest HRV value to the `hrvStore`.
 // - `updateHrvStats()`: a function that updates the statistics for the HRV values stored in `hrvStore`.
@@ -28,6 +29,7 @@
 
 import Foundation
 import HealthKit
+import Accelerate
 
 // it is assumed that when status is .active, hrv will be defined
 enum HeartRatePollerStatus {
@@ -136,7 +138,7 @@ public class HeartRatePoller : ObservableObject {
                 self.latestHrv = newHrv
                 self.updateStatus(status: .active)
 
-                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.value), meanRR: \(self.latestHrv!.meanRR) medianRR: \(self.latestHrv!.medianRR)")
+                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.value), meanRR: \(self.latestHrv!.meanRR) medianRR: \(self.latestHrv!.medianRR), pNN50: \(self.latestHrv!.pNN50)")
                 
                 // add new Hrv to store
                 self.addHrvToHrvStore(newHrv: newHrv)
@@ -168,7 +170,8 @@ public class HeartRatePoller : ObservableObject {
                              numHeartRateSamples: 0,
                              hrSamples: [],
                              meanRR: 0.0,
-                             medianRR: 0.0)
+                             medianRR: 0.0,
+                             pNN50: 0.0)
         
         self.latestHrv = newHrv
         
@@ -213,6 +216,7 @@ public class HeartRatePoller : ObservableObject {
         let numHeartRateSamples = Settings.HRWindowSize
         let meanRR = self.calculateMeanRR(hrSamples: hrSamples)
         let medianRR = self.calculateMedianRR(hrSamples: hrSamples)
+        let pNN50 = self.calculatePNN50(hrSamples: hrSamples)
         
         // finally create a new HRV sample
         return HrvItem(value: hrvInMS,
@@ -223,7 +227,8 @@ public class HeartRatePoller : ObservableObject {
                        numHeartRateSamples: numHeartRateSamples,
                        hrSamples: hrSamples,
                        meanRR: meanRR,
-                       medianRR: medianRR)
+                       medianRR: medianRR,
+                       pNN50: pNN50)
     }
     
     private func calculateStdDev(samples: [Double]) -> Double {
@@ -289,6 +294,23 @@ public class HeartRatePoller : ObservableObject {
         }
     }
 
+    private func calculatePNN50(hrSamples: [HrItem]) -> Double {
+        let rrIntervals = hrSamples.map { (sample) -> Double in
+            return 60.0 / sample.value * 1000.0 // convert BPM to RR interval in milliseconds
+        }
+
+        let length = rrIntervals.count
+        var pNN50 = 0.0
+        
+        for i in 0..<length - 1 {
+            let diff = abs(rrIntervals[i] - rrIntervals[i + 1])
+            if diff > 50.0 {
+                pNN50 += 1.0
+            }
+        }
+        
+        return (pNN50 / Double(length)) * 100.0
+    }
 
     
     private func addHrvToHrvStore(newHrv: HrvItem) {

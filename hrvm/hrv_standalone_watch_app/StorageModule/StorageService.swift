@@ -60,6 +60,7 @@ public class StorageService : ObservableObject {
         newHrvReading.hrSamples = JsonSerializerUtils.serialize(data: hrvItem.hrSamples)
         newHrvReading.meanRR = hrvItem.meanRR
         newHrvReading.medianRR = hrvItem.medianRR
+        newHrvReading.pNN50 = hrvItem.pNN50
         
         // delta values
         newHrvReading.deltaHrv = hrvItem.deltaHrvValue

@@ -21,6 +21,7 @@ public class HrvItem : NSObject, Codable {
     public var hrSamples: [HrItem] // store the HR samples used to calculate HRV
     public var meanRR: Double // mean of RR intervals (inter-beat intervals) in milliseconds
     public var medianRR: Double = 0.0 // median of RR intervals (inter-beat intervals) in milliseconds
+    public var pNN50: Double = 0.0 // percentage of NN50 values
     
     init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HrItem], meanRR: Double, medianRR: Double) {
         self.value = value

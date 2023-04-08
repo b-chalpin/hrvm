@@ -26,6 +26,7 @@ public class HrvMapUtils {
                 "RMSSD": hrv.value,
                 "meanRR": hrv.meanRR,
                 "medianRR": hrv.medianRR,
+                "pNN50": hrv.pNN50,
             ]
         }
     }
