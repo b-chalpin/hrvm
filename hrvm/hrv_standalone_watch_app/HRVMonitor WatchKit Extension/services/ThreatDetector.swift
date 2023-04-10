@@ -58,9 +58,18 @@ class ThreatDetector : ObservableObject {
         let newSamples = [hrvStore]
         let newLabels = self.generateLabelForFeedback(feedback: feedback, samples: newSamples)
         
-        // append our new data store sample and label
-        self.dataStore.add(samples: newSamples, labels: newLabels, feedback: feedback)
-       
+        if !self.dataStore.dataItems.isEmpty {
+            let samples = self.dataStore.dataItems.map({ $0.sample })
+            let labels = self.dataStore.dataItems.map({ $0.label })
+            let error = self.lrModel.error(X: samples, y: labels)
+            
+            // append our new data store sample and label with the error
+            self.dataStore.add(samples: newSamples, labels: newLabels, errors: [error], feedback: feedback)
+        } else {
+            // append our new data store sample and label without the error
+            self.dataStore.add(samples: newSamples, labels: newLabels, errors: nil, feedback: feedback)
+        }
+        
         print("FEEDBACK: \(feedback) - Threat acked")
         self.threatAcknowledged = true
         
@@ -73,16 +82,12 @@ class ThreatDetector : ObservableObject {
             
             // persist new trained weights to storage
             self.storageService.saveLRWeights(lrWeights: self.lrModel.weights)
-            
-            let error = self.lrModel.error(X: self.dataStore.samples!, y: self.dataStore.labels!)
-            self.dataStore.addError(error: error)
-            
-            print("ERROR: \(error)")
         }
-        print(dataStore.error!, "\n")
+        
         // persist new error update to storage
         storageService.saveLRDataStore(datastore: self.dataStore)
     }
+
     
     private func generateLabelForFeedback(feedback: Bool, samples: [[HrvItem]]) -> [Double] {
         var labels = [Double](repeating: 0.0, count: samples.count)
@@ -96,7 +101,7 @@ class ThreatDetector : ObservableObject {
     
     // train the LR model on our current data store and labels
     private func fit_dynamic() {
-        self.lrModel.fit(samples: self.dataStore.samples!, labels: self.dataStore.labels!)
+        self.lrModel.fit(samples: self.dataStore.dataItems.map({ $0.sample }), labels: self.dataStore.dataItems.map({ $0.label }))
     }
     
     // returns true for danger; false otherwise

@@ -172,9 +172,7 @@ public class StorageService : ObservableObject {
         else {
             let lrDataStore = LRDataStore()
             
-            lrDataStore.samples = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.samples!) as [[HrvItem]]
-            lrDataStore.labels = cd_lrDataStore!.labels!
-            lrDataStore.error = cd_lrDataStore!.error // error can be nil
+            lrDataStore.dataItems = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.dataItems!) as [LRDataItem]
             lrDataStore.size = Int(cd_lrDataStore!.size)
             lrDataStore.stressCount = Int(cd_lrDataStore!.stressCount)
             
@@ -190,11 +188,11 @@ public class StorageService : ObservableObject {
             currentLrDataStore = CD_LRDataStore(context: context)
         }
         
-        currentLrDataStore!.samples = JsonSerializerUtils.serialize(data: datastore.samples)
-        currentLrDataStore!.labels = datastore.labels
-        currentLrDataStore!.error = datastore.error
+        currentLrDataStore!.dataItems = JsonSerializerUtils.serialize(data: datastore.dataItems)
         currentLrDataStore!.size = Int16(datastore.size)
         currentLrDataStore!.stressCount = Int16(datastore.stressCount)
+
+        print("Saving LR Data Store: \(currentLrDataStore!.dataItems!)")
 
         self.saveContext()
     }

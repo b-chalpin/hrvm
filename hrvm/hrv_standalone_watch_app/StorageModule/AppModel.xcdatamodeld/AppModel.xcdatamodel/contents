@@ -13,18 +13,17 @@
         <attribute name="deltaHrv" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="deltaUnixTimestamp" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="hrSamples" attributeType="String" customClassName="[HrItem]"/>
-        <attribute name="hrv" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="hrv" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="meanRR" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="medianRR" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="numHeartRateSamples" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="pNN50" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="rmssd" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="unixTimestamp" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="CD_LRDataStore" representedClassName="CD_LRDataStore" syncable="YES" codeGenerationType="class">
-        <attribute name="error" optional="YES" attributeType="Transformable" customClassName="[Double]"/>
-        <attribute name="labels" attributeType="Transformable" customClassName="[Double]"/>
-        <attribute name="samples" attributeType="String"/>
+        <attribute name="dataItems" optional="YES" attributeType="String"/>
         <attribute name="size" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="stressCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>

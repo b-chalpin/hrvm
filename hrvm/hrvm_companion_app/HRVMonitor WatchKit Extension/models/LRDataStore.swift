@@ -7,25 +7,24 @@
 
 import Foundation
 
+public struct LRDataItem: Codable {
+    var sample: [HrvItem]
+    var label: Double
+    var error: Double?
+}
+
 public class LRDataStore : Codable {
-    var samples: [[HrvItem]]?
-    var labels: [Double]?
-    var error: [Double]? // array of error values for each fit
+    var dataItems: [LRDataItem] = []
     var size: Int = 0 // number of samples
     var stressCount: Int = 0 // count of the number of samples with label == 1
     
-    public func add(samples: [[HrvItem]], labels: [Double], feedback: Bool) {
-        if(self.samples == nil) {
-            self.samples = samples
-            self.labels = labels
-            self.size = samples.count
-        }
-        else {
-            for (sample, label) in zip(samples, labels) {
-                self.samples?.append(sample)
-                self.labels?.append(label)
-            }
-            self.size += samples.count
+    // Creating a new LRDataStore object
+    public func add(samples: [[HrvItem]], labels: [Double], errors: [Double]?, feedback: Bool) {
+        for (sample, label) in zip(samples, labels) {
+            let errorValue = errors == nil ? nil : errors?[size]
+            let dataItem = LRDataItem(sample: sample, label: label, error: errorValue)
+            dataItems.append(dataItem)
+            size += 1
         }
         
         if (feedback) {
