@@ -7,6 +7,13 @@
         <attribute name="label" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="CD_ExportedEntites" representedClassName="CD_ExportedEntites" syncable="YES" codeGenerationType="class">
+        <attribute name="eventItems" optional="YES" attributeType="Transformable"/>
+        <attribute name="hrvReadings" optional="YES" attributeType="Transformable"/>
+        <attribute name="lrDataStore" optional="YES" attributeType="Transformable"/>
+        <attribute name="lrWeights" optional="YES" attributeType="Transformable"/>
+        <attribute name="patientSettings" optional="YES" attributeType="Transformable"/>
+    </entity>
     <entity name="CD_HrvItem" representedClassName="CD_HrvItem" syncable="YES" codeGenerationType="class">
         <attribute name="avgHeartRateBPM" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="avgHeartRateMS" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

@@ -30,6 +30,7 @@
 import Foundation
 import HealthKit
 import Accelerate
+import CoreData
 
 // it is assumed that when status is .active, hrv will be defined
 enum HeartRatePollerStatus {
@@ -188,7 +189,7 @@ public class HeartRatePoller : ObservableObject {
         self.status = .starting
     }
     
-    public func stopPolling() {
+    public func stopPolling() {        
         self.hasBeenStopped = true
         self.latestHrv = nil
         self.resetHrvStats()
