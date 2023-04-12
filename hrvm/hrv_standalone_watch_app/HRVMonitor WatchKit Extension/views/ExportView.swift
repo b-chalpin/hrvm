@@ -1,7 +1,14 @@
 //
 //  ExportView.swift
 //  HRVMonitor WatchKit Extension
-//
+// This is a Swift file for an ExportView SwiftUI view that allows users to export their HRV data to a file on their iPhone.
+// The view contains a Text element that displays the title "EXPORT", followed by another Text element that provides instructions 
+// to the user on where to find the exported file on their iPhone Files app.
+// A Button element labeled "Export" is also present to initiate the export process.
+// The view makes use of the StorageService class to retrieve the HRV data to be exported,
+// and the WatchExportSession class to transfer the exported data to the iPhone.
+// The exportData() function is used to retrieve the HRV data and initiate the export process. 
+// The sendDataToPhoneViaWC() function is used to create a file with the data in JSON format, and then transfer it to the iPhone.
 //  Created by bchalpin on 6/2/22.
 //
 
