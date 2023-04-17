@@ -23,7 +23,7 @@ public class HrvMapUtils {
     public static func mapHrvStoreToDoubleArray(hrvStore: [HrvItem]) -> [[String: Double]] {
         return hrvStore.map { hrv in
             return [
-                "RMSSD": hrv.value,
+                "RMSSD": hrv.RMSSD,
                 "meanRR": hrv.meanRR,
                 "medianRR": hrv.medianRR,
                 "pNN50": hrv.pNN50,

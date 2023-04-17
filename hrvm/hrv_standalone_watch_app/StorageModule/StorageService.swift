@@ -50,7 +50,7 @@ public class StorageService : ObservableObject {
         let newHrvReading = CD_HrvItem(context: context)
         
         // critical data
-        newHrvReading.hrv = hrvItem.value
+        newHrvReading.hrv = hrvItem.RMSSD
         newHrvReading.timestamp = hrvItem.timestamp
         newHrvReading.unixTimestamp = hrvItem.unixTimestamp
         
@@ -115,7 +115,7 @@ public class StorageService : ObservableObject {
         newEvent.timestamp = event.timestamp
         newEvent.hrv = JsonSerializerUtils.serialize(data: event.hrv)
         newEvent.hrvStore = JsonSerializerUtils.serialize(data: event.hrvStore)
-        newEvent.label = event.stressed
+        newEvent.isStressed = event.isStressed
         
         self.saveContext()
     }
@@ -158,7 +158,7 @@ public class StorageService : ObservableObject {
                              timestamp: event.timestamp!,
                              hrv: hrvItem,
                              hrvStore: hrvStore,
-                             stressed: event.label)
+                             isStressed: event.isStressed)
         }
     }
     

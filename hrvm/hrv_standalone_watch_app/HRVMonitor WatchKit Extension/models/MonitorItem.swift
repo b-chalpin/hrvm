@@ -9,12 +9,14 @@ import Foundation
 
 // base class used for heart rate and HRV data storage
 public class MonitorItem<T> : NSObject {
-    public var value: T
+    public var hr: Int?
+    public var RMSSD: Double?
     public var timestamp: Date
     public var unixTimestamp: Double
     
-    init(value: T, timestamp: Date) {
-        self.value = value
+    init(hr: Int? = nil, RMSSD: Double? = nil, timestamp: Date) {
+        self.hr = hr
+        self.RMSSD = RMSSD
         self.timestamp = timestamp
         self.unixTimestamp = timestamp.timeIntervalSince1970
     }
