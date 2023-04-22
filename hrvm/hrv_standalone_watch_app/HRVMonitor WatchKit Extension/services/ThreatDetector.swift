@@ -119,13 +119,17 @@ class ThreatDetector : ObservableObject {
         return predictionSet.last!.RMSSD < Settings.StaticDangerThreshold
     }
     
-//    // use the logistic regressor to predict
-//    private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
-////        let doublePredictionSet = [HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: predictionSet)] // lr needs a [[Double]]
-////        let prediction = self.lrModel.predict(X: doublePredictionSet)
-//
-////        print("DYNAMIC MODE - Prediction: \(prediction[0])")
-//
-////        return prediction[0] > Settings.LrPredictionThreshold
-//    }
+    // use the logistic regressor to predict make this work with expected argument type '[[Double]]'
+    private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
+        print("DYNAMIC MODE - Prediction")
+
+        // convert our HrvItem array to a Double array
+        let predictionSet = predictionSet.map({ $0.RMSSD })
+
+        // make a prediction
+        let prediction = self.lrModel.predict(X: [predictionSet])
+        
+        return prediction[0] > Settings.LrPredictionThreshold
+    }
+
 }
