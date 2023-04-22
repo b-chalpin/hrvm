@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E252" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CD_EventItem" representedClassName="CD_EventItem" syncable="YES" codeGenerationType="class">
         <attribute name="hrv" attributeType="String" customClassName="HrvItem"/>
         <attribute name="hrvStore" attributeType="String" customClassName="[HrvItem]"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="isStressed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="label" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="CD_ExportedEntites" representedClassName="CD_ExportedEntites" syncable="YES" codeGenerationType="class">

@@ -143,7 +143,7 @@ class MonitorEngine : ObservableObject {
                                  timestamp: currentHrv.timestamp,
                                  hrv: currentHrv,
                                  hrvStore: currentHrvStore,
-                                 isStressed: feedback)
+                                 stressed: feedback)
         
         // async call to save new event (storage module)
         self.storageService.createEventItem(event: newEvent)

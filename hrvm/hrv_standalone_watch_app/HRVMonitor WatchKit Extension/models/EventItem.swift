@@ -17,5 +17,5 @@ public struct EventItem: Identifiable, Hashable, Codable {
     public var timestamp: Date
     public var hrv: HrvItem
     public var hrvStore: [HrvItem]
-    public var isStressed: Bool
+    public var stressed: Bool
 }

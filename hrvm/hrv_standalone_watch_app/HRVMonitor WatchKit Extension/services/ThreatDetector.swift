@@ -60,7 +60,7 @@ class ThreatDetector : ObservableObject {
         
         if !self.dataStore.dataItems.isEmpty {
             let samples = self.dataStore.dataItems.map({ $0.sample })
-            let labels = self.dataStore.dataItems.map({ $0.isStressed })
+            let labels = self.dataStore.dataItems.map({ $0.label })
             let error = self.lrModel.error(X: samples, y: labels)
             
             // append our new data store sample and label with the error
@@ -101,7 +101,7 @@ class ThreatDetector : ObservableObject {
     
     // train the LR model on our current data store and labels
     private func fit_dynamic() {
-        self.lrModel.fit(samples: self.dataStore.dataItems.map({ $0.sample }), labels: self.dataStore.dataItems.map({ $0.isStressed }))
+        self.lrModel.fit(samples: self.dataStore.dataItems.map({ $0.sample }), labels: self.dataStore.dataItems.map({ $0.label }))
     }
     
     // returns true for danger; false otherwise
@@ -116,7 +116,7 @@ class ThreatDetector : ObservableObject {
     private func predict_static(predictionSet: [HrvItem]) -> Bool {
         print("STATIC MODE - Prediction")
         
-        return predictionSet.last!.RMSSD < Settings.StaticDangerThreshold
+        return predictionSet.last!.value < Settings.StaticDangerThreshold
     }
     
     // use the logistic regressor to predict make this work with expected argument type '[[Double]]'

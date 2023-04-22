@@ -17,7 +17,7 @@ import Foundation
 
 // class reposible for storing a single HRV sample's data
 public class HrvItem : NSObject, Codable {
-    public var RMSSD: Double
+    public var value: Double
     public var timestamp: Date
     
     public var unixTimestamp: Double
@@ -31,8 +31,8 @@ public class HrvItem : NSObject, Codable {
     public var medianRR: Double = 0.0 // median of RR intervals (inter-beat intervals) in milliseconds
     public var pNN50: Double = 0.0 // percentage of NN50 values
     
-    init(RMSSD: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HrItem], meanRR: Double, medianRR: Double, pNN50: Double) {
-        self.RMSSD = RMSSD
+    init(value: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HrItem], meanRR: Double, medianRR: Double, pNN50: Double) {
+        self.value = value
         self.timestamp = timestamp
         self.unixTimestamp = timestamp.timeIntervalSince1970
         self.deltaHrvValue = deltaHrvValue
@@ -47,7 +47,7 @@ public class HrvItem : NSObject, Codable {
     }
     
     public override var description: String {
-//        "RMSSD: \(self.RMSSD) - Timestamp: \(self.timestamp) - deltaHrvValue: \(self.deltaHrvValue) - deltaUnixTimestamp: \(self.deltaUnixTimestamp) - avgHeartRateBPM: \(self.avgHeartRateBPM) - avgHeartRateMS: \(self.avgHeartRateMS) - numHRSamples: \(self.numHeartRateSamples) - meanRR: \(self.meanRR) - medianRR: \(self.medianRR) - pNN50: \(self.pNN50)"
-        "\(self.RMSSD)"
+//        "Value: \(self.value) - Timestamp: \(self.timestamp) - deltaHrvValue: \(self.deltaHrvValue) - deltaUnixTimestamp: \(self.deltaUnixTimestamp) - avgHeartRateBPM: \(self.avgHeartRateBPM) - avgHeartRateMS: \(self.avgHeartRateMS) - numHRSamples: \(self.numHeartRateSamples) - meanRR: \(self.meanRR) - medianRR: \(self.medianRR) - pNN50: \(self.pNN50)"
+        "\(self.value)"
     }
 }

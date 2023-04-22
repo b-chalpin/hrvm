@@ -130,7 +130,7 @@ public class HeartRatePoller : ObservableObject {
                     let heartRateBpm = quantity.doubleValue(for: heartRateUnit)
                     let heartRateTimestamp = sample.endDate
                     
-                    return HrItem(hr: heartRateBpm, timestamp: heartRateTimestamp)
+                    return HrItem(value: heartRateBpm, timestamp: heartRateTimestamp)
                 }
                 
                 let newHrv = self.calculateHrv(hrSamples: newHRSamples)
@@ -139,7 +139,7 @@ public class HeartRatePoller : ObservableObject {
                 self.latestHrv = newHrv
                 self.updateStatus(status: .active)
 
-                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.RMSSD), meanRR: \(self.latestHrv!.meanRR) medianRR: \(self.latestHrv!.medianRR), pNN50: \(self.latestHrv!.pNN50)")
+                print("LOG - HRV UPDATED: RMSSD: \(self.latestHrv!.value), meanRR: \(self.latestHrv!.meanRR) medianRR: \(self.latestHrv!.medianRR), pNN50: \(self.latestHrv!.pNN50)")
                 
                 // add new Hrv to store
                 self.addHrvToHrvStore(newHrv: newHrv)
@@ -163,7 +163,7 @@ public class HeartRatePoller : ObservableObject {
         }
         
         let randHrvValue = Double.random(in: 1...100)
-        let newHrv = HrvItem(RMSSD: randHrvValue,
+        let newHrv = HrvItem(value: randHrvValue,
                              timestamp: Date(),
                              deltaHrvValue: 0.0,
                              deltaUnixTimestamp: 1.0,
@@ -203,7 +203,7 @@ public class HeartRatePoller : ObservableObject {
     private func calculateHrv(hrSamples: [HrItem]) -> HrvItem {
         let hrSamplesInMS = hrSamples.map { (sample) -> Double in
             // convert bpm -> ms
-            return 60_000 / sample.hr
+            return 60_000 / sample.value
         }
         
         // calculate HRV
@@ -220,7 +220,7 @@ public class HeartRatePoller : ObservableObject {
         let pNN50 = self.calculatePNN50(hrSamples: hrSamples)
         
         // finally create a new HRV sample
-        return HrvItem(RMSSD: hrvInMS,
+        return HrvItem(value: hrvInMS,
                        timestamp: hrvTimestamp,
                        deltaHrvValue: deltaHrvValue,
                        deltaUnixTimestamp: deltaUnixTimestamp,
@@ -249,7 +249,7 @@ public class HeartRatePoller : ObservableObject {
     }
     
     private func calculateDeltaHrvValue(newHrvValue: Double) -> Double {
-        if let latestHrvValue = self.latestHrv?.RMSSD {
+        if let latestHrvValue = self.latestHrv?.value {
             return newHrvValue - latestHrvValue
         }
         else {
@@ -268,7 +268,7 @@ public class HeartRatePoller : ObservableObject {
 
     private func calculateMeanRR(hrSamples: [HrItem]) -> Double {
         let rrIntervals = hrSamples.map { (sample) -> Double in
-            return 60.0 / sample.hr * 1000.0 // convert BPM to RR interval in milliseconds
+            return 60.0 / sample.value * 1000.0 // convert BPM to RR interval in milliseconds
         }
         
         return self.calculateMean(samples: rrIntervals)
@@ -276,7 +276,7 @@ public class HeartRatePoller : ObservableObject {
 
     private func calculateMedianRR(hrSamples: [HrItem]) -> Double {
         let rrIntervals = hrSamples.map { (sample) -> Double in
-            return 60.0 / sample.hr * 1000.0 // convert BPM to RR interval in milliseconds
+            return 60.0 / sample.value * 1000.0 // convert BPM to RR interval in milliseconds
         }
         
         let sortedRRIntervals = rrIntervals.sorted()
@@ -297,7 +297,7 @@ public class HeartRatePoller : ObservableObject {
 
     private func calculatePNN50(hrSamples: [HrItem]) -> Double {
         let rrIntervals = hrSamples.map { (sample) -> Double in
-            return 60.0 / sample.hr * 1000.0 // convert BPM to RR interval in milliseconds
+            return 60.0 / sample.value * 1000.0 // convert BPM to RR interval in milliseconds
         }
 
         let length = rrIntervals.count
@@ -328,7 +328,7 @@ public class HeartRatePoller : ObservableObject {
             self.resetHrvStats()
         }
         else {
-            let hrvStoreValues = self.hrvStore.map { $0.RMSSD }
+            let hrvStoreValues = self.hrvStore.map { $0.value }
             
             self.minHrvValue = hrvStoreValues.min()!
             self.maxHrvValue = hrvStoreValues.max()!

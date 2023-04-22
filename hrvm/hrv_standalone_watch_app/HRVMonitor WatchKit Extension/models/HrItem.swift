@@ -17,17 +17,17 @@ import Foundation
 // class reposible for storing a single heart rate sample's data
 public class HrItem : NSObject, Codable {
     enum Keys: String {
-        case hr = "hr"
+        case value = "value"
         case timestamp = "timestamp"
         case unixTimestamp = "unixTimestamp"
     }
     
-    public var hr: Double
+    public var value: Double
     public var timestamp: Date
     public var unixTimestamp: Double
     
-    init(hr: Double, timestamp: Date) {
-        self.hr = hr
+    init(value: Double, timestamp: Date) {
+        self.value = value
         self.timestamp = timestamp
         self.unixTimestamp = timestamp.timeIntervalSince1970
     }

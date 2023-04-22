@@ -92,7 +92,7 @@ struct MonitorView: View {
         case HeartRatePollerStatus.stopped, HeartRatePollerStatus.starting:
             return "0.0"
         case HeartRatePollerStatus.active:
-            return StringFormatUtils.formatDoubleToString(input: self.hrPoller.latestHrv!.RMSSD)
+            return StringFormatUtils.formatDoubleToString(input: self.hrPoller.latestHrv!.value)
         }
     }
     
@@ -145,7 +145,7 @@ struct MonitorView: View {
     func calculateMoodColor() -> Color {
         if self.hrPoller.isActive() {
             // check for the unexpected case where
-            if let hrv = self.hrPoller.latestHrv?.RMSSD {
+            if let hrv = self.hrPoller.latestHrv?.value {
                 if hrv <= Settings.MoodDangerHRVThreshold {
                     return Color.red
                 }
@@ -169,7 +169,7 @@ struct MonitorView: View {
     func calculateMoodHeartImageName() -> String {
         if self.hrPoller.isActive() {
             // check for the unexpected case where
-            if let hrv = self.hrPoller.latestHrv?.RMSSD {
+            if let hrv = self.hrPoller.latestHrv?.value {
                 if hrv <= Settings.MoodDangerHRVThreshold {
                     return "redHeart"
                 }
