@@ -187,13 +187,6 @@ public class StorageService : ObservableObject {
             // create new data store
             currentLrDataStore = CD_LRDataStore(context: context)
         }
-        
-        currentLrDataStore!.dataItems = JsonSerializerUtils.serialize(data: datastore.dataItems)
-        currentLrDataStore!.size = Int16(datastore.size)
-        currentLrDataStore!.stressCount = Int16(datastore.stressCount)
-
-        print("Saving LR Data Store: \(currentLrDataStore!.dataItems!)")
-
         self.saveContext()
     }
     
