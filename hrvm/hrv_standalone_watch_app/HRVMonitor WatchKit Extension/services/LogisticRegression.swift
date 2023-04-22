@@ -55,7 +55,7 @@ public class LogisticRegression {
         // reset model weights
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
         
-        var X = samples.map { $0.map { $0.value } }
+        var X = samples.map { $0.map { $0.RMSSD } }
         let y = labels
 
         self.rowCount = X.count
@@ -99,7 +99,7 @@ public class LogisticRegression {
     }
     
     public func error(X: [[HrvItem]], y: [Double]) -> Double {
-        let doubleSamples = X.map { $0.map { $0.value } }
+        let doubleSamples = X.map { $0.map { $0.RMSSD } }
         
         let predictions = self.predict(X: doubleSamples)
         
@@ -225,4 +225,3 @@ public class LogisticRegression {
         return m2
     }
 }
-

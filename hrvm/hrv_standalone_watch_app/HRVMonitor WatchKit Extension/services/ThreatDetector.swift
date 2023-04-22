@@ -3,17 +3,17 @@
 //  HRVMonitor WatchKit Extension
 /*
 ThreatDetector is a singleton class that encapsulates the functionality to detect and acknowledge
-potential HRV stress events. It uses the logistic regression algorithm (LogisticRegression class) 
+potential HRV stress events. It uses the logistic regression algorithm (LogisticRegression class)
 to make dynamic predictions if there are enough stress events detected in the LRDataStore object.
 
-It contains methods to check for threats (checkHrvForThreat), 
-acknowledge threats (acknowledgeThreat), 
+It contains methods to check for threats (checkHrvForThreat),
+acknowledge threats (acknowledgeThreat),
 generate labels for LR, and switch between prediction modes (checkThreatMode).
 
-The ThreatDetectorStatus enum is used to keep track of the prediction mode (static or dynamic) and the ThreatDetector 
+The ThreatDetectorStatus enum is used to keep track of the prediction mode (static or dynamic) and the ThreatDetector
 class is an ObservableObject to make sure that changes to threatAcknowledged are properly published.
 
-The storageService object is used to interact with a persistent storage mechanism 
+The storageService object is used to interact with a persistent storage mechanism
 (LRDataStore object) that stores the HRV data and predicted labels.
 */
 //  Created by bchalpin/ Nick Adams on 3/15/22.
@@ -60,7 +60,7 @@ class ThreatDetector : ObservableObject {
         
         if !self.dataStore.dataItems.isEmpty {
             let samples = self.dataStore.dataItems.map({ $0.sample })
-            let labels = self.dataStore.dataItems.map({ $0.label })
+            let labels = self.dataStore.dataItems.map({ $0.isStressed })
             let error = self.lrModel.error(X: samples, y: labels)
             
             // append our new data store sample and label with the error
@@ -101,7 +101,7 @@ class ThreatDetector : ObservableObject {
     
     // train the LR model on our current data store and labels
     private func fit_dynamic() {
-        self.lrModel.fit(samples: self.dataStore.dataItems.map({ $0.sample }), labels: self.dataStore.dataItems.map({ $0.label }))
+        self.lrModel.fit(samples: self.dataStore.dataItems.map({ $0.sample }), labels: self.dataStore.dataItems.map({ $0.isStressed }))
     }
     
     // returns true for danger; false otherwise
@@ -116,20 +116,18 @@ class ThreatDetector : ObservableObject {
     private func predict_static(predictionSet: [HrvItem]) -> Bool {
         print("STATIC MODE - Prediction")
         
-        return predictionSet.last!.value < Settings.StaticDangerThreshold
+        return predictionSet.last!.RMSSD < Settings.StaticDangerThreshold
     }
     
-    // use the logistic regressor to predict make this work with expected argument type '[[Double]]'
-    private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
+//    // use the logistic regressor to predict
+   private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
         print("DYNAMIC MODE - Prediction")
+        // change to type double array to pass to predict
+        let prediction = self.lrModel.predict(X: [predictionSet.map({ Double($0.RMSSD) })])
 
-        // convert our HrvItem array to a Double array
-        let predictionSet = predictionSet.map({ $0.RMSSD })
+        // convert double array to double
+        let predictionValue = prediction[0]
 
-        // make a prediction
-        let prediction = self.lrModel.predict(X: [predictionSet])
-        
-        return prediction[0] > Settings.LrPredictionThreshold
+        return predictionValue > Settings.LrPredictionThreshold
     }
-
-}
+   }

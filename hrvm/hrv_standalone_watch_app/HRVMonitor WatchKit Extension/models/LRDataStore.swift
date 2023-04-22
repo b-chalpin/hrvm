@@ -9,7 +9,7 @@ import Foundation
 
 public struct LRDataItem: Codable {
     var sample: [HrvItem]
-    var label: Double
+    var isStressed: Double
     var error: Double?
 }
 
@@ -22,9 +22,9 @@ public class LRDataStore : Codable {
     public func add(samples: [[HrvItem]], labels: [Double], errors: [Double]?, feedback: Bool) {
         var errorIndex = 0
         
-        for (sample, label) in zip(samples, labels) {
+        for (sample, isStressed) in zip(samples, labels) {
             let errorValue = errors == nil ? nil : errors?[errorIndex]
-            let dataItem = LRDataItem(sample: sample, label: label, error: errorValue)
+            let dataItem = LRDataItem(sample: sample, isStressed: isStressed, error: errorValue)
             dataItems.append(dataItem)
             size += 1
             
