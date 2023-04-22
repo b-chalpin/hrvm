@@ -126,6 +126,7 @@ public class HeartRatePoller : ObservableObject {
                 let newHRSamples = results.map { (sample) -> HrItem in
                     let quantity = (sample as! HKQuantitySample).quantity
                     let heartRateUnit = HKUnit(from: "count/min")
+                    
                     let heartRateBpm = quantity.doubleValue(for: heartRateUnit)
                     let heartRateTimestamp = sample.endDate
                     
@@ -202,7 +203,6 @@ public class HeartRatePoller : ObservableObject {
     private func calculateHrv(hrSamples: [HrItem]) -> HrvItem {
         let hrSamplesInMS = hrSamples.map { (sample) -> Double in
             // convert bpm -> ms
-            print("Heart Rate is: ", sample.hr)
             return 60_000 / sample.hr
         }
         
