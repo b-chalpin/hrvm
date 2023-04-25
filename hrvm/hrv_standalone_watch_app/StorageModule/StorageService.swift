@@ -116,6 +116,7 @@ public class StorageService : ObservableObject {
         newEvent.hrv = JsonSerializerUtils.serialize(data: event.hrv)
         newEvent.hrvStore = JsonSerializerUtils.serialize(data: event.hrvStore)
         newEvent.isStressed = event.isStressed
+        newEvent.sitStandChanges = JsonSerializerUtils.serialize(data: event.sitStandChanges)
         
         self.saveContext()
     }
@@ -153,12 +154,14 @@ public class StorageService : ObservableObject {
             // deserialize stored JSON to objects
             let hrvItem = JsonSerializerUtils.deserialize(jsonString: event.hrv!) as HrvItem
             let hrvStore = JsonSerializerUtils.deserialize(jsonString: event.hrvStore!) as [HrvItem]
+            let sitStandChanges = JsonSerializerUtils.deserialize(jsonString: event.sitStandChanges!) as [SitStandChange]
             
             return EventItem(id: event.id!,
                              timestamp: event.timestamp!,
                              hrv: hrvItem,
                              hrvStore: hrvStore,
-                             isStressed: event.isStressed)
+                             isStressed: event.isStressed,
+                             sitStandChanges: sitStandChanges)
         }
     }
     

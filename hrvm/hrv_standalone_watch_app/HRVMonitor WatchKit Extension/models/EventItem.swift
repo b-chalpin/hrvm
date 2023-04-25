@@ -18,4 +18,5 @@ public struct EventItem: Identifiable, Hashable, Codable {
     public var hrv: HrvItem
     public var hrvStore: [HrvItem]
     public var isStressed: Bool
+    public var sitStandChange: Bool
 }

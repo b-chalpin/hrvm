@@ -34,6 +34,7 @@ class MonitorEngine : ObservableObject {
     
     // dependency injected modules
     private var hrPoller = HeartRatePoller.shared
+    private var SitStandPoller = SitStandPoller.shared
     private var threatDetector = ThreatDetector.shared
     private var alertNotificationHandler = AlertNotificationHandler.shared
     private var storageService = StorageService.shared
@@ -79,6 +80,7 @@ class MonitorEngine : ObservableObject {
             }
             else {
                 self.hrPoller.poll()
+                self.sitStandPoller.poll() // added call to poll sit/stand data
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
@@ -143,7 +145,8 @@ class MonitorEngine : ObservableObject {
                                  timestamp: currentHrv.timestamp,
                                  hrv: currentHrv,
                                  hrvStore: currentHrvStore,
-                                 isStressed: feedback)
+                                 isStressed: feedback,
+                                 sitStandChange: self.sitStandPoller.sitStandChange)
         
         // async call to save new event (storage module)
         self.storageService.createEventItem(event: newEvent)

@@ -5,6 +5,7 @@
         <attribute name="hrvStore" attributeType="String" customClassName="[HrvItem]"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isStressed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="sitStandChange" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="CD_ExportedEntites" representedClassName="CD_ExportedEntites" syncable="YES" codeGenerationType="class">
