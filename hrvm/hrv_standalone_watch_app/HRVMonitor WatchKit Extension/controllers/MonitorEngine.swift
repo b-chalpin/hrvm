@@ -34,7 +34,7 @@ class MonitorEngine : ObservableObject {
     
     // dependency injected modules
     private var hrPoller = HeartRatePoller.shared
-    private var SitStandPoller = SitStandPoller.shared
+    private var sitStandPoller = SitStandPoller.shared
     private var threatDetector = ThreatDetector.shared
     private var alertNotificationHandler = AlertNotificationHandler.shared
     private var storageService = StorageService.shared
@@ -77,10 +77,10 @@ class MonitorEngine : ObservableObject {
         self.monitorTimer = Timer.scheduledTimer(withTimeInterval: Settings.HRVMonitorIntervalSec, repeats: true, block: {_ in
             if Settings.DemoMode {
                 self.hrPoller.demo() // will generate random hrv values (RNG)
+                self.sitStandPoller.poll() // added call to poll sit/stand data
             }
             else {
                 self.hrPoller.poll()
-                self.sitStandPoller.poll() // added call to poll sit/stand data
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined

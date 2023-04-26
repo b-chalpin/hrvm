@@ -15,6 +15,7 @@
 		6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* WorkoutManager.swift */; };
 		66DD4FFA2835B8BB0000E20A /* LRDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD4FF92835B8BB0000E20A /* LRDataStore.swift */; };
 		66F2F6F627E533D600561E15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2F6F527E533D600561E15 /* Settings.swift */; };
+		88BDD38429F8808900D3F57C /* SitStandPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88BDD38329F8808900D3F57C /* SitStandPoller.swift */; };
 		9906ED84282D88E700EA9F83 /* EventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9906ED83282D88E700EA9F83 /* EventItem.swift */; };
 		9917685127E00BF800AC764C /* MonitorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685027E00BF800AC764C /* MonitorEngine.swift */; };
 		9917685327E176E100AC764C /* ThreatDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685227E176E100AC764C /* ThreatDetector.swift */; };
@@ -127,6 +128,7 @@
 		66A22CF22804A99D0016B27B /* HRVMonitor WatchKit ExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HRVMonitor WatchKit ExtensionDebug.entitlements"; sourceTree = "<group>"; };
 		66DD4FF92835B8BB0000E20A /* LRDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRDataStore.swift; sourceTree = "<group>"; };
 		66F2F6F527E533D600561E15 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		88BDD38329F8808900D3F57C /* SitStandPoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SitStandPoller.swift; sourceTree = "<group>"; };
 		9906ED83282D88E700EA9F83 /* EventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventItem.swift; sourceTree = "<group>"; };
 		9917685027E00BF800AC764C /* MonitorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorEngine.swift; sourceTree = "<group>"; };
 		9917685227E176E100AC764C /* ThreatDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatDetector.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 		9916D36B27FE1C2400822E76 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				88BDD38329F8808900D3F57C /* SitStandPoller.swift */,
 				661656ED280E313100BEA888 /* LogisticRegression.swift */,
 				997EAFF927D6FCCA004B257C /* HeartRatePoller.swift */,
 				663419BF27DAD79D00F3823B /* NotificationFactory.swift */,
@@ -624,6 +627,7 @@
 				999D59AF28494453006B820B /* ExportedEntities.swift in Sources */,
 				99E682BB2838435F0035758A /* PatientSettingsConstants.swift in Sources */,
 				997EB00027DC141E004B257C /* MonitorItem.swift in Sources */,
+				88BDD38429F8808900D3F57C /* SitStandPoller.swift in Sources */,
 				663EE4E727E15B8E00AECB35 /* Configuration.swift in Sources */,
 				66F2F6F627E533D600561E15 /* Settings.swift in Sources */,
 				997139A52825F7660029D831 /* StringFormatUtils.swift in Sources */,

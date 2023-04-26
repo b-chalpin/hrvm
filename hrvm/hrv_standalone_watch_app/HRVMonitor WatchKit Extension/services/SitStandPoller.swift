@@ -12,6 +12,7 @@ enum SitStandPollerStatus {
 public class SitStandPoller : ObservableObject {
     // singleton
     public static let shared: SitStandPoller = SitStandPoller()
+    let motionActivityManager = CMMotionActivityManager()
 
     // variable to indicate whether we have notified the poller to stop
     private var hasBeenStopped: Bool = true
@@ -34,19 +35,15 @@ public class SitStandPoller : ObservableObject {
     }
     
     private func checkAuthorization() {
-        if CMMotionActivityManager.isActivityAvailable() {
-            let motionActivityManager = CMMotionActivityManager()
-            motionActivityManager.queryActivityStarting(from: Date(), to: Date(), to: OperationQueue.main) { (activities, error) in
-                if error != nil {
-                    print("ERROR - Unable to start motion activity updates")
-                } else {
-                    DispatchQueue.main.async {
-                        self.authStatus = true
-                    }
+        let motionActivityManager = CMMotionActivityManager()
+        motionActivityManager.queryActivityStarting(from: Date(), to: Date(), to: OperationQueue.main) { (activities, error) in
+            if error != nil {
+                print("ERROR - Unable to start motion activity updates")
+            } else {
+                DispatchQueue.main.async {
+                    self.authStatus = true
                 }
             }
-        } else {
-            print("ERROR - Unable to start motion activity updates. Motion activity is not available.")
         }
     }
     
@@ -56,17 +53,17 @@ public class SitStandPoller : ObservableObject {
     
     public func poll() {
         if CMMotionActivityManager.isActivityAvailable() {
-            let motionActivityManager = CMMotionActivityManager()
-            motionActivityManager.startActivityUpdates(to: OperationQueue.main) { (activity) in
-                // there is a chance that we have stopped the polling, check this first before continuing
+            motionActivityManager.startActivityUpdates(to: OperationQueue.main) { [weak self] (activity) in
+                guard let self = self else { return }
+                
                 if self.hasBeenStopped {
                     print("LOG - Posture Poller has been told to stop. Aborting query")
                     motionActivityManager.stopActivityUpdates()
                     return
                 }
                 
-                if activity.confidence == .high && activity.stationary == false {
-                    let acceleration = activity.acceleration
+                if let activity = activity, activity.confidence == .high && activity.stationary == false {
+                    let acceleration = CMAcceleration()
                     self.latestAcceleration = acceleration
                     self.accelerationStore.append(acceleration)
                     
@@ -79,8 +76,9 @@ public class SitStandPoller : ObservableObject {
                 }
             }
             self.updateStatus(status: .active)
-        } else {
-            print("ERROR - Unable to start motion activity updates. Motion activity is not available.")
+        }
+        else {
+            print("ERROR - Unable to poll motion data")
         }
     }
     

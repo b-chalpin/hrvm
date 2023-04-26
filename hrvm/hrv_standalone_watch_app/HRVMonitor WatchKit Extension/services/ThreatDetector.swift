@@ -48,6 +48,7 @@ class ThreatDetector : ObservableObject {
     
     // for checking if we should switch threat mode in acknowledgeThreat but also when we initialize ThreatDetector
     private func checkThreatMode() {
+        print("Number of stress items: ", self.dataStore.stressCount)
         if (self.dataStore.stressCount > Settings.MinStressEventCount) {
             self.predictorMode = ._dynamic
         }
@@ -108,6 +109,8 @@ class ThreatDetector : ObservableObject {
     private func predict(predictionSet: [HrvItem]) -> Bool {
         if (self.predictorMode == ._static) {
             return self.predict_static(predictionSet: predictionSet)
+        } else if (self.predictorMode == ._dynamic) {
+            self.predict_dynamic(predictionSet: predictionSet)
         }
         return false
     }
@@ -119,7 +122,7 @@ class ThreatDetector : ObservableObject {
         return predictionSet.last!.RMSSD < Settings.StaticDangerThreshold
     }
     
-//    // use the logistic regressor to predict
+   // use the logistic regressor to predict
    private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
         print("DYNAMIC MODE - Prediction")
         // change to type double array to pass to predict
