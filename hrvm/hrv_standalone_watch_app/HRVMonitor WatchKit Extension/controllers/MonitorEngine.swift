@@ -2,6 +2,19 @@
 //  MonitorEngine.swift
 //  HRVMonitor WatchKit Extension
 //
+//  This Swift code file defines the MonitorEngine class for the HRVMonitor WatchKit Extension.
+//  The MonitorEngine is responsible for managing the heart rate monitoring process by coordinating
+//  the HeartRatePoller, ThreatDetector, AlertNotificationHandler, StorageService, and WorkoutManager.
+//  The class is designed as a singleton to ensure a single point of access to its functionality.
+//
+//  Key functionalities include:
+//  - Starting and stopping the monitoring process.
+//  - Coordinating with the HeartRatePoller for heart rate polling and handling demo mode.
+//  - Predicting threats using the ThreatDetector.
+//  - Managing alert notifications and cooldowns.
+//  - Acknowledging threats and saving them as events in StorageService.
+//  - Updating the app's state for proper handling of notifications and alerts.
+//
 //  Created by bchalpin on 3/14/22.
 //
 
@@ -21,6 +34,7 @@ class MonitorEngine : ObservableObject {
     
     // dependency injected modules
     private var hrPoller = HeartRatePoller.shared
+    private var SitStandPoller = SitStandPoller.shared
     private var threatDetector = ThreatDetector.shared
     private var alertNotificationHandler = AlertNotificationHandler.shared
     private var storageService = StorageService.shared
@@ -66,6 +80,7 @@ class MonitorEngine : ObservableObject {
             }
             else {
                 self.hrPoller.poll()
+                self.sitStandPoller.poll() // added call to poll sit/stand data
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
@@ -130,7 +145,8 @@ class MonitorEngine : ObservableObject {
                                  timestamp: currentHrv.timestamp,
                                  hrv: currentHrv,
                                  hrvStore: currentHrvStore,
-                                 stressed: feedback)
+                                 isStressed: feedback,
+                                 sitStandChange: self.sitStandPoller.sitStandChange)
         
         // async call to save new event (storage module)
         self.storageService.createEventItem(event: newEvent)

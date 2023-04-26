@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct HRVMonitorApp: App {
     @StateObject var hrPoller = HeartRatePoller.shared
+    @StateObject var sitStandPoller = SitStandPoller.shared
     @StateObject var threatDetector = ThreatDetector.shared
     @StateObject var alertNotificationHandler = AlertNotificationHandler.shared
     @StateObject var monitorEngine = MonitorEngine.shared
