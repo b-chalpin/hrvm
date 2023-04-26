@@ -34,7 +34,7 @@ class MonitorEngine : ObservableObject {
     
     // dependency injected modules
     private var hrPoller = HeartRatePoller.shared
-    private var SitStandPoller = SitStandPoller.shared
+    private var sitStandPoller = SitStandPoller.shared
     private var threatDetector = ThreatDetector.shared
     private var alertNotificationHandler = AlertNotificationHandler.shared
     private var storageService = StorageService.shared

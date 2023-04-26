@@ -65,18 +65,18 @@ public class SitStandPoller : ObservableObject {
                     return
                 }
                 
-                if activity.confidence == .high && activity.stationary == false {
-                    let acceleration = activity.acceleration
-                    self.latestAcceleration = acceleration
-                    self.accelerationStore.append(acceleration)
-                    
-                    // Detect change from sitting to standing
-                    let accelerationMagnitude = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2))
-                    if accelerationMagnitude > 1.2 {
-                        print("Change detected from sitting to standing")
-                        self.sitStandChange = true // set flag for change from sitting to standing
-                    }
-                }
+//                if activity.confidence == .high && activity.stationary == false {
+//                    let acceleration = activity.acceleration
+//                    self.latestAcceleration = acceleration
+//                    self.accelerationStore.append(acceleration)
+//                    
+//                    // Detect change from sitting to standing
+//                    let accelerationMagnitude = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2))
+//                    if accelerationMagnitude > 1.2 {
+//                        print("Change detected from sitting to standing")
+//                        self.sitStandChange = true // set flag for change from sitting to standing
+//                    }
+//                }
             }
             self.updateStatus(status: .active)
         } else {
