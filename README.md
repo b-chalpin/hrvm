@@ -101,7 +101,7 @@ To apply to join the Test Flight application beta testing, please contact us at 
 
 
 ## Acknowledgements
-This project was made possible by Dr. Alicia Hegie and Dr. Frank Jackson of St. Luke's Rehabilitation Instritute.
+This project was made possible by Dr. Alicia Hegie and Dr. Frank Jackson of St. Luke's Rehabilitation Institute.
 
 ### Contributors
 - Blake Chalpin ([b-chalpin](https://github.com/b-chalpin))
