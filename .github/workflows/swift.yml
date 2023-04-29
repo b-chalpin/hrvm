@@ -1,0 +1,17 @@
+# This workflow will test and build a SWIFT project
+
+name: Swift 
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: swift build
+      - name: Test
+        run: swift test
