@@ -1,6 +1,11 @@
 # This workflow will test and build a SWIFT project
+# Using Package.swift at hrvm/hrv_standalone_watch_app/Package.swift
 
-name: Swift 
+# Path: .github/workflows/swift.yml
+
+# This workflow will test and build a SWIFT project
+
+name: Swift
 
 on:
   push:
@@ -12,6 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
+        working-directory: ./hrvm/hrv_standalone_watch_app
         run: swift build
       - name: Test
+        working-directory: ./hrvm/hrv_standalone_watch_app
         run: swift test
