@@ -1,20 +1,19 @@
-name: Build and Test
+name: CI
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   build:
-    name: Build and Test
     runs-on: macOS-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+      - uses: actions/checkout@v2
       - name: Set up Xcode
-        uses: actions/setup-xcode@v2
+        uses: actions/setup-xcode@v2.4.0
         with:
           xcode-version: "13.0"
 
       - name: Build
-        run: xcodebuild -scheme YourScheme -destination 'platform=iOS Simulator,name=iPhone 13' build test
+        run: xcodebuild -scheme MyProject -destination 'platform=iOS Simulator,name=iPhone 12' build test
