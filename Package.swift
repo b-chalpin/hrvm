@@ -16,6 +16,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "hrv_standalone_watch_app"),
+            path: "hrvm/hrv_standalone_watch_app",
         .testTarget(
             name: "hrv_standalone_watch_appTests",
             dependencies: ["hrv_standalone_watch_app"]),
