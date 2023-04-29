@@ -1,0 +1,17 @@
+name: Swift
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        working-directory: ./hrvm/hrv_companion_app
+        run: swift build
+      - name: Test
+        working-directory: ./hrvm/hrv_companion_app
+        run: swift test
