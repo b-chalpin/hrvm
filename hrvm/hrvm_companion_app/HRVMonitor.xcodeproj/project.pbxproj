@@ -67,6 +67,7 @@
 		66DD92FE284975F800D88A92 /* PersistenceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD92FB284975F800D88A92 /* PersistenceContainer.swift */; };
 		66DD93012849786B00D88A92 /* WatchExportSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD93002849786B00D88A92 /* WatchExportSession.swift */; };
 		66DD9303284978D600D88A92 /* ExportedEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD9302284978D600D88A92 /* ExportedEntities.swift */; };
+		889E7F4F29FDA4EB00B262AB /* SitStandPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E7F4E29FDA4EB00B262AB /* SitStandPoller.swift */; };
 		88EE10DA29AD7043003FD9A5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EE10D929AD7043003FD9A5 /* SettingsView.swift */; };
 		88EE10DC29AD7060003FD9A5 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EE10DB29AD7060003FD9A5 /* ExportView.swift */; };
 		88EE10DE29AD7074003FD9A5 /* StressDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EE10DD29AD7074003FD9A5 /* StressDataView.swift */; };
@@ -211,6 +212,7 @@
 		66DD93002849786B00D88A92 /* WatchExportSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchExportSession.swift; sourceTree = "<group>"; };
 		66DD9302284978D600D88A92 /* ExportedEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedEntities.swift; sourceTree = "<group>"; };
 		66DD930628497C2700D88A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		889E7F4E29FDA4EB00B262AB /* SitStandPoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitStandPoller.swift; sourceTree = "<group>"; };
 		88EE10D929AD7043003FD9A5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		88EE10DB29AD7060003FD9A5 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		88EE10DD29AD7074003FD9A5 /* StressDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StressDataView.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				66DD92DB284975A000D88A92 /* AlertNotificationHandler.swift */,
 				66DD92DC284975A000D88A92 /* ThreatDetector.swift */,
 				66DD92DD284975A000D88A92 /* NotificationFactory.swift */,
+				889E7F4E29FDA4EB00B262AB /* SitStandPoller.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -809,6 +812,7 @@
 				66DD92E3284975A000D88A92 /* StatisticView.swift in Sources */,
 				66DD925028496C6C00D88A92 /* HRVMonitorApp.swift in Sources */,
 				66DD92F5284975A100D88A92 /* StringFormatUtils.swift in Sources */,
+				889E7F4F29FDA4EB00B262AB /* SitStandPoller.swift in Sources */,
 				66DD92F1284975A000D88A92 /* NotificationFactory.swift in Sources */,
 				66DD92E6284975A000D88A92 /* SettingsView.swift in Sources */,
 				66DD92E5284975A000D88A92 /* EventView.swift in Sources */,

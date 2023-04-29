@@ -1,9 +1,33 @@
-//
-//  LogisticRegression.swift
-//  HRVMonitor WatchKit Extension
-//
-//  Created by Nick Adams on 4/18/22.
-//
+/*
+LogisticRegression.swift
+
+This is a class that implements logistic regression for binary classification. The class provides methods for fitting a logistic regression model to training data, making predictions on new data, and calculating the error rate of the model. The class also includes methods for updating the weights of the logistic regression model during training, calculating the signal from the data and current model weights, initializing the model weights, and normalizing the data.
+
+The class uses the Accelerate framework for matrix multiplication and element-wise operations, and includes methods for adding a bias column to the input data, and applying the sigmoid function to the calculated signal. The class also includes configurable hyperparameters for the number of epochs, learning rate, and regularization.
+
+The class has the following properties:
+
+weights: an array of doubles representing the current weights of the model.
+rowCount: an integer representing the number of rows in the input data.
+columnCount: an integer representing the number of columns in the input data.
+epochs: an integer representing the number of epochs to train the model.
+eta: a double representing the learning rate for the model.
+lam: a double representing the regularization parameter for the model.
+The class has the following public methods:
+
+init(): initializes the model weights to zero and sets the hyperparameters to default values.
+fit(samples:labels:): fits the logistic regression model to the input data and labels.
+predict(X:): makes predictions on new data using the trained model.
+error(X:y:): calculates the error rate of the model on the input data and labels.
+The class has the following private methods:
+
+updateWeights(X:y:signal:): updates the weights of the model during training.
+calculateSignal(X:y:): calculates the signal from the input data and current model weights.
+initWeights(): initializes the model weights randomly.
+normalize_0_1(X:): normalizes the input data to the range [0,1].
+addBiasColumn(X:): adds a bias column to the input data.
+v_sigmoid(signal:rowCount:fit:): applies the sigmoid function to the calculated signal.
+*/
 
 import Foundation
 import Accelerate
@@ -31,7 +55,7 @@ public class LogisticRegression {
         // reset model weights
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
         
-        var X = samples.map { $0.map { $0.value } }
+        var X = samples.map { $0.map { $0.RMSSD } }
         let y = labels
 
         self.rowCount = X.count
@@ -75,7 +99,7 @@ public class LogisticRegression {
     }
     
     public func error(X: [[HrvItem]], y: [Double]) -> Double {
-        let doubleSamples = X.map { $0.map { $0.value } }
+        let doubleSamples = X.map { $0.map { $0.RMSSD } }
         
         let predictions = self.predict(X: doubleSamples)
         
@@ -201,4 +225,3 @@ public class LogisticRegression {
         return m2
     }
 }
-

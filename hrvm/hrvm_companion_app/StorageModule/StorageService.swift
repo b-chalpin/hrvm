@@ -2,8 +2,39 @@
 //  StorageService.swift
 //  HRVMonitor WatchKit Extension
 //
+//  This Swift code file defines a StorageService class for an HRVMonitor WatchKit Extension,
+//  which manages storage and retrieval of heart rate variability (HRV) data, patient settings,
+//  events, and logistic regression (LR) model data using Core Data. The class is designed as
+//  a singleton, providing a single point of access to the storage functionality.
+//
+//  Key functionalities include:
+//
+//  - HRV APIs:
+//    * createHrvItem(hrvItem: HrvItem): Creates and saves a new HRV item in Core Data.
+//
+//  - Patient Settings APIs:
+//    * getPatientSettings() -> PatientSettings: Retrieves the patient's settings.
+//    * updateUserSettings(patientSettings: PatientSettings): Updates the patient's settings.
+//
+//  - Event APIs:
+//    * createEventItem(event: EventItem): Creates and saves a new event item in Core Data.
+//    * getAllStressEvents() -> [EventItem]: Retrieves all stored stress events.
+//    * getPageOfEventsForOffset(offset: Int) -> [EventItem]: Retrieves a page of stress events for the given offset.
+//
+//  - LR APIs:
+//    * getLRDataStore() -> LRDataStore: Retrieves the logistic regression data store.
+//    * saveLRDataStore(datastore: LRDataStore): Saves the logistic regression data store.
+//    * getLRWeights() -> [Double]: Retrieves the logistic regression weights.
+//    * saveLRWeights(lrWeights: [Double]): Saves the logistic regression weights.
+//
+//  - Export APIs:
+//    * exportAllDataToJson() -> String: Exports all data to a JSON string.
+//
+//  The class also contains utility methods for fetching, mapping, and saving entities in Core Data.
+//
 //  Created by bchalpin on 5/13/22.
 //
+
 
 import Foundation
 import CoreData
@@ -19,7 +50,7 @@ public class StorageService : ObservableObject {
         let newHrvReading = CD_HrvItem(context: context)
         
         // critical data
-        newHrvReading.hrv = hrvItem.value
+        newHrvReading.hrv = hrvItem.RMSSD
         newHrvReading.timestamp = hrvItem.timestamp
         newHrvReading.unixTimestamp = hrvItem.unixTimestamp
         
@@ -27,14 +58,13 @@ public class StorageService : ObservableObject {
         newHrvReading.avgHeartRateBPM = hrvItem.avgHeartRateBPM
         newHrvReading.avgHeartRateMS = hrvItem.avgHeartRateMS
         newHrvReading.hrSamples = JsonSerializerUtils.serialize(data: hrvItem.hrSamples)
+        newHrvReading.meanRR = hrvItem.meanRR
+        newHrvReading.medianRR = hrvItem.medianRR
+        newHrvReading.pNN50 = hrvItem.pNN50
         
         // delta values
         newHrvReading.deltaHrv = hrvItem.deltaHrvValue
         newHrvReading.deltaUnixTimestamp = hrvItem.deltaUnixTimestamp
-
-        // other data
-        newHrvReading.meanRR = hrvItem.meanRR
-        newHrvReading.medianRR = hrvItem.medianRR
         
         self.saveContext()
     }
@@ -85,7 +115,8 @@ public class StorageService : ObservableObject {
         newEvent.timestamp = event.timestamp
         newEvent.hrv = JsonSerializerUtils.serialize(data: event.hrv)
         newEvent.hrvStore = JsonSerializerUtils.serialize(data: event.hrvStore)
-        newEvent.label = event.stressed
+        newEvent.isStressed = event.isStressed
+        newEvent.sitStandChange = event.sitStandChange
         
         self.saveContext()
     }
@@ -96,7 +127,7 @@ public class StorageService : ObservableObject {
         
         do {
             let storedEvents = try context.fetch(request)
-            return mapCDEventItemsToEventItems(stressEvents: storedEvents, includeHrItems: false)
+            return mapCDEventItemsToEventItems(stressEvents: storedEvents)
         }
         catch {
             fatalError("Fatal error occurred fetching all events")
@@ -111,14 +142,14 @@ public class StorageService : ObservableObject {
         
         do {
             let storedEvents = try context.fetch(request)
-            return mapCDEventItemsToEventItems(stressEvents: storedEvents, includeHrItems: false)
+            return mapCDEventItemsToEventItems(stressEvents: storedEvents)
         }
         catch {
             fatalError("Fatal error occurred fetching page of stress events for (offset: \(offset)")
         }
     }
     
-    private func mapCDEventItemsToEventItems(stressEvents: [CD_EventItem], includeHrItems: Bool) -> [EventItem] {
+    private func mapCDEventItemsToEventItems(stressEvents: [CD_EventItem]) -> [EventItem] {
         return stressEvents.map { (event) -> EventItem in
             // deserialize stored JSON to objects
             let hrvItem = JsonSerializerUtils.deserialize(jsonString: event.hrv!) as HrvItem
@@ -128,7 +159,8 @@ public class StorageService : ObservableObject {
                              timestamp: event.timestamp!,
                              hrv: hrvItem,
                              hrvStore: hrvStore,
-                             stressed: event.label)
+                             isStressed: event.isStressed,
+                             sitStandChange: event.sitStandChange)
         }
     }
     
@@ -142,9 +174,7 @@ public class StorageService : ObservableObject {
         else {
             let lrDataStore = LRDataStore()
             
-            lrDataStore.samples = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.samples!) as [[HrvItem]]
-            lrDataStore.labels = cd_lrDataStore!.labels!
-            lrDataStore.error = cd_lrDataStore!.error // error can be nil
+            lrDataStore.dataItems = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.dataItems!) as [LRDataItem]
             lrDataStore.size = Int(cd_lrDataStore!.size)
             lrDataStore.stressCount = Int(cd_lrDataStore!.stressCount)
             
@@ -218,7 +248,7 @@ public class StorageService : ObservableObject {
     
     // MARK: - export APIs
     public func exportAllDataToJson() -> String {
-        var dataToExport = ExportedEntites()
+        let dataToExport = ExportedEntites()
         
         // for now we will only export data store, and stress events
         dataToExport.lrDataStore = self.getLRDataStore()

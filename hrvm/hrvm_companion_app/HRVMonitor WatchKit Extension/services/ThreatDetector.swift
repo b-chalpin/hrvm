@@ -1,7 +1,21 @@
 //
 //  ThreatDetector.swift
 //  HRVMonitor WatchKit Extension
-//
+/*
+ThreatDetector is a singleton class that encapsulates the functionality to detect and acknowledge
+potential HRV stress events. It uses the logistic regression algorithm (LogisticRegression class)
+to make dynamic predictions if there are enough stress events detected in the LRDataStore object.
+
+It contains methods to check for threats (checkHrvForThreat),
+acknowledge threats (acknowledgeThreat),
+generate labels for LR, and switch between prediction modes (checkThreatMode).
+
+The ThreatDetectorStatus enum is used to keep track of the prediction mode (static or dynamic) and the ThreatDetector
+class is an ObservableObject to make sure that changes to threatAcknowledged are properly published.
+
+The storageService object is used to interact with a persistent storage mechanism
+(LRDataStore object) that stores the HRV data and predicted labels.
+*/
 //  Created by bchalpin/ Nick Adams on 3/15/22.
 //
 
@@ -44,9 +58,18 @@ class ThreatDetector : ObservableObject {
         let newSamples = [hrvStore]
         let newLabels = self.generateLabelForFeedback(feedback: feedback, samples: newSamples)
         
-        // append our new data store sample and label
-        self.dataStore.add(samples: newSamples, labels: newLabels, feedback: feedback)
-       
+        if !self.dataStore.dataItems.isEmpty {
+            let samples = self.dataStore.dataItems.map({ $0.sample })
+            let labels = self.dataStore.dataItems.map({ $0.isStressed })
+            let error = self.lrModel.error(X: samples, y: labels)
+            
+            // append our new data store sample and label with the error
+            self.dataStore.add(samples: newSamples, labels: newLabels, errors: [error], feedback: feedback)
+        } else {
+            // append our new data store sample and label without the error
+            self.dataStore.add(samples: newSamples, labels: newLabels, errors: nil, feedback: feedback)
+        }
+        
         print("FEEDBACK: \(feedback) - Threat acked")
         self.threatAcknowledged = true
         
@@ -59,16 +82,12 @@ class ThreatDetector : ObservableObject {
             
             // persist new trained weights to storage
             self.storageService.saveLRWeights(lrWeights: self.lrModel.weights)
-            
-            let error = self.lrModel.error(X: self.dataStore.samples!, y: self.dataStore.labels!)
-            self.dataStore.addError(error: error)
-            
-            print("ERROR: \(error)")
         }
         
         // persist new error update to storage
         storageService.saveLRDataStore(datastore: self.dataStore)
     }
+
     
     private func generateLabelForFeedback(feedback: Bool, samples: [[HrvItem]]) -> [Double] {
         var labels = [Double](repeating: 0.0, count: samples.count)
@@ -82,7 +101,7 @@ class ThreatDetector : ObservableObject {
     
     // train the LR model on our current data store and labels
     private func fit_dynamic() {
-        self.lrModel.fit(samples: self.dataStore.samples!, labels: self.dataStore.labels!)
+        self.lrModel.fit(samples: self.dataStore.dataItems.map({ $0.sample }), labels: self.dataStore.dataItems.map({ $0.isStressed }))
     }
     
     // returns true for danger; false otherwise
@@ -90,25 +109,25 @@ class ThreatDetector : ObservableObject {
         if (self.predictorMode == ._static) {
             return self.predict_static(predictionSet: predictionSet)
         }
-        else {
-            return self.predict_dynamic(predictionSet: predictionSet)
-        }
+        return false
     }
     
     // static prediction method; compare latest HRV to a threshold value
     private func predict_static(predictionSet: [HrvItem]) -> Bool {
         print("STATIC MODE - Prediction")
         
-        return predictionSet.last!.value < Settings.StaticDangerThreshold
+        return predictionSet.last!.RMSSD < Settings.StaticDangerThreshold
     }
     
-    // use the logistic regressor to predict
-    private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
-        let doublePredictionSet = [HrvMapUtils.mapHrvStoreToDoubleArray(hrvStore: predictionSet)] // lr needs a [[Double]]
-        let prediction = self.lrModel.predict(X: doublePredictionSet)
-        
-        print("DYNAMIC MODE - Prediction: \(prediction[0])")
-        
-        return prediction[0] > Settings.LrPredictionThreshold
+//    // use the logistic regressor to predict
+   private func predict_dynamic(predictionSet: [HrvItem]) -> Bool {
+        print("DYNAMIC MODE - Prediction")
+        // change to type double array to pass to predict
+        let prediction = self.lrModel.predict(X: [predictionSet.map({ Double($0.RMSSD) })])
+
+        // convert double array to double
+        let predictionValue = prediction[0]
+
+        return predictionValue > Settings.LrPredictionThreshold
     }
-}
+   }
