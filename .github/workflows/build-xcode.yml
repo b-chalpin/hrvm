@@ -30,4 +30,3 @@ jobs:
       - name: Test
         working-directory: ./hrvm/hrv_standalone_watch_app
         run: xcodebuild -scheme hrv_standalone_watch_app -workspace hrv_standalone_watch_app.xcworkspace -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm,OS=6.1' test
-```
