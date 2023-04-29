@@ -5,7 +5,18 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build-companion:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        working-directory: ./hrvm/hrvm_companion_app
+        run: swift build
+      - name: Test
+        working-directory: ./hrvm/hrvm_companion_app
+        run: swift test
+
+  build-watch-app:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
