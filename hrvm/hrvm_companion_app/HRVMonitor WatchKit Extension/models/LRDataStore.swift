@@ -9,7 +9,7 @@ import Foundation
 
 public struct LRDataItem: Codable {
     var sample: [HrvItem]
-    var label: Double
+    var isStressed: Double
     var error: Double?
 }
 
@@ -20,11 +20,17 @@ public class LRDataStore : Codable {
     
     // Creating a new LRDataStore object
     public func add(samples: [[HrvItem]], labels: [Double], errors: [Double]?, feedback: Bool) {
-        for (sample, label) in zip(samples, labels) {
-            let errorValue = errors == nil ? nil : errors?[size]
-            let dataItem = LRDataItem(sample: sample, label: label, error: errorValue)
+        var errorIndex = 0
+        
+        for (sample, isStressed) in zip(samples, labels) {
+            let errorValue = errors == nil ? nil : errors?[errorIndex]
+            let dataItem = LRDataItem(sample: sample, isStressed: isStressed, error: errorValue)
             dataItems.append(dataItem)
             size += 1
+            
+            if let _ = errorValue {
+                errorIndex += 1
+            }
         }
         
         if (feedback) {
@@ -32,13 +38,12 @@ public class LRDataStore : Codable {
         }
     }
     
-    public func addError(error: Double)
-    {
-        if(self.error == nil) {
-            self.error = [error]
+    public func addError(error: Double, atIndex index: Int) {
+        guard index >= 0 && index < dataItems.count else {
+            print("Error: Invalid index.")
+            return
         }
-        else {
-            self.error?.append(error)
-        }
+        
+        dataItems[index].error = error
     }
 }

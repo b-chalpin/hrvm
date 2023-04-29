@@ -4,20 +4,37 @@
 //
 //  Created by bchalpin on 5/18/22.
 //
+//  This utility class provides methods for mapping HRV data stored in an array of
+//  HrvItem objects into an array of Double values.
+//
+//  Functions:
+//  1. mapHrvStoreToDoubleArray(hrvStore: [HrvItem]) -> [Double]: Maps an array of HrvItem
+//     objects to an array of Double values by extracting the `value` property of each HrvItem object.
+//
+//  2. mapHrvStoreToDoubleArray_Normalized(hrvStore: [HrvItem]) -> [Double]: Maps an array
+//     of HrvItem objects to an array of normalized Double values, used only for UI graphs.
+//     Computes the minimum and maximum values (with some padding) and normalizes the HRV values accordingly.
+//
+
 
 import Foundation
 
 public class HrvMapUtils {
-    public static func mapHrvStoreToDoubleArray(hrvStore: [HrvItem]) -> [Double] {
+    public static func mapHrvStoreToDoubleArray(hrvStore: [HrvItem]) -> [[String: Double]] {
         return hrvStore.map { hrv in
-            return hrv.value
+            return [
+                "RMSSD": hrv.RMSSD,
+                "meanRR": hrv.meanRR,
+                "medianRR": hrv.medianRR,
+                "pNN50": hrv.pNN50,
+            ]
         }
     }
     
-    // used ONLY for UI graphs
     public static func mapHrvStoreToDoubleArray_Normalized(hrvStore: [HrvItem]) -> [Double] {
-        let hrvStoreDoubles = mapHrvStoreToDoubleArray(hrvStore: hrvStore)
-        
+        let hrvStoreDicts = mapHrvStoreToDoubleArray(hrvStore: hrvStore)
+        let hrvStoreDoubles = hrvStoreDicts.map { $0["RMSSD"]! }
+
         if (hrvStoreDoubles.count < 2) {
             print("mapHrvStoreToDoubleArray_Normalized - Less than 2 HRV Store values found when mapping [HrvItem] -> [Double]. Returning [0.0, 0.0]")
             return [0.0, 0.0]

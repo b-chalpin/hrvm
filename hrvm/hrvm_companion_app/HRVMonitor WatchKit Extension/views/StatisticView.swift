@@ -60,7 +60,7 @@ struct StatisticView: View {
             return [0.0, 0.0]
         }
         
-        let hrvStoreValues = self.hrPoller.hrvStore.map { $0.value }
+        let hrvStoreValues = self.hrPoller.hrvStore.map { $0.RMSSD }
        
         let min = 0.0 // lowest HRV we can have is 0.0, subtract 10.0 more for padding
         let max = hrvStoreValues.max()! + 10.0 // pad our upper bound for normalization
@@ -73,7 +73,7 @@ struct StatisticView: View {
         case HeartRatePollerStatus.stopped, HeartRatePollerStatus.starting:
             return "0.0"
         case HeartRatePollerStatus.active:
-            return StringFormatUtils.formatDoubleToString(input: self.hrPoller.latestHrv!.value)
+            return StringFormatUtils.formatDoubleToString(input: self.hrPoller.latestHrv!.RMSSD)
         }
     }
 }
