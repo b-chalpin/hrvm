@@ -69,7 +69,7 @@ public class SitStandPoller : ObservableObject {
 //                    let acceleration = activity.acceleration
 //                    self.latestAcceleration = acceleration
 //                    self.accelerationStore.append(acceleration)
-//                    
+//
 //                    // Detect change from sitting to standing
 //                    let accelerationMagnitude = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2))
 //                    if accelerationMagnitude > 1.2 {
@@ -93,3 +93,4 @@ public class SitStandPoller : ObservableObject {
         self.status = status
     }
 }
+
