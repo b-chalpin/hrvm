@@ -22,7 +22,8 @@
     </entity>
     <entity name="CD_LRDataStore" representedClassName="CD_LRDataStore" syncable="YES" codeGenerationType="class">
         <attribute name="error" optional="YES" attributeType="Transformable" customClassName="[Double]"/>
-        <attribute name="labels" attributeType="Transformable" customClassName="[Double]"/>
+        <attribute name="isStressed" attributeType="Transformable" customClassName="[Double]"/>
+        <attribute name="sitStandChange" attributeType="Boolean" />
         <attribute name="samples" attributeType="String"/>
         <attribute name="size" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="stressCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

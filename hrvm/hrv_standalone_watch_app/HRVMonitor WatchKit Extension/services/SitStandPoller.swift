@@ -34,19 +34,14 @@ public class SitStandPoller : ObservableObject {
     }
     
     private func checkAuthorization() {
-        if CMMotionActivityManager.isActivityAvailable() {
-            let motionActivityManager = CMMotionActivityManager()
-            motionActivityManager.queryActivityStarting(from: Date(), to: Date(), to: OperationQueue.main) { (activities, error) in
-                if error != nil {
-                    print("ERROR - Unable to start motion activity updates")
-                } else {
-                    DispatchQueue.main.async {
-                        self.authStatus = true
-                    }
-                }
+        let motionActivityManager = CMMotionActivityManager()
+        motionActivityManager.queryActivityStarting(from: Date(), to: Date(), to: OperationQueue.main) { (activities, error) in
+            if error != nil {
+                print("ERROR - Unable to query motion activity. \(error!.localizedDescription)")
+                self.authStatus = false
+            } else {
+                self.authStatus = true
             }
-        } else {
-            print("ERROR - Unable to start motion activity updates. Motion activity is not available.")
         }
     }
     
@@ -55,38 +50,64 @@ public class SitStandPoller : ObservableObject {
     }
     
     public func poll() {
-        if CMMotionActivityManager.isActivityAvailable() {
-            let motionActivityManager = CMMotionActivityManager()
-            motionActivityManager.startActivityUpdates(to: OperationQueue.main) { (activity) in
-                // there is a chance that we have stopped the polling, check this first before continuing
-                if self.hasBeenStopped {
-                    print("LOG - Posture Poller has been told to stop. Aborting query")
-                    motionActivityManager.stopActivityUpdates()
-                    return
+        self.hasBeenStopped = false
+        self.updateStatus(status: .starting)
+        
+        let motionActivityManager = CMMotionActivityManager()
+        motionActivityManager.startActivityUpdates(to: OperationQueue.main) { (activity) in
+            if activity != nil {
+                if activity!.stationary {
+                    self.updateStatus(status: .active)
+                    self.starting()
+                } else {
+                    self.updateStatus(status: .stopped)
+                    self.stop()
                 }
-                
-//                if activity.confidence == .high && activity.stationary == false {
-//                    let acceleration = activity.acceleration
-//                    self.latestAcceleration = acceleration
-//                    self.accelerationStore.append(acceleration)
-//                    
-//                    // Detect change from sitting to standing
-//                    let accelerationMagnitude = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2))
-//                    if accelerationMagnitude > 1.2 {
-//                        print("Change detected from sitting to standing")
-//                        self.sitStandChange = true // set flag for change from sitting to standing
-//                    }
-//                }
             }
-            self.updateStatus(status: .active)
-        } else {
-            print("ERROR - Unable to start motion activity updates. Motion activity is not available.")
         }
     }
     
     public func stop() {
         self.hasBeenStopped = true
         self.updateStatus(status: .stopped)
+    }
+
+    private func starting() {
+        self.accelerationStore = []
+        self.sitStandChange = false
+        self.latestAcceleration = nil
+        
+        let motionManager = CMMotionManager()
+        motionManager.accelerometerUpdateInterval = 0.1
+        motionManager.startAccelerometerUpdates(to: OperationQueue.main) { (accelerometerData, error) in
+            if error != nil {
+                print("ERROR - Unable to get accelerometer data. \(error!.localizedDescription)")
+            } else {
+                if accelerometerData != nil {
+                    self.latestAcceleration = accelerometerData!.acceleration
+                    self.accelerationStore.append(accelerometerData!.acceleration)
+                    
+                    if self.accelerationStore.count > 10 {
+                        self.accelerationStore.removeFirst()
+                    }
+                    
+                    if self.accelerationStore.count == 10 {
+                        let avgAcceleration = self.getAverageAcceleration()
+                        if avgAcceleration > 1.0 {
+                            self.sitStandChange = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func getAverageAcceleration() -> Double {
+        var sum: Double = 0.0
+        for acceleration in self.accelerationStore {
+            sum += acceleration.x
+        }
+        return sum / Double(self.accelerationStore.count)
     }
     
     private func updateStatus(status: SitStandPollerStatus) {

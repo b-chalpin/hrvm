@@ -10,6 +10,7 @@ import Foundation
 public struct LRDataItem: Codable {
     var sample: [HrvItem]
     var isStressed: Double
+    var sitStandChange: Double
     var error: Double?
 }
 
@@ -19,12 +20,12 @@ public class LRDataStore : Codable {
     var stressCount: Int = 0 // count of the number of samples with label == 1
     
     // Creating a new LRDataStore object
-    public func add(samples: [[HrvItem]], labels: [Double], errors: [Double]?, feedback: Bool) {
+    public func add(samples: [[HrvItem]], isStressed: [Double],  sitStandChange: Double, errors: [Double]?, feedback: Bool) {
         var errorIndex = 0
         
-        for (sample, isStressed) in zip(samples, labels) {
+        for (sample, isStressed) in zip(samples, isStressed) {
             let errorValue = errors == nil ? nil : errors?[errorIndex]
-            let dataItem = LRDataItem(sample: sample, isStressed: isStressed, error: errorValue)
+            let dataItem = LRDataItem(sample: sample, isStressed: isStressed, sitStandChange: sitStandChange, error: errorValue)
             dataItems.append(dataItem)
             size += 1
             

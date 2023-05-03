@@ -16,9 +16,9 @@ lam: a double representing the regularization parameter for the model.
 The class has the following public methods:
 
 init(): initializes the model weights to zero and sets the hyperparameters to default values.
-fit(samples:labels:): fits the logistic regression model to the input data and labels.
+fit(samples:isStressed:): fits the logistic regression model to the input data and isStressed.
 predict(X:): makes predictions on new data using the trained model.
-error(X:y:): calculates the error rate of the model on the input data and labels.
+error(X:y:): calculates the error rate of the model on the input data and isStressed.
 The class has the following private methods:
 
 updateWeights(X:y:signal:): updates the weights of the model during training.
@@ -51,12 +51,12 @@ public class LogisticRegression {
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
     }
     
-    public func fit(samples: [[HrvItem]], labels: [Double]) {
+    public func fit(samples: [[HrvItem]], isStressed: [Double]) {
         // reset model weights
         self.weights = [Double](repeating: 0.0, count: self.columnCount)
         
         var X = samples.map { $0.map { $0.RMSSD } }
-        let y = labels
+        let y = isStressed
 
         self.rowCount = X.count
         var epochs = self.rowCount/4 // set epochs to number of samples
@@ -119,13 +119,13 @@ public class LogisticRegression {
     private func updateWeights(X:[Double], y:[Double], signal:[Double]) {
         
         let samples = X
-        let labels = y
+        let isStressed = y
         let sigmoid = self.v_sigmoid(signal: signal, rowCount: self.rowCount, fit: true)
         let scalar = self.eta/Double(self.rowCount)
         let scalar2 = 1 - (2 * self.eta * self.lam / Double(self.rowCount))
         var weights = Array(repeating: 0.0, count: self.columnCount)
         
-        let m1 = vDSP.multiply(labels, sigmoid)
+        let m1 = vDSP.multiply(isStressed, sigmoid)
         let m2 = vDSP.multiply(scalar2, self.weights)
         
         vDSP_mmulD(m1, 1, samples, 1, &weights, 1, vDSP_Length(1), vDSP_Length(self.columnCount), vDSP_Length(self.rowCount))
@@ -139,12 +139,12 @@ public class LogisticRegression {
     private func calculateSignal(X:[Double], y:[Double]) -> [Double] {
         
         let samples = X
-        let labels = y
+        let isStressed = y
         let weights = self.weights
         var results = Array(repeating: 0.0, count: self.rowCount)
         
         vDSP_mmulD(samples, 1, weights, 1, &results, 1, vDSP_Length(self.rowCount), vDSP_Length(1), vDSP_Length(self.columnCount))
-        let signal = vDSP.multiply(labels, results)
+        let signal = vDSP.multiply(isStressed, results)
         
         return signal
     }

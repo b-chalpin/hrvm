@@ -8,13 +8,13 @@ to make dynamic predictions if there are enough stress events detected in the LR
 
 It contains methods to check for threats (checkHrvForThreat),
 acknowledge threats (acknowledgeThreat),
-generate labels for LR, and switch between prediction modes (checkThreatMode).
+generate isStressed for LR, and switch between prediction modes (checkThreatMode).
 
 The ThreatDetectorStatus enum is used to keep track of the prediction mode (static or dynamic) and the ThreatDetector
 class is an ObservableObject to make sure that changes to threatAcknowledged are properly published.
 
 The storageService object is used to interact with a persistent storage mechanism
-(LRDataStore object) that stores the HRV data and predicted labels.
+(LRDataStore object) that stores the HRV data and predicted isStressed.
 */
 //  Created by bchalpin/ Nick Adams on 3/15/22.
 //
@@ -57,17 +57,19 @@ class ThreatDetector : ObservableObject {
     public func acknowledgeThreat(feedback: Bool, hrvStore: [HrvItem]) {
         let newSamples = [hrvStore]
         let newLabels = self.generateLabelForFeedback(feedback: feedback, samples: newSamples)
+        let newSitStandChange = self.dataStore.dataItems.isEmpty ? false : self.dataStore.dataItems.last!.sitStandChange
         
         if !self.dataStore.dataItems.isEmpty {
             let samples = self.dataStore.dataItems.map({ $0.sample })
-            let labels = self.dataStore.dataItems.map({ $0.isStressed })
-            let error = self.lrModel.error(X: samples, y: labels)
+            let isStressed = self.dataStore.dataItems.map({ $0.isStressed })
+            let sitStandChange = self.dataStore.dataItems.map({ $0.sitStandChange })
+            let error = self.lrModel.error(X: samples, y: isStressed)
             
             // append our new data store sample and label with the error
-            self.dataStore.add(samples: newSamples, labels: newLabels, errors: [error], feedback: feedback)
+            self.dataStore.add(samples: newSamples, isStressed: newLabels, sitStandChange: newSitStandChange, errors: [error], feedback: feedback)
         } else {
             // append our new data store sample and label without the error
-            self.dataStore.add(samples: newSamples, labels: newLabels, errors: nil, feedback: feedback)
+            self.dataStore.add(samples: newSamples, isStressed: newLabels, sitStandChange: newSitStandChange, errors: nil, feedback: feedback)
         }
         
         print("FEEDBACK: \(feedback) - Threat acked")
@@ -90,18 +92,18 @@ class ThreatDetector : ObservableObject {
 
     
     private func generateLabelForFeedback(feedback: Bool, samples: [[HrvItem]]) -> [Double] {
-        var labels = [Double](repeating: 0.0, count: samples.count)
+        var isStressed = [Double](repeating: 0.0, count: samples.count)
         
         if feedback {
-            labels = [Double](repeating: 1.0, count: samples.count)
+            isStressed = [Double](repeating: 1.0, count: samples.count)
         }
         
-        return labels
+        return isStressed
     }
     
-    // train the LR model on our current data store and labels
+    // train the LR model on our current data store and isStressed
     private func fit_dynamic() {
-        self.lrModel.fit(samples: self.dataStore.dataItems.map({ $0.sample }), labels: self.dataStore.dataItems.map({ $0.isStressed }))
+        self.lrModel.fit(samples: self.dataStore.dataItems.map({ $0.sample }), isStressed: self.dataStore.dataItems.map({ $0.isStressed }))
     }
     
     // returns true for danger; false otherwise

@@ -143,7 +143,7 @@ public class StorageService : ObservableObject {
             let lrDataStore = LRDataStore()
             
             lrDataStore.samples = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.samples!) as [[HrvItem]]
-            lrDataStore.labels = cd_lrDataStore!.labels!
+            lrDataStore.isStressed = cd_lrDataStore!.isStressed!
             lrDataStore.error = cd_lrDataStore!.error // error can be nil
             lrDataStore.size = Int(cd_lrDataStore!.size)
             lrDataStore.stressCount = Int(cd_lrDataStore!.stressCount)

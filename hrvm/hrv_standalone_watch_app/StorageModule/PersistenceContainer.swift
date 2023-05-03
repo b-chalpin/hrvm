@@ -12,7 +12,7 @@ struct PersistenceController {
 
     let container: NSPersistentContainer
 
-    init(inMemory: Bool = false, shouldClear: Bool = false) {
+    init(inMemory: Bool = false, shouldClear: Bool = true) {
         container = NSPersistentContainer(name: "AppModel")
 
         if inMemory {
