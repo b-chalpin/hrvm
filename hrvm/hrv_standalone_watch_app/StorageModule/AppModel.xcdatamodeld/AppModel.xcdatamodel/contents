@@ -8,7 +8,7 @@
         <attribute name="sitStandChange" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
-    <entity name="CD_ExportedEntites" representedClassName="CD_ExportedEntites" syncable="YES" codeGenerationType="class">
+    <entity name="CD_ExportedEntities" representedClassName="CD_ExportedEntities" syncable="YES" codeGenerationType="class">
         <attribute name="eventItems" optional="YES" attributeType="Transformable"/>
         <attribute name="hrvReadings" optional="YES" attributeType="Transformable"/>
         <attribute name="lrDataStore" optional="YES" attributeType="Transformable"/>
@@ -36,7 +36,7 @@
         <attribute name="stressCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="CD_LRWeights" representedClassName="CD_LRWeights" syncable="YES" codeGenerationType="class">
-        <attribute name="weigths" attributeType="Transformable" customClassName="[Double]"/>
+        <attribute name="weights" attributeType="Transformable" customClassName="[Double]"/>
     </entity>
     <entity name="CD_PatientSettings" representedClassName="CD_PatientSettings" syncable="YES" codeGenerationType="class">
         <attribute name="age" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>

@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public class ExportedEntites : Codable {
+public class ExportedEntities : Codable {
     var patientSettings: PatientSettings?
     var eventItems: [EventItem]?
     var lrWeights: [Double]?

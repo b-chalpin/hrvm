@@ -188,7 +188,7 @@ public class StorageService : ObservableObject {
             fatalError("Unexpected results when fetching global LR Weights. No weights were found.")
         }
       
-        return cd_lrWeights!.weigths!
+        return cd_lrWeights!.weights!
     }
     
     public func saveLRWeights(lrWeights: [Double]) {
@@ -199,7 +199,7 @@ public class StorageService : ObservableObject {
             currentLrWeights = CD_LRWeights(context: context)
         }
         
-        currentLrWeights!.weigths = lrWeights
+        currentLrWeights!.weights = lrWeights
 
         self.saveContext()
     }
@@ -218,7 +218,7 @@ public class StorageService : ObservableObject {
     
     // MARK: - export APIs
     public func exportAllDataToJson() -> String {
-        var dataToExport = ExportedEntites()
+        var dataToExport = ExportedEntities()
         
         // for now we will only export data store, and stress events
         dataToExport.lrDataStore = self.getLRDataStore()
