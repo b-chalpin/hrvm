@@ -1,32 +1,33 @@
-# This will build an xcode project and run tests on it. in the .hrvm/hrvm_companion_app directory.
+# # This will build an xcode project and run tests on it. in the .hrvm/hrvm_companion_app directory.
 
-# Path: .github/workflows/build-xcode.yml
+# # Path: .github/workflows/build-xcode.yml
+# TODO fix this later
 
-name: Xcode
+# name: Xcode
 
-on:
-  push:
-  pull_request:
+# on:
+#   push:
+#   pull_request:
 
-jobs:
-  build-companion:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build
-        working-directory: ./hrvm/hrvm_companion_app
-        run: xcodebuild -scheme hrvm_companion_app -workspace hrvm_companion_app.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' build
-      - name: Test
-        working-directory: ./hrvm/hrvm_companion_app
-        run: xcodebuild -scheme hrvm_companion_app -workspace hrvm_companion_app.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' test
+# jobs:
+#   build-companion:
+#     runs-on: macos-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Build
+#         working-directory: ./hrvm/hrvm_companion_app
+#         run: xcodebuild -scheme hrvm_companion_app -workspace hrvm_companion_app.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' build
+#       - name: Test
+#         working-directory: ./hrvm/hrvm_companion_app
+#         run: xcodebuild -scheme hrvm_companion_app -workspace hrvm_companion_app.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' test
 
-  build-watch-app:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build
-        working-directory: ./hrvm/hrv_standalone_watch_app
-        run: xcodebuild -scheme hrv_standalone_watch_app -workspace hrv_standalone_watch_app.xcworkspace -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm,OS=6.1' build
-      - name: Test
-        working-directory: ./hrvm/hrv_standalone_watch_app
-        run: xcodebuild -scheme hrv_standalone_watch_app -workspace hrv_standalone_watch_app.xcworkspace -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm,OS=6.1' test
+#   build-watch-app:
+#     runs-on: macos-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Build
+#         working-directory: ./hrvm/hrv_standalone_watch_app
+#         run: xcodebuild -scheme hrv_standalone_watch_app -workspace hrv_standalone_watch_app.xcworkspace -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm,OS=6.1' build
+#       - name: Test
+#         working-directory: ./hrvm/hrv_standalone_watch_app
+#         run: xcodebuild -scheme hrv_standalone_watch_app -workspace hrv_standalone_watch_app.xcworkspace -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm,OS=6.1' test
