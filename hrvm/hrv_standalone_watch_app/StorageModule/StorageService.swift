@@ -116,7 +116,7 @@ public class StorageService : ObservableObject {
         newEvent.hrv = JsonSerializerUtils.serialize(data: event.hrv)
         newEvent.hrvStore = JsonSerializerUtils.serialize(data: event.hrvStore)
         newEvent.isStressed = event.isStressed
-        newEvent.sitStandChange = event.sitStandChange
+        //newEvent.sitStandChange = event.sitStandChange
         
         self.saveContext()
     }
@@ -159,8 +159,7 @@ public class StorageService : ObservableObject {
                              timestamp: event.timestamp!,
                              hrv: hrvItem,
                              hrvStore: hrvStore,
-                             isStressed: event.isStressed,
-                             sitStandChange: event.sitStandChange)
+                             isStressed: event.isStressed)
         }
     }
     
