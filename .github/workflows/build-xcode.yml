@@ -1,26 +1,15 @@
 # This will build an xcode project and run tests on it. in the .hrvm/hrvm_companion_app directory.
 
 # Path: .github/workflows/build-xcode.yml
-TODO fix this later
 
 name: Xcode
 
 on:
   push:
+    branches: ['*']
   pull_request:
-
+    branches: ['*']
 jobs:
-  # build-companion:
-  #   runs-on: macos-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Build
-  #       working-directory: ./hrvm/hrv_companion_app
-  #       run: xcodebuild -scheme "HRVMonitor WatchKit App" -workspace HRVMonitor.xcodeproj/project.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.2.2' build
-  #     - name: Test
-  #       working-directory: ./hrvm/hrv_companion_app
-  #       run: xcodebuild -scheme "HRVMonitor WatchKit App" -workspace HRVMonitor.xcodeproj/project.xcworkspace -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.2.2' test
-
   build-watch-app:
     runs-on: macos-latest
     steps:
