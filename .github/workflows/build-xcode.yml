@@ -13,9 +13,11 @@ jobs:
   build-watch-app:
     runs-on: macos-latest
     steps:
-      # Install simulator and Xcode
-      - name: Install Simulator
-        run: sudo xcode-select -s /Applications/Xcode_11.1.app/Contents/Developer
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          cd ./hrvm/hrv_standalone_watch_app
+          pod install
       - uses: actions/checkout@v2
       - name: Build
         working-directory: ./hrvm/hrv_standalone_watch_app/
