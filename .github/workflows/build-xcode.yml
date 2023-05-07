@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        working-directory: ./hrvm/hrv_standalone_watch_app
+        working-directory: ./hrvm/hrv_standalone_watch_app/
         run: xcodebuild -scheme "HRVMonitor WatchKit App" -workspace HRVMonitor.xcodeproj/project.xcworkspace -sdk watchsimulator -destination 'platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm,OS=6.1' build
       - name: Test
         working-directory: ./hrvm/hrv_standalone_watch_app
