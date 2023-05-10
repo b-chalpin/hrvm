@@ -5,8 +5,6 @@
 > Project started: 1/17/2022
 >
 > Project ended: 6/17/2022
-> Project part 2 started: 1/20/2023
-> Project part 2 ended:
 
 ## Table of Contents
 
@@ -32,7 +30,6 @@ Studies have shown that Heart Rate Variability (HRV) has a special relationship 
 * The application will poll the patient’s heart rate and return us real-time data
 
 * The application will store patient heart rate and HRV data over a configured amount of time.
-
 * For dangerous HRV levels, the application will provide audible and haptic feedback.
 * The application will receive patient demographics to assist the HRV algorithm. e.g. Age, history of brain trauma, heart condition, etc.
 * Application will determine if a patient’s HRV will lead to a stressful event (machine learning).
@@ -42,10 +39,9 @@ Studies have shown that Heart Rate Variability (HRV) has a special relationship 
 ## Technologies Used
 
 * XCode 13.4.1
+
 * SwiftUI 5
-
 * HealthKit
-
 * CoreData
 
 ## Features
@@ -114,11 +110,12 @@ To apply to join the Test Flight application beta testing, please contact us at 
 
 ## Acknowledgements
 
-This project was made possible by Dr. Alicia Hegie and Dr. Frank Jackson of St. Luke's Rehabilitation Instritute.
+This project was made possible by Dr. Alicia Hegie and Dr. Frank Jackson of St. Luke's Rehabilitation Institute.
 
 ### Contributors
 
 * Blake Chalpin ([b-chalpin](https://github.com/b-chalpin))
+
 * Nick Adams ([Nick-P-Adams](https://github.com/Nick-P-Adams))
 * Madison Reese ([MadisonReese](https://github.com/MadisonReese))
 * Jared Adams ([AndroidDucky](https://github.com/AndroidDucky))
