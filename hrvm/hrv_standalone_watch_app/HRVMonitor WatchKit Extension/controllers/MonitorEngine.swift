@@ -80,7 +80,7 @@ class MonitorEngine : ObservableObject {
             }
             else {
                 self.hrPoller.poll()
-                self.sitStandPoller.poll() // added call to poll sit/stand data
+                // self.sitStandPoller.poll() // added call to poll sit/stand data
             }
             
             if self.hrPoller.isActive() { // if true then latestHrv is defined
