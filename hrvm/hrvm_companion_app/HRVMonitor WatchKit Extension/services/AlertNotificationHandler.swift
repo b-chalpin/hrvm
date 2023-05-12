@@ -1,9 +1,10 @@
+// ======================================================================
+// \title  IpCfg.hpp
+// \author Nick Adams on 5/9/22.
+// \brief: The AlertNotificationHandler class manages the state of an alert and handles notifications, 
+// providing a simple way to notify users in the foreground or background.
 //
-//  alertNotificationHandler.swift
-//  HRVMonitor WatchKit Extension
-//
-//  Created by Nick Adams on 5/9/22.
-//
+// ======================================================================
 
 import Foundation
 import SwiftUI

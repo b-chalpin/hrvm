@@ -1,31 +1,9 @@
-// This is a Swift file for a Heart Rate Variability (HRV) Poller class in an Apple Watch application.
-// It imports the HealthKit framework to access the user's heart rate data.
-
-// The `HeartRatePoller` class is an ObservableObject and contains several properties, including:
-// - `latestHrv`: the current HRV value.
-// - `hrvStore`: an array to store HRV values that are being calculated.
-// - `status`: an enum that represents the current status of the poller (stopped, starting, or active).
-// - `authStatus`: the authorization status for accessing the user's heart rate data.
-// - `minHrvValue`, `maxHrvValue`, and `avgHrvValue`: statistics for the HRV values that are being stored.
-
-// The `HeartRatePoller` class also has several functions, including:
-// - `poll()`: a function that queries the user's heart rate data and calculates the current HRV.
-// - `demo()`: a function to simulate HRV values for demo purposes.
-// - `initPolling()`: a function to initialize the poller.
-// - `stopPolling()`: a function to stop the poller.
-// - `resetStoppedFlag()`: a function to reset the stopped flag.
-// - `calculateHrv(hrSamples: [HrItem])`: a function that calculates the HRV value based on an array of heart rate data samples.
-// - `calculateStdDev(samples: [Double])`: a function that calculates the standard deviation of an array of samples.
-// - `calculateMean(samples: [Double])`: a function that calculates the mean of an array of samples.
-// - `calculateDeltaHrvValue(newHrvValue: Double)`: a function that calculates the change in HRV value from the previous value.
-// - `calculateMeanRR(hrSamples: [HrItem])`: a function that calculates the mean RR interval (inter-beat interval) from an array of heart rate samples.
-// - `calculateMedianRR(hrSamples: [HrItem])`: a function that calculates the median RR interval (inter-beat interval) from an array of heart rate samples.
-// - `calculatepNN50(hrSamples: [HrItem])`: a function that calculates the percentage of NN50 values from an array of heart rate samples.
-// - `calculateDeltaUnixTimestamp(newHrvTimestamp: Date)`: a function that calculates the change in Unix timestamp from the previous HRV value.
-// - `addHrvToHrvStore(newHrv: HrvItem)`: a function that adds the latest HRV value to the `hrvStore`.
-// - `updateHrvStats()`: a function that updates the statistics for the HRV values stored in `hrvStore`.
-// - `resetHrvStats()`: a function that resets the HRV statistics to their default values.
-// - `updateStatus(status: HeartRatePollerStatus)`: a function that updates the status of the poller.
+// ======================================================================
+// File: HeartRatePoller.swift
+// Author: Nick Adams
+// Date: 5/9/2022
+// Description: This file contains the implementation of the HeartRatePoller class, which is responsible for polling and calculating Heart Rate Variability (HRV) data in an Apple Watch application.
+// ======================================================================
 
 import Foundation
 import HealthKit
@@ -33,35 +11,38 @@ import Accelerate
 import CoreData
 
 // it is assumed that when status is .active, hrv will be defined
+// Enumeration to represent the status of the HeartRatePoller
 enum HeartRatePollerStatus {
     case stopped
     case starting
     case active
 }
 
-public class HeartRatePoller : ObservableObject {
-    // singleton
+public class HeartRatePoller: ObservableObject {
+    // Singleton instance of the HeartRatePoller
     public static let shared: HeartRatePoller = HeartRatePoller()
     
     private var storageService = StorageService.shared
     
-    // variable to indicate whether we have notified the poller to stop
+    // Flag to indicate whether the poller has been stopped
     private var hasBeenStopped: Bool = true
 
-    @Published var latestHrv: HrvItem? // our current HRV
-    @Published var hrvStore: [HrvItem] // store our hrv values that are being calculated
-    @Published var status: HeartRatePollerStatus
-    @Published var authStatus: HKAuthorizationStatus = .notDetermined
+    // Published properties
+    @Published var latestHrv: HrvItem? // Current HRV value
+    @Published var hrvStore: [HrvItem] // Array to store HRV values being calculated
+    @Published var status: HeartRatePollerStatus // Current status of the poller
+    @Published var authStatus: HKAuthorizationStatus = .notDetermined // Authorization status for accessing health data
     
-    // HRV stats for the UI
+    // HRV statistics for the UI
     @Published var minHrvValue: Double = 0.0
     @Published var maxHrvValue: Double = 0.0
     @Published var avgHrvValue: Double = 0.0
     
-    // constants
+    // Constants
     private let heartRateQuantityType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.heartRate)!
     private let healthStore: HKHealthStore = HKHealthStore()
     
+    // Initializes the HeartRatePoller object
     public init() {
         self.status = .stopped
         self.latestHrv = nil
@@ -69,14 +50,17 @@ public class HeartRatePoller : ObservableObject {
         self.requestAuthorization()
     }
     
+    // Returns the HRV store
     public func getHrvStore() -> [HrvItem] {
         return self.hrvStore
     }
     
+    // Updates the authorization status for accessing health data
     private func updateAuthStatus() {
         self.authStatus = healthStore.authorizationStatus(for: self.heartRateQuantityType)
     }
     
+    // Requests authorization for reading heart rate data
     private func requestAuthorization() {
         let sharing = Set<HKSampleType>()
         let reading = Set<HKObjectType>([self.heartRateQuantityType])
@@ -93,10 +77,12 @@ public class HeartRatePoller : ObservableObject {
         }
     }
     
+    // Checks if the poller is active
     public func isActive() -> Bool {
         return self.status == .active
     }
     
+    // Polls heart rate data and calculates HRV
     public func poll() {
         if (HKHealthStore.isHealthDataAvailable()) {
             let sortByTimeDescending = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
@@ -156,6 +142,7 @@ public class HeartRatePoller : ObservableObject {
 }
     
     // demo function to assign latestHrv to random value
+    // - `demo()`: a function to simulate HRV values for demo purposes.
     public func demo() {
         if self.hasBeenStopped {
             print("LOG - HRPoller has been stopped. Cancelling random HRV polling")
@@ -184,11 +171,13 @@ public class HeartRatePoller : ObservableObject {
         print("LOG - Random HRV value: \(self.latestHrv!)")
     }
     
+    // - `initPolling()`: a function to initialize the poller.
     public func initPolling() {
         self.resetStoppedFlag()
         self.status = .starting
     }
     
+    // - `stopPolling()`: a function to stop the poller.
     public func stopPolling() {
         self.hasBeenStopped = true
         self.latestHrv = nil
@@ -196,10 +185,12 @@ public class HeartRatePoller : ObservableObject {
         self.updateStatus(status: .stopped)
     }
     
+    // - `resetStoppedFlag()`: a function to reset the stopped flag.
     public func resetStoppedFlag() {
         self.hasBeenStopped = false
     }
     
+    // - `calculateHrv(hrSamples: [HrItem])`: a function that calculates the HRV value based on an array of heart rate data samples.
     private func calculateHrv(hrSamples: [HrItem]) -> HrvItem {
         let hrSamplesInMS = hrSamples.map { (sample) -> Double in
             // convert bpm -> ms
@@ -232,6 +223,7 @@ public class HeartRatePoller : ObservableObject {
                        pNN50: pNN50)
     }
     
+    // - `calculateStdDev(samples: [Double])`: a function that calculates the standard deviation of an array of samples.
     private func calculateStdDev(samples: [Double]) -> Double {
         let length = Double(samples.count)
         let avg = self.calculateMean(samples: samples)
@@ -239,6 +231,7 @@ public class HeartRatePoller : ObservableObject {
         return sqrt(sumOfSquaredAvgDiff / length)
     }
     
+    // - `calculateMean(samples: [Double])`: a function that calculates the mean of an array of samples.
     private func calculateMean(samples: [Double]) -> Double {
         if samples.count == 0 {
             fatalError("ERROR - Cannot calculate the mean of 0 samples. Will result in a divide by 0")
@@ -248,6 +241,7 @@ public class HeartRatePoller : ObservableObject {
         return samples.reduce(0, {$0 + $1}) / length
     }
     
+    // - `calculateDeltaHrvValue(newHrvValue: Double)`: a function that calculates the change in HRV value from the previous value.
     private func calculateDeltaHrvValue(newHrvValue: Double) -> Double {
         if let latestHrvValue = self.latestHrv?.RMSSD {
             return newHrvValue - latestHrvValue
@@ -257,6 +251,7 @@ public class HeartRatePoller : ObservableObject {
         }
     }
     
+    // - `calculateDeltaUnixTimestamp(newHrvTimestamp: Date)`: a function that calculates the change in Unix timestamp from the previous HRV value.
     private func calculateDeltaUnixTimestamp(newHrvTimestamp: Date) -> Double {
         if let latestHrvTiemstamp = self.latestHrv?.timestamp {
             return newHrvTimestamp.timeIntervalSince1970 - latestHrvTiemstamp.timeIntervalSince1970
@@ -266,6 +261,7 @@ public class HeartRatePoller : ObservableObject {
         }
     }
 
+    // - `calculateMeanRR(hrSamples: [HrItem])`: a function that calculates the mean RR interval (inter-beat interval) from an array of heart rate samples.
     private func calculateMeanRR(hrSamples: [HrItem]) -> Double {
         let rrIntervals = hrSamples.map { (sample) -> Double in
             return 60.0 / sample.hr * 1000.0 // convert BPM to RR interval in milliseconds
@@ -274,6 +270,7 @@ public class HeartRatePoller : ObservableObject {
         return self.calculateMean(samples: rrIntervals)
     }
 
+    // - `calculateMedianRR(hrSamples: [HrItem])`: a function that calculates the median RR interval (inter-beat interval) from an array of heart rate samples. 
     private func calculateMedianRR(hrSamples: [HrItem]) -> Double {
         let rrIntervals = hrSamples.map { (sample) -> Double in
             return 60.0 / sample.hr * 1000.0 // convert BPM to RR interval in milliseconds
@@ -295,6 +292,7 @@ public class HeartRatePoller : ObservableObject {
         }
     }
 
+    // - `calculatepNN50(hrSamples: [HrItem])`: a function that calculates the percentage of NN50 values from an array of heart rate samples.
     private func calculatePNN50(hrSamples: [HrItem]) -> Double {
         let rrIntervals = hrSamples.map { (sample) -> Double in
             return 60.0 / sample.hr * 1000.0 // convert BPM to RR interval in milliseconds
@@ -313,7 +311,7 @@ public class HeartRatePoller : ObservableObject {
         return (pNN50 / Double(length)) * 100.0
     }
 
-    
+    // - `addHrvToHrvStore(newHrv: HrvItem)`: a function that adds the latest HRV value to the `hrvStore`.
     private func addHrvToHrvStore(newHrv: HrvItem) {
         if self.hrvStore.count == Settings.HRVStoreSize {
             self.hrvStore.removeFirst()
@@ -323,6 +321,7 @@ public class HeartRatePoller : ObservableObject {
         self.updateHrvStats()
     }
     
+    // - `updateHrvStats()`: a function that updates the statistics for the HRV values stored in `hrvStore`.
     private func updateHrvStats() {
         if self.hrvStore.count == 0 {
             self.resetHrvStats()
@@ -336,12 +335,14 @@ public class HeartRatePoller : ObservableObject {
         }
     }
     
+    // - `resetHrvStats()`: a function that resets the HRV statistics to their default values.
     private func resetHrvStats() {
         self.minHrvValue = 0.0
         self.maxHrvValue = 0.0
         self.avgHrvValue = 0.0
     }
       
+    // - `updateStatus(status: HeartRatePollerStatus)`: a function that updates the status of the poller.
     private func updateStatus(status: HeartRatePollerStatus) {
         self.status = status
     }
