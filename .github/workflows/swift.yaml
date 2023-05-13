@@ -5,12 +5,6 @@ on:
   pull_request:
 
 jobs:
-  find-available-devices:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Find available devices
-        run: xcrun simctl list devices
   build-companion:
     runs-on: macos-latest
     steps:
