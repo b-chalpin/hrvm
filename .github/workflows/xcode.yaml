@@ -7,12 +7,12 @@ on:
 
 jobs: 
   build-companion-xcode:
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
       - uses: actions/checkout@v2
       - name: Build
         working-directory: ./hrvm/hrvm_companion_app
-        run: xcodebuild build -scheme "HRVMonitor WatchKit App" -destination 'platform=iOS Simulator,name=iPhone 12,OS=15.0'
+        run: xcodebuild build -scheme "HRVMonitor WatchKit App" -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2'
   build-watch-app-xcode:
     runs-on: macos-latest
     steps:
