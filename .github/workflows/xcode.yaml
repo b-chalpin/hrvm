@@ -6,8 +6,18 @@ on:
   pull_request:
 
 jobs: 
+  update-xcode-version:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update Xcode version
+        working-directory: ./hrvm
+        run: |
+          echo "Updating Xcode version"
+          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+          sudo xcodebuild -version
   build-companion-xcode:
-    runs-on: macos-12
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build
