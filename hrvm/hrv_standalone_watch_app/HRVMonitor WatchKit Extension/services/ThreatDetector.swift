@@ -30,7 +30,7 @@ class ThreatDetector : ObservableObject {
     // singleton
     public static let shared: ThreatDetector = ThreatDetector()
     
-    private var storageService = StorageService.shared
+    private var storageService = StorageService.shared 
     private let lrModel = LogisticRegression()
     private var predictorMode: ThreatDetectorStatus = ._static
     private var dataStore: LRDataStore
@@ -42,6 +42,9 @@ class ThreatDetector : ObservableObject {
         self.checkThreatMode()
     }
     
+    // Checks the HRV data for potential threats.
+    // - Parameter hrvStore: Array of HrvItem representing the HRV data.
+    // - Returns: A boolean indicating whether a threat is detected.
     public func checkHrvForThreat(hrvStore: [HrvItem]) -> Bool {
         return self.predict(predictionSet: hrvStore)
     }
@@ -53,7 +56,10 @@ class ThreatDetector : ObservableObject {
         }
     }
     
-    // this method changed to detect if the threat was actaully acknowledged or not. Also calls fit and passes current HrvStore.
+    // Acknowledges a potential threat and updates the LRDataStore with feedback.
+    // - Parameters:
+    //   - feedback: The feedback indicating whether the threat is acknowledged or not.
+    //   - hrvStore: Array of HrvItem representing the HRV data.
     public func acknowledgeThreat(feedback: Bool, hrvStore: [HrvItem]) {
         let newSamples = [hrvStore]
         let newLabels = self.generateLabelForFeedback(feedback: feedback, samples: newSamples)

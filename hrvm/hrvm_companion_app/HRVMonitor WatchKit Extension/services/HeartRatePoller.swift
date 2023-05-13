@@ -2,7 +2,7 @@
 // File: HeartRatePoller.swift
 // Author: Nick Adams
 // Date: 5/9/2022
-// Description: This file contains the implementation of the HeartRatePoller class, which is responsible for polling and calculating Heart Rate Variability (HRV) data in an Apple Watch application.
+// Description: This file contains the implementation of the HeartRatePoller class
 // ======================================================================
 
 import Foundation

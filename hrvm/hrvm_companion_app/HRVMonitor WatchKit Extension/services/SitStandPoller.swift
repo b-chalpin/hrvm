@@ -64,19 +64,51 @@ public class SitStandPoller : ObservableObject {
                     motionActivityManager.stopActivityUpdates()
                     return
                 }
-                
-//                if activity.confidence == .high && activity.stationary == false {
-//                    let acceleration = activity.acceleration
-//                    self.latestAcceleration = acceleration
-//                    self.accelerationStore.append(acceleration)
-//
-//                    // Detect change from sitting to standing
-//                    let accelerationMagnitude = sqrt(pow(acceleration.x, 2) + pow(acceleration.y, 2) + pow(acceleration.z, 2))
-//                    if accelerationMagnitude > 1.2 {
-//                        print("Change detected from sitting to standing")
-//                        self.sitStandChange = true // set flag for change from sitting to standing
-//                    }
-//                }
+                if let activity = activity {
+                    if activity.stationary {
+                        // we are stationary, so we can start polling the accelerometer
+                        self.updateStatus(status: .starting)
+                        let motionManager = CMMotionManager()
+                        motionManager.accelerometerUpdateInterval = 0.1
+                        motionManager.startAccelerometerUpdates(to: OperationQueue.main) { (accelerometerData, error) in
+                            if error != nil {
+                                print("ERROR - Unable to start accelerometer updates")
+                            } else {
+                                if let accelerometerData = accelerometerData {
+                                    // we have accelerometer data, so we can start calculating the average
+                                    self.updateStatus(status: .active)
+                                    self.latestAcceleration = accelerometerData.acceleration
+                                    self.accelerationStore.append(accelerometerData.acceleration)
+                                    if self.accelerationStore.count > 10 {
+                                        self.accelerationStore.removeFirst()
+                                    }
+                                    // calculate the average acceleration
+                                    let averageAcceleration = self.accelerationStore.reduce(CMAcceleration(x: 0, y: 0, z: 0)) { (result, acceleration) -> CMAcceleration in
+                                        return CMAcceleration(x: result.x + acceleration.x, y: result.y + acceleration.y, z: result.z + acceleration.z)
+                                    }
+                                    let averageX = averageAcceleration.x / Double(self.accelerationStore.count)
+                                    let averageY = averageAcceleration.y / Double(self.accelerationStore.count)
+                                    let averageZ = averageAcceleration.z / Double(self.accelerationStore.count)
+                                    // calculate the magnitude of the average acceleration
+                                    let magnitude = sqrt(pow(averageX, 2) + pow(averageY, 2) + pow(averageZ, 2))
+                                    // if the magnitude is greater than 1.5, we have changed from sitting to standing
+                                    if magnitude > 1.5 {
+                                        self.sitStandChange = true
+                                    } else {
+                                        self.sitStandChange = false
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        // we are not stationary, so we can stop polling the accelerometer
+                        self.updateStatus(status: .stopped)
+                        let motionManager = CMMotionManager()
+                        motionManager.stopAccelerometerUpdates()
+                        self.latestAcceleration = nil
+                        self.accelerationStore = []
+                    }
+                }
             }
             self.updateStatus(status: .active)
         } else {
