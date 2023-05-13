@@ -15,6 +15,7 @@
 		6659324627DBF50F002D1717 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659324527DBF50F002D1717 /* WorkoutManager.swift */; };
 		66DD4FFA2835B8BB0000E20A /* LRDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD4FF92835B8BB0000E20A /* LRDataStore.swift */; };
 		66F2F6F627E533D600561E15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F2F6F527E533D600561E15 /* Settings.swift */; };
+		88D555AD2A0FE8E70027544C /* HRVMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42027CD983D001736F7 /* HRVMonitorTests.swift */; };
 		88E0B0BC29F9DC9200106D33 /* SitStandPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E0B0BB29F9DC9200106D33 /* SitStandPoller.swift */; };
 		9906ED84282D88E700EA9F83 /* EventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9906ED83282D88E700EA9F83 /* EventItem.swift */; };
 		9917685127E00BF800AC764C /* MonitorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9917685027E00BF800AC764C /* MonitorEngine.swift */; };
@@ -31,7 +32,6 @@
 		9932C41027CD983C001736F7 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C40F27CD983C001736F7 /* ComplicationController.swift */; };
 		9932C41227CD983D001736F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9932C41127CD983D001736F7 /* Assets.xcassets */; };
 		9932C41527CD983D001736F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9932C41427CD983D001736F7 /* Preview Assets.xcassets */; };
-		9932C42127CD983D001736F7 /* HRVMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42027CD983D001736F7 /* HRVMonitorTests.swift */; };
 		9932C42B27CD983D001736F7 /* HRVMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42A27CD983D001736F7 /* HRVMonitorUITests.swift */; };
 		9932C42D27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932C42C27CD983D001736F7 /* HRVMonitorUITestsLaunchTests.swift */; };
 		99365292283BFF2F00192FD3 /* JsonSerializerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99365291283BFF2F00192FD3 /* JsonSerializerUtils.swift */; };
@@ -639,7 +639,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9932C42127CD983D001736F7 /* HRVMonitorTests.swift in Sources */,
+				88D555AD2A0FE8E70027544C /* HRVMonitorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -832,7 +832,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -872,7 +872,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.5;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
