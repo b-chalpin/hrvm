@@ -6,23 +6,13 @@ on:
   pull_request:
 
 jobs: 
-  update-xcode-version:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Update Xcode version
-        working-directory: ./hrvm
-        run: |
-          echo "Updating Xcode version"
-          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-          sudo xcodebuild -version
   build-companion-xcode:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        working-directory: ./hrvm/hrvm_companion_app
-        run: xcodebuild build -scheme "HRVMonitor WatchKit App" -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2'
+        working-directory: ./hrvm/hrvm_companion_app/
+        run: xcodebuild clean build analyze -scheme "HRVMonitor WatchKit App" -destination 'platform=iOS Simulator,name=iPhone 11'
   build-watch-app-xcode:
     runs-on: macos-latest
     steps:
