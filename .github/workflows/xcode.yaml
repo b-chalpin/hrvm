@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build
         working-directory: ./hrvm/hrvm_companion_app/
-        run: xcodebuild clean build analyze -scheme "HRVMonitor WatchKit App" -destination 'platform=iOS Simulator,name=iPhone 11'
+        run: xcodebuild clean build analyze -scheme "HRVMonitor WatchKit App" -destination 'platform=iOS Simulator'
   build-watch-app-xcode:
     runs-on: macos-latest
     steps:
