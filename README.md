@@ -73,8 +73,9 @@ Studies have shown that Heart Rate Variability (HRV) has a special relationship 
 
 ## Screenshots
 
-![Application UI](./docs/app-imgs/entire_ui_snapshot.png)
+![Watch Application UI](./docs/app-imgs/entire_ui_snapshot.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
+![Companion Application UI](./docs/app-imgs/companion_app_ui.png)
 
 ## Setup
 
@@ -122,3 +123,4 @@ This project was made possible by Dr. Alicia Hegie and Dr. Frank Jackson of St. 
 * Nick Adams ([Nick-P-Adams](https://github.com/Nick-P-Adams))
 * Madison Reese ([MadisonReese](https://github.com/MadisonReese))
 * Jared Adams ([AndroidDucky](https://github.com/AndroidDucky))
+* Dillon Dalton ([ddalton212](https://github.com/ddalton212))
