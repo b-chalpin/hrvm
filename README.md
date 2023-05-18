@@ -108,6 +108,7 @@ Future work:
 * Migrate resource intensive processes to the companion app
   * Data storage
   * Model training
+  * Improve the Companion Application UI
 
 ## Beta Testing
 
