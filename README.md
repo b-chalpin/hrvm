@@ -79,7 +79,7 @@ Studies have shown that Heart Rate Variability (HRV) has a special relationship 
 
 ![Watch Application UI](./docs/app-imgs/entire_ui_snapshot.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
-![Companion Application UI](./docs/app-imgs/companion_app_ui.png | height=400)
+![Companion Application UI](./docs/app-imgs/companion_app_ui.png)
 
 ## Setup
 
