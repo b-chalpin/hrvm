@@ -2,17 +2,17 @@
 //  MonitorEngine.swift
 //  HRVMonitor WatchKit Extension
 //
-//  This Swift code file defines the MonitorEngine class for the HRVMonitor WatchKit Extension.
-//  The MonitorEngine is responsible for managing the heart rate monitoring process by coordinating
-//  the HeartRatePoller, ThreatDetector, AlertNotificationHandler, StorageService, and WorkoutManager.
+//  This Swift code file defines the `MonitorEngine` class for the HRVMonitor WatchKit Extension.
+//  The `MonitorEngine` is responsible for managing the heart rate monitoring process by coordinating
+//  the `HeartRatePoller`, `ThreatDetector`, `AlertNotificationHandler`, `StorageService`, and `WorkoutManager`.
 //  The class is designed as a singleton to ensure a single point of access to its functionality.
 //
 //  Key functionalities include:
 //  - Starting and stopping the monitoring process.
-//  - Coordinating with the HeartRatePoller for heart rate polling and handling demo mode.
-//  - Predicting threats using the ThreatDetector.
+//  - Coordinating with the `HeartRatePoller` for heart rate polling and handling demo mode.
+//  - Predicting threats using the `ThreatDetector`.
 //  - Managing alert notifications and cooldowns.
-//  - Acknowledging threats and saving them as events in StorageService.
+//  - Acknowledging threats and saving them as events in `StorageService`.
 //  - Updating the app's state for proper handling of notifications and alerts.
 //
 //  Created by bchalpin on 3/14/22.
@@ -21,18 +21,20 @@
 import Foundation
 import SwiftUI
 
-// @deprecated
+/// Represents the status of the `MonitorEngine`.
 enum MonitorEngineStatus {
     case stopped
     case starting
     case active
 }
 
-class MonitorEngine : ObservableObject {
-    // singleton
+/// A singleton class that manages the heart rate monitoring process and threat detection.
+/// It coordinates the `HeartRatePoller`, `ThreatDetector`, `AlertNotificationHandler`, `StorageService`, and `WorkoutManager`.
+/// The class provides methods to start and stop the monitoring process, handle heart rate polling and threat detection, acknowledge threats, and update the app's state.
+class MonitorEngine: ObservableObject {
+    /// The shared instance of `MonitorEngine`.
     static let shared: MonitorEngine = MonitorEngine()
     
-    // dependency injected modules
     private var hrPoller = HeartRatePoller.shared
     private var sitStandPoller = SitStandPoller.shared
     private var threatDetector = ThreatDetector.shared
@@ -42,30 +44,30 @@ class MonitorEngine : ObservableObject {
     private var workoutManager = WorkoutManager()
     private var monitorTimer: Timer?
     
-    // vars to store hrv and hrvstore for event
-    private var hrvSnapshotForEvent: HrvItem?
-    private var hrvStoreSnapshotForEvent: [HrvItem] = []
+    private var hrvSnapshotForEvent: HrvItem? // Stores HRV snapshot for event
+    private var hrvStoreSnapshotForEvent: [HrvItem] = [] // Stores HRV store snapshot for event
     
-    // var for notification cooldown
-    private var isAlertCoolingDown: Bool = false
+    private var isAlertCoolingDown: Bool = false // Flag to track alert cooldown state
     private var notifyCooldownTimer: Timer?
-
+    
+    /// Stops the monitoring process.
     public func stopMonitoring() {
-        // end workout
+        // End workout
         self.workoutManager.endWorkout()
         
-        // stop hr poller
+        // Stop HR poller
         self.stopMonitorTimer()
         self.hrPoller.stopPolling()
     }
     
+    /// Starts the monitoring process.
     public func startMonitoring() {
-        // start workout
+        // Start workout
         self.workoutManager.startWorkout()
         
-        // hr poller
-        self.hrPoller.initPolling() // get hrPoller ready for polling
-        self.initMonitorTimer() // this handles synchronous polling
+        // HR poller
+        self.hrPoller.initPolling() // Get HR poller ready for polling
+        self.initMonitorTimer() // This handles synchronous polling
     }
     
     private func initMonitorTimer() {
@@ -74,24 +76,27 @@ class MonitorEngine : ObservableObject {
             return
         }
 
-        self.monitorTimer = Timer.scheduledTimer(withTimeInterval: Settings.HRVMonitorIntervalSec, repeats: true, block: {_ in
+        self.monitorTimer = Timer.scheduledTimer(withTimeInterval: Settings.HRVMonitorIntervalSec, repeats: true, block: { _ in
             if Settings.DemoMode {
-                self.hrPoller.demo() // will generate random hrv values (RNG)
-            }
-            else {
+                self.hrPoller.demo() // Generate random HRV values (RNG)
+            } else {
                 self.hrPoller.poll()
-                self.sitStandPoller.poll() // added call to poll sit/stand data
+                self.sitStandPoller.poll() // Added call to poll sit/stand data
             }
             
-            if self.hrPoller.isActive() { // if true then latestHrv is defined
-                if (self.isPredicting()) { // do not predict until hrv store is at capacity
-                    let predictedThreat = self.threatDetector.checkHrvForThreat(hrvStore: self.hrPoller.hrvStore) // predict threat level with new hrv store
+            if self.hrPoller.isActive() {
+                // If true, latest HRV is defined
+                if self.isPredicting() {
+                    // Do not predict until HRV store is at capacity
+                    let predictedThreat = self.threatDetector.checkHrvForThreat(hrvStore: self.hrPoller.hrvStore)
                     self.notifyUserIfThreatDetected(threatDetected: predictedThreat)
                 }
             }
         })
     }
     
+    /// Checks if the `MonitorEngine` is in a predicting state.
+    /// - Returns: A boolean indicating whether the `MonitorEngine` is predicting or not.
     public func isPredicting() -> Bool {
         return self.hrPoller.hrvStore.count == Settings.HRVStoreSize && self.hrPoller.isActive()
     }
@@ -108,47 +113,49 @@ class MonitorEngine : ObservableObject {
     }
     
     private func notifyUserIfThreatDetected(threatDetected: Bool) {
-        if (threatDetected && !self.isAlertCoolingDown) {
-            self.saveHrvSnapshotsForEvent() // save current HRV and HRV Store
+        if threatDetected && !self.isAlertCoolingDown {
+            self.saveHrvSnapshotsForEvent() // Save current HRV and HRV Store
 
             WKInterfaceDevice.current().play(.failure)
             
-            if(self.alertNotificationHandler.appState == .foreground)
-            {
+            if self.alertNotificationHandler.appState == .foreground {
                 self.alertNotificationHandler.alert = true
-            }
-            else if(self.alertNotificationHandler.appState == .background)
-            {
+            } else if self.alertNotificationHandler.appState == .background {
                 self.alertNotificationHandler.alert = false
                 self.alertNotificationHandler.notify()
             }
         }
     }
     
+    /// Acknowledges a threat.
+    /// - Parameters:
+    ///   - feedback: A boolean indicating whether the user provided feedback or not.
+    ///   - manuallyAcked: A boolean indicating whether the threat was manually acknowledged or not.
     public func acknowledgeThreat(feedback: Bool, manuallyAcked: Bool) {
         var currentHrvStore: [HrvItem]
         var currentHrv: HrvItem
         
-        if (manuallyAcked) {
+        if manuallyAcked {
             currentHrvStore = self.hrPoller.hrvStore
             currentHrv = self.hrPoller.latestHrv!
-        }
-        else { // NOT manually acked -- acked by either alert or notification
-            // if threat ack is NOT purposefully triggered, start alert cooldown
+        } else {
+            // Not manually acknowledged (acked by either alert or notification)
             self.startCooldownTimer()
             
             currentHrvStore = self.hrvStoreSnapshotForEvent
-            currentHrv = self.hrvSnapshotForEvent! // assume app is running at this point
+            currentHrv = self.hrvSnapshotForEvent! // Assume app is running at this point
         }
         
-        let newEvent = EventItem(id: UUID(),
-                                 timestamp: currentHrv.timestamp,
-                                 hrv: currentHrv,
-                                 hrvStore: currentHrvStore,
-                                 isStressed: feedback)
-                                 // sitStandChange: self.sitStandPoller.sitStandChange)
+        let newEvent = EventItem(
+            id: UUID(),
+            timestamp: currentHrv.timestamp,
+            hrv: currentHrv,
+            hrvStore: currentHrvStore,
+            isStressed: feedback,
+            sitStandChange: self.sitStandPoller.sitStandChange
+        )
         
-        // async call to save new event (storage module)
+        // Async call to save new event (storage module)
         self.storageService.createEventItem(event: newEvent)
 
         self.threatDetector.acknowledgeThreat(feedback: feedback, hrvStore: currentHrvStore)
@@ -157,33 +164,30 @@ class MonitorEngine : ObservableObject {
     private func startCooldownTimer() {
         print("LOG - Starting alert cooldown timer")
         
-        // set notification/alert cooldown
+        // Set notification/alert cooldown
         self.isAlertCoolingDown = true
         
-        // initialize a timer that repeats only once
+        // Initialize a timer that repeats only once
         self.notifyCooldownTimer = Timer.scheduledTimer(withTimeInterval: Settings.NotificationDelaySec, repeats: false, block: { _ in
             print("LOG - Alert cooldown timer elapsed")
             self.isAlertCoolingDown = false
         })
     }
     
+    /// Updates the app's state based on the given `ScenePhase`.
+    /// - Parameter phase: The `ScenePhase` representing the app's current phase.
     public func updateAppState(phase: ScenePhase) {
         switch phase {
-            case .active:
-                // The app has become active.
-                self.alertNotificationHandler.appState = .foreground
-                break
-
-            case .inactive:
-                break
-
-            case .background:
-                // The app has moved to the background.
-                self.alertNotificationHandler.appState = .background
-                break
-
-            @unknown default:
-                fatalError("The app has entered an unknown state.")
+        case .active:
+            // The app has become active.
+            self.alertNotificationHandler.appState = .foreground
+        case .inactive:
+            break
+        case .background:
+            // The app has moved to the background.
+            self.alertNotificationHandler.appState = .background
+        @unknown default:
+            fatalError("The app has entered an unknown state.")
         }
     }
 }

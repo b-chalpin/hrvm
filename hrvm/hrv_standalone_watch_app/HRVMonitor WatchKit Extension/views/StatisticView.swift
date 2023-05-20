@@ -8,6 +8,7 @@
 import SwiftUI
 import Charts
 
+/// A view that displays statistics related to heart rate variability (HRV).
 struct StatisticView: View {
     @EnvironmentObject var hrPoller: HeartRatePoller
     
@@ -36,7 +37,6 @@ struct StatisticView: View {
                     )
                 )
             HStack {
-                // enter graph here
                 Text("min\nmax\navg")
                     .fontWeight(.semibold)
                     .font(.system(size: 16))
@@ -53,21 +53,22 @@ struct StatisticView: View {
         }
     }
     
-    // TODO: needs to be replaced with long-term data
+    /// Returns the HRV store data for the chart.
     func getHrvStoreForChart() -> [Double] {
-        // return empty graph array for a hrvstore that is empty or a single item
+        // Return an empty graph array for an empty HRV store or a single item
         if self.hrPoller.hrvStore.count <= 1 {
             return [0.0, 0.0]
         }
         
         let hrvStoreValues = self.hrPoller.hrvStore.map { $0.RMSSD }
        
-        let min = 0.0 // lowest HRV we can have is 0.0, subtract 10.0 more for padding
-        let max = hrvStoreValues.max()! + 10.0 // pad our upper bound for normalization
+        let min = 0.0 // The lowest HRV we can have is 0.0, subtract 10.0 more for padding
+        let max = hrvStoreValues.max()! + 10.0 // Pad the upper bound for normalization
 
         return hrvStoreValues.map { ($0 - min) / (max - min) }
     }
     
+    /// Returns the formatted HRV value as a string.
     func getHrvValueString() -> String {
         switch self.hrPoller.status {
         case HeartRatePollerStatus.stopped, HeartRatePollerStatus.starting:

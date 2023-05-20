@@ -9,6 +9,7 @@ import WatchKit
 import SwiftUI
 import UserNotifications
 
+/// The controller responsible for handling notifications and presenting the notification interface.
 class NotificationController: WKUserNotificationHostingController<NotificationView> {
 
     override var body: NotificationView {
@@ -16,13 +17,13 @@ class NotificationController: WKUserNotificationHostingController<NotificationVi
     }
 
     override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        // This method is called when the watch view controller is about to be visible to the user.
     }
 
     override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+        // This method is called when the watch view controller is no longer visible.
     }
 
     override func didReceive(_ notification: UNNotification) {

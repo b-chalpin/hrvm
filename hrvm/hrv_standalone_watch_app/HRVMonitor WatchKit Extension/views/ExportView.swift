@@ -1,23 +1,17 @@
 //
 //  ExportView.swift
 //  HRVMonitor WatchKit Extension
-// This is a Swift file for an ExportView SwiftUI view that allows users to export their HRV data to a file on their iPhone.
-// The view contains a Text element that displays the title "EXPORT", followed by another Text element that provides instructions 
-// to the user on where to find the exported file on their iPhone Files app.
-// A Button element labeled "Export" is also present to initiate the export process.
-// The view makes use of the StorageService class to retrieve the HRV data to be exported,
-// and the WatchExportSession class to transfer the exported data to the iPhone.
-// The exportData() function is used to retrieve the HRV data and initiate the export process. 
-// The sendDataToPhoneViaWC() function is used to create a file with the data in JSON format, and then transfer it to the iPhone.
+//
 //  Created by bchalpin on 6/2/22.
 //
 
 import SwiftUI
 
+/// A view that allows users to export their HRV data to a file on their iPhone.
 struct ExportView: View {
     @EnvironmentObject var storageService: StorageService
     
-    // used for exporting files to iOS app
+    // Used for exporting files to iOS app
     private let watchExportSession = WatchExportSession().session
     
     var body: some View {
@@ -40,17 +34,19 @@ struct ExportView: View {
             Button(action: {
                 self.exportData()
             }) {
-                    Text("Export")
+                Text("Export")
                     .foregroundColor(BUTTON_COLOR)
             }
         }
     }
     
+    /// Exports the HRV data to a file and initiates the export process.
     private func exportData() {
         let json = self.storageService.exportAllDataToJson()
         sendDataToPhoneViaWC(dataToExport: json)
     }
     
+    /// Sends the data to the iPhone via WatchConnectivity and creates a file with the data in JSON format.
     private func sendDataToPhoneViaWC(dataToExport: String) {
         guard let baseDirUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return

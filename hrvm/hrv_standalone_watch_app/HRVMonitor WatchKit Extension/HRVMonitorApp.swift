@@ -1,12 +1,13 @@
 //
 //  HRVMonitorApp.swift
-//  HRVMonitor WatchKit Extension
+//  HRVMonitor
 //
 //  Created by bchalpin on 2/28/22.
 //
 
 import SwiftUI
 
+/// The main app struct for the HRV Monitor WatchKit Extension.
 @main
 struct HRVMonitorApp: App {
     @StateObject var hrPoller = HeartRatePoller.shared
@@ -16,9 +17,10 @@ struct HRVMonitorApp: App {
     @StateObject var monitorEngine = MonitorEngine.shared
     @StateObject var storageService = StorageService.shared
     
-    // storage module
+    // Storage module
     private let container = PersistenceController.shared.container
     
+    /// The body of the app scene, including the main window and notification scene.
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
@@ -32,6 +34,7 @@ struct HRVMonitorApp: App {
             }
         }
 
+        // Notification scene for HRV notifications
         WKNotificationScene(controller: NotificationController.self, category: "HRVNotification")
     }
 }

@@ -7,6 +7,7 @@
 
 import XCTest
 
+/// UI tests for the HRV Monitor app.
 class HRVMonitorUITests: XCTestCase {
 
     override func setUpWithError() throws {

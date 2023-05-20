@@ -159,7 +159,8 @@ public class StorageService : ObservableObject {
                              timestamp: event.timestamp!,
                              hrv: hrvItem,
                              hrvStore: hrvStore,
-                             isStressed: event.isStressed)
+                             isStressed: event.isStressed,
+                             sitStandChange: event.sitStandChange)
         }
     }
     
@@ -247,7 +248,7 @@ public class StorageService : ObservableObject {
     
     // MARK: - export APIs
     public func exportAllDataToJson() -> String {
-        let dataToExport = ExportedEntites()
+        let dataToExport = ExportedEntities()
         
         // for now we will only export data store, and stress events
         dataToExport.lrDataStore = self.getLRDataStore()

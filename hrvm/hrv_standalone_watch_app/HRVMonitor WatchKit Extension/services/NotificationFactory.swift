@@ -9,21 +9,22 @@ import Foundation
 import UserNotifications
 import DeveloperToolsSupport
 
+/// A factory class for creating and pushing notifications to the user.
 public class NotificationFactory {
     private let center: UNUserNotificationCenter
     public var authorized: Bool
     
+    /// Initializes the `NotificationFactory`.
     public init() {
-        // getting the current instance of the UNUserNotificationCenter object
         self.center = UNUserNotificationCenter.current()
         self.authorized = false
         self.getAuthorization()
     }
     
-    private func getAuthorization(){
-        // requesting authorization to notify user unless they already accepted
+    /// Requests authorization to send notifications to the user, unless already authorized.
+    private func getAuthorization() {
         if self.authorized == false {
-            center.requestAuthorization(options: [.sound, .badge, .alert]){ granted, error in
+            center.requestAuthorization(options: [.sound, .badge, .alert]) { granted, error in
                 if granted {
                     self.authorized = true
                 }
@@ -31,8 +32,10 @@ public class NotificationFactory {
         }
     }
     
-    private func constructUserNotification() -> UNNotificationRequest{
-        //constructing the body of the notification... Need to change this to use our custom notification view
+    /// Constructs a user notification request with default content.
+    ///
+    /// - Returns: The constructed `UNNotificationRequest`.
+    private func constructUserNotification() -> UNNotificationRequest {
         let content = UNMutableNotificationContent()
         content.title = "HRVAlert"
         content.categoryIdentifier = "HRVNotification"
@@ -43,23 +46,24 @@ public class NotificationFactory {
         return request
     }
     
-    public func pushNotification(){
-        //Public facing method which requests authorization unless the user has already accepted. Then it constructs the notification and finally delivers it.
+    /// Pushes a user notification to the user.
+    ///
+    /// This method requests authorization, constructs a notification, and delivers it to the user.
+    public func pushNotification() {
         self.getAuthorization()
         let request = self.constructUserNotification()
         
-        self.center.add(request) {(error: Error?) in
+        self.center.add(request) { error in
             if let theError = error {
                 print(theError.localizedDescription)
             }
         }
         
-        // Uncomment this block if you want to get a read out of all pending notification requests
-//        self.center.getPendingNotificationRequests(completionHandler: { requests in
-//            for request in requests {
-//                print(request)
-//            }
-//        })
-        
+        // Uncomment this block if you want to get a readout of all pending notification requests
+        self.center.getPendingNotificationRequests { requests in
+            for request in requests {
+                print(request)
+            }
+        }
     }
 }

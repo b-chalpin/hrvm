@@ -13,7 +13,8 @@
 
 import Foundation
 
-public class ExportedEntites : Codable {
+/// A data structure that contains entities that can be exported from the app.
+public class ExportedEntities : Codable {
     var patientSettings: PatientSettings?
     var eventItems: [EventItem]?
     var lrWeights: [Double]?

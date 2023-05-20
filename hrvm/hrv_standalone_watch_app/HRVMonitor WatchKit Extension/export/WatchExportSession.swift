@@ -8,15 +8,24 @@
 import Foundation
 import WatchConnectivity
 
-class WatchExportSession : NSObject, WCSessionDelegate {
+class WatchExportSession: NSObject, WCSessionDelegate {
+    // MARK: - Properties
+    
     public var session: WCSession
     
-    init(session: WCSession = .default){
+    // MARK: - Initialization
+    
+    init(session: WCSession = .default) {
         self.session = session
         super.init()
         self.session.delegate = self
         session.activate()
     }
     
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
+    // MARK: - WCSessionDelegate
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        // Implementation for activationDidCompleteWith method
+        // Add any necessary logic or error handling here
+    }
 }

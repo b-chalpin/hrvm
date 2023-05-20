@@ -7,8 +7,10 @@
 
 import XCTest
 
+/// UI test case for launching the HRV Monitor app.
 class HRVMonitorUITestsLaunchTests: XCTestCase {
 
+    /// Indicates that this test case should run for each target application UI configuration.
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }

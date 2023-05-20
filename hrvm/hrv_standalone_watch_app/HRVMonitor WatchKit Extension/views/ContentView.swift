@@ -16,16 +16,16 @@ struct ContentView: View {
     var body: some View {
         Section {
             TabView {
-                // page 1 - HRV monitor
+                /// Page 1: HRV Monitor
                 MonitorView()
                 
-                // page 2 - real-time stats
+                /// Page 2: Real-time Stats
                 StatisticView()
                 
-                // page 3 - event log
+                /// Page 3: Event Log
                 EventLogView()
                 
-                // page 4 - export
+                /// Page 4: Export
                 ExportView()
             }
         }
@@ -44,7 +44,7 @@ struct ContentView: View {
                     action: {
                         self.monitorEngine.acknowledgeThreat(feedback: true, manuallyAcked: false)
                     }
-                  )
+                )
             )
         }
     }
@@ -55,4 +55,3 @@ struct ContentView_Preview : PreviewProvider {
         ContentView()
     }
 }
-

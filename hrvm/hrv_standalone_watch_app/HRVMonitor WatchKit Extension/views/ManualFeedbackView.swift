@@ -8,15 +8,15 @@
 import SwiftUI
 import Foundation
 
+/// A view for manually providing feedback on stress levels based on heart rate variability (HRV) trends.
 struct ManualFeedbackView: View {
     @EnvironmentObject var monitorEngine: MonitorEngine
     
     @Binding var isManualFeedbackViewActive: Bool
     
-    // #task - this view is the same as NotificationView, need to move to common lib
     var body: some View {
         VStack {
-            if (self.monitorEngine.isPredicting()) { // in order to ack, the app has to be actively predicting
+            if (self.monitorEngine.isPredicting()) { // In order to acknowledge, the app has to be actively predicting
                 ScrollView {
                     Text("Are you Stressed?")
                         .fontWeight(.semibold)
@@ -31,23 +31,23 @@ struct ManualFeedbackView: View {
                     Button(action: {
                         self.manuallyAcknowledgeThreat(feedback: true)
                     }) {
-                            Text("Yes")
+                        Text("Yes")
                     }
                     
                     Button(action: {
                         self.manuallyAcknowledgeThreat(feedback: false)
                     }) {
-                            Text("No")
+                        Text("No")
                     }
                     Button(action: {
                         self.closeManualFeedbackView()
                     }) {
-                            Text("Cancel")
+                        Text("Cancel")
                             .foregroundColor(BUTTON_COLOR)
                     }
                 }
             }
-            else { // we cannot ack until the poller is active
+            else { // We cannot acknowledge until the poller is active
                 Text("Manual Feedback Unavailable")
                     .fontWeight(.semibold)
                     .font(.system(size: 18))
@@ -64,20 +64,22 @@ struct ManualFeedbackView: View {
                 Button(action: {
                     self.closeManualFeedbackView()
                 }) {
-                        Text("Done")
+                    Text("Done")
                         .foregroundColor(BUTTON_COLOR)
                 }
             }
         }
     }
     
+    /// Manually acknowledges the threat and provides feedback.
     private func manuallyAcknowledgeThreat(feedback: Bool) {
-        // we will tell the monitor engine that we have manually acked this
+        // We will tell the monitor engine that we have manually acknowledged this
         self.monitorEngine.acknowledgeThreat(feedback: feedback, manuallyAcked: true)
 
         self.closeManualFeedbackView()
     }
     
+    /// Closes the manual feedback view.
     private func closeManualFeedbackView() {
         self.isManualFeedbackViewActive = false
     }

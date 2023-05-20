@@ -2,8 +2,8 @@
 //  HRVItem.swift
 //  HRVMonitor WatchKit Extension
 //
-//  This Swift code file defines the HrvItem class for the HRVMonitor WatchKit Extension.
-//  The HrvItem class is responsible for storing data related to a single HRV sample,
+//  This Swift code file defines the `HrvItem` class for the HRVMonitor WatchKit Extension.
+//  The `HrvItem` class is responsible for storing data related to a single HRV sample,
 //  including its value, timestamp, Unix timestamp, delta HRV value, delta Unix timestamp,
 //  average heart rate in BPM and milliseconds, the number of heart rate samples used
 //  to calculate the HRV, and the HR samples themselves. This class is used to represent
@@ -15,22 +15,46 @@
 
 import Foundation
 
-// class reposible for storing a single HRV sample's data
-public class HrvItem : NSObject, Codable {
+/// The class responsible for storing data related to a single HRV sample.
+public class HrvItem: NSObject, Codable {
+    /// The Root Mean Square of Successive Differences (RMSSD) value of the HRV sample.
     public var RMSSD: Double
+    /// The timestamp of when the HRV sample was recorded.
     public var timestamp: Date
-    
+    /// The Unix timestamp (in seconds) of when the HRV sample was recorded.
     public var unixTimestamp: Double
-    public var deltaHrvValue: Double // difference in HRV from the previous HRVItem
-    public var deltaUnixTimestamp: Double // difference in time since the previous HRVItem
-    public var avgHeartRateBPM: Double // average heart rate for the samples used to calculate this HRV in BPM
-    public var avgHeartRateMS: Double // average heart rate for the samples used to calculate this HRV in Milliseconds
-    public var numHeartRateSamples: Int // number of heart rate samples used to calculate this HRV
-    public var hrSamples: [HrItem] // store the HR samples used to calculate HRV
-    public var meanRR: Double // mean of RR intervals (inter-beat intervals) in milliseconds
-    public var medianRR: Double = 0.0 // median of RR intervals (inter-beat intervals) in milliseconds
-    public var pNN50: Double = 0.0 // percentage of NN50 values
+    /// The difference in HRV from the previous HRV sample.
+    public var deltaHrvValue: Double
+    /// The difference in time since the previous HRV sample.
+    public var deltaUnixTimestamp: Double
+    /// The average heart rate for the samples used to calculate this HRV in BPM.
+    public var avgHeartRateBPM: Double
+    /// The average heart rate for the samples used to calculate this HRV in milliseconds.
+    public var avgHeartRateMS: Double
+    /// The number of heart rate samples used to calculate this HRV.
+    public var numHeartRateSamples: Int
+    /// The HR samples used to calculate HRV.
+    public var hrSamples: [HrItem]
+    /// The mean of RR intervals (inter-beat intervals) in milliseconds.
+    public var meanRR: Double
+    /// The median of RR intervals (inter-beat intervals) in milliseconds.
+    public var medianRR: Double = 0.0
+    /// The percentage of NN50 values.
+    public var pNN50: Double = 0.0
     
+    /// Initializes a new instance of the `HrvItem` class.
+    ///
+    /// - Parameters:
+    ///   - RMSSD: The RMSSD value of the HRV sample.
+    ///   - timestamp: The timestamp of when the HRV sample was recorded.
+    ///   - deltaHrvValue: The difference in HRV from the previous HRV sample.
+    ///   - deltaUnixTimestamp: The difference in time since the previous HRV sample.
+    ///   - avgHeartRateMS: The average heart rate for the samples used to calculate this HRV in milliseconds.
+    ///   - numHeartRateSamples: The number of heart rate samples used to calculate this HRV.
+    ///   - hrSamples: The HR samples used to calculate HRV.
+    ///   - meanRR: The mean of RR intervals (inter-beat intervals) in milliseconds.
+    ///   - medianRR: The median of RR intervals (inter-beat intervals) in milliseconds.
+    ///   - pNN50: The percentage of NN50 values.
     init(RMSSD: Double, timestamp: Date, deltaHrvValue: Double, deltaUnixTimestamp: Double, avgHeartRateMS: Double, numHeartRateSamples: Int, hrSamples: [HrItem], meanRR: Double, medianRR: Double, pNN50: Double) {
         self.RMSSD = RMSSD
         self.timestamp = timestamp
@@ -47,7 +71,6 @@ public class HrvItem : NSObject, Codable {
     }
     
     public override var description: String {
-//        "RMSSD: \(self.RMSSD) - Timestamp: \(self.timestamp) - deltaHrvValue: \(self.deltaHrvValue) - deltaUnixTimestamp: \(self.deltaUnixTimestamp) - avgHeartRateBPM: \(self.avgHeartRateBPM) - avgHeartRateMS: \(self.avgHeartRateMS) - numHRSamples: \(self.numHeartRateSamples) - meanRR: \(self.meanRR) - medianRR: \(self.medianRR) - pNN50: \(self.pNN50)"
         "\(self.RMSSD)"
     }
 }
