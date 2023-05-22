@@ -19,7 +19,7 @@ public class PhoneExportSession: NSObject, WCSessionDelegate, ObservableObject {
         session?.activate()
     }
     
-    // need these function headers in order to implement WCSessionDelegate
+    /// need these function headers in order to implement WCSessionDelegate
     public func sessionDidBecomeInactive(_ session: WCSession) {}
     public func sessionDidDeactivate(_ session: WCSession) {}
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
@@ -50,10 +50,10 @@ public class PhoneExportSession: NSObject, WCSessionDelegate, ObservableObject {
             try? FileManager.default.removeItem(at: srcUrl)
             self.session?.transferFile(destUrl, metadata: nil)
             
-            // Log message
+            /// Log message
             print("File received and converted to CSV. Filename: \(filename)")
             
-            // Present an alert
+            /// Present an alert
             let alert = UIAlertController(title: "File Received", message: "The file has been converted to CSV and saved.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
