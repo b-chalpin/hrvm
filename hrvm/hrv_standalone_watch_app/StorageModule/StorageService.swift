@@ -218,7 +218,7 @@ public class StorageService : ObservableObject {
             fatalError("Unexpected results when fetching global LR Weights. No weights were found.")
         }
       
-        return cd_lrWeights!.weights!
+        return cd_lrWeights!.weigths!
     }
     
     public func saveLRWeights(lrWeights: [Double]) {
@@ -229,7 +229,7 @@ public class StorageService : ObservableObject {
             currentLrWeights = CD_LRWeights(context: context)
         }
         
-        currentLrWeights!.weights = lrWeights
+        currentLrWeights!.weigths = lrWeights
 
         self.saveContext()
     }
