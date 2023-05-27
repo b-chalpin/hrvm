@@ -39,7 +39,7 @@
 import Foundation
 import CoreData
 
-public class StorageService : ObservableObject {
+public class StorageService: ObservableObject {
     // singleton pattern
     static let shared = StorageService()
     
@@ -74,10 +74,9 @@ public class StorageService : ObservableObject {
     public func getPatientSettings() -> PatientSettings {
         let userSetting = self.fetchSingleStoredPatientSettings()
         
-        if (userSetting == nil) {
+        if userSetting == nil {
             return DEFAULT_PATIENT_SETTINGS
-        }
-        else {
+        } else {
             return PatientSettings(age: Int(userSetting!.age), sex: userSetting!.sex!)
         }
     }
@@ -85,24 +84,23 @@ public class StorageService : ObservableObject {
     public func updateUserSettings(patientSettings: PatientSettings) {
         var currentUserSetting = self.fetchSingleStoredPatientSettings()
         
-        if (currentUserSetting == nil) { // if we do not fetch a user setting, it does not exist yet
+        if currentUserSetting == nil { // if we do not fetch a user setting, it does not exist yet
             // create new user setting record
             currentUserSetting = CD_PatientSettings(context: context)
         }
         
         currentUserSetting!.age = Int16(patientSettings.age)
         currentUserSetting!.sex = patientSettings.sex
-
+        
         self.saveContext()
     }
     
     private func fetchSingleStoredPatientSettings() -> CD_PatientSettings? {
-        let request = NSFetchRequest<CD_PatientSettings>(entityName: "CD_PatientSettings")
-
+        let request: NSFetchRequest<CD_PatientSettings> = CD_PatientSettings.fetchRequest()
+        
         do {
             return try context.fetch(request).first
-        }
-        catch {
+        } catch {
             fatalError("Fatal error occurred fetching global user setting")
         }
     }
@@ -122,20 +120,19 @@ public class StorageService : ObservableObject {
     }
     
     public func getAllStressEvents() -> [EventItem] {
-        let request = NSFetchRequest<CD_EventItem>(entityName: "CD_EventItem")
+        let request: NSFetchRequest<CD_EventItem> = CD_EventItem.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)] // sort descending of timestamp
         
         do {
             let storedEvents = try context.fetch(request)
             return mapCDEventItemsToEventItems(stressEvents: storedEvents)
-        }
-        catch {
+        } catch {
             fatalError("Fatal error occurred fetching all events")
         }
     }
     
     public func getPageOfEventsForOffset(offset: Int) -> [EventItem] {
-        let request = NSFetchRequest<CD_EventItem>(entityName: "CD_EventItem")
+        let request: NSFetchRequest<CD_EventItem> = CD_EventItem.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)] // sort descending of timestamp
         request.fetchLimit = Settings.StressEventPageSize
         request.fetchOffset = offset
@@ -143,17 +140,19 @@ public class StorageService : ObservableObject {
         do {
             let storedEvents = try context.fetch(request)
             return mapCDEventItemsToEventItems(stressEvents: storedEvents)
-        }
-        catch {
+        } catch {
             fatalError("Fatal error occurred fetching page of stress events for (offset: \(offset)")
         }
     }
     
     private func mapCDEventItemsToEventItems(stressEvents: [CD_EventItem]) -> [EventItem] {
-        return stressEvents.map { (event) -> EventItem in
-            // deserialize stored JSON to objects
-            let hrvItem = JsonSerializerUtils.deserialize(jsonString: event.hrv!) as HrvItem
-            let hrvStore = JsonSerializerUtils.deserialize(jsonString: event.hrvStore!) as [HrvItem]
+        return stressEvents.map { event -> EventItem in
+            guard let hrvItemData = event.hrv?.data(using: .utf8),
+                  let hrvStoreData = event.hrvStore?.data(using: .utf8),
+                  let hrvItem = try? JSONDecoder().decode(HrvItem.self, from: hrvItemData),
+                  let hrvStore = try? JSONDecoder().decode([HrvItem].self, from: hrvStoreData) else {
+                fatalError("Failed to deserialize HRV data for EventItem")
+            }
             
             return EventItem(id: event.id!,
                              timestamp: event.timestamp!,
@@ -163,29 +162,37 @@ public class StorageService : ObservableObject {
                              sitStandChange: event.sitStandChange)
         }
     }
-    
+
+
     // MARK: - LR APIs
     public func getLRDataStore() -> LRDataStore {
         let cd_lrDataStore = self.fetchSingleLRDataStore()
-        
-        if (cd_lrDataStore == nil) { // if nil, we do not have a LR Data Store yet
+
+        if cd_lrDataStore == nil { // if nil, we do not have an LR Data Store yet
             return LRDataStore()
-        }
-        else {
+        } else {
             let lrDataStore = LRDataStore()
+
+            if let jsonString = cd_lrDataStore!.dataItems, let data = jsonString.data(using: .utf8) {
+                do {
+                    lrDataStore.dataItems = try JSONDecoder().decode([LRDataItem].self, from: data)
+                } catch {
+                    print("Failed to deserialize LRDataStore: \(error)")
+                }
+            }
             
-            lrDataStore.dataItems = JsonSerializerUtils.deserialize(jsonString: cd_lrDataStore!.dataItems!) as [LRDataItem]
             lrDataStore.size = Int(cd_lrDataStore!.size)
             lrDataStore.stressCount = Int(cd_lrDataStore!.stressCount)
             
             return lrDataStore
         }
     }
-    
+
+
     public func saveLRDataStore(datastore: LRDataStore) {
         var currentLrDataStore = self.fetchSingleLRDataStore()
         
-        if (currentLrDataStore == nil) { // if we do not fetch a data store, it does not exist yet
+        if currentLrDataStore == nil { // if we do not fetch a data store, it does not exist yet
             // create new data store
             currentLrDataStore = CD_LRDataStore(context: context)
         }
@@ -193,20 +200,19 @@ public class StorageService : ObservableObject {
         currentLrDataStore!.dataItems = JsonSerializerUtils.serialize(data: datastore.dataItems)
         currentLrDataStore!.size = Int16(datastore.size)
         currentLrDataStore!.stressCount = Int16(datastore.stressCount)
-
+        
         print("Saving LR Data Store: \(currentLrDataStore!.dataItems!)")
-
+        
         self.saveContext()
     }
     
     // returns the CoreData entity for our single LR Data Store
     public func fetchSingleLRDataStore() -> CD_LRDataStore? {
-        let request = NSFetchRequest<CD_LRDataStore>(entityName: "CD_LRDataStore")
-
+        let request: NSFetchRequest<CD_LRDataStore> = CD_LRDataStore.fetchRequest()
+        
         do {
             return try context.fetch(request).first
-        }
-        catch {
+        } catch {
             fatalError("Fatal error occurred fetching global LR Data Store")
         }
     }
@@ -214,43 +220,42 @@ public class StorageService : ObservableObject {
     public func getLRWeights() -> [Double] {
         let cd_lrWeights = self.fetchSingleLrWeights()
         
-        if (cd_lrWeights == nil) { // if nil, crash and burn
+        if cd_lrWeights == nil { // if nil, crash and burn
             fatalError("Unexpected results when fetching global LR Weights. No weights were found.")
         }
-      
-        return cd_lrWeights!.weigths!
+        
+        return cd_lrWeights!.weights!
     }
     
     public func saveLRWeights(lrWeights: [Double]) {
         var currentLrWeights = self.fetchSingleLrWeights()
         
-        if (currentLrWeights == nil) { // if we do not fetch a data store, it does not exist yet
+        if currentLrWeights == nil { // if we do not fetch a data store, it does not exist yet
             // create new data store
             currentLrWeights = CD_LRWeights(context: context)
         }
         
-        currentLrWeights!.weigths = lrWeights
-
+        currentLrWeights!.weights = lrWeights
+        
         self.saveContext()
     }
     
     // returns the CoreData entity for our single LR Data Store
     public func fetchSingleLrWeights() -> CD_LRWeights? {
-        let request = NSFetchRequest<CD_LRWeights>(entityName: "CD_LRWeights")
-
+        let request: NSFetchRequest<CD_LRWeights> = CD_LRWeights.fetchRequest()
+        
         do {
             return try self.context.fetch(request).first
-        }
-        catch {
+        } catch {
             fatalError("Fatal error occurred fetching global LR Weights")
         }
     }
     
-    // MARK: - export APIs
+    // MARK: - Export APIs
     public func exportAllDataToJson() -> String {
         let dataToExport = ExportedEntities()
         
-        // for now we will only export data store, and stress events
+        // for now, we will only export the data store and stress events
         dataToExport.lrDataStore = self.getLRDataStore()
         dataToExport.eventItems = self.getAllStressEvents()
         
@@ -260,13 +265,13 @@ public class StorageService : ObservableObject {
     private func saveContext() {
         DispatchQueue.main.async {
             if self.context.hasChanges {
-              do {
-                  try self.context.save()
-              } catch {
-                  if let nserror = error as NSError? {
-                      fatalError("Unable to save context - \(nserror.userInfo) - \(nserror)")
-                  }
-              }
+                do {
+                    try self.context.save()
+                } catch {
+                    if let nserror = error as NSError? {
+                        fatalError("Unable to save context - \(nserror.userInfo) - \(nserror)")
+                    }
+                }
             }
         }
     }

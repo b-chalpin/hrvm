@@ -36,7 +36,7 @@
         <attribute name="stressCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="CD_LRWeights" representedClassName="CD_LRWeights" syncable="YES" codeGenerationType="class">
-        <attribute name="weigths" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="[Double]"/>
+        <attribute name="weights" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="[Double]"/>
     </entity>
     <entity name="CD_PatientSettings" representedClassName="CD_PatientSettings" syncable="YES" codeGenerationType="class">
         <attribute name="age" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
