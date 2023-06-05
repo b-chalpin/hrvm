@@ -16,6 +16,8 @@
 		66DD923A28496C6A00D88A92 /* HRVMonitorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD923928496C6A00D88A92 /* HRVMonitorUITests.swift */; };
 		66DD923C28496C6A00D88A92 /* HRVMonitorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DD923B28496C6A00D88A92 /* HRVMonitorUITestsLaunchTests.swift */; };
 		66DD929528496DD100D88A92 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 66DD929428496DD100D88A92 /* Charts */; };
+		8883AABF2A2E76C000DB79B7 /* HRVMonitor_WatchKit_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883AABE2A2E76C000DB79B7 /* HRVMonitor_WatchKit_AppTests.swift */; };
+		8883AB6B2A2E77CD00DB79B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8883AB6A2A2E77CD00DB79B7 /* Assets.xcassets */; };
 		88EE10DC29AD7060003FD9A5 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EE10DB29AD7060003FD9A5 /* ExportView.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,50 @@
 		66DD929928496E7800D88A92 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		66DD929B28496E7E00D88A92 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		66DD930628497C2700D88A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8883AABE2A2E76C000DB79B7 /* HRVMonitor_WatchKit_AppTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HRVMonitor_WatchKit_AppTests.swift; sourceTree = "<group>"; };
+		8883AB1E2A2E776600DB79B7 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		8883AB1F2A2E776600DB79B7 /* HRVMonitor WatchKit ExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HRVMonitor WatchKit ExtensionDebug.entitlements"; sourceTree = "<group>"; };
+		8883AB212A2E776600DB79B7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		8883AB222A2E776600DB79B7 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		8883AB242A2E776600DB79B7 /* ButtonConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonConstants.swift; sourceTree = "<group>"; };
+		8883AB252A2E776600DB79B7 /* PatientSettingsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSettingsConstants.swift; sourceTree = "<group>"; };
+		8883AB262A2E776600DB79B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8883AB272A2E776600DB79B7 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		8883AB292A2E776600DB79B7 /* JsonSerializerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializerUtils.swift; sourceTree = "<group>"; };
+		8883AB2A2A2E776600DB79B7 /* HrvMapUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HrvMapUtils.swift; sourceTree = "<group>"; };
+		8883AB2B2A2E776600DB79B7 /* MoodUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodUtils.swift; sourceTree = "<group>"; };
+		8883AB2C2A2E776600DB79B7 /* StringFormatUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatUtils.swift; sourceTree = "<group>"; };
+		8883AB2E2A2E776600DB79B7 /* HrvItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HrvItem.swift; sourceTree = "<group>"; };
+		8883AB2F2A2E776600DB79B7 /* MonitorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorItem.swift; sourceTree = "<group>"; };
+		8883AB302A2E776600DB79B7 /* EventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventItem.swift; sourceTree = "<group>"; };
+		8883AB312A2E776600DB79B7 /* ExportedEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportedEntities.swift; sourceTree = "<group>"; };
+		8883AB322A2E776600DB79B7 /* HrItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HrItem.swift; sourceTree = "<group>"; };
+		8883AB332A2E776600DB79B7 /* PatientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSettings.swift; sourceTree = "<group>"; };
+		8883AB342A2E776600DB79B7 /* LRDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRDataStore.swift; sourceTree = "<group>"; };
+		8883AB362A2E776600DB79B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8883AB372A2E776600DB79B7 /* HRVMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRVMonitorApp.swift; sourceTree = "<group>"; };
+		8883AB382A2E776600DB79B7 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
+		8883AB3A2A2E776600DB79B7 /* WatchExportSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchExportSession.swift; sourceTree = "<group>"; };
+		8883AB3C2A2E776600DB79B7 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		8883AB3D2A2E776600DB79B7 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		8883AB3E2A2E776600DB79B7 /* MonitorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorEngine.swift; sourceTree = "<group>"; };
+		8883AB402A2E776600DB79B7 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
+		8883AB412A2E776600DB79B7 /* MonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorView.swift; sourceTree = "<group>"; };
+		8883AB422A2E776600DB79B7 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		8883AB432A2E776600DB79B7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8883AB442A2E776600DB79B7 /* ManualFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFeedbackView.swift; sourceTree = "<group>"; };
+		8883AB452A2E776600DB79B7 /* EventLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLogView.swift; sourceTree = "<group>"; };
+		8883AB462A2E776600DB79B7 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		8883AB472A2E776600DB79B7 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		8883AB482A2E776600DB79B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8883AB492A2E776600DB79B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8883AB4B2A2E776600DB79B7 /* HeartRatePoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRatePoller.swift; sourceTree = "<group>"; };
+		8883AB4C2A2E776600DB79B7 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		8883AB4D2A2E776600DB79B7 /* LogisticRegression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogisticRegression.swift; sourceTree = "<group>"; };
+		8883AB4E2A2E776600DB79B7 /* AlertNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNotificationHandler.swift; sourceTree = "<group>"; };
+		8883AB4F2A2E776600DB79B7 /* ThreatDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatDetector.swift; sourceTree = "<group>"; };
+		8883AB502A2E776600DB79B7 /* NotificationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFactory.swift; sourceTree = "<group>"; };
+		8883AB6A2A2E77CD00DB79B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		88EE10DB29AD7060003FD9A5 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +150,9 @@
 		66DD921228496C6900D88A92 = {
 			isa = PBXGroup;
 			children = (
+				8883AB692A2E77CD00DB79B7 /* HRVMonitor WatchKit App */,
+				8883AB1D2A2E776600DB79B7 /* HRVMonitor WatchKit Extension */,
+				8883AABD2A2E76C000DB79B7 /* HRVMonitor WatchKit AppTests */,
 				66DD921D28496C6900D88A92 /* HRVMonitor */,
 				66DD922E28496C6A00D88A92 /* HRVMonitorTests */,
 				66DD923828496C6A00D88A92 /* HRVMonitorUITests */,
@@ -168,6 +217,145 @@
 				66DD929928496E7800D88A92 /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8883AABD2A2E76C000DB79B7 /* HRVMonitor WatchKit AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				8883AABE2A2E76C000DB79B7 /* HRVMonitor_WatchKit_AppTests.swift */,
+			);
+			path = "HRVMonitor WatchKit AppTests";
+			sourceTree = "<group>";
+		};
+		8883AB1D2A2E776600DB79B7 /* HRVMonitor WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB1E2A2E776600DB79B7 /* PushNotificationPayload.apns */,
+				8883AB1F2A2E776600DB79B7 /* HRVMonitor WatchKit ExtensionDebug.entitlements */,
+				8883AB202A2E776600DB79B7 /* config */,
+				8883AB232A2E776600DB79B7 /* constants */,
+				8883AB262A2E776600DB79B7 /* Assets.xcassets */,
+				8883AB272A2E776600DB79B7 /* Development.xcconfig */,
+				8883AB282A2E776600DB79B7 /* utils */,
+				8883AB2D2A2E776600DB79B7 /* models */,
+				8883AB352A2E776600DB79B7 /* Preview Content */,
+				8883AB372A2E776600DB79B7 /* HRVMonitorApp.swift */,
+				8883AB382A2E776600DB79B7 /* Production.xcconfig */,
+				8883AB392A2E776600DB79B7 /* export */,
+				8883AB3B2A2E776600DB79B7 /* controllers */,
+				8883AB3F2A2E776600DB79B7 /* views */,
+				8883AB492A2E776600DB79B7 /* Info.plist */,
+				8883AB4A2A2E776600DB79B7 /* services */,
+			);
+			name = "HRVMonitor WatchKit Extension";
+			path = "../../../../../Downloads/hrvm-main 2/hrvm/hrvm_companion_app/HRVMonitor WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		8883AB202A2E776600DB79B7 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB212A2E776600DB79B7 /* Settings.swift */,
+				8883AB222A2E776600DB79B7 /* Configuration.swift */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		8883AB232A2E776600DB79B7 /* constants */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB242A2E776600DB79B7 /* ButtonConstants.swift */,
+				8883AB252A2E776600DB79B7 /* PatientSettingsConstants.swift */,
+			);
+			path = constants;
+			sourceTree = "<group>";
+		};
+		8883AB282A2E776600DB79B7 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB292A2E776600DB79B7 /* JsonSerializerUtils.swift */,
+				8883AB2A2A2E776600DB79B7 /* HrvMapUtils.swift */,
+				8883AB2B2A2E776600DB79B7 /* MoodUtils.swift */,
+				8883AB2C2A2E776600DB79B7 /* StringFormatUtils.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		8883AB2D2A2E776600DB79B7 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB2E2A2E776600DB79B7 /* HrvItem.swift */,
+				8883AB2F2A2E776600DB79B7 /* MonitorItem.swift */,
+				8883AB302A2E776600DB79B7 /* EventItem.swift */,
+				8883AB312A2E776600DB79B7 /* ExportedEntities.swift */,
+				8883AB322A2E776600DB79B7 /* HrItem.swift */,
+				8883AB332A2E776600DB79B7 /* PatientSettings.swift */,
+				8883AB342A2E776600DB79B7 /* LRDataStore.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		8883AB352A2E776600DB79B7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB362A2E776600DB79B7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8883AB392A2E776600DB79B7 /* export */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB3A2A2E776600DB79B7 /* WatchExportSession.swift */,
+			);
+			path = export;
+			sourceTree = "<group>";
+		};
+		8883AB3B2A2E776600DB79B7 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB3C2A2E776600DB79B7 /* ComplicationController.swift */,
+				8883AB3D2A2E776600DB79B7 /* NotificationController.swift */,
+				8883AB3E2A2E776600DB79B7 /* MonitorEngine.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		8883AB3F2A2E776600DB79B7 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB402A2E776600DB79B7 /* StatisticView.swift */,
+				8883AB412A2E776600DB79B7 /* MonitorView.swift */,
+				8883AB422A2E776600DB79B7 /* EventView.swift */,
+				8883AB432A2E776600DB79B7 /* SettingsView.swift */,
+				8883AB442A2E776600DB79B7 /* ManualFeedbackView.swift */,
+				8883AB452A2E776600DB79B7 /* EventLogView.swift */,
+				8883AB462A2E776600DB79B7 /* ExportView.swift */,
+				8883AB472A2E776600DB79B7 /* NotificationView.swift */,
+				8883AB482A2E776600DB79B7 /* ContentView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		8883AB4A2A2E776600DB79B7 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB4B2A2E776600DB79B7 /* HeartRatePoller.swift */,
+				8883AB4C2A2E776600DB79B7 /* WorkoutManager.swift */,
+				8883AB4D2A2E776600DB79B7 /* LogisticRegression.swift */,
+				8883AB4E2A2E776600DB79B7 /* AlertNotificationHandler.swift */,
+				8883AB4F2A2E776600DB79B7 /* ThreatDetector.swift */,
+				8883AB502A2E776600DB79B7 /* NotificationFactory.swift */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		8883AB692A2E77CD00DB79B7 /* HRVMonitor WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				8883AB6A2A2E77CD00DB79B7 /* Assets.xcassets */,
+			);
+			name = "HRVMonitor WatchKit App";
+			path = "../../../../../Downloads/hrvm-main 2/hrvm/hrvm_companion_app/HRVMonitor WatchKit App";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66DD922628496C6A00D88A92 /* Preview Assets.xcassets in Resources */,
+				8883AB6B2A2E77CD00DB79B7 /* Assets.xcassets in Resources */,
 				66DD922328496C6A00D88A92 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +499,7 @@
 				66DD922128496C6900D88A92 /* ContentView.swift in Sources */,
 				66A0FDE1284AC13E005FB8DF /* PhoneExportSession.swift in Sources */,
 				88EE10DC29AD7060003FD9A5 /* ExportView.swift in Sources */,
+				8883AABF2A2E76C000DB79B7 /* HRVMonitor_WatchKit_AppTests.swift in Sources */,
 				66DD921F28496C6900D88A92 /* HRVMonitorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
